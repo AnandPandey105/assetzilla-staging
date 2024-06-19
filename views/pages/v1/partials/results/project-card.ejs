@@ -1,0 +1,155 @@
+<div class="apparment-list apparment-list-updated no-border mb-0">
+    <div class="apparment-list-left" style="height: 200px;">
+        <div class="owl-carousel owl-theme allProp-first-owl-property mt-0" onclick="go_to_page(`<%=results.results.projects[i].url%>`)">
+            <% if (results.results.projects[i].images && results.results.projects[i].images.length> 0){ %>
+                <% for(var j=0; j < results.results.projects[i].images.length; j++) {%>
+                    <div class="item">
+                        <div class="all-prop-heart">
+                            <img src="<%=results.results.projects[i].images[j] %>" class="img img-fluid">
+                        </div>
+                    </div>
+                <% } %>
+            <%} else {%>
+                <div class="item">
+                    <div class="all-prop-heart">
+                        <img src="/images/placeholder_bg.webp" class="img img-fluid">
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <% if (emi_per_lac && (results.results.projects[i].price && results.results.projects[i].price.min)) { %>
+            <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results.results.projects[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+              </button></p>
+        <% } %>
+    </div>
+    <div class="apparment-list-right">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>
+                    <span onclick="go_to_page(`<%=results.results.projects[i].url %>`)"><%=results.results.projects[i].name %></span>
+                </h2>
+                <% if (results.results.projects[i].builder){ %>
+                    <p>
+                        <%=results.results.projects[i].builder %>
+                    </p>
+                <%}%>
+            </div>
+            <% if (results.results.projects[i].area && results.results.projects[i].area.area){ %>
+                <div class="col-lg-4 px-0">
+                    <div class="area_prices">
+                        <h2 class="text-right justify-content-end pr-3">
+                            <%=results.results.projects[i].area.area %> acres
+                        </h2>
+                    </div>
+                </div>
+            <%} else {%>
+
+            <%}%>
+        </div>
+        <% if ((results.results.projects[i].price && results.results.projects[i].price.min &&
+            (results.results.projects[i].price.min !==" NaN " ))||(results.results.projects[i].sq_fit_cost &&
+            results.results.projects[i].sq_fit_cost.min)){%>
+            <hr>
+            <div class="row align-items-center">
+                <% if (results.results.projects[i].price && results.results.projects[i].price.min &&
+                    (results.results.projects[i].price.min !==" NaN " )){%>
+                    <div class="col-5 pr-0">
+                        <table>
+                            <tr>
+                                <td>
+                                    <h3 class="text-left">Starting :</h3>
+                                </td>
+                                <td>
+                                    <h3><span> ₹ <%=changeNumberFormat(results.results.projects[i].price.min)%></span></h3>
+                                </td>
+                            </tr>
+                            <!-- <% if (emi_per_lac) { %>
+                                <tr>
+                                    <td>
+                                        <h3 class="text-left">EMI Starting :</h3>
+                                    </td>
+                                    <td>
+                                        <h3><span> ₹ <%=Math.round(emi_per_lac * results.results.projects[i].price.min / 100000).toLocaleString("en-IN")%></span></h3>
+                                    </td>
+                                </tr>
+                            <% } %> -->
+                        </table>
+                    </div>
+                <%} else if(results.results.projects[i].price.min==='" NaN "' ) {%>
+
+                <%} else {%>
+
+
+                <%}%>
+                <% if (results.results.projects[i].sq_fit_cost &&
+                    results.results.projects[i].sq_fit_cost.min){ %>
+                    <div class="col-7 ps-0">
+                        <h6>
+                            Starting SqFt. cost:
+                            <b>
+                                ₹
+                                <%=(results.results.projects[i].sq_fit_cost.min).toString().replace(
+                                    /\B(?=(\d{3})+(?!\d))/g, "," )%>
+                            </b>
+                        </h6>
+                    </div>
+                <%} else {%>
+
+                <%}%>
+            </div>
+        <%} else {%>
+
+        <%}%>
+        <hr>
+        <div class="located_area">
+            <div class="loc-left">
+                <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                <p>
+                    <% if (results.results.projects[i].subcity){ %>
+                        <%=results.results.projects[i].subcity %>,
+                    <%}%>
+                    <% if (results.results.projects[i].city){ %>
+                        <%=results.results.projects[i].city%>
+                    <%}%>
+                </p>
+            </div>
+            <% if (results.results.projects[i].details_area &&
+                results.results.projects[i].details_area.min &&
+                results.results.projects[i].details_area.max){ %>
+                <div class="area_prices">
+                    <h2>(<%=results.results.projects[i].details_area.min %>-<%=results.results.projects[i].details_area.max%>) sq.ft
+                    </h2>
+                </div>
+            <%} else {%>
+
+            <%}%>
+        </div>
+        <hr>
+        <div class="featured-points">
+            <ul>
+                <% if (results.results.projects[i].project_status){%>
+                    <li>
+                        <h5>
+                            <%=results.results.projects[i].project_status %>
+                        </h5>
+                    </li>
+                <%}%>
+                <% if(results.results.projects[i].property_type){%>
+                    <li>
+                        <h5>
+                            <%=results.results.projects[i].property_type %>
+                        </h5>
+                    </li>
+                <%}%>
+                <% if (results.results.projects[i].lease_rent){ %>
+                    <li>
+                        <h5>
+                            <%=results.results.projects[i].lease_rent %>
+                        </h5>
+                    </li>
+                <%}%>
+            </ul>
+        </div>
+    </div>
+</div>

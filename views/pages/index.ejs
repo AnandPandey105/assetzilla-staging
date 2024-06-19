@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Assetzilla: Real Estate Directory | Properties For Sale</title>
+  <meta name="title" content="Assetzilla: Real Estate Directory | Properties For Sale">
+  <meta name="description" content="Find the Perfect Property @Assetzilla. We're the most trusted portal to Buy or sell Property.">
+</head>
+<%- include ../partials/head.ejs%>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+
+<style>
+  .tt-menu {
+    /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
+    width: 400px;
+  }
+
+  tt-query,
+  /* UPDATE: newer versions use tt-input instead of tt-query */
+  .tt-hint {
+    width: 400px;
+  }
+</style>
+
+<body>
+  <%- include ../partials/navigation_bar.ejs %>
+  <!-- MAIN BANNER -->
+  <div class="top-margin" id="main-banner-home">
+    <div class="container home-banner">
+      <div class="row">
+        <div class="col-md-6" style="margin: 30px 0 30px 0; padding: 30px 30px 30px 32px;">
+          <h2 class="text-center clr-white">Real Estate Directory
+          </h2>
+          <h5 class="text-center clr-white">
+            Easy buying and selling
+          </h5>
+        </div>
+        <div class="col-md-6 main-banner-home_box">
+          <div>
+            <h2 class="perfect-prop"><Strong>Find the Perfect Property</Strong></h2>
+            <!-- <h6 class="text-center">Sample Tagline Goes Here</h6> -->
+          </div>
+
+          <!-- TAB NAV -->
+          <div>
+            <div class="tab-content pt-3" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="input-group mb-2" id="type-ahead-search">
+
+
+                  <input type="text" class="form-control typeahead home-search" placeholder="Search here..." aria-describedby="button-addon2" id="home-search-input">
+
+
+                  <div class="input-group-append position-relative" style="z-index: 15;">
+                    <button class="btn btn-outline-secondary" type="button" id="home-search-btn" onclick=findResults()>Search</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- With Icons -->
+  <div style="background: #F2F2F2; padding: 50px 0 50px 0;">
+    <div class="container why-block">
+      <div class="row" style="margin-bottom: 40px">
+        <div class="col-12 text-center">
+          <h2 style="color: #293B44;text-decoration:underline">Why choose us?</h2>
+        </div>
+      </div>
+
+      <div class="row text-center">
+        <div class="col-md-4">
+          <div style="max-width: 75px; margin: auto;">
+            <img class="w-100" src="/images/icon-3.webp">
+          </div>
+
+          <br>
+          <h4 style="margin:0px 0px 5px 0px;color:#293B44">Browse Projects</h4>
+          <h6>
+            We provide complete end to end support for buying and selling properties.
+          </h6>
+        </div>
+
+        <div class="col-md-4">
+          <div style="max-width: 75px; margin: auto;">
+            <img class="w-100" src="/images/icon-2.webp">
+          </div>
+
+          <h4 style="margin:20px 0px 5px 0px;color:#293B44">Explore Localities</h4>
+          <h6>
+            Need a redesign or a complete architectural plans? We got you covered.
+          </h6>
+        </div>
+
+        <div class="col-md-4">
+          <div style="max-width: 75px; margin: auto;">
+            <img class="w-100" src="/images/icon-1.webp">
+          </div>
+
+          <h4 style="margin:20px 0px 5px 0px;color:#293B44">Book Online</h4>
+          <h6>
+            Utilize our pool of experts to plan your projects efficiently before execution.
+          </h6>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURED SIDE-NAV -->
+  <!-- <hr class="mob-show"> -->
+  <div class="container py-5 ">
+    <div class="row">
+      <!-- <hr class="mob-show"> -->
+      <div class="col-12">
+        <h1 class="text-center">
+          Featured Listings
+        </h1>
+        <h4 class="text-center pt-2">Discover a place you'll love!</h4>
+      </div>
+    </div>
+
+    <!-- Properties -->
+    <div class="desk-show">
+      <div class="row">
+        <div class="col-12">
+          <h4 class="text-center mt-5">
+            <strong>
+              Properties
+            </strong>
+            <span style="float: right; font-size: 16px;"> <a href="/properties">See all</a></span>
+          </h4>
+        </div>
+        <div class="col-12">
+          <!-- Swiper -->
+          <div class="swiper-container top-swiper-desktop">
+            <div class="swiper-wrapper">
+              <% for(var i=0; i < trending.properties.length; i++) { %>
+              <div class="swiper-slide">
+                <div class="card mb-3 listing-card-home" onclick=go_to_page("<%=trending.properties[i].url %>")>
+                  <div class="row no-gutters">
+                    <div class="col-md-12">
+                      <div style="width: 100%; height: 135px;">
+                        <!-- <img src="<%=trending.properties[i].banner_image %>"
+														class="w-100 h-100" alt=""> -->
+                        <% if (trending.properties[i].banner_image && trending.properties[i].banner_image == "/images/placeholder_bg.webp"){   %>
+                        <img src="<%=BASE_URL%>/project/image/<%=trending.properties[i].images.Projects[0] %>" class="w-100 h-100" alt="">
+                        <% }else{ %>
+                        <img src="<%=trending.properties[i].banner_image %>" class="w-100 h-100" alt="">
+                        <% } %>
+                      </div>
+
+                      <div class="card-body">
+
+                        <div class="d-flex bd-highlight">
+                          <div class="p-2 w-100 bd-highlight">
+                            <h5 class="card-title">
+                              <%=trending.properties[i].name %>
+                            </h5>
+                            <small class="light-grey-clr">
+                              <i class="fas fa-map-marker-alt"></i>
+                              <% if (trending.properties[i].subcity){ %><%=trending.properties[i].subcity %>,
+                              <%}%><% if (trending.properties[i].city){ %><%=trending.properties[i].city %>
+                              <%}%>
+														</small>
+													</div>
+												<table class="table">
+                        <!-- <thead>
+                            <tr>
+                            <% if (trending.properties[i].project_status){ %>
+                              <th scope="col">Status</th>
+                              <%}%>
+                              <% if (trending.properties[i].property_type){ %>
+                              <th scope="col">Type</th>
+                              <%}%>
+														</tr>
+													</thead> -->
+													<tbody>
+                            <tr>
+                              <% if (trending.properties[i].project_status){ %>
+                              <td>
+                                <%=trending.properties[i].project_status %>
+                              </td>
+                              <%}%>
+															<!-- <% if (trending.properties[i].property_type){ %>
+                              <td>
+                                <%=trending.properties[i].property_type %>
+                              </td>
+                              <%}%> -->
+															<!-- <% if (trending.properties[i].lease_rent){ %>
+                              <td>
+                                <%=trending.properties[i].lease_rent %>
+                              </td>
+                              <%}%> -->
+                            </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+										<% } %>
+                          </div>
+                          <!-- Add Pagination -->
+                          <div class="swiper-pagination"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Builders -->
+                  <div class="desk-show">
+                    <div class="col-12">
+                      <h4 class="text-center mt-5">
+                        <strong>
+                          Builders
+                        </strong>
+                        <span style="float: right; font-size: 16px;"> <a href="/builders">See all</a></span>
+                      </h4>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <!-- Swiper -->
+                        <div class="swiper-container top-swiper-desktop">
+                          <div class="swiper-wrapper">
+                            <% for(var i=0; i < trending.builders.length; i++) { %>
+                            <div class="swiper-slide">
+                              <div class="card mb-3 listing-card-home" onclick=go_to_page("<%=trending.builders[i].url %>")>
+                                <div class="row no-gutters">
+                                  <div class="col-md-12">
+                                    <div style="width: 100%; height: 135px;">
+                                      <!-- <img src="<%=trending.builders[i].banner_image %>"
+				class="w-100 h-100" alt=""> -->
+                                      <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/builder/<%=trending.builders[i].logo %>" class="w-100 h-100" alt="">
+                                    </div>
+
+                                    <div class="card-body">
+
+                                      <div class="d-flex bd-highlight">
+                                        <div class="p-2 w-100 bd-highlight">
+                                          <h5 class="card-title">
+                                            <%=trending.builders[i].name %>
+                                          </h5>
+                                          <small class="light-grey-clr">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <% if (trending.builders[i].subcity){ %><%=trending.builders[i].subcity %>,
+                                            <%}%><% if (trending.builders[i].city){ %><%=trending.builders[i].city %>
+                                            <%}%>
+																																				</small>
+																																		</div>
+																																</div>
+																																<table class="table">
+																																		<!-- <thead>
+																																				<tr>
+																																				<% if (trending.builders[i].project_status){ %>
+                                            <th scope="col">
+                                              Status
+                                            </th>
+                                            <%}%>
+																																				<% if (trending.builders[i].property_type){ %>
+                                            <th scope="col">Type
+                                            </th>
+                                            <%}%>
+																																				</tr>
+																																		</thead> -->
+																																		<tbody>
+																																				<tr>
+																																						<% if (trending.builders[i].total_projects){ %>
+                                            <td>
+                                              Total projects: <%=trending.builders[i].total_projects %>
+                                            </td>
+                                            <%}%>
+																																				<!-- <% if (trending.builders[i].total_projects){ %>
+                                            <td>
+                                              Total projects: <%=trending.builders[i].total_projects %>
+                                            </td>
+                                            <%}%> -->
+																																				<!-- <% if (trending.builders[i].lease_rent){ %>
+                                            <td>
+                                              <%=trending.builders[i].lease_rent %>
+                                            </td>
+                                            <%}%> -->
+																																				</tr>
+																																				
+																																		</tbody>
+																																</table>
+																																		
+																														</div>
+																												</div>
+																										</div>
+																								</div>
+																											</div>
+<% } %>
+                                        </div>
+                                        <!-- Add Pagination -->
+                                        <div class="swiper-pagination"></div>
+                                      </div>
+
+
+
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <!-- PROJECTS -->
+                                <div class="desk-show">
+                                  <div class="col-12">
+                                    <h4 class="text-center mt-5">
+                                      <strong>Projects</strong>
+                                      <span style="float: right; font-size: 16px;"> <a href="/projects">See all</a></span>
+                                    </h4>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <!-- Swiper -->
+                                      <div class="swiper-container top-swiper-desktop">
+                                        <div class="swiper-wrapper">
+                                          <% for(var i=0; i < trending.projects.length; i++) { %>
+                                          <div class="swiper-slide">
+                                            <div class="card mb-3 listing-card-home" onclick=go_to_page("<%=trending.projects[i].url %>")>
+                                              <div class="row no-gutters">
+                                                <div class="col-md-12">
+                                                  <div style="width: 100%; height: 135px;">
+                                                    <img src="<%=trending.projects[i].banner_image %>" class="w-100 h-100" alt="">
+                                                  </div>
+
+                                                  <div class="card-body">
+
+                                                    <div class="d-flex bd-highlight">
+                                                      <div class="p-2 w-100 bd-highlight">
+                                                        <h5 class="card-title">
+                                                          <%=trending.projects[i].name %>
+                                                        </h5>
+                                                        <small class="light-grey-clr">
+                                                          <i class="fas fa-map-marker-alt"></i>
+                                                          <% if (trending.projects[i].subcity){ %><%=trending.projects[i].subcity %>,
+                                                          <%}%><% if (trending.projects[i].city){ %><%=trending.projects[i].city %>
+                                                          <%}%>
+																																																</small>
+																																														</div>
+																																												</div>
+																																												<table class="table">
+																																														<!-- <thead>
+																																																<tr>
+																																																<% if (trending.projects[i].project_status){ %>
+                                                          <th scope="col">
+                                                            Status
+                                                          </th>
+                                                          <%}%>
+																																																<% if (trending.projects[i].property_type){ %>
+                                                          <th scope="col">
+                                                            Type
+                                                          </th>
+                                                          <%}%>
+																																																</tr>
+																																														</thead> -->
+																																														<tbody>
+																																																<tr>
+																																																<% if (trending.projects[i].project_status){ %>
+                                                          <td>
+                                                            <%=trending.projects[i].project_status %>
+                                                          </td>
+                                                          <%}%>
+																																																<!-- <% if (trending.projects[i].property_type){ %>
+                                                          <td>
+                                                            <%=trending.projects[i].property_type %>
+                                                          </td>
+                                                          <%}%> -->
+																																																<!-- <% if (trending.projects[i].lease_rent){ %>
+                                                          <td>
+                                                            <%=trending.projects[i].lease_rent %>
+                                                          </td>
+                                                          <%}%> -->
+																																																</tr>
+																																														</tbody>
+																																												</table>
+																																														
+																																										</div>
+																																								</div>
+																																						</div>
+																																				</div>
+																																														</div>
+																	<% } %>
+                                                      </div>
+                                                      <!-- Add Pagination -->
+                                                      <div class="swiper-pagination"></div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <!-- CITY CODE -->
+                                              <div class="desk-show">
+                                                <div class="row">
+                                                  <div class="col-12">
+                                                    <h4 class="text-center mt-5">
+                                                      <strong>
+                                                        Locations
+                                                      </strong>
+                                                      <span style="float: right; font-size: 16px;"> <a href="/locations">See all</a></span>
+                                                    </h4>
+                                                  </div>
+                                                  <div class="col-12">
+                                                    <!-- Swiper -->
+                                                    <div class="swiper-container top-swiper-desktop">
+                                                      <div class="swiper-wrapper">
+                                                        <div class="swiper-slide">
+                                                          <div>
+                                                            <a href="https://assetzilla.com/locations/Delhi-state-1" class="no-style">
+                                                              <div style="margin: 0 15px;">
+                                                                <div class="home-img">
+                                                                  <img src="./images/delhi.webp" class="card-img w-100 h-100" alt="">
+                                                                </div>
+
+                                                                <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+                                                                  <div class="d-flex bd-highlight">
+                                                                    <div class="p-2 w-100 bd-highlight">
+                                                                      <h5 class="card-title">
+                                                                        Delhi
+                                                                      </h5>
+                                                                      <small class="light-grey-clr">
+                                                                        <strong>Location
+                                                                          Type</strong>&nbsp;City
+                                                                      </small>
+                                                                    </div>
+                                                                  </div>
+                                                                  <table class="table">
+                                                                    <!-- <thead>
+																	<tr>
+																		<th
+																			scope="col">
+																			GDP
+																		</th>
+		
+																		<th
+																			scope="col">
+																			Population
+																		</th>
+		
+																	</tr>
+																</thead> -->
+                                                                    <tbody>
+                                                                      <tr>
+
+                                                                        <td>
+                                                                          43USD
+                                                                        </td>
+                                                                        <td>
+                                                                          US$110
+                                                                          billion
+                                                                        </td>
+                                                                      </tr>
+                                                                    </tbody>
+                                                                  </table>
+
+                                                                </div>
+                                                              </div>
+                                                            </a>
+                                                          </div>
+                                                        </div>
+                                                        <div class="swiper-slide">
+                                                          <div>
+                                                            <a href="http://assetzilla.com/locations/Bangalore-city-27" class="no-style">
+                                                              <div style="margin: 0 15px;">
+                                                                <div class="home-img">
+                                                                  <img src="./images/banglore.webp" class="card-img w-100 h-100" alt="">
+                                                                </div>
+
+                                                                <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+
+                                                                  <div class="d-flex bd-highlight">
+                                                                    <div class="p-2 w-100 bd-highlight">
+                                                                      <h5 class="card-title">
+                                                                        Banglore
+                                                                      </h5>
+                                                                      <small class="light-grey-clr">
+                                                                        <strong>Location
+                                                                          Type</strong>&nbsp;City
+                                                                      </small>
+                                                                    </div>
+                                                                  </div>
+                                                                  <table class="table">
+                                                                    <!-- <thead>
+		<tr>
+		<th
+		scope="col">
+		GDP
+		</th>
+		
+		<th
+		scope="col">
+		Population
+		</th>
+		
+		</tr>
+		</thead> -->
+                                                                    <tbody>
+                                                                      <tr>
+
+                                                                        <td>
+                                                                          US$70.8
+                                                                          billion
+                                                                        </td>
+                                                                        <td>
+                                                                          84.3
+                                                                          lakhs
+                                                                        </td>
+                                                                      </tr>
+                                                                    </tbody>
+                                                                  </table>
+
+                                                                </div>
+                                                              </div>
+                                                            </a>
+                                                          </div>
+                                                        </div>
+                                                        <div class="swiper-slide">
+                                                          <div>
+                                                            <a href="https://assetzilla.com/locations/Gurgaon-city-12" class="no-style">
+                                                              <div style="margin: 0 15px;">
+                                                                <div class="home-img">
+                                                                  <img src="./images/gurgaon.webp" class="card-img w-100 h-100" alt="">
+                                                                </div>
+
+                                                                <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+
+                                                                  <div class="d-flex bd-highlight">
+                                                                    <div class="p-2 w-100 bd-highlight">
+                                                                      <h5 class="card-title">
+                                                                        Gurgaon
+                                                                      </h5>
+                                                                      <small class="light-grey-clr">
+                                                                        <strong>Location
+                                                                          Type</strong>&nbsp;City
+                                                                      </small>
+                                                                    </div>
+                                                                  </div>
+                                                                  <table class="table">
+                                                                    <!-- <thead>
+																<tr>
+																	<th
+																		scope="col">
+																		GDP
+																	</th>
+																	<th
+																		scope="col">
+																		Population
+																	</th>
+																</tr>
+															</thead> -->
+                                                                    <tbody>
+                                                                      <tr>
+                                                                        <td>
+                                                                          N/A
+                                                                        </td>
+                                                                        <td>
+                                                                          8.77
+                                                                          Lakhs
+                                                                        </td>
+                                                                      </tr>
+                                                                    </tbody>
+                                                                  </table>
+
+                                                                </div>
+                                                              </div>
+                                                            </a>
+                                                          </div>
+                                                        </div>
+                                                        <div class="swiper-slide">
+                                                          <div>
+                                                            <a href="https://assetzilla.com/locations/Greater-Noida-city-15" class="no-style">
+                                                              <div style="margin: 0 15px;">
+                                                                <div class="home-img">
+                                                                  <img src="./images/delhi.webp" class="card-img w-100 h-100" alt="">
+                                                                </div>
+
+                                                                <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+                                                                  <div class="d-flex bd-highlight">
+                                                                    <div class="p-2 w-100 bd-highlight">
+                                                                      <h5 class="card-title">
+                                                                        Greater Noida
+                                                                      </h5>
+                                                                      <small class="light-grey-clr">
+                                                                        <strong>Location
+                                                                          Type</strong>&nbsp;City
+                                                                      </small>
+                                                                    </div>
+                                                                  </div>
+                                                                  <table class="table">
+                                                                    <!-- <thead>
+																	<tr>
+																		<th
+																			scope="col">
+																			GDP
+																		</th>
+		
+																		<th
+																			scope="col">
+																			Population
+																		</th>
+		
+																	</tr>
+																</thead> -->
+                                                                    <tbody>
+                                                                      <tr>
+
+                                                                        <td>
+                                                                          US$ 74 billion
+                                                                        </td>
+                                                                        <td>
+                                                                          68.1 lakhs
+                                                                        </td>
+                                                                      </tr>
+                                                                    </tbody>
+                                                                  </table>
+
+                                                                </div>
+                                                              </div>
+                                                            </a>
+                                                          </div>
+                                                        </div>
+                                                        <div class="swiper-slide">
+                                                          <div>
+                                                            <a href="http://assetzilla.com/locations/Mumbai-city-22" class="no-style">
+                                                              <div style="margin: 0 15px;">
+                                                                <div class="home-img">
+                                                                  <img src="./images/mumbai.webp" class="card-img w-100 h-100" alt="">
+                                                                </div>
+
+                                                                <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+
+                                                                  <div class="d-flex bd-highlight">
+                                                                    <div class="p-2 w-100 bd-highlight">
+                                                                      <h5 class="card-title">
+                                                                        Mumbai
+                                                                      </h5>
+                                                                      <small class="light-grey-clr">
+                                                                        <strong>Location
+                                                                          Type</strong>&nbsp;City
+                                                                      </small>
+                                                                    </div>
+                                                                  </div>
+                                                                  <table class="table">
+                                                                    <!-- <thead>
+		<tr>
+		<th
+		scope="col">
+		GDP
+		</th>
+		
+		<th
+		scope="col">
+		Population
+		</th>
+		
+		</tr>
+		</thead> -->
+                                                                    <tbody>
+                                                                      <tr>
+
+                                                                        <td>
+                                                                          $368 billion
+                                                                        </td>
+                                                                        <td>
+                                                                          1.84 crores
+                                                                        </td>
+                                                                      </tr>
+                                                                    </tbody>
+                                                                  </table>
+
+                                                                </div>
+                                                              </div>
+                                                            </a>
+                                                          </div>
+                                                        </div>
+                                                        <div class="swiper-slide">
+                                                          <div>
+                                                            <a href="https://assetzilla.com/locations/Faridabad-city-16" class="no-style">
+                                                              <div style="margin: 0 15px;">
+                                                                <div class="home-img">
+                                                                  <img src="./images/gurgaon.webp" class="card-img w-100 h-100" alt="">
+                                                                </div>
+
+                                                                <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+
+                                                                  <div class="d-flex bd-highlight">
+                                                                    <div class="p-2 w-100 bd-highlight">
+                                                                      <h5 class="card-title">
+                                                                        Faridabad
+                                                                      </h5>
+                                                                      <small class="light-grey-clr">
+                                                                        <strong>Location
+                                                                          Type</strong>&nbsp;City
+                                                                      </small>
+                                                                    </div>
+                                                                  </div>
+                                                                  <table class="table">
+                                                                    <!-- <thead>
+														<tr>
+														<th
+														scope="col">
+														GDP
+														</th>
+														
+														<th
+														scope="col">
+														Population
+														</th>
+														
+														</tr>
+														</thead> -->
+                                                                    <tbody>
+                                                                      <tr>
+
+                                                                        <td>
+                                                                          $368 billion
+                                                                        </td>
+                                                                        <td>
+                                                                          1.84 crores
+                                                                        </td>
+                                                                      </tr>
+                                                                    </tbody>
+                                                                  </table>
+
+                                                                </div>
+                                                              </div>
+                                                            </a>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      <!-- Add Pagination -->
+                                                      <div class="swiper-pagination"></div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+
+
+
+                                              <!-- MOBILE VIEW CAROUSEL-->
+                                              <div class="mob-show">
+                                                <!-- PROPERTIES SLIDER -->
+                                                <div class="row mt-4">
+                                                  <div class="col-12">
+                                                    <!-- swiper -->
+                                                    <h3 class="text-center my-4 top-head-mobile">
+                                                      <strong>Properties</strong>
+                                                    </h3>
+                                                    <div class="text-center">
+                                                      <div class="swiper-container top-properties-swiper">
+                                                        <div class="swiper-wrapper">
+                                                          <% for(var i=0; i < trending.properties.length; i++) { %>
+                                                          <div class="swiper-slide">
+
+                                                            <div style="margin: 0 15px;" onclick=go_to_page("<%=trending.properties[i].url %>")>
+                                                              <div class="home-img">
+                                                                <img src="<%=trending.properties[i].banner_image %>" class="w-100 h-100" alt="">
+                                                              </div>
+
+                                                              <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+
+                                                                <div class="d-flex bd-highlight">
+                                                                  <div class="p-2 w-100 bd-highlight">
+                                                                    <h5 class="card-title">
+                                                                      <%=trending.properties[i].name %>
+                                                                    </h5>
+                                                                    <p class="class=" light-grey-clr"">
+                                                                      <strong><% if (trending.properties[i].subcity){ %><%=trending.properties[i].subcity %>,
+                                                                        <%}%><% if (trending.properties[i].city){ %><%=trending.properties[i].city %>
+                                                                        <%}%></strong>
+																																		</p>
+																																		<small
+																																			class="light-grey-clr">
+																																			&nbsp;
+																																		</small>
+																																		<p>
+																																			<strong>Condition: </strong>
+																																			<%=trending.properties[i].condition %>
+                                                                    </p>
+                                                                  </div>
+                                                                </div>
+                                                                <table class="table">
+                                                                  <!-- <thead>
+																																			<tr>
+																																			<% if (trending.properties[i].project_status){ %>
+<th scope="col">Status</th>
+<%}%>
+																																			<% if (trending.properties[i].property_type){ %>
+<th scope="col">Type</th>
+<%}%>
+																																			</tr>
+																																	</thead> -->
+                                                                  <tbody>
+                                                                    <tr>
+                                                                      <% if (trending.properties[i].project_status){ %>
+                                                                      <td>
+                                                                        <%=trending.properties[i].project_status %>
+                                                                      </td>
+                                                                      <%}%>
+																																			<% if (trending.properties[i].property_type){ %>
+                                                                      <td>
+                                                                        <%=trending.properties[i].property_type %>
+                                                                      </td>
+                                                                      <%}%>
+																																			<!-- <% if (trending.properties[i].lease_rent){ %>
+                                                                      <td>
+                                                                        <%=trending.properties[i].lease_rent %>
+                                                                      </td>
+                                                                      <%}%> -->
+																																			</tr>
+																																	</tbody>
+																																</table>
+
+																															</div>
+																														</div>
+
+																													</div>
+																													<%}%>
+                                                              </div>
+                                                              <!-- Add Pagination -->
+                                                              <div class="swiper-pagination"></div>
+                                                            </div>
+                                                          </div>
+                                                          <!-- swiper ends -->
+                                                        </div>
+                                                      </div>
+
+                                                      <!-- BUILDERS SLIDER -->
+                                                      <div class="row mt-4">
+                                                        <div class="col-12">
+                                                          <!-- swiper -->
+                                                          <h3 class="text-center my-4 top-head-mobile"><strong>Top Builders</strong>
+                                                          </h3>
+                                                          <div class="text-center">
+                                                            <div class="swiper-container top-builders-swiper">
+                                                              <div class="swiper-wrapper">
+                                                                <% for(var i=0; i < trending.builders.length; i++) { %>
+                                                                <div class="swiper-slide">
+
+                                                                  <div style="margin: 0 15px;" onclick=go_to_page("<%=trending.builders[i].url %>")>
+                                                                    <div class="home-img">
+                                                                      <img src="<%=trending.builders[i].banner_image %>" class="w-100 h-100" alt="">
+                                                                    </div>
+
+                                                                    <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+
+                                                                      <div class="d-flex bd-highlight">
+                                                                        <div class="p-2 w-100 bd-highlight">
+                                                                          <h5 class="card-title">
+                                                                            <%=trending.builders[i].name %>
+                                                                          </h5>
+                                                                          <p class="class=" light-grey-clr"">
+                                                                            <strong><% if (trending.builders[i].subcity){ %><%=trending.builders[i].subcity %>,
+                                                                              <%}%><% if (trending.builders[i].city){ %><%=trending.builders[i].city %>
+                                                                              <%}%></strong>
+																																		</p>
+																																		<small
+																																			class="light-grey-clr">
+																																			<strong>
+																																				</strong>&nbsp;
+																																		</small>
+																																	</div>
+																																</div>
+																																<table
+																																	class="table">
+																																	<!-- <thead>
+																																			<tr>
+																																			<% if (trending.builders[i].project_status){ %>
+                                                                              <th scope="col">
+                                                                                Status
+                                                                              </th>
+                                                                              <%}%>
+																																			<% if (trending.builders[i].property_type){ %>
+                                                                              <th scope="col">Type
+                                                                              </th>
+                                                                              <%}%>
+																																			</tr>
+																																	</thead> -->
+																																	<tbody>
+																																			<tr>
+																																			<% if (trending.builders[i].project_status){ %>
+                                                                              <td>
+                                                                                <%=trending.builders[i].project_status %>
+                                                                              </td>
+                                                                              <%}%>
+																																			<% if (trending.builders[i].property_type){ %>
+                                                                              <td>
+                                                                                <%=trending.builders[i].property_type %>
+                                                                              </td>
+                                                                              <%}%>
+																																			<!-- <% if (trending.builders[i].lease_rent){ %>
+                                                                              <td>
+                                                                                <%=trending.builders[i].lease_rent %>
+                                                                              </td>
+                                                                              <%}%> -->
+																																			</tr>
+																																	</tbody>
+																																</table>
+
+																															</div>
+																														</div>
+
+																													</div>
+																													<%}%>
+                                                                        </div>
+                                                                        <!-- Add Pagination -->
+                                                                        <div class="swiper-pagination"></div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <!-- swiper ends -->
+                                                                  </div>
+                                                                </div>
+
+                                                                <!-- PROJECTS SLIDER -->
+                                                                <div class="row mt-4">
+                                                                  <div class="col-12">
+                                                                    <!-- swiper -->
+                                                                    <h3 class="text-center my-4 top-head-mobile"><strong>Top
+                                                                        Projects</strong>
+                                                                    </h3>
+                                                                    <div class="text-center">
+                                                                      <div class="swiper-container top-projects-swiper">
+                                                                        <div class="swiper-wrapper">
+                                                                          <% for(var i=0; i < trending.projects.length; i++) { %>
+                                                                          <div class="swiper-slide">
+
+                                                                            <div style="margin: 0 15px;" onclick=go_to_page("<%=trending.projects[i].url %>")>
+                                                                              <div class="home-img">
+                                                                                <img src="<%=trending.projects[i].banner_image %>" class="w-100 h-100" alt="">
+                                                                              </div>
+
+                                                                              <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+
+                                                                                <div class="d-flex bd-highlight">
+                                                                                  <div class="p-2 w-100 bd-highlight">
+                                                                                    <h5 class="card-title">
+                                                                                      <%=trending.projects[i].name %>
+                                                                                    </h5>
+                                                                                    <!-- <small
+																																			class="light-grey-clr">
+																																			<strong>Location
+																																				Type</strong>&nbsp;City
+																																		</small> -->
+                                                                                  </div>
+                                                                                </div>
+                                                                                <table class="table">
+                                                                                  <!-- <thead>
+																																			<tr>
+																																			<% if (trending.projects[i].project_status){ %>
+												<th
+													scope="col">
+													Status
+												</th>
+												<%}%>
+																																			<% if (trending.projects[i].property_type){ %>
+												<th
+													scope="col">
+													Type
+												</th>
+												<%}%>
+																																			</tr>
+																																	</thead> -->
+                                                                                  <tbody>
+                                                                                    <tr>
+                                                                                      <% if (trending.projects[i].project_status){ %>
+                                                                                      <td>
+                                                                                        <%=trending.projects[i].project_status %>
+                                                                                      </td>
+                                                                                      <%}%>
+																																			<% if (trending.projects[i].property_type){ %>
+                                                                                      <td>
+                                                                                        <%=trending.projects[i].property_type %>
+                                                                                      </td>
+                                                                                      <%}%>
+																																			<!-- <% if (trending.projects[i].lease_rent){ %>
+                                                                                      <td>
+                                                                                        <%=trending.projects[i].lease_rent %>
+                                                                                      </td>
+                                                                                      <%}%> -->
+																																			</tr>
+																																	</tbody>
+																																</table>
+
+																															</div>
+																														</div>
+
+																													</div>
+																													<%}%>
+                                                                              </div>
+                                                                              <!-- Add Pagination -->
+                                                                              <div class="swiper-pagination"></div>
+                                                                            </div>
+                                                                          </div>
+                                                                          <!-- swiper ends -->
+                                                                        </div>
+                                                                      </div>
+
+                                                                      <!-- LOCATIONS SLIDER -->
+                                                                      <div class="row my-4">
+                                                                        <div class="col-12">
+                                                                          <h3 class="text-center my-4 top-head-mobile"><strong>Top
+                                                                              Locations</strong>
+                                                                          </h3>
+                                                                          <!-- Swiper -->
+                                                                          <div class="swiper-container top-locations-swiper">
+                                                                            <div class="swiper-wrapper">
+                                                                              <div class="swiper-slide">
+                                                                                <a href="https://assetzilla.com/locations/Delhi-state-1" class="no-style">
+                                                                                  <div style="margin: 0 15px;">
+                                                                                    <div class="home-img">
+                                                                                      <img src="./images/delhi.webp" class="card-img w-100 h-100" alt="">
+                                                                                    </div>
+
+                                                                                    <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+
+                                                                                      <div class="d-flex bd-highlight">
+                                                                                        <div class="p-2 w-100 bd-highlight text-center">
+                                                                                          <h5 class="card-title">Delhi</h5>
+                                                                                          <!-- <small class="light-grey-clr">
+																		<strong>Location Type</strong>&nbsp;City
+																	</small> -->
+                                                                                        </div>
+                                                                                      </div>
+                                                                                      <table class="table" style="text-align: center  !important;">
+                                                                                        <!-- <thead>
+																	<tr>
+																		<th scope="col">GDP</th>
+																		<th scope="col">Population</th>
+																	</tr>
+																</thead> -->
+                                                                                        <tbody>
+                                                                                          <tr>
+                                                                                            <td>
+                                                                                              N/A
+                                                                                            </td>
+                                                                                            <td>
+                                                                                              8.77 Lakhs
+                                                                                            </td>
+                                                                                          </tr>
+                                                                                        </tbody>
+                                                                                      </table>
+
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </a>
+                                                                              </div>
+                                                                              <div class="swiper-slide">
+                                                                                <a href="http://assetzilla.com/locations/Bangalore-city-27" class="no-style">
+                                                                                  <div style="margin: 0 15px;">
+                                                                                    <div class="home-img">
+                                                                                      <img src="./images/banglore.webp" class="card-img w-100 h-100" alt="">
+                                                                                    </div>
+
+                                                                                    <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+
+                                                                                      <div class="d-flex bd-highlight text-center">
+                                                                                        <div class="p-2 w-100 bd-highlight">
+                                                                                          <h5 class="card-title">Banglore</h5>
+                                                                                          <!-- <small class="light-grey-clr">
+																		<strong>Location Type</strong>&nbsp;City
+																	</small> -->
+                                                                                        </div>
+                                                                                      </div>
+                                                                                      <table class="table" style="text-align: center  !important;">
+                                                                                        <!-- <thead>
+																	<tr>
+																		<th scope="col">GDP</th>
+																		<th scope="col">Population</th>
+																	</tr>
+																</thead> -->
+                                                                                        <tbody>
+                                                                                          <tr>
+                                                                                            <td>
+                                                                                              N/A
+                                                                                            </td>
+                                                                                            <td>
+                                                                                              8.77 Lakhs
+                                                                                            </td>
+                                                                                          </tr>
+                                                                                        </tbody>
+                                                                                      </table>
+
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </a>
+                                                                              </div>
+                                                                              <div class="swiper-slide">
+                                                                                <a href="https://assetzilla.com/locations/Gurgaon-city-12" class="no-style">
+                                                                                  <div style="margin: 0 15px;">
+                                                                                    <div class="home-img">
+                                                                                      <img src="./images/gurgaon.webp" class="card-img w-100 h-100" alt="">
+                                                                                    </div>
+
+                                                                                    <div class="card-body" style="border: 1px solid rgba(0,0,0,.125)">
+
+                                                                                      <div class="d-flex bd-highlight">
+                                                                                        <div class="p-2 w-100 bd-highlight text-center">
+                                                                                          <h5 class="card-title">Gurgaon</h5>
+                                                                                          <!-- <small class="light-grey-clr">
+																		<strong>Location Type</strong>&nbsp;City
+																	</small> -->
+                                                                                        </div>
+                                                                                      </div>
+                                                                                      <table class="table" style="text-align: center  !important;">
+                                                                                        <!-- <thead>
+																	<tr>
+																		<th scope="col">GDP</th>
+																		<th scope="col">Population</th>
+																	</tr>
+																</thead> -->
+                                                                                        <tbody>
+                                                                                          <tr>
+                                                                                            <td>
+                                                                                              N/A
+                                                                                            </td>
+                                                                                            <td>
+                                                                                              8.77 Lakhs
+                                                                                            </td>
+                                                                                          </tr>
+                                                                                        </tbody>
+                                                                                      </table>
+
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </a>
+                                                                              </div>
+                                                                            </div>
+                                                                            <!-- Add Pagination -->
+                                                                            <div class="swiper-pagination"></div>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+
+                                                                    </div>
+
+                                                                  </div>
+
+
+                                                                  <!-- CTA -->
+                                                                  <div class="container-fluid text-center" style="padding-top: 3.71428571em; padding-bottom: 3.71428571em; background: #0E3582;">
+                                                                    <div class="row">
+                                                                      <div class="col-12">
+                                                                        <h2 class="clr-white" style="margin-bottom: .78787878787879em;">
+                                                                          AssetZilla is changing the way you invest your
+                                                                          earnings!
+                                                                        </h2>
+                                                                        <div>
+                                                                          <button class="btn btn-success my-2 my-sm-0" data-toggle="modal" data-target="#consultation-modal" style="padding: 10px 35px 10px 35px; font-size:.85714286em">
+                                                                            GET IN TOUCH</button>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+
+</body>
+
+<%- include ../partials/footer.ejs%>
+<script>
+  var findResults = function() {
+    let data = $('.home-search')
+      .val();
+    console.log('data is')
+    window.location = "/results?q=" + data;
+  }
+
+  var homeSearchInput = document.getElementById("home-search-input");
+  homeSearchInput.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      document.getElementById("home-search-btn")
+        .click();
+    }
+  });
+
+  function initMap() {}
+</script>
+
+<!-- <script src="https://unpkg.com/swiper/js/swiper.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<script>
+  var topProjectsSwiper = new Swiper('.top-projects-swiper', {
+    loop: true
+    , spaceBetween: 30
+    , centeredSlides: true
+    , autoplay: {
+      delay: 2500
+      , disableOnInteraction: false
+    , }
+    , pagination: {
+      el: '.swiper-pagination'
+      , clickable: true
+    },
+
+  });
+  var swiperMob = function() {
+    var topProjectsSwiperDesk = new Swiper('.top-swiper-desktop', {
+      slidesPerView: 3
+      , spaceBetween: 30
+      , grabCursor: true
+      , loop: true
+      , autoplay: {
+        delay: 2500
+        , disableOnInteraction: false
+      , },
+
+      pagination: {
+        el: '.swiper-pagination'
+        , clickable: true
+      , }
+    });
+  }
+  swiperMob();
+
+  var topBuildersSwiper = new Swiper('.top-builders-swiper', {
+    loop: true
+    , spaceBetween: 30
+    , centeredSlides: true
+    , autoplay: {
+      delay: 2500
+      , disableOnInteraction: false
+    , }
+    , pagination: {
+      el: '.swiper-pagination'
+      , clickable: true
+    },
+
+  });
+  var topPropertiesSwiper = new Swiper('.top-properties-swiper', {
+    loop: true
+    , spaceBetween: 30
+    , centeredSlides: true
+    , autoplay: {
+      delay: 2500
+      , disableOnInteraction: false
+    , }
+    , pagination: {
+      el: '.swiper-pagination'
+      , clickable: true
+    },
+
+  });
+  var topLocationsSwiper = new Swiper('.top-locations-swiper', {
+    loop: true
+    , spaceBetween: 30
+    , centeredSlides: true
+    , autoplay: {
+      delay: 2500
+      , disableOnInteraction: false
+    , }
+    , pagination: {
+      el: '.swiper-pagination'
+      , clickable: true
+    },
+
+  });
+</script>
+
+
+<script>
+  // let location_home_typeahead = $('#location-home-search .typeahead').typeahead({
+  // 	hint: false,
+  // 	highlight: true,
+  // 	minLength: 1,
+  // },
+  // 	{
+  // 		name: 'location-home-search',
+  // 		display: 'name',
+  // 		source: function (query, syncResults, asyncResults) {
+  // 			if (query.length > 0) {
+  // 				$.post('/api/location/typeahead', { data: query }, function (data) {
+  // 					asyncResults(data.results);
+  // 				});
+  // 			}
+  // 		},
+  // 		templates: {
+  // 			suggestion: function (data) {
+  // 				result = '<div>' + data.name
+  // 				result += '<p class="entity__type_suggestions">' + data.location_type + '</p>'
+  // 				result += '</div>'
+  // 				return result
+  // 			}
+  // 		}
+
+
+  // 	});
+
+  // 	let property_type_typeahead = $('#property-type-search .typeahead').typeahead({
+  // 	hint: false,
+  // 	highlight: true,
+  // 	minLength: 1,
+  // },
+  // 	{
+  // 		name: 'property-type-search',
+  // 		display: 'name',
+  // 		source: function (query, syncResults, asyncResults) {
+  // 			if (query.length > 0) {
+  // 				$.post('/api/property/typeahead', { data: query }, function (data) {
+  // 					asyncResults(data.results);
+  // 				});
+  // 			}
+  // 		},
+  // 		templates: {
+  // 			suggestion: function (data) {
+  // 				result = '<div>' + data.name
+  // 				result += '<p class="entity__type_suggestions">' + data.location_type + '</p>'
+  // 				result += '</div>'
+  // 				return result
+  // 			}
+  // 		}
+
+
+  // 	});
+</script>
+
+<script>
+  <% if (openLogInModal) { %>
+  $('#openSignUpModal')
+    .click();
+  <%}%>
+		// openSignUpModal
+</script>
+
+</html>

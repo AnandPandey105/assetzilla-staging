@@ -1,0 +1,15 @@
+<%if(locals.user){%>
+<i class="far cursor  fa-bookmark cursor-pointor" id="set_bookmark" onclick="set_bookmark()"
+<% if(is_bookmarked) {%>
+style="display: none"
+<%}%>
+></i>
+<i class="fa fa-bookmark cursor cursor-pointor" id="unset_bookmark" onclick="unset_bookmark()" 
+<% if(!is_bookmarked) {%>
+style="display: none"
+<%}%>
+></i>
+<%}%>
+<%if(!locals.user){%>
+    <i class="far cursor  fa-bookmark cursor-pointor"  data-toggle="modal" data-target="#loginModal"></i>
+<%}%>

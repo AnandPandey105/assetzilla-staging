@@ -1,0 +1,169 @@
+<div ng-class="{true:'blurry', false:'non-blurry'}[loader]">
+	<div class="container-fluid p-5">
+		<div class="box">
+			<div class="box-body">
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group"><label for="name">
+								<strong>Name of the District<span style="color: red"> *</span></strong>
+							</label>
+							<input required type="text" class="form-control" id="name"
+								placeholder="Name of the District" ng-model="data.name">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group"><label for="population">
+								<strong>Population (Lakhs)</strong>
+							</label>
+							<input required type="number" class="form-control" id="population"
+								placeholder="Population of the District" ng-model="data.population">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group"><label for="capital_income">
+								<strong>Per Capita Income (Rs)</strong>
+							</label>
+							<input required type="number" class="form-control" id="capital_income"
+								placeholder="Per capita income of the District" ng-model="data.capital_income">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group"><label for="gdp">
+								<strong>GDP (Crore Rs)</strong>
+							</label>
+							<input required type="number" class="form-control" id="gdp" placeholder="GDP of the District"
+								ng-model="data.gdp">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label for="area"><strong>Area</strong></label>
+							<div class="input-group m-b"><input type="number" class="form-control" placeholder="area"
+									ng-model="data.area.area">
+								<span class="input-group-addon">Sq.Km</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="country">
+								<strong>State<span style="color: red"> *</span></strong>
+							</label>
+							<div>
+								<input type="text" ng-model="data.state" placeholder="Select a State"
+									uib-typeahead="address for address in getStates($viewValue)"
+									typeahead-loading="loadingLocations" typeahead-no-results="noResults"
+									class="form-control" typeahead-editable="typeaheadEditable">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="details">
+								<strong>District Details</strong>
+							</label>
+							 <summernote on-paste="onPasting(evt)" id="details" on-image-upload="imageUpload(files, 'details')" height="100" ng-model="data.details"></summernote>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label for="about">
+								<strong>About District</strong>
+							</label>
+							 <summernote on-paste="onPasting(evt)" id="about" on-image-upload="imageUpload(files, 'about')" height="100" ng-model="data.about"></summernote>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="history">
+								<strong>District History</strong>
+							</label>
+							 <summernote on-paste="onPasting(evt)" id="history" on-image-upload="imageUpload(files, 'history')" height="100" ng-model="data.history"></summernote>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-6">
+						<div class="form-group">
+							<label for="highlights">
+								<strong>District Highlights</strong>
+							</label>
+							 <summernote on-paste="onPasting(evt)" id="highlights" on-image-upload="imageUpload(files, 'highlights')" height="100" style="border: 1px solid #aaa" ng-model="data.highlights"></summernote>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="form-group">
+							<label for="highlights">
+								<strong>District Facilities</strong>
+							</label>
+							 <summernote on-paste="onPasting(evt)" id="facilities" on-image-upload="imageUpload(files, 'facilities')" height="100" style="border: 1px solid #aaa" ng-model="data.facilities"></summernote>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="form-group">
+							<strong>Video Link</strong>
+							<input required type="text" class="form-control" placeholder="Video Link"
+								ng-model="data.video_url">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<div class="form-group">
+							<label for="highlights">
+								<strong>Upload Images For District<span style="color: red"> (upload only png or
+										jpeg)</span></strong>
+								<a href ng-click="data.images.Districts.push('')" class="ml-2" data-toggle="tooltip"
+									data-placement="auto" title="Add more Samples"><span
+										class="fa fa-plus-square"></span></a>
+							</label>
+							<div class="form-control mt-1" ng-repeat="image in data.images.Districts track by $index">
+								<input type="radio" name="images" ng-model="data.banner_image" ng-value="$index" />
+								<input type="file" file-model="data.images.Districts[$index]" accept="image/png, image/jpeg">
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-12">
+						<div class="text-center p-2 mt-3">
+							<button type="submit" class="btn btn-block success" data-ng-click="add()"
+								ng-disabled="loader">
+								Submit
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="float-right">
+					<p>Fields marked as <span style="color: red">*</span> are mandatory.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- loader -->
+<div class="container" ng-show="loader" style="position: fixed;top:15em">
+	<div class="row">
+		<div class="col-12 text-center">
+			<div class="loader-box"><img src="images/loading.gif"></div>
+		</div>
+	</div>
+</div>
+<!-- End : loader -->

@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>
+    <% if (data.location_type == 'district'){%>
+    Find Properties, Builders, Project, Rates & Trends in
+    <%= data.name %> | Assetzilla
+    <%}%>
+            <% if (data.location_type == 'city'){%>
+    <%= data.name %> Properties, Builders & Projects, Rates,Trends in
+    <%= data.name %> | Assetzilla
+    <%}%>
+            <% if (data.location_type == 'subcity'){%>
+    <%= data.name %> Property, Builders & Project | Rates &Trends | Assetzilla
+    <%}%>
+            <% if (data.location_type == 'state'){%>
+    Find Properties, Builders, Project, Rates & Trends in
+    <%= data.name %> | Assetzilla
+    <%}%>
+  </title>
+  <meta name="title" content="
+        <% if (data.location_type == 'district'){%>
+    Find Properties, Builders, Project, Rates & Trends in <%= data.name %> | Assetzilla
+    <%}%>
+        <% if (data.location_type == 'city'){%>
+    <%= data.name %> Properties, Builders & Projects, Rates,Trends in <%= data.name %> | Assetzilla
+    <%}%>
+        <% if (data.location_type == 'subcity'){%>
+    <%= data.name %> Property, Builders & Project | Rates &Trends | Assetzilla
+    <%}%>
+        <% if (data.location_type == 'state'){%>
+    Find Properties, Builders, Project, Rates & Trends in <%= data.name %> | Assetzilla
+    <%}%>
+        ">
+        <meta name="description" content="
+        <% if (data.location_type == 'district'){%>
+    Search real estate property in <%= data.name %>. Get details of all <%= data.name %> properties, builders, projects and much more. Visit Now!
+
+    <%}%>
+        <% if (data.location_type == 'city'){%>
+    Best Real Estate Properties, Builders & Project in <%= data.name %>. Property Rates & Price Trends in <%= data.name %>. Visit Now
+
+    <%}%>
+        <% if (data.location_type == 'subcity'){%>
+    Property Rates & Price Trends in <%= data.name %>, <% if (location.city){%> <%= location.city.name %> <%}%>. Find the best Property, Builders & Project in +(sub city). Visit Now Assetzilla.
+            
+        <%}%>
+    <% if (data.location_type == 'state'){%>
+    Property Rates & Price Trends in <%= data.name %>. Find the best Property, Builders & Project in +(State). Visit Now
+    <%}%>
+        ">
+</head>
+<%- include ./partials/header.ejs%>
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <% console.log(data) %>
+  <div class="common-wrapper">
+    <div class="details-breadcrumb details-breadcrumb-img">
+      <div class="container">
+        <div class="dbread-top">
+          <div class="row align-items-center">
+            <% if(data.is_live==="1") {%>
+              <div class="col-12 notLiveGray" style="max-width: 50%; margin: auto;">This page is under development and not live on website</div>
+            <% } else if ( data.is_live==="4" || data.is_live==="3"){ %>
+              <div class="col-12 notLive"  style="max-width: 50%; margin: auto;"> This location is not live anymore </div>
+            <% } %>
+            
+            <div class="col-lg-8 col-sm-8">
+              <div class="d-flex">
+                <div>
+                  <div class="breadcrumb-top">
+                    <div>
+                      <a href="/locations" target="_blank">Locations</a>
+                    </div>
+                    <% if (data.location_type == 'district'){%>
+                      <div>
+                        <span>/</span>
+                      </div>
+                      <div class="text-capitalize">
+                        <a href="/Locations?location_type=district" target="_blank">
+                          <%= data.location_type %></a>
+                      </div>
+                    <%}%>
+                    <% if (data.location_type == 'city'){%>
+                      <div>
+                        <span>/</span>
+                      </div>
+                      <div class="text-capitalize">
+                        <a href="/Locations?location_type=city" target="_blank">
+                          <%= data.location_type %></a>
+                      </div>
+                    <%}%>
+                    <% if (data.location_type == 'subcity'){%>
+                      <div>
+                        <span>/</span>
+                      </div>
+                      <div class="text-capitalize">
+                        <a href="/Locations?location_type=subcity" target="_blank">
+                          <%= data.location_type %></a>
+                      </div>
+                    <%}%>
+                    <% if (data.location_type == 'state'){%>
+                      <div>
+                        <span>/</span>
+                      </div>
+                      <div class="text-capitalize">
+                        <a href="/Locations?location_type=state" target="_blank">
+                          <%= data.location_type %></a>
+                      </div>
+                    <%}%>
+                  </div>
+                  <div>
+                    <h2 style="display: flex;"  class="flex-row justify-content-start align-items-start"> <span><%- include ./partials/bookmark.ejs%></span><%= data.name %> </h2>
+                  </div>
+                  <div style="display: flex;" class=" flex-row justify-content-start align-items-start">
+                    <% if (locals.location){%>
+                      <% if (location.state || location.district || location.city){%>
+                        <p style="display: flex !important; flex-direction: row; justify-content: start; align-items: start;">
+                          <img src="/v1/img/gps.webp" alt=""/>                      
+                          <div class="text-white">
+                            <% if (location.state){%>
+                              <a class="text-left text-white" href="<%=location.state.url%>" target="_blank">
+                                <%= location.state.name %>
+                              </a>
+                            <%}%>
+                            <% if (location.district && location.district.name!=="Mumbai Suburban"){%>
+                              > 
+                              <a class="text-left text-white" href="<%=location.district.url%>" target="_blank">
+                                <%= location.district.name %>
+                              </a>
+                            <%}%>
+                            <% if (location.city){%>
+                              > 
+                              <a class="text-left text-white" href="<%=location.city.url%>" target="_blank">
+                                <%= location.city.name %>
+                              </a>
+                            <%}%>
+                          </div>
+                        </p>
+                      <%}%>
+                    <%}%>
+                  </div>
+                  <!-- <p class="mt-2 d-flex flex-row justify-content-center- align-items-center">
+                    <img src="/images/views.webp"/>&nbsp;
+                    <span><%=data.views || 0%>&nbsp;views</span>
+                  </p> -->
+                </div>
+              </div>
+            </div>
+            
+
+
+            <div class="col-lg-4 col-sm-4">
+              <div class="row <% if ((!data.top_city || (data.top_city && !data.top_city.results.length >0)) && data.location_type !== 'subcity'){%> flex-row-reverse <%} else {%> flex-md-row-reverse <%}%> justify-content-between">
+                <% if (data.top_city && data.top_city.results.length >0){%>
+                  <div class="col-6 col-md-5 dropdown show ml-2">
+                      <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <% if (data.top_city.results[0].location_type == 'state'){%> State
+                        <%}%>
+                          <% if (data.top_city.results[0].location_type == 'district'){%> Districts
+                        <%}%>
+                          <% if (data.top_city.results[0].location_type == 'city'){%> Cities
+                        <%}%>
+                          <% if (data.top_city.results[0].location_type == 'subcity'){%> SubCities
+                        <%}%>
+                      </a>
+                      <div id="location-dropdown" class="dropdown-menu ast-dropdown-left location-drp left-0" aria-labelledby="dropdownMenuLink">
+                        <% for(var i=0; i < data.top_city.results.length; i++) { %>
+                          <a class="dropdown-item px-2" href="<%= data.top_city.results[i].url %>">
+                          <strong>
+                            <%= data.top_city.results[i].name %></strong> &nbsp;
+                          <% if ((data.top_city.results[i].price && data.top_city.results[i].price.min) || data.top_city.results[i].total_projects){%>
+                            <br>
+                          <small style="word-break:break-word;">
+                            <% if (data.top_city.results[i].total_projects){%>
+                            <%= data.top_city.results[i].total_projects %> Projects
+                            <% } %>
+
+                            <% if (data.top_city.results[i].price && data.top_city.results[i].price.min){%>
+                            starting
+                            <%= changeNumberFormat(data.top_city.results[i].price.min) %>
+                            <%} else {%>
+                            <% } %>
+                          </small>
+                          <% } %>
+                          </a>
+                        <% } %>
+                    </div>
+                  </div>
+                <%}%>
+                <div class="col-6 col-md-6 book-property-btn-wrp">
+                  <button class="btn btn-book-prop" style="margin-left: 0px; height:48px;" onclick="scrollto('#allProjectsDiv')">View Projects</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+
+      <div class="row w-100 mx-0">
+        <!-- <div class="w-100 flex-row viewed-x-times-div mb-3">
+          <p class="text-center mb-0 py-1 d-flex flex-row justify-content-center align-items-center">
+            <!-- <img src="/images/views.webp" class="viewed-x-times-div-img"> 
+            &nbsp;This Page has been viewed 
+            <span>&nbsp;<%=data.views || 0%>&nbsp;times.</span>
+          </p>
+        </div> -->
+        <div class="col-12 px-0">
+          <div class="container">
+            
+          </div>
+          <div class="common-wrapper">
+            <div class="container">
+              <!-- <div class="w-100 d-flex flex-row x-views my-3">
+                <p class="text-center mb-0 py-1 d-flex flex-row justify-content-start align-items-center">
+                  <img src="/images/views.webp" class="viewed-x-times-div-img"> 
+                  <span>&nbsp;<%=data.views || 0%>&nbsp;Page <% if(data.views > 1) {%>views <%} else {%>view<%}%>&nbsp;</span>
+                </p>
+              </div> -->
+              <div class="row">
+                <div class="col-md-8 col-8">
+                  <div class="w-100 d-flex flex-row x-views my-3">
+                    <p class="text-center mb-0 py-1 d-flex flex-row justify-content-start align-items-center">
+                      <img src="/images/views.webp" class="viewed-x-times-div-img">
+                      <span>&nbsp;<%=data.views || 0%>&nbsp;Page <% if(data.views > 1) {%>views <%} else {%>view<%}%>&nbsp;</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="mobile-view-map col-md-8 col-4">
+                  <a href="#side_map">View Map</a>
+                </div>
+              </div>
+            </div>
+            <%- include ./partials/media-galary.ejs%>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-box-wrapper mt-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8">
+
+              <% if (data.location_details){ %>
+              <div class="common-box-dt">
+                <div class="dt-common-head">
+                  <h2>Details of <%= data.name %></h2>
+                </div>
+                <div class="">
+                  <p><%- data.location_details %></p>
+                </div>
+              </div>
+              <% } %>
+              <% if (data.about){ %>
+              <div class="common-box-dt">
+                <div class="dt-common-head">
+                  <h2>About <%= data.name %></h2>
+                </div>
+                <div class="">
+                  <p> <%- data.about %></p>
+                </div>
+              </div>
+              <% } %>
+
+              <% if ((data.area && data.area.area) || data.gdp || data.capital_income || data.population ) { %>
+              <div class="common-box-dt">
+                <div class="dt-common-head">
+                  <h2>Other details of <%= data.name %></h2>
+                </div>
+                <div class="">
+                  <% if (data.area && data.area.area){ %>
+                    <p>
+                      <span class="font-weight-600">Area :</span> 
+                        <%- data.area.area %> Sq.Km
+                    </p>
+                  <% } %>
+                  <% if (data.gdp){ %> 
+                    <p>
+                      <span class="font-weight-600">GDP :</span> 
+                        <%- data.gdp %> (Crore Rs)
+                    </p>
+                  <% } %>
+                  <% if (data.capital_income){ %>
+                    <p>
+                      <span class="font-weight-600">Per Capita Income :</span> 
+                        <%- data.capital_income %> (Rs)
+                      </p>
+                  <% } %>
+                  <% if (data.population){ %>
+                    <p>
+                      <span class="font-weight-600">Population :</span>
+                        <%- data.population %> (Lakhs)
+                    </p>
+                  <% } %>
+                </div>
+              </div>
+              <% } %>
+              <% if (data.history){ %>
+              <div class="common-box-dt">
+                <div class="dt-common-head">
+                  <h2>History Of <%= data.name %></h2>
+                </div>
+                <div>
+                  <p><%- data.history %></p>
+                </div>
+
+              </div>
+              <% } %>
+              <% if (data.facilities){ %>
+              <div class="common-box-dt">
+                <div class="dt-common-head">
+                  <h2>Facilities</h2>
+                </div>
+                <div>
+                  <p><%- data.facilities %></p>
+                </div>
+
+              </div>
+              <% } %>
+              <% if (data.highlights){ %>
+              <div class="common-box-dt">
+                <div class="dt-common-head">
+                  <h2>Highlights</h2>
+                </div>
+                <div>
+                  <p><%- data.highlights %></p>
+                </div>
+
+              </div>
+              <% } %>
+              <% if (top_property_type.length>0){ %>
+              <div id="allProjectsDiv" class="common-box-dt">
+                <div class="dt-common-head">
+                  <h2><%=data.name%> - Top Projects</h2>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="unfilled-btn-list">
+                      <ul>
+                        <li> <button type="button" class="btn selectable-tags selected-tags" onclick="getProjects('top_projects','<%= top_project_count%>',this)">All Projects</button> </li>
+                        <% for(var i=0; i < top_property_type.length; i++) { %>
+                        <li> <button type="button" class="btn selectable-tags" onclick="getProjects('<%= top_property_type[i].key%>','<%= top_property_type[i].doc_count%>',this)">
+                            <%= top_property_type[i].key%><span>(<%= top_property_type[i].doc_count%>)</span>
+                          </button> </li>
+                        <% } %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+              <% if (locals.top_projects && top_projects.length >0){ %>
+              <div id="allProjectsDiv" class="common-box-dt">
+                <div class="dt-common-head">
+                  <h2>All Projects <span id="project_type_div"></span></h2>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-12" id="top_projects">
+                    <% for(var i=0; i < top_projects.length; i++) { %>
+                    <div class="apparment-list apparment-list-updated mt-3 mt-lg-0">
+
+                      <div class="apparment-list-left" onclick="go_to_page('<%=top_projects[i].url %>')">
+                        <div class="owl-carousel owl-theme allProp-first-owl">
+                          <% for(var j=0; j < top_projects[i].images.length; j++) { %>
+                          <div class="item">
+                            <div class="all-prop-heart">
+                              <img src="<%=top_projects[i].images[j] %>" class="img img-fluid">
+                            </div>
+                          </div>
+                          <% } %>
+                        </div>
+                        <div class="heartcircle">
+                          <div class="blank-white">
+                            <button><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                        <% if (emi_per_lac && (top_projects[i].price && top_projects[i].price.min)) { %>
+                          <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * top_projects[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                            <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                          </button></p>
+                        <% } %>
+                      </div>
+                      <div class="apparment-list-right">
+                        <h2>
+                          <%- include('./partials/bookmark-list', {url: top_projects[i].url, is_bookmarked: top_projects[i].is_bookmarked, id: i + "_project-" + top_projects[i].id, name:top_projects[i].name, builder:top_projects[i].city}); %>
+                          <span onclick="go_to_page('<%=top_projects[i].url %>')"><%=top_projects[i].name %></span>
+                        </h2>
+                        <p><%=top_projects[i].builder %></p>
+                        <% if ((top_projects[i].price && top_projects[i].price.min)||(top_projects[i].sq_fit_cost &&
+                                            top_projects[i].sq_fit_cost.min)){ %>
+                        <hr>
+                        <div class="row align-items-center">
+                          <% if (top_projects[i].price && top_projects[i].price.min){ %>
+                            <div class="col-8">
+                              <table class="emi-price-table">
+                                <tr>
+                                  <td>
+                                    <p class="text-left" >Starting :</p>
+                                  </td>
+                                  <td>
+                                    <p>
+                                      <b class="px-2 text-left"> ₹ <%=changeNumberFormat(top_projects[i].price.min)%>
+                                      </b>
+                                    </p>
+                                  </td>
+                                </tr>
+                                <!-- <% if (emi_per_lac) { %>
+                                  <tr>
+                                    <td>
+                                      <p class="text-left">EMI Starting :</p>
+                                    </td>
+                                    <td>
+                                      <p><b class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * top_projects[i].price.min / 100000))%></b></p>
+                                    </td>
+                                  </tr>
+                                <% } %> -->
+                              </table>
+                            </div>
+                          <%} else {%>
+
+                          <%}%>
+                      <% if (top_projects[i].sq_fit_cost && top_projects[i].sq_fit_cost.min){ %>
+                        <div class="col-4">
+                          <h6>
+                            Starting SqFt. cost:
+                            <b>
+                              ₹<%=top_projects[i].sq_fit_cost.min%>
+                            </b>
+                          </h6>
+                        </div>
+                        <%} else {%>
+                        <%}%>
+                      </div>
+                      <%} else {%>
+                      <%}%>
+                      <hr>
+                      <div class="located_area">
+                        <div class="loc-left">
+                          <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                          <p>
+                            <% if (top_projects[i].subcity){ %><%=top_projects[i].subcity %>,
+                            <%}%><% if (top_projects[i].city){ %><%=top_projects[i].city %> <%}%>
+                          </p>
+                          </div>
+                          <div class="area_prices">
+                            <h2>
+                              <% if (top_projects[i].area && top_projects[i].area.area){ %>
+                                <%=top_projects[i].area.area %> acres
+                              <%} else {%>
+                              <%}%>
+                            </h2>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="featured-points">
+                          <ul>
+                            <% if (top_projects[i].project_status){ %>
+                              <li>
+                                <h5><%=top_projects[i].project_status %></h5>
+                              </li>
+                            <%}%>
+                            <% if (top_projects[i].property_type){ %>
+                              <li>
+                                <h5><%=top_projects[i].property_type %></h5>
+                              </li>
+                            <%}%>
+                            <% if (top_projects[i].lease_rent){ %>
+                              <li>
+                                <h5><%=top_projects[i].lease_rent %></h5>
+                              </li>
+                            <%}%>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <% } %>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="w-100 mt-3 mt-lg-0" id="see_all_projects">
+                        <% if  (top_project_count > 5) {%>
+                        <a href="/projects?<%=data.location_type%>=<%=data.name%>" target="_blank" class="see_all btn w-100">See All</a>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+              <div class="two-sections-one two-sec-desktop-show">
+                <div class="row">
+                <% if (locals.top_similar_projects && top_similar_projects.length>0) { %>
+                  <div class="col-lg-6">
+                    <div class="common-box-dt wf-100">
+                      <div class="dt-common-head">
+                        <h2>Top Projects</h2>
+                      </div>
+                      <div class="owl-carousel owl-theme sim-prop-owl mt-0">
+                        <% for(var i=0; i < top_similar_projects.length; i++) { %>
+                        <div class="item cursor-pointor">
+                          <div class="sim-prop-owl-box" onclick="go_to_page('<%=top_similar_projects[i].url %>')">
+                            <div class="sim-prop-owl-box-img position-relative">
+                              <img src="<%=top_similar_projects[i].banner_image %>" alt="">
+                              <% if (emi_per_lac && (top_similar_projects[i].price && top_similar_projects[i].price.min)) { %>
+                                <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * top_similar_projects[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                                  <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                                </button></p>
+                              <% } %>
+                            </div>
+                            <div class="sim-prop-owl-box-content pb-0">
+                              <h3><%=top_similar_projects[i].name%></h3>
+                              <% if (top_similar_projects[i].price && top_similar_projects[i].price.min){%>
+                                <p class="mb-0">
+                                  <% if (top_similar_projects[i].total_properties){%>
+                                    <%=top_similar_projects[i].total_properties%> 
+                                      <%= top_similar_projects[i].total_properties <= 1 ? "property at " : "properties Starting " %>
+                                  <%}%>
+                                  ₹<%=changeNumberFormat(top_similar_projects[i].price.min)%>
+                                </p>
+                              <%}%>
+                              <!-- <p class="mb-0"><strong><%=top_similar_projects[i].total_properties%></strong><% if (top_similar_projects[i].total_properties>1){%>&nbsp;properties<%}else{%>&nbsp;property<%}%></p> -->
+                            </div>
+                          </div>
+                        </div>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                <% } %>
+                <% if (locals.top_builders && top_builders.length>0) { %>
+                  <div class="col-lg-6">
+                    <div class="common-box-dt wf-100">
+                      <div class="dt-common-head">
+                        <h2>Top Builders</h2>
+                      </div>
+                      <div class="top-bulder-logo">
+                        <div class="owl-carousel owl-theme sim-prop-owl mt-0">
+                          <% for(var i=0; i < top_builders.length; i++) { %>
+                            <div class="item">
+                              <div class="sim-prop-owl-box" onclick="go_to_page('<%=top_builders[i].url %>')">
+                                <div class="sim-prop-owl-box-img position-relative">
+                                  <img src="<%=top_builders[i].logo %>" alt="">
+                                  <% if (emi_per_lac && (top_builders[i].price && top_builders[i].price.min)) { %>
+                                    <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * top_builders[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                                      <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                                    </button></p>
+                                  <% } %>
+                                </div>
+                                <div class="sim-prop-owl-box-content pb-0">
+                                  <h3> <%=top_builders[i].name%> </h3>
+                                  <p class="mb-0">
+                                      <% if (top_builders[i].total_projects){%>
+                                        <%=top_builders[i].total_projects%> 
+                                        <%= top_builders[i].total_projects <= 1 ? "project" : "projects" %>
+                                      <%}%>
+                                      <% if (top_builders[i].price && top_builders[i].price.min){%>
+                                        Starting ₹<%=changeNumberFormat(top_builders[i].price.min)%>
+                                      <%}%>
+                                    </p>
+                                  <!-- <% if(top_builders[i].total_properties > 0){%><p class="mb-0"><strong><%=top_builders[i].total_properties%></strong><% if (top_builders[i].total_properties>1){%>&nbsp;properties<%}else{%>&nbsp;property<%}%></p><%}%>
+                                  <% if(top_builders[i].total_projects > 0){%><p class="mb-0"><strong><%=top_builders[i].total_projects%></strong><% if (top_builders[i].total_projects>1){%>&nbsp;projects<%}else{%>&nbsp;project<%}%></p><%}%> -->
+                                </div>
+                              </div>
+                            </div>
+                          <%}%>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="map-sticky-details">
+              <% if (locals) { %>
+                <div class="dt-location-map">
+                  <div class="right-dt-head">
+                    <h1><%= data.name %> </h1>
+                  </div>
+                  <div class="">
+                    <div id="side_map"></div>
+                    <img src="/v1/img/logo.webp" class="logo-over"/>
+                  </div>
+                </div>
+              <% } %>
+              <% if (data.top_city && data.top_city.results.length >0){%>
+                <div class="popular-tags">
+                  <h2 class="mb-2 mt-4">
+                    Popular
+                    <% if (data.top_city.results[0].location_type == 'state'){%> State
+                    <%}%>
+                      <% if (data.top_city.results[0].location_type == 'district'){%> Districts
+                    <%}%>
+                      <% if (data.top_city.results[0].location_type == 'city'){%> Cities
+                    <%}%>
+                      <% if (data.top_city.results[0].location_type == 'subcity'){%> SubCities
+                    <%}%>
+                    :
+                  </h2>
+                  <p>
+                    <% for(var i=0; i < data.top_city.results.length; i++) { %>
+                      <a href="<%= data.top_city.results[i].url %>" class="ppl-wrp">
+                        <span class="badge badge-pill sidebar-tags-pill "><%= data.top_city.results[i].name %>
+                        </span>
+                        <span class="location-poular-ppl">
+                          <% if (data.top_city.results[i].total_projects){%>
+                          <%= data.top_city.results[i].total_projects %> Projects
+                          <% } %>
+                          <% if (data.top_city.results[i].price && data.top_city.results[i].price.min){%>
+                          starting
+                          <%= changeNumberFormat(data.top_city.results[i].price.min) %>
+                          <% } %>
+                        </span>
+                        <!-- (<%= data.top_city.results[i].total_projects %> Projects
+                        <% if (data.top_city.results[i].price && data.top_city.results[i].price.max){%>
+                        starting
+                        <%= data.top_city.results[i].price.max.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %>)
+                        <%} else {%>
+                        
+                        <% } %> ) -->
+                      </a>
+                    <%}%>
+                  </p>
+                </div>
+              <% } %>
+            </div>
+            <div class="two-sections-one two-sec-mobile-show">
+              <div class="row">
+                <% if (locals.top_projects && top_projects.length>0) { %>
+                  <div class="col-lg-6">
+                    <div class="common-box-dt wf-100">
+                      <div class="dt-common-head">
+                        <h2>Top Projects</h2>
+                      </div>
+                      <div class="">
+                        <div class="">
+                          <div class="owl-carousel owl-theme sim-prop-owl mt-0">
+                            <% for(var i=0; i < top_projects.length; i++) { %>
+                              <div class="item cursor-pointor">
+                                <div class="sim-prop-owl-box" onclick="go_to_page('<%=top_projects[i].url %>')">
+                                  <div class="sim-prop-owl-box-img">
+                                    <img src="<%=top_projects[i].banner_image %>" alt="">
+                                  </div>
+                                  <div class="sim-prop-owl-box-content">
+                                    <h3><%=top_projects[i].name%></h3>
+                                    <% if (top_projects[i].price && top_projects[i].price.min){%><p>Starting <%=changeNumberFormat(top_projects[i].price.min)%></p><%}%>
+                                    <!-- <p><strong><%=top_projects[i].total_properties%></strong><% if (top_projects[i].total_properties>1){%>&nbsp;properties<%}else{%>&nbsp;property<%}%></p> -->
+                                    <% if (top_builders[i]) {%>
+                                      <!-- <p>
+                                        <strong><%=top_builders[i].total_projects%></strong>
+                                        <% if (top_builders[i].total_projects>1){%>&nbsp;projects<%}else{%>&nbsp;project<%}%>
+                                      </p> -->
+                                    <%}%>
+                                  </div>
+                                </div>
+                              </div>
+                            <% } %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% } %>
+                <% if (locals.top_builders && top_builders.length>0) { %>
+                  <div class="col-lg-6">
+                    <div class="common-box-dt wf-100">
+                      <div class="dt-common-head">
+                        <h2>Top Builders</h2>
+                      </div>
+                      <div class="top-bulder-logo">
+                        <div class="owl-carousel owl-theme sim-prop-owl mt-0">
+                          <% for(var i=0; i < top_builders.length; i++) { %>
+                            <div class="item">
+                              <div class="sim-prop-owl-box" onclick="go_to_page('<%=top_builders[i].url %>')">
+                                <div class="sim-prop-owl-box-img">
+                                  <img src="<%=top_builders[i].logo %>" alt="">
+                                </div>
+                                <div class="sim-prop-owl-box-content">
+                                  <h3> <%=top_builders[i].name%> </h3>
+                                  <% if (top_builders[i].price && top_builders[i].price.min){%><p>Starting <%=changeNumberFormat(top_builders[i].price.min)%></p><%}%>
+                                  <!-- <p><strong><%=top_builders[i].total_properties%></strong><% if (top_builders[i].total_properties>1){%>&nbsp;properties<%}else{%>&nbsp;property<%}%></p> -->
+                                </div>
+                              </div>
+                            </div>
+                          <%}%>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include ./partials/footer.ejs%>
+  <script>
+    function add_boundary() {
+      var polygonCoords = [];
+      <% if (locals.boundary && locals.boundary.length > 0) {%>
+        // console.log('any boundary')
+        <% for (var i = 0; i < boundary.length; i++) {%>
+          polygonCoords.push({ lat: <%=boundary[i][0] %>, lng: <%=boundary[i][1] %>})
+        <%}%>
+      <%}%>
+
+      for (i = 0; i < polygonCoords.length; i++) {
+        let latlng = new google.maps.LatLng(polygonCoords[i].lat, polygonCoords[i].lng);
+        bounds.extend(latlng);
+      }
+      map.fitBounds(bounds);
+
+      let boundarygeoJSON = `<%- JSON.stringify(locals.geoJSON ? locals.geoJSON : {}) %>`
+
+      boundarygeoJSON = JSON.parse(boundarygeoJSON)
+      if (Object.keys(boundarygeoJSON).length > 0) {
+        map.data.addGeoJson(boundarygeoJSON);
+        map.data.setStyle({
+        strokeColor: '#FF0000'
+        , strokeOpacity: 0.8
+        , strokeWeight: 1
+        , fillColor: '#FF0000'
+        , fillOpacity: 0.35
+        })
+      } else {
+        // Construct the polygon.
+        var cityBoundary = new google.maps.Polygon({
+        paths: polygonCoords
+        , strokeColor: '#FF0000'
+        , strokeOpacity: 0.8
+        , strokeWeight: 1
+        , fillColor: '#FF0000'
+        , fillOpacity: 0.35
+        });
+        cityBoundary.setMap(map);
+      }
+    }
+
+    var locations = [];
+    <% if (top_projects.length > 0) { %>
+      <% for (var i = 0; i < top_projects.length; i++) {
+        // console.log('insdie adding markers for')
+        if (top_projects[i].location) {%>
+          locations.push([<%=top_projects[i].location.location.lat %>, <%=top_projects[i].location.location.lng %>, '<%=top_projects[i].name %>', '<%=top_projects[i].url %>'])
+        <%}%>
+      <%}%>
+    <%}%>
+
+  function add_markers() {
+    for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({position: new google.maps.LatLng(locations[i][0], locations[i][1]), map: map });
+      // console.log('markers are: ', marker)
+      bounds.extend(marker.position);
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent("<a href=" + locations[i][3] + " target='_blank'>" + locations[i][2] + "</a>");
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+    map.fitBounds(bounds);
+  }
+
+  function initMap(map_id = "side_map") {
+    // console.log('map executed')
+    map = new google.maps.Map(document.getElementById(map_id), {
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false
+    });
+    infowindow = new google.maps.InfoWindow();
+    bounds = new google.maps.LatLngBounds();
+    add_boundary();
+    add_markers();
+    // console.log('map add_markers')
+  }
+
+  function initMap2(map_id = "modal-map") {
+    map = new google.maps.Map(document.getElementById(map_id), {
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false,
+      //minZoom: 5,
+    });
+    infowindow = new google.maps.InfoWindow();
+    bounds = new google.maps.LatLngBounds();
+    //<% if (locals.boundary && boundary.length > 0) {%>
+      add_boundary();
+    //<%}%>
+    <% if (locals.top_projects && top_projects.length > 0) {%>
+      add_markers();
+    <%}%>
+  }
+
+  function initialize() {
+  initMap();
+  initMap2();
+  }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw&callback=initialize" async defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+  <!-- Media galary script -->
+  <script>
+  var popupGallery;
+  var pageLoadModal = false;
+  $(document)
+  .ready(function() {
+  $('#moreInfo')
+  .on('show.bs.modal', function(e, f) {
+    popupGallery = new Swiper('#popupGallery', {
+      spaceBetween: 2
+      , loop: true
+      , lazy: true
+      , navigation: {
+        nextEl: '.swiper-button-next'
+        , prevEl: '.swiper-button-prev'
+      , }
+      , pagination: {
+        el: '.swiper-pagination'
+      , }
+      , keyboard: {
+        enabled: true
+      , }
+    });
+
+    let relatedTargetId = e.relatedTarget.id;
+    if (relatedTargetId === "showVideo") {
+      $('#moreInfo a[href="#pills-video"]')
+        .tab('show');
+    }
+  });
+
+  $('#moreInfo')
+  .on('shown.bs.modal', function(e) {
+    popupGallery.update();
+  });
+
+  //Stop playing video on modal close
+  $('#moreInfo')
+  .on('hidden.bs.modal', function() {
+    // console.log("Modal Closed");
+    var video = $("#video-player")
+      .attr("src");
+    $("#video-player")
+      .attr("src", "");
+    $("#video-player")
+      .attr("src", video);
+    $('#moreInfo a[href="#pills-images"]')
+      .tab('show');
+
+  })
+  //Stop playing video on modal close
+  $('a[data-toggle="pill"]')
+  .on('shown.bs.tab', function(e) {
+    // console.log("Tab changed");
+    if (e.relatedTarget.id === "pills-video-tab") {
+      var video = $("#video-player")
+        .attr("src");
+      $("#video-player")
+        .attr("src", "");
+      $("#video-player")
+        .attr("src", video);
+    }
+    if (e.currentTarget.id === "pills-maps-tab") {
+      if (typeof initMap2 === "function") {
+        initMap2();
+      }
+    }
+  });
+
+  $('.modal')
+  .on('show.bs.modal', function(e, f) {
+    //Mute video on galary
+    var video = $("#video-player-galary")
+      .attr("src");
+    $("#video-player-galary")
+      .attr("src", "");
+    $("#video-player-galary")
+      .attr("src", video);
+  });
+
+
+  var galleryTop = new Swiper('.gallery-top', {
+  slidesPerView: 1
+  , loop: true
+  , loopedSlides: 50
+  , lazy: true
+  , lazy: {
+    loadPrevNext: false
+    , loadOnTransitionStart: true
+  }
+  , });
+  var galleryThumbs = new Swiper('.gallery-thumbs', {
+  direction: 'vertical'
+  , slidesPerView: 4
+  , slideToClickedSlide: true
+  , spaceBetween: 10
+  , loopedSlides: 50
+  , loop: true
+  , lazy: true
+  , lazy: {
+    loadPrevNext: false
+    , loadOnTransitionStart: true
+  }
+  , });
+  if (galleryTop.conroller)
+  galleryTop.controller.control = galleryThumbs;
+  if (galleryThumbs.controller)
+  galleryThumbs.controller.control = galleryTop;
+  })
+  </script>
+  <script>
+  var getProjects = function(data, count, el) {
+  $(".selectable-tags")
+  .removeClass("selected-tags");
+  $(el)
+  .addClass("selected-tags");
+  filters = {
+  <%=data.location_type%>: "<%= data.name %>"
+  }
+  if (data != "top_projects") {
+  filters.type = data;
+  document.getElementById("project_type_div")
+  .innerHTML = " in " + data;
+
+  if (count > 5) {
+  document.getElementById("see_all_projects")
+    .innerHTML = '<a href="/projects?<%=data.location_type%>=<%=data.name%>&type=' + data + '" target="_blank" class="see_all btn w-100">See All</a>';
+  } else {
+  document.getElementById("see_all_projects")
+    .innerHTML = "";
+  }
+
+  } else {
+  document.getElementById("project_type_div")
+  .innerHTML = "";
+  if (count > 5) {
+  document.getElementById("see_all_projects")
+    .innerHTML = '<a href="/projects?<%=data.location_type%>=<%=data.name%>" target="_blank" class="see_all btn w-100">See All</a>';
+  }
+  }
+  $.post('/api/project/infinite', {
+  skip: 0
+  , limit: 5
+  , query: JSON.stringify(filters)
+  , card: false
+  , from_individual_entity: true
+  }, function(data) {
+  document.getElementById("top_projects")
+  .innerHTML = data;
+  propertyPageCarouselInit();
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+  $.post('/api/project/infinite-map', {
+  skip: 0
+  , limit: 5
+  , query: JSON.stringify(filters)
+  }, function(map_data) {
+  locations = map_data.results
+  initMap();
+  })
+  })
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+  }
+  </script>
+  <% if (!locals.user) {%>
+  <script>
+  let storedViewH = JSON.parse(window.localStorage.getItem('userVwH'));
+  if (storedViewH){
+  storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+  } else{
+  storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+  }
+  window.localStorage.setItem('userVwH', JSON.stringify(storedViewH))
+  </script>
+  <% } %>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<% if (card==true){ %>
+<% for(var i=0; i < results.length; i++) { %>
+    <div class="col-md-4 cursor cards-infinte">
+        <div class="card mb-3 listing-card" onclick=go_to_page("<%=results[i].url %>")>
+            <div class="row no-gutters shadow">
+                <div class="col-md-12">
+                    <img src="<%=results[i].banner_image %>" class="card-img" alt="">
+                    <div class="card-body">
+
+                        <div class="d-flex bd-highlight">
+                            <div class="p-2 w-100 bd-highlight">
+                                <h5 class="card-title"><%=results[i].name %></h5>
+                                <div>
+                                    <span style="margin-left: 0;">
+                                        <!-- margin-top: -20px; -->
+                                        <% if (results[i].price && results[i].price.min){ %>
+                                <strong>Starting From: (₹)
+                                    <%=results[i].price.min.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %></strong>
+                                <%}%>
+                                </span>
+                                
+                                    </div>
+                                <small class="light-grey-clr">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <% if (results[i].subcity){ %><%=results[i].subcity %>,
+                                    <%}%><% if (results[i].city){ %><%=results[i].city %> <%}%>
+                                        </small>
+                                    </div>
+                                </div>
+                                <table class="table">
+                                    <!-- <thead>
+                                        <tr>
+                                        <% if (results[i].project_status){ %>
+                                    <th scope="col">Status</th>
+                                    <%}%>
+                                        <% if (results[i].property_type){ %>
+                                    <th scope="col">Type</th>
+                                    <%}%>
+                                        <% if (results[i].lease_rent){ %>
+                                    <th scope="col">Lease/Rent</th>
+                                    <%}%>
+                                        </tr>
+                                    </thead> -->
+                                    <tbody>
+                                        <tr>
+                                        <% if (results[i].project_status){ %>
+                                    <td>
+                                        <%=results[i].project_status %>
+                                    </td>
+                                    <%}%>
+                                        <% if (results[i].property_type){ %>
+                                    <td>
+                                        <%=results[i].property_type %>
+                                    </td>
+                                    <%}%>
+                                        <% if (results[i].lease_rent){ %>
+                                    <td>
+                                        <%=results[i].lease_rent %>
+                                    </td>
+                                    <%}%>
+
+                                    <!-- <% if (results[i].price && results[i].price.min){ %>
+                                        <td>
+                                           Property starting:  <%=results[i].price.min.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %>
+                                        </td>
+                                        <%}%> -->
+
+                                        <!-- <% if (results[i].price && results[i].price.min){ %>
+                                            <td>
+                                                Property starting:  <%=results[i].price.min %>
+                                            </td>
+                                            <%}%> -->
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                                <div style="margin-left: 12px; margin-top: -20px;">
+                                    
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+<%}%>
+<% if (partial==true){ %>
+            <% for(var i=0; i < results.length; i++) { %>
+            <div class="card cursor mb-3 partials-infinte partial-card-data no-border" id="<%=i+custSkip%>_project-<%=results[i].id%>" onmouseenter="showBox('<%=results[i].id%>', <%=i+custSkip%>)" onmouseleave="hideBox('<%=results[i].id%>', <%=i+custSkip%>)">
+                <div class="row no-gutters shadow"  onclick=go_to_page("<%=results[i].url %>")>
+                    <div class="col-4">
+                        <img src="<%=results[i].banner_image %>" class="w-100" alt="">
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body">
+                            <div class="d-flex bd-highlight">
+                                <div class="p-2 w-100 bd-highlight">
+                                    <h5 class="card-title"><%=results[i].name %></h5>
+                                    <div>
+                                    <span style="margin-left: 0;">
+                                        <!-- margin-top: -20px; -->
+                                        <% if (results[i].price && results[i].price.min){ %>
+                                <strong>Starting From: (₹)
+                                    <%=results[i].price.min.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %></strong>
+                                <%}%>
+                                </span>
+                                
+                                    </div>
+                                    <small class="light-grey-clr">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <% if (results[i].subcity){ %><%=results[i].subcity %>,
+                                        <%}%><% if (results[i].city){ %><%=results[i].city %> <%}%>
+                        </small>
+                    </div>
+                </div>
+                <table class="table">
+                    <!-- <thead>
+                        <tr>
+                        <% if (results[i].project_status){ %>
+                                        <th scope="col">Status</th>
+                                        <%}%>
+                        <% if (results[i].property_type){ %>
+                                        <th scope="col">Type</th>
+                                        <%}%>
+                        <% if (results[i].lease_rent){ %>
+                                        <th scope="col">Lease/Rent</th>
+                                        <%}%>
+                        </tr>
+                    </thead> -->
+                    <tbody>
+                        <tr>
+                        <% if (results[i].project_status){ %>
+                                        <td>
+                                            <%=results[i].project_status %>
+                                        </td>
+                                        <%}%>
+                        <% if (results[i].property_type){ %>
+                                        <td>
+                                            <%=results[i].property_type %>
+                                        </td>
+                                        <%}%>
+                        <% if (results[i].lease_rent){ %>
+                                        <td>
+                                            <%=results[i].lease_rent %>
+                                        </td>
+                                        <%}%>
+                        </tr>
+
+
+                            
+                    </tbody>
+                </table>
+
+                <div style="margin-left: 12px; margin-top: -20px;">
+                    
+            </div>
+                    
+            </div>
+        </div>
+    </div>
+    <div class="" id="<%=i+custSkip%>_project-btns-<%=results[i].id%>" style="display: none;"  onmouseenter="showBox('<%=results[i].id%>', <%=i+custSkip%>)" onmouseleave="hideBox('<%=results[i].id%>', <%=i+custSkip%>)"> 
+        <!-- <div class="d-inline-block navy-blue-bg book-btn cursor" style="width: 49%;"> Book </div> -->
+        <div class="navy-blue-bg book-btn cursor font-weight-bold" data-toggle="modal" data-target="#booking-modal"> Available Properties </div>
+    </div>
+</div>
+
+
+<% } %>
+<%}%>

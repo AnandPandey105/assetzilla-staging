@@ -1,0 +1,499 @@
+[
+  {
+    "img": "1articles_1477476385.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/1articles_1477476385.jpg\" -o \"./news/webp/1articles_1477476385.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "1articles_1477476476.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/1articles_1477476476.jpg\" -o \"./news/webp/1articles_1477476476.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "1articles_1477476619.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/1articles_1477476619.jpg\" -o \"./news/webp/1articles_1477476619.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "1articles_1477478026.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/1articles_1477478026.jpg\" -o \"./news/webp/1articles_1477478026.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "2016-07-14-13-18-44.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/2016-07-14-13-18-44.jpg\" -o \"./news/webp/2016-07-14-13-18-44.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "2016-09-08-07-51-21.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/2016-09-08-07-51-21.jpg\" -o \"./news/webp/2016-09-08-07-51-21.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "2016-10-12-11-15-58.jpg",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\nlibpng warning: iCCP: cHRM chunk does not match sRGB\n"
+  },
+  {
+    "img": "articles_1477655858.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1477655858.jpg\" -o \"./news/webp/articles_1477655858.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1477655860.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1477655860.jpg\" -o \"./news/webp/articles_1477655860.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1477656032.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1477656032.jpg\" -o \"./news/webp/articles_1477656032.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1479299005.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1479299005.jpg\" -o \"./news/webp/articles_1479299005.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1484117857.png",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\n"
+  },
+  {
+    "img": "articles_1486747389.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1486747389.jpg\" -o \"./news/webp/articles_1486747389.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1486747391.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1486747391.jpg\" -o \"./news/webp/articles_1486747391.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1486747393.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1486747393.jpg\" -o \"./news/webp/articles_1486747393.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1486747394.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1486747394.jpg\" -o \"./news/webp/articles_1486747394.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1486747396.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1486747396.jpg\" -o \"./news/webp/articles_1486747396.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1500478911.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1500478911.jpg\" -o \"./news/webp/articles_1500478911.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1500819247.png",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\n"
+  },
+  {
+    "img": "articles_1501692706.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1501692706.jpg\" -o \"./news/webp/articles_1501692706.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1505747680.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1505747680.jpg\" -o \"./news/webp/articles_1505747680.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1505748142.png",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1505748142.png\" -o \"./news/webp/articles_1505748142.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1505748333.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1505748333.jpg\" -o \"./news/webp/articles_1505748333.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1510073199.png",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1510073199.png\" -o \"./news/webp/articles_1510073199.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1510073670.png",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\n"
+  },
+  {
+    "img": "articles_1523288240.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1523288240.jpg\" -o \"./news/webp/articles_1523288240.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1523289264.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1523289264.jpg\" -o \"./news/webp/articles_1523289264.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1523290378.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1523290378.jpg\" -o \"./news/webp/articles_1523290378.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1523293061.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1523293061.jpg\" -o \"./news/webp/articles_1523293061.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1525872505.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1525872505.jpg\" -o \"./news/webp/articles_1525872505.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1525958053.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1525958053.jpg\" -o \"./news/webp/articles_1525958053.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1525958684.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1525958684.jpg\" -o \"./news/webp/articles_1525958684.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1525961387.jpeg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1525961387.jpeg\" -o \"./news/webp/articles_1525961387.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526106253.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526106253.jpg\" -o \"./news/webp/articles_1526106253.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526106328.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526106328.jpg\" -o \"./news/webp/articles_1526106328.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526106515.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526106515.jpg\" -o \"./news/webp/articles_1526106515.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526106698.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526106698.jpg\" -o \"./news/webp/articles_1526106698.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526106850.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526106850.jpg\" -o \"./news/webp/articles_1526106850.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526106933.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526106933.jpg\" -o \"./news/webp/articles_1526106933.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526107048.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526107048.jpg\" -o \"./news/webp/articles_1526107048.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526107157.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526107157.jpg\" -o \"./news/webp/articles_1526107157.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526108650.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526108650.jpg\" -o \"./news/webp/articles_1526108650.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526109589.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526109589.jpg\" -o \"./news/webp/articles_1526109589.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526363868.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526363868.jpg\" -o \"./news/webp/articles_1526363868.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526364259.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526364259.jpg\" -o \"./news/webp/articles_1526364259.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526364567.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526364567.jpg\" -o \"./news/webp/articles_1526364567.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526365222.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526365222.jpg\" -o \"./news/webp/articles_1526365222.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526365730.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526365730.jpg\" -o \"./news/webp/articles_1526365730.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526366511.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526366511.jpg\" -o \"./news/webp/articles_1526366511.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526367639.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526367639.jpg\" -o \"./news/webp/articles_1526367639.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526441175.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526441175.jpg\" -o \"./news/webp/articles_1526441175.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526441324.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526441324.jpg\" -o \"./news/webp/articles_1526441324.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526478689.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526478689.jpg\" -o \"./news/webp/articles_1526478689.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526706860.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526706860.jpg\" -o \"./news/webp/articles_1526706860.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1526707095.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1526707095.jpg\" -o \"./news/webp/articles_1526707095.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "articles_1528122108.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/articles_1528122108.jpg\" -o \"./news/webp/articles_1528122108.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "news_1612423356980.docx",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./news/news_1612423356980.docx\" -o \"./news/webp/news_1612423356980.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "news_1665250491826.png",
+    "e": "libpng warning: iCCP: extra compressed data\n"
+  }
+]

@@ -1,0 +1,1544 @@
+<style>
+  #map {
+    width: 100%;
+    height: 500px;
+  }
+
+  #description {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  #infowindow-content .title {
+    font-weight: bold;
+  }
+
+  #infowindow-content {
+    display: none;
+  }
+
+  #map #infowindow-content {
+    display: inline;
+  }
+
+  .pac-card {
+    margin: 10px 10px 0 0;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    font-family: Roboto;
+  }
+
+  #pac-container {
+    padding-bottom: 12px;
+    margin-right: 12px;
+  }
+
+  .pac-controls {
+    display: inline-block;
+    padding: 5px 11px;
+  }
+
+  .pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  #pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    text-overflow: ellipsis;
+    width: 400px;
+  }
+
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+
+  #title {
+    color: #fff;
+    background-color: #4d90fe;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 6px 12px;
+  }
+
+  #target {
+    width: 345px;
+  }
+</style>
+<div ng-class="{true:'blurry', false:'non-blurry'}[loader]">
+  <div class="container-fluid">
+    <div class="py-4 px-5">
+      <!-- Project Name -->
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group"><label for="name">
+              <strong>Project Name<span style="color: red"> *</span></strong>
+            </label>
+            <input type="text" class="form-control" id="name" placeholder="Project Name" ng-model="data.name" ng-disabled=true>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="builder">
+              <strong>Builder<span style="color: red"> *</span></strong>
+            </label>
+            <input type="text" ng-model="data.builder" id="builder" placeholder="Select a Builder" uib-typeahead="builder for builder in getBuilders($viewValue)" class="form-control" typeahead-editable="typeaheadEditable">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="authority">
+              <strong>Authority<span style="color: red"> *</span></strong>
+            </label>
+            <input type="text" ng-model="data.authority" id="authority" placeholder="Select a authority" uib-typeahead="authority for authority in getAuthorities($viewValue)" class="form-control" typeahead-editable="typeaheadEditable">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="rera">
+              <strong>Rera Number</strong>
+            </label>
+            <input type="text" ng-model="data.rera" id="rera" placeholder="Rera Number" class="form-control">
+          </div>
+        </div>
+        <!-- <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="case_id">
+                            <strong>Case Id</strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="case_id" style="width: 100%;" ng-model="data.case_id">
+                                <option value="" selected>Choose...</option>
+                                <option data-ng-repeat="case_id in case_ids" value="{{case_id}}">
+                                    {{case_id}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> -->
+      </div>
+      <!-- Project Basics -->
+      <div class="row">
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="property_type">
+              <strong>Property Type<span style="color: red"> *</span></strong>
+            </label>
+            <div>
+              <select class="custom-select" id="property_type" style="width: 100%;" ng-model="data.property_type" ng-change="property_type_selected()">
+                <option value="" selected>Choose...</option>
+                <option data-ng-repeat="projectType in projectTypesList" value="{{projectType}}">
+                  {{projectType}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="project_facing">
+              <strong>Project Facing</strong>
+            </label>
+            <div>
+              <select class="custom-select" id="project_facing" style="width: 100%;" ng-model="data.facing">
+                <option value="" selected>Choose...</option>
+                <option value="North">North</option>
+                <option value="East">East</option>
+                <option value="South">South</option>
+                <option value="West">West</option>
+                <option value="North-East">North-East</option>
+                <option value="North-West">North-West</option>
+                <option value="South-East">South-East</option>
+                <option value="South-West">South-West</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="area"><strong>Area Of Project</strong></label>
+            <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area.area">
+              <span class="input-group-addon">Acres</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="road_width"><strong>Road Width</strong></label>
+            <div class="input-group m-b"><input type="number" class="form-control" placeholder="road_width" ng-model="data.road_width.width"> <span class="input-group-addon">Feet</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="project_status">
+              <strong>Project Status<span style="color: red"> *</span></strong>
+            </label>
+            <div>
+              <select class="custom-select" id="project_status" style="width: 100%;" ng-model="data.project_status">
+                <option value="">Choose ..</option>
+                <option value="Under Construction">Under Construction</option>
+                <option value="Ready To Move">Ready To Move</option>
+                <option value="Pre-launch">Pre-launch</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group">
+            <label for="expected_completion"><strong>Possession Year</strong><span style="color: red"> *</span></label>
+            <input type="date" class="form-control" id="expected_completion" placeholder="expected_completion" ng-model="data.expected_completion">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="township"><strong>Township</strong></label>
+            <input type="text" class="form-control" id="township" placeholder="township" ng-model="data.township">
+          </div>
+        </div>
+      </div>
+      <hr>
+      <!-- Project Address -->
+      <div class="row">
+        <div class="col-md-9">
+          <div class="form-group"><label for="address">
+              <strong>Address Line 1</strong>
+            </label>
+            <textarea type="text" class="form-control" id="address" placeholder="address" ng-model="data.address" rows="1"></textarea>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="pincode"><strong>Pincode</strong></label>
+            <input type="number" class="form-control" id="pincode" placeholder="pincode" ng-model="data.pincode">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="state">
+              <strong>State<span style="color: red"> *</span></strong>
+            </label>
+            <div>
+              <input type="text" ng-model="data.state" id="state" placeholder="Select a State" uib-typeahead="address for address in getStates($viewValue)" class="form-control" typeahead-editable="typeaheadEditable">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div ng-show="data.state">
+            <div class="form-group">
+              <label for="district">
+                <strong>District<span style="color: red"> *</span></strong>
+              </label>
+              <div>
+                <input type="text" id="district" ng-model="data.district" placeholder="Select a District" uib-typeahead="address for address in getDistricts($viewValue)" class="form-control" typeahead-editable="typeaheadEditable">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div ng-show="data.district && data.state">
+            <div class="form-group">
+              <label for="city">
+                <strong>City<span style="color: red"> *</span></strong>
+              </label>
+              <div>
+                <input type="text" id="city" ng-model="data.city" placeholder="Select a City" uib-typeahead="address for address in getCities($viewValue)" class="form-control" typeahead-editable="typeaheadEditable">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3" ng-show="data.district && data.state && data.city">
+          <div class="form-group">
+            <label for="country">
+              <strong>Sub City<span style="color: red"> *</span></strong>
+            </label>
+            <div>
+              <input type="text" ng-model="data.subcity" placeholder="Select a Subcity" uib-typeahead="address for address in getSubcities($viewValue)" class="form-control" typeahead-editable="typeaheadEditable">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <!-- Project Information -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="description"><strong>Project Description</strong></label>
+             <summernote on-paste="onPasting(evt)" id="description" on-image-upload="imageUpload(files, 'description')" height="100" style="border: 1px solid #aaa" ng-model="data.description"></summernote>
+            <!-- <textarea class="form-control" id="description" rows="3" ng-model="data.description"></textarea> -->
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="additional_rooms">
+              <strong style="color: red">Bank Loan</strong>
+            </label>
+            <select multiple="multiple" class="form-control" id="additional_rooms" ng-model="data.banks">
+              <option value="Others">Any Bank</option>
+              <option ng-repeat="bank in banksList" value="{{bank.name}}">{{bank.name}}</option>
+              <option value="HDFC Bank">HDFC Bank</option>
+              <option value="State Bank of India">State Bank of India</option>
+              <option value="ICICI Bank">ICICI Bank</option>
+              <option value="Axis Bank">Axis Bank</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-2">
+          <label><strong>Green Amenities</strong></label>
+          <div class="form-group" data-ng-repeat="amenity in amenities_green_list track by $index">
+            <label class="md-check">
+              <input type="checkbox" ng-change="handle_checkboxes('green_amenites_json',amenity)" ng-model="amenities_green_list[$index].mod">
+              <i class="blue"></i>
+              {{amenity.value}}
+            </label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <label><strong>Health Amenities</strong></label>
+          <div class="form-group" data-ng-repeat="amenity in amenities_health_list track by $index">
+            <label class="md-check">
+              <input type="checkbox" ng-change="handle_checkboxes('health_amenites_json',amenity)" ng-model="amenities_health_list[$index].mod">
+              <i class="blue"></i>
+              {{amenity.value}}
+            </label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <label><strong>Kid Amenities</strong></label>
+          <div class="form-group" data-ng-repeat="amenity in amenities_kid_list track by $index">
+            <label class="md-check">
+              <input type="checkbox" ng-change="handle_checkboxes('kid_amenites_json',amenity)" ng-model="amenities_kid_list[$index].mod">
+              <i class="blue"></i>
+              {{amenity.value}}
+            </label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <label><strong>Connectivity Amenities</strong></label>
+          <div class="form-group" data-ng-repeat="amenity in amenities_connectivity_list track by $index">
+            <label class="md-check">
+              <input type="checkbox" ng-change="handle_checkboxes('connectivity_amenites_json',amenity)" ng-model="amenities_connectivity_list[$index].mod">
+              <i class="blue"></i>
+              {{amenity.value}}
+            </label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <label><strong>Other Amenities</strong></label>
+          <div class="form-group" data-ng-repeat="amenity in amenities_other_list track by $index">
+            <label class="md-check">
+              <input type="checkbox" ng-change="handle_checkboxes('other_amenites_json',amenity)" ng-model="amenities_other_list[$index].mod">
+              <i class="blue"></i>
+              {{amenity.value}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div ng-if="data.property_type">
+        <h5>{{data.property_type}} Details</h5>
+      </div>
+      <!-- for Residential Plots -->
+      <div data-ng-if="data.property_type=='Residential Plots'">
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+            <button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add More</button>
+          </div>
+          <div class="col-md-12">
+
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-4">
+                <label for="name"><strong>Name<span style="color: red"> *</span></strong></label>
+                <input type="text" class="form-control" placeholder="name" ng-model="data.name">
+              </div>
+              <div class="col-md-3">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-4">
+                <label for="area"><strong>Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for Villas -->
+      <div data-ng-if="data.property_type=='Villas'">
+        <div class="row">
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="floors">
+                <strong>Floors</strong>
+              </label>
+              <div>
+                <select class="custom-select" id="floors" style="width: 100%;" ng-model="data.floors">
+                  <option value="">Choose ..</option>
+                  <option value="Ground Floor - Simplex">Ground Floor - Simplex</option>
+                  <option value="G+1 Floor (Duplex)">G+1 Floor (Duplex)</option>
+                  <option value="G+2 Floors">G+2 Floors</option>
+                  <option value="G+3 Floors">G+3 Floors</option>
+                  <option value="G+4 Floors">G+4 Floors</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="checkbox"><label class="ui-check ui-check-md"><input type="checkbox" ng-model="data.basement"> <i class="dark-white"></i><strong>Basement</strong></label></div>
+            </div>
+          </div>
+          <div class="col-md-7" ng-if="data.basement">
+            <div class="form-group"><label for="basement_purpose">
+                <strong>Basement Purpose</strong>
+              </label>
+              <textarea type="text" class="form-control" id="basement_purpose" placeholder="basement_purpose" ng-model="data.basement_purpose" rows="1"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+              More</button>
+          </div>
+          <div class="col-md-12">
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-2">
+                <label for="size">
+                  <strong>Unit Size<span style="color: red"> *</span></strong>
+                </label>
+                <div>
+                  <select class="custom-select" id="size" style="width: 100%;" ng-model="data.unit_size">
+                    <option value="">Please select</option>
+                    <option value="1 BHK">1 BHK</option>
+                    <option value="2 BHK">2 BHK</option>
+                    <option value="3 BHK">3 BHK</option>
+                    <option value="4 BHK">4 BHK</option>
+                    <option value="5 BHK">5 BHK</option>
+                    <option value="6 BHK">6 BHK</option>
+                    <option value="7 BHK">7 BHK</option>
+                    <option value="8 BHK">8 BHK</option>
+                    <option value="9 BHK">9 BHK</option>
+                    <option value="10 BHK">10 BHK</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-3">
+                <label for="land_area"><strong>Land Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="land_area" ng-model="data.land_area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="build-up_area"><strong>Build Up Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="build-up_area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for 'Apartments' -->
+      <div data-ng-if="data.property_type=='Apartments'">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <label for="floors"><strong>Total Floors</strong></label>
+              <input type="number" class="form-control" placeholder="floors" ng-model="data.total_floors">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <div class="checkbox">
+                <label class="ui-check ui-check-md">
+                  <input type="checkbox" ng-model="data.visitor_parking">
+                  <i class="dark-white"></i>
+                  <strong>Visitor Parking</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" ng-if="data.visitor_parking">
+            <label for="parking">
+              <strong>Parking</strong>
+            </label>
+            <select multiple="multiple" class="form-control" id="parking" ng-model="data.visitor_parking_spot">
+              <option value="Outside">Outside</option>
+              <option value="Basement">Basement</option>
+              <option value="Stilt">Stilt</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="checkbox"><label class="ui-check ui-check-md"><input type="checkbox" ng-model="data.basement"> <i class="dark-white"></i><strong>Basement</strong></label></div>
+            </div>
+          </div>
+          <div class="col-md-10" ng-if="data.basement">
+            <div class="form-group"><label for="basement_purpose">
+                <strong>Basement Purpose</strong>
+              </label>
+              <textarea type="text" class="form-control" id="basement_purpose" placeholder="basement_purpose" ng-model="data.basement_purpose" rows="1"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+              More</button>
+          </div>
+          <div class="col-md-12">
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-2">
+                <label for="size">
+                  <strong>Unit Size<span style="color: red"> *</span></strong>
+                </label>
+                <div>
+                  <select class="custom-select" id="size" style="width: 100%;" ng-model="data.unit_size">
+                    <option value="">Please select</option>
+                    <option value="1 BHK">1 BHK</option>
+                    <option value="2 BHK">2 BHK</option>
+                    <option value="3 BHK">3 BHK</option>
+                    <option value="4 BHK">4 BHK</option>
+                    <option value="5 BHK">5 BHK</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="unit_count" ng-model="data.count">
+              </div>
+              <div class="col-md-3">
+                <label for="area"><strong>Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="additional_rooms">
+                  <strong>Additional Rooms</strong>
+                </label>
+                <select multiple="multiple" class="form-control" id="additional_rooms" ng-model="data.additional_rooms">
+                  <option value="Study Room">Study Room</option>
+                  <option value="Servant Room">Servant Room</option>
+                  <option value="Store Room">Store Room</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for 'Floors' -->
+      <div data-ng-if="data.property_type=='Floors'">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="floors">
+                <strong>Floors</strong>
+              </label>
+              <div>
+                <select class="custom-select" id="floors" style="width: 100%;" ng-model="data.floors">
+                  <option value="">Choose ..</option>
+                  <option value="G+2 Floors">G+2 Floors</option>
+                  <option value="G+3 Floors">G+3 Floors</option>
+                  <option value="G+4 Floors">G+4 Floors</option>
+                  <option value="Stilt+3 Floors">Stilt+3 Floors</option>
+                  <option value="Stilt+4 Floors">Stilt+4 Floors</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="checkbox"><label class="ui-check ui-check-md"><input type="checkbox" ng-model="data.basement"> <i class="dark-white"></i><strong>Basement</strong></label></div>
+            </div>
+          </div>
+          <div class="col-md-4" ng-if="data.basement">
+            <div class="form-group"><label for="basement_purpose">
+                <strong>Basement Purpose</strong>
+              </label>
+              <textarea type="text" class="form-control" id="basement_purpose" placeholder="basement_purpose" ng-model="data.basement_purpose" rows="1"></textarea>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="checkbox">
+                <label class="ui-check ui-check-md">
+                  <input type="checkbox" ng-model="data.visitor_parking">
+                  <i class="dark-white"></i>
+                  <strong>Visitor Parking</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2" ng-if="data.visitor_parking">
+            <label for="parking">
+              <strong>Parking</strong>
+            </label>
+            <select multiple="multiple" class="form-control" id="parking" ng-model="data.visitor_parking_spot">
+              <option value="Outside">Outside</option>
+              <option value="Basement">Basement</option>
+              <option value="Stilt">Stilt</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+              More</button>
+          </div>
+          <div class="col-md-12">
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-2">
+                <label for="size">
+                  <strong>Unit Size<span style="color: red"> *</span></strong>
+                </label>
+                <div>
+                  <select class="custom-select" id="size" style="width: 100%;" ng-model="data.unit_size">
+                    <option value="">Please select</option>
+                    <option value="1 BHK">1 BHK</option>
+                    <option value="2 BHK">2 BHK</option>
+                    <option value="3 BHK">3 BHK</option>
+                    <option value="4 BHK">4 BHK</option>
+                    <option value="5 BHK">5 BHK</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-2">
+                <label for="area"><strong>Apartment Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <label for="apartment_area"><strong>Land Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="apartment_area" ng-model="data.apartment_area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="additional_rooms">
+                  <strong>Additional Rooms</strong>
+                </label>
+                <select multiple="multiple" class="form-control" id="additional_rooms" ng-model="data.additional_rooms">
+                  <option value="Study Room">Study Room</option>
+                  <option value="Servant Room">Servant Room</option>
+                  <option value="Store Room">Store Room</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for 'Commercial Land' -->
+      <div data-ng-if="data.property_type=='Commercial Land'">
+        <div class="row">
+          <div class="col-md-12">
+            <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+              More</button>
+          </div>
+          <div class="col-md-12">
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-4">
+                <label for="name"><strong>Name<span style="color: red"> *</span></strong></label>
+                <input type="text" class="form-control" id="name" placeholder="name" ng-model="data.name">
+              </div>
+              <div class="col-md-3">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-4">
+                <label for="area"><strong>Area</strong></label>
+                <div class="input-group m-b">
+                  <input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for 'Commercial Office' -->
+      <div data-ng-if="data.property_type=='Commercial Office'">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="floors">
+                <strong>Total Floors</strong>
+              </label>
+              <input class="form-control" id="floors" type="number" ng-model="data.total_floors" placeholder="floors">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="checkbox">
+                <label class="ui-check ui-check-md">
+                  <input type="checkbox" ng-model="data.visitor_parking">
+                  <i class="dark-white"></i>
+                  <strong>Visitor Parking</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" ng-if="data.visitor_parking">
+            <div class="form-group">
+              <label for="parking">
+                <strong>Parking</strong>
+              </label>
+              <select multiple="multiple" class="form-control" id="parking" ng-model="data.visitor_parking_spot">
+                <option value="Outside">Outside</option>
+                <option value="Basement">Basement</option>
+                <option value="Stilt">Stilt</option>
+              </select>
+            </div>
+          </div>
+          <!-- <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="space">
+                                <strong>Space</strong>
+                            </label>
+                            <select multiple="multiple" class="form-control" id="space" ng-model="data.space">
+                                <option value="Virtual Offices">Virtual Offices</option>
+                                <option value="Lockable Offices">Lockable Offices</option>
+                            </select>
+                        </div>
+                    </div> -->
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+              More</button>
+          </div>
+          <div class="col-md-12">
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-3">
+                <label for="size">
+                  <strong>Unit Size<span style="color: red"> *</span></strong>
+                </label>
+                <div>
+                  <select class="custom-select" id="size" style="width: 100%;" ng-model="data.unit_size">
+                    <option value="">Please select</option>
+                    <option value="Virtual Offices">Virtual Offices</option>
+                    <option value="Lockable Offices">Lockable Offices</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-4">
+                <label for="area"><strong>Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for 'Retail Shop' -->
+      <div data-ng-if="data.property_type=='Retail Shop'">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="form-group">
+              <label for="floors">
+                <strong>Total Floors</strong>
+              </label>
+              <input class="form-control" id="floors" type="number" ng-model="data.total_floors" placeholder="floors">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="checkbox">
+                <label class="ui-check ui-check-md">
+                  <input type="checkbox" ng-model="data.visitor_parking">
+                  <i class="dark-white"></i>
+                  <strong>Visitor Parking</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="space">
+                <strong>Space</strong>
+              </label>
+              <select multiple="multiple" class="form-control" id="space" ng-model="data.space">
+                <option value="Virtual Offices">Virtual Offices</option>
+                <option value="Lockable Offices">Lockable Offices</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="floor_type">
+                <strong>Floor Type</strong>
+              </label>
+              <select multiple="multiple" class="form-control" id="floor_type" ng-model="data.retail_floor_type">
+                <option value="Basement">Basement</option>
+                <option value="Lower Ground">Lower Ground</option>
+                <option value="Upper Ground">Upper Ground</option>
+                <option value="Ground">Ground</option>
+                <option value="First Floor">First Floor</option>
+                <option value="Second Floor">Second Floor</option>
+                <option value="Third Floor">Third Floor</option>
+                <option value="Fourth Floor">Fourth Floor</option>
+                <option value="Fifth Floor">Fifth Floor</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="type">
+                <strong>Type</strong>
+              </label>
+              <select multiple="multiple" class="form-control" id="type" ng-model="data.retail_type">
+                <option value="Anchor Shop">Anchor Shop</option>
+                <option value="Vanilla Shop">Vanilla Shop</option>
+                <option value="Food Court Kiosk">Food Court/ Kiosk</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="additional">
+                <strong>Additional</strong>
+              </label>
+              <select multiple="multiple" class="form-control" id="additional" ng-model="data.retail_additional">
+                <option value="Atrium Facing">Atrium Facing</option>
+                <option value="Road Facing">Road Facing</option>
+                <option value="Corner Shop">Corner Shop</option>
+                <option value="2 Side Open Shop">2 Side Open Shop</option>
+                <option value="3 Side Open Shop">3 Side Open Shop</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+              More</button>
+          </div>
+          <div class="col-md-12">
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-3">
+                <label for="space">
+                  <strong>Space Type</strong>
+                </label>
+                <select class="custom-select" id="space_type" ng-model="data.space_type" style="width: 100%;">
+                  <option value="">Please select</option>
+                  <option value="Virtual Space">Virtual Space</option>
+                  <option value="Lockable Space">Lockable Space</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label for="shop_type">
+                  <strong>Shop Type</strong>
+                </label>
+                <div>
+                  <select class="custom-select" id="shop_type" style="width: 100%;" ng-model="data.shop_type">
+                    <option value="">Please select</option>
+                    <option value="Anchor Shop">Anchor Shop</option>
+                    <option value="Vanilla Shop">Vanilla Shop</option>
+                    <option value="Food Court/ Kiosk">Food Court/ Kiosk</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-3">
+                <label for="area"><strong>Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for 'Serviced Apartments' -->
+      <div data-ng-if="data.property_type=='Serviced Apartments'">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="floors"><strong>Total Floors</strong></label>
+              <input type="number" class="form-control" type="number" placeholder="floors" ng-model="data.total_floors">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <div class="checkbox">
+                <label class="ui-check ui-check-md">
+                  <input type="checkbox" ng-model="data.visitor_parking">
+                  <i class="dark-white"></i>
+                  <strong>Visitor Parking</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" ng-if="data.visitor_parking">
+            <div class="form-group">
+              <label for="parking">
+                <strong>Parking</strong>
+              </label>
+              <select multiple="multiple" class="form-control" id="parking" ng-model="data.visitor_parking_spot">
+                <option value="Outside">Outside</option>
+                <option value="Basement">Basement</option>
+                <option value="Stilt">Stilt</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+              More</button>
+          </div>
+          <div class="col-md-12">
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-2">
+                <label for="size">
+                  <strong>Unit Size<span style="color: red"> *</span></strong>
+                </label>
+                <div>
+                  <select class="custom-select" id="size" style="width: 100%;" ng-model="data.unit_size">
+                    <option value="">Please select</option>
+                    <option value="1 BHK">1 BHK</option>
+                    <option value="2 BHK">2 BHK</option>
+                    <option value="3 BHK">3 BHK</option>
+                    <option value="4 BHK">4 BHK</option>
+                    <option value="5 BHK">5 BHK</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-3">
+                <label for="area"><strong>Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="additional_rooms">
+                    <strong>Additional Rooms</strong>
+                  </label>
+                  <select multiple="multiple" class="form-control" id="additional_rooms" ng-model="data.additional_rooms">
+                    <option value="Study Room">Study Room</option>
+                    <option value="Servant Room">Servant Room</option>
+                    <option value="Store Room">Store Room</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for 'Industrial Land' -->
+      <div data-ng-if="data.property_type=='Industrial Land'">
+        <div class="row">
+          <div class="col-md-12">
+            <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+              More</button>
+          </div>
+          <div class="col-md-12">
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-4">
+                <label for="name"><strong>Name<span style="color: red"> *</span></strong></label>
+                <input type="text" class="form-control" id="name" placeholder="name" ng-model="data.name">
+              </div>
+              <div class="col-md-3">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-4">
+                <label for="area"><strong>Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for 'Penthouse' -->
+      <div data-ng-if="data.property_type=='Penthouse'">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="floors"><strong>Total Floors</strong></label>
+              <input type="number" class="form-control" placeholder="floors" ng-model="data.total_floors">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <div class="checkbox">
+                <label class="ui-check ui-check-md">
+                  <input type="checkbox" ng-model="data.visitor_parking">
+                  <i class="dark-white"></i>
+                  <strong>Visitor Parking</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" ng-if="data.visitor_parking">
+            <label for="parking">
+              <strong>Parking</strong>
+            </label>
+            <select multiple="multiple" class="form-control" id="parking" ng-model="data.visitor_parking_spot">
+              <option value="Outside">Outside</option>
+              <option value="Basement">Basement</option>
+              <option value="Stilt">Stilt</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+              More</button>
+          </div>
+          <div class="col-md-12">
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-2">
+                <label for="size">
+                  <strong>Unit Size<span style="color: red"> *</span></strong>
+                </label>
+                <div>
+                  <select class="custom-select" id="size" style="width: 100%;" ng-model="data.unit_size">
+                    <option value="">Please select</option>
+                    <option value="1 BHK">1 BHK</option>
+                    <option value="2 BHK">2 BHK</option>
+                    <option value="3 BHK">3 BHK</option>
+                    <option value="4 BHK">4 BHK</option>
+                    <option value="5 BHK">5 BHK</option>
+                    <option value="5 BHK">6 BHK</option>
+                    <option value="5 BHK">7 BHK</option>
+                    <option value="5 BHK">8 BHK</option>
+                    <option value="5 BHK">9 BHK</option>
+                    <option value="5 BHK">10 BHK</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-3">
+                <label for="area"><strong>Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="additional_rooms">
+                    <strong>Additional Rooms</strong>
+                  </label>
+                  <select multiple="multiple" class="form-control" id="additional_rooms" ng-model="data.additional_rooms">
+                    <option value="Study Room">Study Room</option>
+                    <option value="Servant Room">Servant Room</option>
+                    <option value="Store Room">Store Room</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for 'Duplex' -->
+      <div data-ng-if="data.property_type=='Duplex'">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="floors"><strong>Total Floors</strong></label>
+              <input type="number" class="form-control" placeholder="floors" ng-model="data.total_floors">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <div class="checkbox">
+                <label class="ui-check ui-check-md">
+                  <input type="checkbox" ng-model="data.visitor_parking">
+                  <i class="dark-white"></i>
+                  <strong>Visitor Parking</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" ng-if="data.visitor_parking">
+            <label for="parking">
+              <strong>Parking</strong>
+            </label>
+            <select multiple="multiple" class="form-control" id="parking" ng-model="data.visitor_parking_spot">
+              <option value="Outside">Outside</option>
+              <option value="Basement">Basement</option>
+              <option value="Stilt">Stilt</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+              More</button>
+          </div>
+          <div class="col-md-12">
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-2">
+                <label for="size">
+                  <strong>Unit Size<span style="color: red"> *</span></strong>
+                </label>
+                <div>
+                  <select class="custom-select" id="size" style="width: 100%;" ng-model="data.unit_size">
+                    <option value="">Please select</option>
+                    <option value="1 BHK">1 BHK</option>
+                    <option value="2 BHK">2 BHK</option>
+                    <option value="3 BHK">3 BHK</option>
+                    <option value="4 BHK">4 BHK</option>
+                    <option value="5 BHK">5 BHK</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-3">
+                <label for="area"><strong>Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="additional_rooms">
+                    <strong>Additional Rooms</strong>
+                  </label>
+                  <select multiple="multiple" class="form-control" id="additional_rooms" ng-model="data.additional_rooms">
+                    <option value="Study Room">Study Room</option>
+                    <option value="Servant Room">Servant Room</option>
+                    <option value="Store Room">Store Room</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- for 'Farm house' -->
+      <div data-ng-if="data.property_type=='Farm house'">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-12">
+              <hr><button class="btn-default btn" style="display: inline;float:right" ng-click="data.details.push({})">Add
+                More</button>
+            </div>
+            <div class="row" data-ng-repeat="data in data.details track by $index">
+              <div class="col-md-1 text-right">
+                <strong>{{$index+1}}</strong>
+                &nbsp;&nbsp;&nbsp;<a href ng-click="remove($index)" data-toggle="tooltip" data-placement="auto" title="Add more Property Types"><span class="fa fa-close"></span></a>
+              </div>
+              <div class="col-md-4">
+                <label for="name"><strong>Name<span style="color: red"> *</span></strong></label>
+                <input type="text" class="form-control" id="name" placeholder="name" ng-model="data.name">
+              </div>
+              <div class="col-md-3">
+                <label for="count"><strong>Count</strong></label>
+                <input type="number" class="form-control" id="count" placeholder="count" ng-model="data.count">
+              </div>
+              <div class="col-md-4">
+                <label for="area"><strong>Area</strong></label>
+                <div class="input-group m-b"><input type="number" class="form-control" placeholder="area" ng-model="data.area">
+                  <span class="input-group-addon">Sq.Ft.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--START : Images Preview & Add-->
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <h5>Images For Projects</h5>
+          <div class="form-group">
+            <div class="row">
+              <div ng-repeat="image in data.images.Projects track by $index" class="col-md-2 text-center">
+                <input type="radio" name="images" ng-model="new_banner_image" ng-value="$index" ng-change="bannerValueChanged($index)" />
+                <!-- <img ng-src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/image/{{image}}" style="width: 240px;height: 160px;"> -->
+                <img ng-src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/image/{{image}}" style="width: 240px;height: 160px;">
+                <button class="btn btn-danger mt-2" ng-click="data.images.Projects.splice($index,1)">
+                  Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label>
+        <strong>Upload Images For Projects</strong>
+        <a href ng-click="new_images.push({})" class="ml-2" data-toggle="tooltip" data-placement="auto" title="Add more Samples"><span class="fa fa-plus-square"></span></a>
+      </label>
+      <div class="row">
+        <div class="col-md-6" ng-repeat="plan in new_images track by $index">
+          <div class="form-group">
+            <div class="mt-1">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <input type="radio" name="images" ng-model="new_banner_image" ng-value="($index+data.images.Projects.length)" ng-change="bannerValueChanged(data.images.Projects.length+$index)" />
+                </span>
+                <input type="file" id="projects_{{$index}}" file-model="new_images[$index]" class="form-control">
+                <span class="input-group-btn" ng-click="removeParameter('projects_'+$index,new_images,$index)"><button class="btn white" type="button"><span class="fa fa-minus-square"></span></button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END : Images Preview & Add-->
+
+      <!--START : Floor Plan Preview & Add-->
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <h5>Floor Plans </h5>
+          <div class="form-group">
+            <div class="row">
+              <div ng-repeat="plan in project_floor_plan track by $index" class="col-md-2 text-center">
+                <iframe ng-src="{{trustSrc(plan)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                <button class="btn btn-danger mt-2" ng-click="data.floor_plan.splice($index,1);project_floor_plan.splice($index,1)">
+                  Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label>
+        <strong>Upload Floor Plans</strong>
+        <a href ng-click="new_floor_plan.push({})" class="ml-2" data-toggle="tooltip" data-placement="auto" title="Add more Samples"><span class="fa fa-plus-square"></span></a>
+      </label>
+      <div class="row">
+        <div class="col-md-6" ng-repeat="plan in new_floor_plan track by $index">
+          <div class="form-group">
+            <div class="mt-1">
+              <div class="input-group">
+                <input type="file" id="floorplan_{{$index}}" file-model="new_floor_plan[$index]" class="form-control">
+                <span class="input-group-btn" ng-click="removeParameter('floorplan_'+$index,new_floor_plan,$index)"><button class="btn white" type="button"><span class="fa fa-minus-square"></span></button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END : Floor Plan Preview & Add-->
+
+      <!--START : Site Plan Preview & Add-->
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <h5>Site Plans</h5>
+          <div class="form-group">
+            <div class="row">
+              <div ng-repeat="plan in project_site_plan track by $index" class="col-md-2 text-center">
+                <iframe ng-src="{{trustSrc(plan)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                <button class="btn btn-danger mt-2" ng-click="data.site_plan.splice($index,1);project_site_plan.splice($index,1)">
+                  Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label>
+        <strong>Upload Site Plans</strong>
+        <a href ng-click="new_site_plan.push({})" class="ml-2" data-toggle="tooltip" data-placement="auto" title="Add more Samples"><span class="fa fa-plus-square"></span></a>
+      </label>
+      <div class="row">
+        <div class="col-md-6" ng-repeat="plan in new_site_plan track by $index">
+          <div class="form-group">
+            <div class="mt-1">
+              <div class="input-group">
+                <input type="file" id="newsiteplan_{{$index}}" file-model="new_site_plan[$index]" class="form-control">
+                <span class="input-group-btn" ng-click="removeParameter('newsiteplan_'+$index,new_site_plan,$index)"><button class="btn white" type="button"><span class="fa fa-minus-square"></span></button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END : Site Plan Preview & Add-->
+
+      <!--START : Brochure Preview & Add-->
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <h5>Brochure</h5>
+          <div class="form-group">
+            <div class="row">
+              <div ng-repeat="plan in project_brochure track by $index" class="col-md-2 text-center">
+                <iframe ng-src="{{trustSrc(plan)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                <button class="btn btn-danger mt-2" ng-click="data.brochure.splice($index,1);project_brochure.splice($index,1)">
+                  Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label>
+        <strong>Upload Brochure</strong>
+        <a href ng-click="new_brochure.push({})" class="ml-2" data-toggle="tooltip" data-placement="auto" title="Add more Samples"><span class="fa fa-plus-square"></span></a>
+      </label>
+      <div class="row">
+        <div class="col-md-6" ng-repeat="plan in new_brochure track by $index">
+          <div class="form-group">
+            <div class="mt-1">
+              <div class="input-group">
+                <input type="file" id="brochure_{{$index}}" file-model="new_brochure[$index]" class="form-control">
+                <span class="input-group-btn" ng-click="removeParameter('brochure_'+$index,new_brochure,$index)"><button class="btn white" type="button"><span class="fa fa-minus-square"></span></button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END : Brochure Preview & Add-->
+
+      <!--START : Price List Preview & Add-->
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <h5>Price List</h5>
+          <div class="form-group">
+            <div class="row">
+              <div ng-repeat="plan in project_price_list track by $index" class="col-md-2 text-center">
+                <iframe ng-src="{{trustSrc(plan)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                <button class="btn btn-danger mt-2" ng-click="data.price_list.splice($index,1);project_price_list.splice($index,1)">
+                  Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label>
+        <strong>Upload Price List</strong>
+        <a href ng-click="new_price_list.push({})" class="ml-2" data-toggle="tooltip" data-placement="auto" title="Add more Samples"><span class="fa fa-plus-square"></span></a>
+      </label>
+      <div class="row">
+        <div class="col-md-6" ng-repeat="plan in new_price_list track by $index">
+          <div class="form-group">
+            <div class="mt-1">
+              <div class="input-group">
+                <input type="file" id="pricelist_{{$index}}" file-model="new_price_list[$index]" class="form-control">
+                <span class="input-group-btn" ng-click="removeParameter('pricelist_'+$index,new_price_list,$index)"><button class="btn white" type="button"><span class="fa fa-minus-square"></span></button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END : Price List Preview & Add-->
+
+      <!--START : Specification Preview & Add-->
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <h5>Specification</h5>
+          <div class="form-group">
+            <div class="row">
+              <div ng-repeat="plan in project_specification track by $index" class="col-md-2 text-center">
+                <iframe ng-src="{{trustSrc(plan)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                <button class="btn btn-danger mt-2" ng-click="data.specification.splice($index,1);project_specification.splice($index,1)">
+                  Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label>
+        <strong>Upload Specification</strong>
+        <a href ng-click="new_specification.push({})" class="ml-2" data-toggle="tooltip" data-placement="auto" title="Add more Samples"><span class="fa fa-plus-square"></span></a>
+      </label>
+      <div class="row">
+        <div class="col-md-6" ng-repeat="plan in new_specification track by $index">
+          <div class="form-group">
+            <div class="mt-1">
+              <div class="input-group">
+                <input type="file" id="specification_{{$index}}" file-model="new_specification[$index]" class="form-control">
+                <span class="input-group-btn" ng-click="removeParameter('specification_'+$index,new_specification,$index)"><button class="btn white" type="button"><span class="fa fa-minus-square"></span></button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END : Specification Preview & Add-->
+
+      <!--START : Other Documents Preview & Add-->
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <h5>Other Documents</h5>
+          <div class="form-group">
+            <div class="row">
+              <div ng-repeat="plan in project_other_document track by $index" class="col-md-2 text-center">
+                <iframe ng-src="{{trustSrc(plan)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                <button class="btn btn-danger mt-2" ng-click="data.other_document.splice($index,1);project_other_document.splice($index,1)">
+                  Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label>
+        <strong>Upload Other Documents</strong>
+        <a href ng-click="new_other_document.push({})" class="ml-2" data-toggle="tooltip" data-placement="auto" title="Add more Samples"><span class="fa fa-plus-square"></span></a>
+      </label>
+      <div class="row">
+        <div class="col-md-6" ng-repeat="plan in new_other_document track by $index">
+          <div class="form-group">
+            <div class="mt-1">
+              <div class="input-group">
+                <input type="file" id="otherdocument_{{$index}}" file-model="new_other_document[$index]" class="form-control">
+                <span class="input-group-btn" ng-click="removeParameter('otherdocument_'+$index,new_other_document,$index)"><button class="btn white" type="button"><span class="fa fa-minus-square"></span></button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END : Other Documents Preview & Add-->
+
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <strong>Video Link</strong>
+            <small style="color:red">(Please enter youtube link only)</small>
+            <input required type="text" class="form-control" placeholder="Video Link" ng-model="data.video_url">
+          </div>
+        </div>
+      </div>
+
+      <!-- Google map for location coordinates -->
+      <hr>
+      <div>
+        <h4>Google Map to select location</h4>
+        <div class="form-group">
+          <input id="pac-input" class="controls form-control rounded" type="text" placeholder="Search Box">
+        </div>
+        <div class="row">
+          <div class="col-md-9">
+            <div id="map"></div>
+          </div>
+          <div class="col-md-3">
+            <h5>Coordinates</h5>
+            <hr>
+            <div class="form-group">
+              <label><strong>Latitude : </strong></label>
+              <input id="lat">
+            </div>
+            <div class="form-group">
+              <label><strong>Longitude : </strong></label>
+              <input id="lng">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center p-2">
+    <button type="submit" class="btn btn-block green" ng-click="edit()" ng-disabled="loader">
+      Submit
+    </button>
+  </div>
+</div>
+
+<!-- loader -->
+<div class="container" ng-show="loader" style="position: fixed;top:15em">
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="loader-box"><img src="images/loading.gif"></div>
+    </div>
+  </div>
+</div>
+<!-- End : loader -->
+<!-- Js for google maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw&libraries=places&callback=initAutocomplete" async defer></script>

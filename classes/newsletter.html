@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <title>Assets Zilla</title>
+        <style>
+            *,
+            ::after,
+            ::before {
+                box-sizing: border-box;
+            }
+
+            .popular-tags {
+                padding: 10px;
+            }
+
+            .popular-tags.news-popular-tags a {
+                font-size: 14px;
+                color: #347bbf;
+                margin-right: 5px;
+                border: 1px solid #347bbf;
+                display: inline-block;
+                width: max-content;
+                margin-bottom: 5px;
+                font-weight: 400 !important;
+                padding: 6px 10px;
+                border-radius: 0.25rem;
+                line-height: 100%;
+                text-decoration: none;
+            }
+
+            .news-listing-box {
+                background: #ffffff;
+                box-shadow: 0 7px 25px 12px rgb(0 0 0 / 7%);
+                border-radius: 6px;
+                overflow: hidden;
+                margin: 7.5px !important;
+                cursor: pointer;
+            }
+
+            .news-listing-content {
+                padding: 15px;
+            }
+
+            .news-listing-box img {
+                height: 150px;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .img-fluid {
+                max-width: 100%;
+                height: auto;
+            }
+
+            img {
+                vertical-align: middle;
+                border-style: none;
+            }
+
+            .news-listing-content p {
+                text-align: left;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 100%;
+                color: #8c8c8c;
+                margin-bottom: 10px;
+            }
+
+            p {
+                margin-top: 0;
+                margin-bottom: 1rem;
+            }
+
+            .news-listing-content h6 {
+                margin-top: 0;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 130%;
+                color: #000000;
+                margin-bottom: 12px;
+                text-align: left;
+            }
+            .badge-pill {
+                color: #347bbf;
+            }
+        </style>
+    </head>
+
+    <body style="background: #f4f4f4;font-size: 15px;line-height:20px;">
+        <div style="max-width:650px; margin:0 auto;background:white;font-family: 'Poppins', sans-serif;">
+            <div style="width:100%;float:left;margin-top:10px;background: #f3f9ff;padding: 15px 50px;box-sizing: border-box;">
+                <div style="width:100%;float:left;text-align: center;padding-top: 25px;">
+                    <a href="https://assetzilla.com/"><img src="https://assetzilla-bucket.s3.amazonaws.com/email-template/logo.png" style="text-align: center;margin: 0 auto;height: 60px;object-fit: contain;"></a>
+                </div>
+                <div style="width:100%;float:left;text-align:center;">
+                    <div style="background: #FFFFFF;box-shadow: 0 2px 10px 3px #F6F6F6;border-radius: 29px;padding: 15px;margin-bottom:25px;">
+                        <h4 style="font-size: 14px;color: #000;text-align: center; margin-top: 0;margin-bottom: 5px;">Hello Akshay,</h4>
+                        <h4 style="font-size: 16px;color: #7EB041;text-align: center;margin-top: 10px;font-weight: 600;margin-bottom: 0px;">This Week's Top 10 Tags</h4>
+                        <div class="popular-tags news-popular-tags new-listing-page-tags">
+
+                            <a href="/news/tags/<%=popular_tags[j].key%>">
+                                <span class="badge badge-pill sidebar-tags-pill">Delhi(123)</span>
+                            </a>
+                        </div>
+                        <h4 style="font-size: 16px;color: #7EB041;text-align: center;margin-top: 10px;font-weight: 600;margin-bottom: 0px;">This Week's Top 5 News Articles</h4>
+                        <div class="row ">
+                            <div class="col-6" style="">
+                                <div class="news-listing-box mb-0">
+                                    <div class="" onclick="go_to_page('/news/upcoming-rapid-rail-may-offer-freight-services-between-delhi-meerut-at-night-BMoX4t3')">
+                                        <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/news/news_1665070763138.jpg" class="img img-fluid" alt="">
+                                    </div>
+                                    <div class="news-listing-content">
+
+                                        <p onclick="go_to_page('/news/upcoming-rapid-rail-may-offer-freight-services-between-delhi-meerut-at-night-BMoX4t3')">Published on -Sun Oct 02 2022</p>
+
+                                        <h6 onclick="go_to_page('/news/upcoming-rapid-rail-may-offer-freight-services-between-delhi-meerut-at-night-BMoX4t3')">Upcoming rapid rail may offer freight services between Delhi-Meerut at night</h6>
+                                        <p>The Indian Express</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6" style="">
+                                <div class="news-listing-box mb-0">
+                                    <div class="" onclick="go_to_page('/news/upcoming-rapid-rail-may-offer-freight-services-between-delhi-meerut-at-night-BMoX4t3')">
+                                        <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/news/news_1665070763138.jpg" class="img img-fluid" alt="">
+                                    </div>
+                                    <div class="news-listing-content">
+
+                                        <p onclick="go_to_page('/news/upcoming-rapid-rail-may-offer-freight-services-between-delhi-meerut-at-night-BMoX4t3')">Published on -Sun Oct 02 2022</p>
+
+                                        <h6 onclick="go_to_page('/news/upcoming-rapid-rail-may-offer-freight-services-between-delhi-meerut-at-night-BMoX4t3')">Upcoming rapid rail may offer freight services between Delhi-Meerut at night</h6>
+                                        <p>The Indian Express</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6" style="">
+                                <div class="news-listing-box mb-0">
+                                    <div class="" onclick="go_to_page('/news/upcoming-rapid-rail-may-offer-freight-services-between-delhi-meerut-at-night-BMoX4t3')">
+                                        <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/news/news_1665070763138.jpg" class="img img-fluid" alt="">
+                                    </div>
+                                    <div class="news-listing-content">
+
+                                        <p onclick="go_to_page('/news/upcoming-rapid-rail-may-offer-freight-services-between-delhi-meerut-at-night-BMoX4t3')">Published on -Sun Oct 02 2022</p>
+
+                                        <h6 onclick="go_to_page('/news/upcoming-rapid-rail-may-offer-freight-services-between-delhi-meerut-at-night-BMoX4t3')">Upcoming rapid rail may offer freight services between Delhi-Meerut at night</h6>
+                                        <p>The Indian Express</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 style="margin-bottom: 0px;font-size: 20px;">Thanks!</h4>
+                        <a href="https://assetzilla.com/"><img src="https://assetzilla-bucket.s3.amazonaws.com/email-template/logo.png" style="width:80px;"></a>
+                        <ul style="list-style: none;padding-left: 0;">
+                            <li style="display: inline-block;margin-right: 30px;">
+                                <a style="font-size: 12px;color: #347BBF;text-align: center;line-height: 20px;font-weight: 600; text-decoration: none;" href="javascript:;">seller@assetzilla.com</a>
+                            </li>
+
+                            <li style="display: inline-block;margin-right: 0px;">
+                                <a style="font-size: 12px;color: #347BBF;text-align: center;line-height: 20px;font-weight: 600; text-decoration: none;" href="javascript:;">
+                                    support@assetzilla.com
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul style="list-style: none;padding-left: 0;padding-top: 5px;">
+                            <li style="display: inline-block;margin-right: 30px;">
+                                <a href="https://www.facebook.com/AssetZilla-102693262614064/?modal=admin_todo_tour"><img src="https://assetzilla-bucket.s3.amazonaws.com/email-template/f-icon.png" alt=""></a>
+                            </li>
+                            <li style="display: inline-block;margin-right: 30px;">
+                                <a href="https://www.linkedin.com/company/assetzilla/about/?viewAsMember=true"><img src="https://assetzilla-bucket.s3.amazonaws.com/email-template/lk-icon.png" alt=""></a>
+                            </li>
+
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script>
+            let go_to_page = function (url, samePage, cityName, assign) { // console.log("url-------", url, " ", cityName);
+
+                if (cityName) {
+                    window.open(url + cityName, "_blank");
+                } else {
+                    if (samePage == true) {
+                        window.location = url;
+                    }
+                    window.open(url, "_blank");
+                }
+            };
+        </script>
+    </body>
+
+</html>

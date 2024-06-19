@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<%- include ./partials/header.ejs%>
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <div class="common-wrapper">
+    <div class="details-breadcrumb pb-25 details-breadcrumb-img">
+      <div class="container">
+        <div class="dbread-top">
+          <div class="row align-items-center">
+            <% if(data.is_live==="1") {%>
+              <div class="col-12 notLiveGray" style="max-width: 50%; margin: auto;">This page is under development and not live on website</div>
+            <% } else if ( data.is_live==="4" || data.is_live==="3"){ %>
+              <div class="col-12 notLive" style="max-width: 50%; margin: auto;"> This location is not live anymore </div>
+            <% } %>
+            <div class="col-lg-8 col-sm-12">
+              <div class="dt-bread-crumb-left">
+                <div class="builder-top-logo">
+                  <img class="img img-fluid" src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=data.logo %>" alt="" data-toggle="modal" data-target="#moreInfo">
+                </div>
+                <div class="">
+                  <div class="breadcrumb-top">
+                    <div>
+                      <a href="/authorities" target="_blank">Authorities</a>
+                    </div>
+                  </div>
+                  <h2 style="display: flex;" class="justify-content-start align-items-start">
+                    <span>
+                      <%- include ./partials/bookmark.ejs%>
+                    </span>
+                    <span>
+                    <%= data.name %>
+                    </span>
+                  </h2>
+                  <div style="display: flex;" class="justify-content-start align-items-start">
+                  <p class="">
+                    <img src="/v1/img/gps.webp" alt="">
+                    <div class="text-white">
+                    <% if (location.district){%>
+                    <a class="clr-white text-white" href="<%=location.district.url%>" target="_blank">
+                      <%= location.district.name %>
+                    </a>,
+                    <%}%>
+                    <% if (location.state){%>
+                    <a class="clr-white text-white" href="<%=location.state.url%>" target="_blank">
+                      <%= location.state.name %>
+                    </a>
+                    <%}%>
+                    </div>
+                  </p>
+                </div>
+                  <!-- <p class="mt-2 d-flex flex-row justify-content-center- align-items-center">
+                    <img src="/images/views.webp"/>&nbsp;
+                    <span><%=data.views || 0%>&nbsp;views</span>
+                  </p> -->
+                </div>
+                </div>
+            </div>
+           <!-- <div class="col-lg-3 col-sm-3">
+                <ul>
+                    <li><a href="javascript:;"><img src="/v1/img/save-heart.webp" alt="">Save</a>
+                    </li>
+                    <li><a href="javascript:;"><img src="/v1/img/share-icon.webp" alt="">Share</a>
+                    </li>
+                </ul>
+            </div> -->
+            <div class="col-lg-4 col-sm-12">
+              <div class="topsearch-right mt-3 mt-md-0 justify-content-end"> 
+                <form>
+                  <div class="group_search top_bar_search" id="type-ahead-search">
+                    <input id="profile-search" type="text" class="form-control typeahead" placeholder="Search for cities, builders, project name" >
+                    <a href="javascript:void(0)" class="btn searchicon" onclick='search_fields_v1()'><i class="fa fa-search" aria-hidden="true"></i></a>
+                  </div>
+                </form>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+            <div class="details-box-wrapper mt-0">
+              <!-- <div class="w-100 flex-row viewed-x-times-div mb-3">
+                <p class="text-center mb-0 py-1 d-flex flex-row justify-content-center align-items-center">
+                  <!-- <img src="/images/views.webp" class="viewed-x-times-div-img">
+                  &nbsp;This Page has been viewed 
+                  <span>&nbsp;<%=data.views || 0%>&nbsp;times.</span>
+                </p>
+              </div> -->
+                <div class="container">
+                    <div class="row">
+                        
+                        <div class="col-lg-8">
+                          <div class="row">
+                          <div class="col-md-8 col-8">
+                            <div class="w-100 d-flex flex-row x-views my-3">
+                              <p class="text-center mb-0 py-1 d-flex flex-row justify-content-start align-items-center">
+                                <img src="/images/views.webp" class="viewed-x-times-div-img">
+                                <span>&nbsp;<%=data.views || 0%>&nbsp;Page <% if(data.views > 1) {%>views <%} else {%>view<%}%>&nbsp;</span>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="mobile-view-map col-md-8 col-4">
+                            <a href="#side_map">View Map</a>
+                          </div>
+                        </div>
+                            <% if (data.description){ %>
+                  <div class="common-box-dt">
+                    <div class="dt-common-head">
+                      <h2 class="w-100">About <%=data.name%>
+                      </h2>
+                    </div>
+                    <div class="">
+                      <p>
+                        <span class="font-weight-600">Founded Year : <%= data.founded_year %>
+                        </span><br>
+                        <%- data.description %>
+                      </p>
+                    </div>
+                  </div>
+                  <% } %>
+                  <% if (data.major_developments){ %>
+                  <div class="common-box-dt">
+                    <div class="dt-common-head">
+                      <h2>Major Developments</h2>
+                    </div>
+                    <div class="">
+                      <p>
+                        <%- data.major_developments %>
+                      </p>
+                    </div>
+                  </div>
+                  <% } %>
+
+                  <% if (data.master_plan_with_years || (data.master_plan_with_years_image &&
+                                                data.master_plan_with_years_image.length>0)){ %>
+                  <div class="common-box-dt">
+                    <div class="dt-common-head">
+                      <h2>Major Plan with Years</h2>
+                    </div>
+                    <% if (data.master_plan_with_years_image &&
+                                        data.master_plan_with_years_image.length>0){ %>
+                    <div class="img-auth-map">
+                      <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=data.master_plan_with_years_image %>" class="img img-fluid" alt="" data-toggle="modal" data-target="#moreInfo">
+                    </div>
+                    <% } %>
+                    <div>
+                      <p>
+                        <%- data.master_plan_with_years %>
+                      </p>
+                    </div>
+                  </div>
+                  <% } %>
+                  <% if (data.major_initiatives){ %>
+                  <div class="common-box-dt">
+                    <div class="dt-common-head">
+                      <h2>Major Initiatives </h2>
+                    </div>
+                    <div>
+                      <p>
+                        <%- data.major_initiatives %>
+                      </p>
+                    </div>
+                  </div>
+                  <% } %>
+
+                  <% if (data.area_covered || (data.area_covered_image &&
+                                                                data.area_covered_image.length>0)){ %>
+                  <div class="common-box-dt">
+                    <div class="dt-common-head">
+                      <h2>Area Covered</h2>
+                    </div>
+                    <% if (data.area_covered_image &&
+                                        data.area_covered_image.length>0){ %>
+                    <div class="img-auth-map">
+                      <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=data.area_covered_image %>" class="img img-fluid" alt="" data-toggle="modal" data-target="#moreInfo">
+                    </div>
+                    <% } %>
+                    <div>
+                      <p>
+                        <%- data.area_covered %>
+                      </p>
+                    </div>
+                  </div>
+                  <% } %>
+                  <% if (data.metro_routes ||
+                                ((data.metro_routes_image &&
+                                data.metro_routes_image.length>0))){ %>
+                  <div class="common-box-dt">
+                    <div class="dt-common-head">
+                      <h2>Metro Routes</h2>
+                    </div>
+                    <% if (data.metro_routes_image &&
+                                        data.metro_routes_image.length>0 &&
+                                        data.metro_routes_image[0].length>0){ %>
+                    <div class="img-auth-map">
+                      <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=data.metro_routes_image %>" class="img img-fluid" alt="" data-toggle="modal" data-target="#moreInfo">
+                    </div>
+                    <% } %>
+                    <div>
+                      <p>
+                        <%- data.metro_routes %>
+                      </p>
+                    </div>
+                  </div>
+                  <% } %>
+
+                  <% if (top_property_type.length>0){ %>
+                  <div class="common-box-dt">
+                    <div class="dt-common-head">
+                      <h2>Authority’s Top Projects
+                      </h2>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="unfilled-btn-list">
+                          <ul>
+                            <li> <button type="button" class="btn selectable-tags selected-tags" onclick="getProjects('top_projects','<%= top_project_count%>',this)">All
+                                Projects</button>
+                            </li>
+                            <% for(var i=0; i < top_property_type.length; i++) { %>
+                            <li> <button type="button" class="btn selectable-tags" onclick="getProjects('<%= top_property_type[i].key%>','<%= top_property_type[i].doc_count%>',this)">
+                                <%=top_property_type[i].key%>
+                                (<%=top_property_type[i].doc_count%>)
+                              </button>
+                            </li>
+                            <% } %>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+
+                  <% if (locals.top_projects &&
+                                locals.top_projects.length>0){
+                                %>
+                  <div class="common-box-dt">
+                    <div class="dt-common-head">
+                      <h2>All Projects <span id="project_type_div"></span>
+                      </h2>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-12" id="top_projects">
+                        <% for(var i=0; i <top_projects.length;i++) { %>
+                        <div class="apparment-list apparment-list-updated mt-3 mt-lg-0">
+
+                          <div class="apparment-list-left" onclick="go_to_page('<%=top_projects[i].url%>')">
+                            <div class="owl-carousel owl-theme allProp-first-owl">
+                              <% for(var j=0; j < top_projects[i].images.length; j++) { %>
+                                <div class="item">
+                                  <div class="all-prop-heart">
+                                    <img src="<%=top_projects[i].images[j] %>" class="img img-fluid">
+                                  </div>
+                                </div>
+                              <% } %>
+                            </div>
+                            <% if (emi_per_lac && (top_projects[i].price && top_projects[i].price.min)) { %>
+                                <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * top_projects[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                                  <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                                </button></p>
+                            <% } %>
+                          </div>
+                          <div class="apparment-list-right">
+                            <h2 class="h2-single-line">
+                              <div>
+                                <%- include('./partials/bookmark-list', {url: top_projects[i].url, is_bookmarked: top_projects[i].is_bookmarked, id: i + "_project-" + top_projects[i].id, name:top_projects[i].name, builder:top_projects[i].city}); %>
+                              </div>
+                              <div>
+                                <span onclick="go_to_page('<%=top_projects[i].url %>')"><%=top_projects[i].name %></span>
+                              </div>
+                            </h2>
+                            <p>
+                              <%=top_projects[i].builder%>
+                            </p>
+                            <% if((top_projects[i].price && top_projects[i].price.min)||(top_projects[i].sq_fit_cost && top_projects[i].sq_fit_cost.min)){ %>
+                            <hr>
+                            <div class="row align-items-center">
+                              <% if (top_projects[i].price && top_projects[i].price.min){ %>
+                              <div class="col-8">
+                                <table class="emi-price-table">
+                                  <tr>
+                                    <td>
+                                      <p class="text-left" >Starting :</p>
+                                    </td>
+                                    <td>
+                                      <p>
+                                        <b class="px-2 text-left"> ₹ <%=changeNumberFormat(top_projects[i].price.min)%>
+                                        </b>
+                                      </p>
+                                    </td>
+                                  </tr>
+                                  <!-- <% if (emi_per_lac) { %>
+                                    <tr>
+                                      <td>
+                                        <p class="text-left">EMI Starting :</p>
+                                      </td>
+                                      <td>
+                                        <p><b class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * top_projects[i].price.min / 100000))%></b></p>
+                                      </td>
+                                    </tr>
+                                  <% } %> -->
+                                </table>
+                              </div>
+                              <%} else {%>
+
+                              <%}%>
+                              <% if (top_projects[i].sq_fit_cost &&
+                              top_projects[i].sq_fit_cost.min){ %>
+                              <div class="col-4">
+                                <h6>
+                                  Starting SqFt. cost:
+                                  <b>
+
+                                    ₹<%=top_projects[i].sq_fit_cost.min%>
+
+                                  </b>
+                                </h6>
+                              </div>
+                              <%} else {%>
+
+                              <%}%>
+                                                        </div>
+                                                        <%} else {%>
+
+                              <%}%>
+                                                        <hr>
+                                                        <div
+                                                            class="located_area">
+                                                            <div
+                                                                class="loc-left">
+                                                                <i class="fa fa-map-marker mr-2"
+                                                                    aria-hidden="true"></i>
+                                                                <p>
+                                                                    <% if
+                                                                        (top_projects[i].subcity){
+                                                                        %>
+                              <%=top_projects[i].subcity
+                                                                            %>
+                              ,
+                              <%}%>
+                                                                                <% if
+                                                                                    (top_projects[i].city){
+                                                                                    %>
+                              <%=top_projects[i].city
+                                                                                        %>
+                              <%}%>
+                                                                </p>
+                                                            </div>
+                                                            <div
+                                                                class="area_prices">
+                                                                <h2>
+                                                                    <% if
+                                                                        (top_projects[i].area
+                                                                        &&
+                                                                        top_projects[i].area.area){
+                                                                        %>
+                              <%=top_projects[i].area.area
+                                                                            %>
+                              acres
+                              <%} else
+                                                                                {%>
+                              -
+                              <%}%>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div
+                                                            class="featured-points">
+                                                            <ul>
+                                                                <% if
+                                                                    (top_projects[i].project_status){
+                                                                    %>
+                              <li>
+                                <h5>
+                                  <%=top_projects[i].project_status
+                                                                                %>
+                                </h5>
+                              </li>
+                              <%}%>
+                                                                        <% if
+                                                                            (top_projects[i].property_type){
+                                                                            %>
+                              <li>
+                                <h5>
+                                  <%=top_projects[i].property_type
+                                                                                        %>
+                                </h5>
+                              </li>
+                              <%}%>
+                                                                                <% if
+                                                                                    (top_projects[i].lease_rent){
+                                                                                    %>
+                              <li>
+                                <h5>
+                                  <%=top_projects[i].lease_rent
+                                                                                                %>
+                                </h5>
+                              </li>
+                              <%}%>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+
+                            </div>
+                            <div class="col-lg-12">
+
+                              <div class="w-100 mt-3 mt-lg-0" id="see_all_projects">
+                                <% if(top_project_count>5) {%>
+                                <a href="/projects?authority=<%=data.name%>" target="_blank" class="see_all btn w-100">See
+                                  All</a>
+                                <% } %>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <% } %>
+
+
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="map-sticky-details">
+                          <div class="dt-location-map">
+                            <div class="">
+                              <div id="side_map"></div>
+                              <img src="/v1/img/logo.webp" class="logo-over"/>
+                            </div>
+                          </div>
+
+                          <div class="dt-location-address">
+                            <% if (data.address){ %>
+                            <div>
+                              <h3>Address :</h3>
+                              <p><%- data.address %> </p>
+                            </div>
+                            <% } %>
+                            <% if (data.pincode){ %>
+                            <div>
+                              <h3>Pincode :</h3>
+                              <p><%- data.pincode %></p>
+                            </div>
+                            <% } %>
+                            <% if (data.website){ %>
+                            <div>
+                              <h3>Website :</h3>
+                              <p><%- data.website %></p>
+                            </div>
+                            <% } %>
+                            <% if (data.email){ %>
+                            <div>
+                              <h3>Email :</h3>
+                              <p><%- data.email %></p>
+                            </div>
+                            <% } %>
+                            <% if (data.phone){ %>
+                            <div>
+                              <h3>Phone Number :</h3>
+                              <p><%=data.phone%></p>
+                            </div>
+                            <% } %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="modal new-mo more-info-modal" id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog  modal-dialog-centered modal-lg transparent-background" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <!-- HEADER -->
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                          <li class="nav-item">
+                            <a class="active clr-darkgrey" id="pills-images-tab" data-toggle="pill" href="#pills-images" role="tab" aria-controls="pills-images" aria-selected="true"><img class="pill-icon-img" src="/images/Images2x.webp" data-toggle="tooltip" data-placement="auto" title="Images" /></a>
+                          </li>
+                          <li class="nav-item clr-darkgrey">
+                            <a class="" id="pills-maps-tab" data-toggle="pill" href="#pills-maps" role="tab" aria-controls="pills-maps" aria-selected="false"><img class="pill-icon-img" src="/images/Location2x.webp" data-toggle="tooltip" data-placement="auto" title="Location" /></a>
+                          </li>
+                        </ul>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <img class="pill-icon-img" src="/images/Cancel2x.webp" data-toggle="tooltip" data-placement="auto" title="Close" />
+                        </button>
+                      </div>
+                      <div class="modal-body" style="min-height: 500px;">
+                        <!-- MODAL BODY -->
+                        <div class="tab-content" id="pills-tabContent">
+                          <!-- CAROUSEL -->
+                          <div class="tab-pane fade show active" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
+                            <%if (data.allImages && data.allImages.length > 0) { %>
+
+                            <div class="swiper-container text-center" id="popupGallery" style="height: auto !important;">
+                              <div class="swiper-wrapper">
+                                <% for(var i=0; i < data.allImages.length; i++) { %>
+                                <div class="swiper-slide">
+                                  <img data-src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=data.allImages[i]%>" class="swiper-lazy modal-image">
+                                  <div class="swiper-lazy-preloader swiper-lazy-preloader-white">
+                                  </div>
+                                </div>
+                                <% } %>
+                              </div>
+                              <div class="swiper-button-next"></div>
+                              <div class="swiper-button-prev"></div>
+                              <div class="swiper-pagination"></div>
+                            </div>
+                            <% } else {%>
+                            <h4>No Images Found</h4>
+                            <% } %>
+                          </div>
+                          <!-- MAPS -->
+                          <div class="tab-pane project-map-section fade" id="pills-maps" role="tabpanel" aria-labelledby="pills-maps-tab">
+                            <% if (top_projects && top_projects.length > 0) { %>
+                            <h3><%= data.name %></h3>
+                            <div id="modal-map"></div>
+                            <img src="/v1/img/logo.webp" class="logo-over-modal"/>
+                            <%} else {%>
+                            <div style="padding:40px 0;">
+                              <h3 class="text-center">No location found!!!</h3>
+                            </div>
+                            <% } %>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <%- include ./partials/footer.ejs%>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+                <script>
+                  <% if (top_projects.length > 0) { %>
+                  var locations = [];
+                  <% for (var i = 0; i < top_projects.length; i++) { if (top_projects[i].location) {%>
+                    locations.push([<%=top_projects[i].location.location.lat %>, <%=top_projects[i].location.location.lng %>, '<%=top_projects[i].name %>', '<%=top_projects[i].url %>'])
+                  <%}}%>
+                  var map;
+
+                  function add_markers() {
+                    for (i = 0; i < locations.length; i++) {
+                      marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][0], locations[i][1])
+                        , map: map
+                      , });
+
+                      bounds.extend(marker.position);
+
+                      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                          infowindow.setContent("<a href=" + locations[i][3] + " target='_blank'>" + locations[i][2] + "</a>");
+                          infowindow.open(map, marker);
+                        }
+                      })(marker, i));
+                    }
+                    <% if (locals.top_projects.length > 1) {%>
+                      map.fitBounds(bounds);
+                    <% } else {%>
+                      map.setCenter(marker.position);
+                      map.setZoom(16);
+                    <%}%>
+                  }
+
+                  function initMap(map_id = "side_map") {
+                    map = new google.maps.Map(document.getElementById(map_id), {
+                      streetViewControl: false
+                      , rotateControl: false,
+                      fullscreenControl: false,
+                      // minZoom: 10, maxZoom: 15
+                    });
+                    infowindow = new google.maps.InfoWindow();
+                    bounds = new google.maps.LatLngBounds();
+                    add_markers();
+                  }
+
+                  function initMap2(map_id = "modal-map") {
+                    map = new google.maps.Map(document.getElementById(map_id), {
+                      streetViewControl: false
+                      , rotateControl: false,
+                      fullscreenControl: false,
+                      // minZoom: 10, maxZoom: 15
+                    });
+                    infowindow = new google.maps.InfoWindow();
+                    bounds = new google.maps.LatLngBounds();
+                    add_markers();
+                  }
+
+                  function initialize() {
+                    initMap();
+                    initMap2();
+                  }
+                  <%} else {%>
+
+                  function initialize() {}
+                  <%}%>
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw&callback=initialize" async defer></script>
+                <script>
+                  var popupGallery;
+                  var pageLoadModal = false;
+                  $(document)
+                    .ready(function() {
+
+
+                      $('#moreInfo')
+                        .on('show.bs.modal', function(e) {
+                          popupGallery = new Swiper('#popupGallery', {
+                            spaceBetween: 2
+                            , loop: true
+                            , lazy: true
+                            , navigation: {
+                              nextEl: '.swiper-button-next'
+                              , prevEl: '.swiper-button-prev'
+                            , }
+                            , pagination: {
+                              el: '.swiper-pagination'
+                              , dynamicBullets: true
+                            , }
+                          });
+                        });
+
+                      $('#moreInfo')
+                        .on('shown.bs.modal', function(e) {
+                          popupGallery.update();
+                        });
+                      if (pageLoadModal) {
+                        $('#moreInfo')
+                          .modal();
+                      } else {
+                        pageLoadModal = true;
+                      }
+                    });
+                </script>
+
+                <script>
+                  var getProjects = function(data, count, el) {
+                    $(".selectable-tags")
+                      .removeClass("selected-tags");
+                    $(el)
+                      .addClass("selected-tags");
+                    filters = {
+                      authority: "<%= data.name %>"
+                    }
+                    if (data != "top_projects") {
+                      filters.type = data;
+                      document.getElementById("project_type_div")
+                        .innerHTML = " in " + data;
+
+                      if (count > 5) {
+                        document.getElementById("see_all_projects")
+                          .innerHTML = '<a href="/projects?authority=<%=data.name%>&type=' + data + '" target="_blank" class="see_all btn w-100">See All</a>';
+                      } else {
+                        document.getElementById("see_all_projects")
+                          .innerHTML = "";
+                      }
+
+                    } else {
+                      document.getElementById("project_type_div")
+                        .innerHTML = "";
+                      if (count > 5) {
+                        document.getElementById("see_all_projects")
+                          .innerHTML = '<a href="/projects?authority=<%=data.name%>" target="_blank" class="see_all btn w-100">See All</a>';
+                      }
+                    }
+                    $.post('/api/project/infinite', {
+                      skip: 0
+                      , limit: 5
+                      , query: JSON.stringify(filters)
+                      , card: false
+                      , from_individual_entity: true
+                    }, function(data) {
+                      document.getElementById("top_projects")
+                        .innerHTML = data;
+                      propertyPageCarouselInit();
+                      $(function () {
+                        $('[data-toggle="tooltip"]').tooltip()
+                      })
+                      $.post('/api/project/infinite-map', {
+                        skip: 0
+                        , limit: 5
+                        , query: JSON.stringify(filters)
+                      }, function(map_data) {
+                        locations = map_data.results
+                        initMap();
+                      })
+                    })
+                    $(function () {
+                      $('[data-toggle="tooltip"]').tooltip()
+                    })
+                  }
+                  //Stop playing video on modal close
+                  $('.modal')
+                    .on('hidden.bs.modal', function() {
+                      console.log("Modal Closed");
+                      var video = $("#video-player")
+                        .attr("src");
+                      $("#video-player")
+                        .attr("src", "");
+                      $("#video-player")
+                        .attr("src", video);
+                    })
+                </script>
+                 <% if (!locals.user) {%>
+                  <script>
+                    let storedViewH = JSON.parse(window.localStorage.getItem('userVwH'));
+                    if (storedViewH){
+                      storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+                    } else{
+                      storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+                    }
+                    window.localStorage.setItem('userVwH', JSON.stringify(storedViewH))
+                  </script>
+                <% } %>
+</body>
+
+</html>

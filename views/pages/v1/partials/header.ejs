@@ -1,0 +1,97 @@
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="icon" href="/v1/img/favicon.webp">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap v4 CSS -->
+  <link rel="stylesheet" href="/v1/css/bootstrap.min.css">
+
+  <!-- Custom CSS -->
+  <link href="/v1/css/style.css" rel="stylesheet">
+  <link href="/v1/css/responsive.css" rel="stylesheet">
+  <link href="/v1/css/typeahead.css" rel="stylesheet">
+  <link href="/v1/css/thankyou.css" rel="stylesheet">
+
+
+  <!-- Carousel CSS -->
+  <link href="/v1/css/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- fontawesome v4.3.0 -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148592903-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-148592903-1');
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    // document.querySelector('.embed-cover').addEventListener('contextmenu', event => event.preventDefault());
+    // document.querySelector('.pdf-overlay').addEventListener('contextmenu', event => event.preventDefault());
+
+    function handleOnInput(event, element) {
+      if (navigator.userAgent.includes("Android")) {
+        // console.log("input = ", event);
+        // console.log("element = ", element)
+        // console.log("Number event.data = ", Number(event.data))
+
+        if (Number(event.data)) {
+          // console.log("yes, i am a digit")
+          nxtEl = document.querySelector("#" + element.getAttribute('data-next'));
+          // console.log("nxtEl = ", nxtEl);
+          if (nxtEl) {
+            nxtEl.focus();
+          }
+
+        } else {
+          event.target.value = "";
+          element.focus()
+        }
+
+      }
+    }
+  </script>
+  <% if (process.env.STAGING==='false' ) { %>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+          'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-5HXRJ3H');
+    </script>
+    <!-- End Google Tag Manager -->
+  <% } %>
+  <!-- Google tag (gtag.js) -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11079369000"></script> -->
+  <script src="/js/filter_for_project.js"></script>
+  <script>document.addEventListener('contextmenu', event => event.preventDefault());</script>
+  <!-- <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-11079369000');
+  </script> -->
+  <% if (process.env.STAGING==='false' ) { %>
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5HXRJ3H" height="0" width="0"
+        style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  <% } %>
+</head>

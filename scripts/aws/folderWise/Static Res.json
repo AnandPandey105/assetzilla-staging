@@ -1,0 +1,40 @@
+[
+  {
+    "img": "linkedin.png",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\n"
+  },
+  {
+    "img": "logo-icon-large.png",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\n"
+  },
+  {
+    "img": "logo-icon-small.png",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\n"
+  },
+  {
+    "img": "logo-large-black.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./staticRes/logo-large-black.jpg\" -o \"./staticRes/webp/logo-large-black.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "logo-large-white.jpg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./staticRes/logo-large-white.jpg\" -o \"./staticRes/webp/logo-large-white.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "logo-small.png",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\n"
+  },
+  {
+    "img": "room.png",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\n"
+  }
+]

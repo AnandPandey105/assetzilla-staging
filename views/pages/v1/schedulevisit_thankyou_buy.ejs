@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ./partials/header.ejs%>
+
+    <body>
+    <%- include ./partials/navigation.ejs%>
+    <%- include ./partials/topbar_info_pages.ejs%>
+    <div class="top-margin background-texture">
+        <div class="container">
+            <div class="container-thankyou">
+                <img class="like" src="/v1/img/like.png" />
+                <img src="/v1/img/trngl.webp" class="img img-fluid spin-img trngl-spin"  style="left:28%">
+                <h1> Your site visit has been scheduled successfully! </h1>
+                <h4> Our team will contact you shortly to confirm<br/>the date and time.</h4>
+                <p>Redirecting you to Home Page
+                    <span id="timer" style="color:blue">00:10</span>
+                </p>
+                <!-- <a href="<%=backTo%>">Click here to go back</a> -->
+                <a class="btn btn-sm btn-primary" href="/">Go To Home</a>
+            </div>
+        </div>
+    </div>
+
+    <%- include ./partials/footer.ejs%>
+
+    <script>
+        let time = 10;
+        setInterval(() => {
+            if (time > 0)
+                time--;
+            document.getElementById('timer').innerText = '00:0' + time;
+        }, 1000);
+
+        setTimeout(() => {
+            //window.location = "<%=backTo%>";
+            window.location = "/";
+        }, 10000)
+    </script>
+</body>
+
+</html>

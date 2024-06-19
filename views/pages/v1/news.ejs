@@ -1,0 +1,162 @@
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+			<title><%=data.heading%> | Assetzilla</title>
+			<meta name="title" content="<%=data.heading%> | Assetzilla">
+			<meta name="description" content="<%= data.content.substring(0, 200) %>">
+    </head>
+    <%- include ./partials/header.ejs %>
+   	<body>
+      	<%- include ./partials/navigation.ejs%>
+      	<div class="common-wrapper">
+        <div class="details-breadcrumb details-breadcrumb-img">
+            <div class="container">
+                <div class="dbread-top">
+                    <div class="row  align-items-center">
+						<% if(data.is_live==="1") {%>
+							<div class="col-12 notLiveGray" style="max-width: 50%; margin: auto;">This page is under development and not live on website</div>
+						  <% } else if ( data.is_live==="4" || data.is_live==="3"){ %>
+							<div class="col-12 notLive" style="max-width: 50%; margin: auto;"> This article is not live anymore </div>
+						  <% }%>
+                        <div class="col-lg-8 col-sm-6">
+                           <div class="text-left">
+                              <h2>
+                                 <%=data.heading%>
+                              </h2>
+                              <!-- <p class="mt-2 d-flex flex-row justify-content-center- align-items-center">
+                                 <img src="/images/views.webp"/>&nbsp;
+                                 <span><%=data.views || 0%>&nbsp;views</span>
+                               </p> -->
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                           <div class="group_search justify-content-end" id="type-ahead-search">
+                                 <input type="text" class="form-control" placeholder="Search here" id="news_search">
+                                 <a href="javascript:void(0)" class="btn searchicon" onclick="news_search()"><i class="fa fa-search" aria-hidden="true"></i></a>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+      </div>
+      <div class="details-box-wrapper mt-0">
+         <div class="container">
+            <div class="row">
+							<div class="w-100 d-flex flex-row x-views m-3">
+								<p class="text-center mb-0 py-1 d-flex flex-row justify-content-start align-items-center">
+									<img src="/images/views.webp" class="viewed-x-times-div-img">
+									<span>&nbsp;<%=data.views || 0%>&nbsp;Page <% if(data.views > 1) {%>views <%} else {%>view<%}%>&nbsp;</span>
+								</p>
+							</div>
+							<div class="col-lg-9">
+							<div class="news-details-wrapper"> 
+								<div class="">
+										<!-- <h3><%=data.heading%></h3> -->
+										<div class="published-news-text">
+											<p class="text-left">
+													<span>
+														<% if (data.publish_date){ %>
+															<% console.log("data.publish_date", data.publish_date) %>
+																Published on <%=data.publish_date%> |
+														<%}%>
+														<% if (data.link_name && data.link){ %>
+																<a class="px-0" href="<%=data.link%>" target="_blank" class="clr-black" style="color:#000">
+																	<%=data.link_name%></a>
+														<%}%>
+													</span>
+													<% for(var j=0; j < data.tags.length; j++) { %>
+															<a href="/news/tags/<%=data.tags[j]%>">
+																	<%=data.tags[j]%>
+															</a>
+													<%}%> 
+											</p>
+										</div>
+
+										<div class="news-details-img">
+											<% if (data.video && data.video.length > 0){ %>
+													<!-- <%=data.video%> -->
+													<iframe width="100%" height="315" src="<%=data.video%>" frameborder="0" allowfullscreen></iframe>
+											<%} else {%>
+													<% if (data.images && data.images.length > 0){ %>
+																	<img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/news/<%=data.images%>" >
+													<%}%>
+											<% } %>
+										</div>
+
+										<div>
+											<p><%-data.content %></p>
+										</div>
+
+								</div>
+							</div>                               
+							</div>
+							<div class="col-lg-3">
+							<!-- <div class="top-head-serach-sort mt-4">
+									<div class="row">
+											<div class="col-lg-12 col-sm-12">
+												<div class="position-relative">
+														<input type="text" class="form-control" placeholder="Search here" id="news_search">
+														<button class="btn btn-serach-sort" type="button" onclick="news_search()">Search</button>
+												</div>
+											</div>
+											
+									</div>
+								</div> -->
+
+								<div class="popular-tags news-popular-tags new-listing-page-tags">
+								<h2>Popular Tags :</h2>
+								<p>
+										<% for(var j=0; j < popular_tags.length; j++) { %>
+												<a href="/news/tags/<%=popular_tags[j].key%>">
+														<span class="badge badge-pill sidebar-tags-pill"><%=popular_tags[j].key%>(<%=popular_tags[j].doc_count%>)</span>
+												</a>
+										<%}%>
+								</p>
+							</div>
+								<div class="">
+									<div>
+											<h3>Latest Post :</h3>
+									</div>
+								</div>
+								<% for(var i=0; i < recent_blog.length; i++) { %>
+									<div class="latest-post-wrp" onclick="go_to_page('<%=recent_blog[i].url %>')">
+											<div>
+												<img src="<%=recent_blog[i].news_banner%>" alt="">
+												<h2>Last <%=recent_blog[i].publish_date.date%> <%=recent_blog[i].publish_date.month%>. <%=recent_blog[i].publish_date.year%></h2>
+												<p><%=recent_blog[i].heading%></p>
+											</div>
+									</div>
+							<%}%> 
+
+								
+							</div>
+            </div>
+        
+        </div>
+	</div>
+	<%- include ./partials/footer.ejs%>
+	<script>
+		const news_search__ = document.getElementById('news_search');
+		$('#news_search').keyup(function(e){
+		if (e.keyCode === 13 && news_search__.value.length > 0){
+			news_search();
+		}
+	})
+	</script>
+	<% if (!locals.user) {%>
+	<script>
+		let storedViewH = JSON.parse(window.localStorage.getItem('userVwH'));
+		if (storedViewH){
+		storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+		} else{
+		storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+		}
+		window.localStorage.setItem('userVwH', JSON.stringify(storedViewH))
+	</script>
+	<% } %>
+</body>
+</html>
+

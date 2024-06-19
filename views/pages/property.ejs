@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= data.name %> in <% if (location.subcity){%> <%= location.subcity.name %> <%}%>,<% if (location.city){%> <%= location.city.name %><%}%>, <% if (location.district){%><%= location.district.name %>,<%}%> <% if (location.state){%> <%= location.state.name %> <%}%>  | Assetzilla</title>
+    <meta name="title" content="<%= data.name %> in <% if (location.subcity){%> <%= location.subcity.name %> <%}%>,<% if (location.city){%> <%= location.city.name %><%}%>, <% if (location.district){%><%= location.district.name %>,<%}%> <% if (location.state){%> <%= location.state.name %> <%}%>  | Assetzilla">
+    <meta name="description" content="View <%= data.name %>, <%= data.property_type %> in <% if (location.subcity){%> <%= location.subcity.name %><%}%>, <% if (location.city){%> <%= location.city.name %><%}%>, <% if (location.district){%><%= location.district.name %>,<%}%> <% if (location.state){%> <%= location.state.name %> <%}%>. Search For Upcoming, Completed and Ongoing development properties and projects here">
+</head>
+<style>
+.swiper-slide-active {
+    margin: auto;
+}
+</style>
+
+<%- include ../partials/head.ejs%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+
+<body>
+    <%- include ../partials/navigation_bar.ejs%>
+    <div class="top-margin single-sub-head">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="cursor text-center" data-toggle="modal" data-target="#moreInfo" id="moreInfoTrigger">
+                        <% if (data.banner_image == "/images/placeholder_bg.webp" &&  data.images && data.images[0]){ %>
+                            <img src="<%=data.images[0]%>" class="banner-image" data-toggle="tooltip" data-placement="auto" title=" Click to view photos, videos and maps !">
+                            <%} else {%>
+                                <img src="<%=data.banner_image %>" class="banner-image" data-toggle="tooltip" data-placement="auto" title=" Click to view photos, videos and maps !">
+                                <% } %>
+
+                        
+                    </div>
+                </div>
+                <div class="col-md-8 single-page-heading">
+                    <div class="builder-description">
+                        <a class="clr-white" href="/properties" target="_blank">Properties</a><span
+                            class="clr-white">&nbsp;/&nbsp;</span>
+                        <% if (data.property_type){ %>
+                        <a class="clr-white" href="/properties?type=<%= data.property_type %>"
+                            target="_blank"><%= data.property_type %></a>
+                        <%}%>
+                        <h2 class="clr-white">
+                                <span style="font-size: .6em; vertical-align: middle;"><%- include ../partials/bookmark.ejs%></span>
+                        &nbsp;<%= data.name %></h2>
+                        <% if (locals.location){%>
+                        <p class="clr-white"><i class="fas fa-map-marker-alt"></i> &nbsp;&nbsp;
+                            <% if (location.subcity){%>
+                            <a class="clr-white" href="<%=location.subcity.url%>"
+                                target="_blank"><%= location.subcity.name %></a>,
+                            <%}%>
+                            <% if (location.city){%>
+                                <a class="clr-white" href="<%=location.city.url%>"
+                                    target="_blank"><%= location.city.name %></a>,
+                                <%}%>
+                        <% if (location.district){%>
+                            <a class="clr-white" href="<%=location.district.url%>"
+                                target="_blank"><%= location.district.name %></a>,
+                            <%}%>
+                        <% if (location.state){%>
+                            <a class="clr-white" href="<%=location.state.url%>"
+                                target="_blank"><%= location.state.name %></a>
+                            <%}%></p>
+                        <%}%>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="padding-top: 40px;">
+        <div class="row">
+            <div class="col-md-8">
+                <% if (data.description){ %>
+
+                <div class="data-card" style="word-break: break-all;">
+                    <h3>Description</h3>
+
+                    <%- data.description %>
+                </div>
+                <%}%>
+                    <div class="data-card">
+                            <h3>Property Details</h3>
+                            <table class="table">
+                                <tbody>
+                                    <% if (data.property_type){ %>
+                <tr>
+                    <td>
+                        <strong>Property Type</strong>
+                    </td>
+                    <td>
+                        <%= data.property_type %>
+                    </td>
+                </tr>
+                
+                <%}%>
+
+                <% if (data.area && data.area.area){ %>
+                    <tr>
+                        <td>
+                            <strong>Area</strong>
+                        </td>
+                        <td>
+                            <%= data.area.area %> <%= data.area.unit %>
+                        </td>
+                    </tr>
+                    
+                    <%}%>
+
+
+                    <% if (data.expected_completion){ %>
+                        <tr>
+                            <td>
+                                <strong>Possession Year</strong>
+                            </td>
+                            <td id="expected_completion">
+                                
+                            </td>
+                        </tr>
+                        <%}%>
+                    
+
+                    <% if (data.tower_number){ %>
+                        <tr>
+                            <td>
+                                <strong>Tower No.</strong>
+                            </td>
+                            <td>
+                                <%= data.tower_number %>
+                            </td>
+                        </tr>
+                        <%}%>
+                        <% if (data.unit_number){ %>
+                            <tr>
+                                <td>
+                                    <strong>Unit Number</strong>
+                                </td>
+                                <td>
+                                    <%= data.unit_number %>
+                                </td>
+                            </tr>
+                            <%}%>
+
+
+                                    <% if (data.bhk_space){ %>
+                <tr>
+                    <td>
+                        <strong>BHK</strong>
+                    </td>
+                    <td>
+                        <%= data.bhk_space %>
+                    </td>
+                </tr>
+                <%}%>
+                                    <% if (data.condition){ %>
+                <tr>
+                    <td>
+                        <strong>Condition</strong>
+                    </td>
+                    <td>
+                        <%= data.condition %>
+                    </td>
+                </tr>
+                <%}%>
+                <% if (data.facing){ %>
+                    <tr>
+                        <td>
+                            <strong>Facing</strong>
+                        </td>
+                        <td>
+                            <%= data.facing %>
+                        </td>
+                    </tr>
+                    <%}%>
+                                    <% if (data.furnished){ %>
+                <tr>
+                    <td>
+                        <strong>Furnished Status</strong>
+                    </td>
+                    <td>
+                        <%= data.furnished %>
+                    </td>
+                </tr>
+                <%}%>
+                                    <% if (data.ownership){ %>
+                <tr>
+                    <td>
+                        <strong>Ownership</strong>
+                    </td>
+                    <td>
+                        <%= data.ownership %>
+                    </td>
+                </tr>
+                <%}%>
+                <% if (data.floor){ %>
+                    <tr>
+                        <td>
+                            <strong>Floor</strong>
+                        </td>
+                        <td>
+                            <%= data.floor %>
+                        </td>
+                    </tr>
+                    <%}%>
+                <% if ( data.price && data.price.price){ %>
+                    <tr>
+                        <td>
+                            <strong>Total Price :</strong>
+                        </td>
+                        <td>
+                            
+                            <%= data.price.price.toLocaleString('en-IN') %>
+                        </td>
+                    </tr>
+                    <%}%>
+
+                    <% if (data.loan_amount){ %>
+                        <tr>
+                            <td>
+                                <strong>Loan Amount</strong>
+                            </td>
+                            <td>
+                                <%= data.loan_amount.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %>
+                            </td>
+                        </tr>
+                        <%}%>
+                        <% if (data.loan_bank){ %>
+                            <tr>
+                                <td>
+                                    <strong>Loan Bank</strong>
+                                </td>
+                                <td>
+                                    <%= data.loan_bank %>
+                                </td>
+                            </tr>
+                            <%}%>
+
+                        
+
+                        
+                                </tbody>
+                            </table>
+                    </div>
+                    <% if (locals.project){ %>
+                <div class="data-card">
+                    <h3>Project Details</h3>
+                    <table class="table">
+                        <tbody>
+                            <% if (builder.length > 0){ %>
+                            <tr>
+                                <td>
+                                    <strong>Builder</strong>
+                                </td>
+                                <td>
+                                    <a href="<%= builder[0].url %>" target="_blank">
+
+                                        <div
+                                            style="width: 200px; height: 60px; text-align: center; margin: auto;">
+                                            <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/builder/<%= builder[0].logo %>"
+                                                alt="" class="w-100 h-100">
+                                        </div>
+
+                                        <div style="text-align: center; margin-top: 10px;">
+                                            <%= builder[0].name %>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <% if (project.name){ %>
+                            <tr>
+                                <td>
+                                    <strong>Project Name</strong>
+                                </td>
+                                <td>
+                                    <a href="<%= project.url %>" target="_blank"> <%= project.name %></a>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <% if (project.authority){ %>
+                                <tr>
+                                    <td>
+                                        <strong>Authority</strong>
+                                    </td>
+                                    <td>
+                                        <%= project.authority %>
+                                    </td>
+                                </tr>
+                                <%}%>
+                            <% if (project.project_status){ %>
+                            <tr>
+                                <td>
+                                    <strong>Status</strong>
+                                </td>
+                                <td>
+                                    <%= project.project_status %>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <% if (project.total_floors){ %>
+                            <tr>
+                                <td>
+                                    <strong>Total Floors</strong>
+                                </td>
+                                <td>
+                                    <%= project.total_floors %>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <% if (project.parking_details && project.parking_details.parking ){ %>
+                            <tr>
+                                <td>
+                                    <strong>Parking Available</strong>
+                                </td>
+                                <td>
+                                    <%= project.parking_details.parking %>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <% if (project.amenities_json && project.amenities_json.length>0){ %>
+                            <tr>
+                                <td>
+                                    <strong>Amenities</strong>
+                                </td>
+                                <td>
+                                    <%= project.amenities_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <% if (project.connectivity_amenites_json){ %>
+                            <tr>
+                                <td>
+                                    <strong>Connectivity</strong>
+                                </td>
+                                <td>
+                                    <%= project.connectivity_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <% if (project.other_amenites_json){ %>
+                            <tr>
+                                <td>
+                                    <strong>Other Amenities</strong>
+                                </td>
+                                <td>
+                                    <%= project.other_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <% if (project.kid_amenites_json){ %>
+                            <tr>
+                                <td>
+                                    <strong>Kid's Amenities</strong>
+                                </td>
+                                <td>
+                                    <%= project.kid_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <% if (project.health_amenites_json){ %>
+                            <tr>
+                                <td>
+                                    <strong>Health Amenities</strong>
+                                </td>
+                                <td>
+                                    <%= project.health_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                                </td>
+                            </tr>
+                            <%}%>
+                            <% if (project.green_amenites_json){ %>
+                            <tr>
+                                <td>
+                                    <strong>Green Amenities</strong>
+                                </td>
+                                <td>
+                                    <%= project.green_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                                </td>
+                            </tr>
+                            <%}%>
+                            
+                            
+                            <% if (project.township){ %>
+                            <tr>
+                                <td>
+                                    <strong>Township</strong>
+                                </td>
+                                <td>
+                                    <%= project.township %>
+                                </td>
+                            </tr>
+                            <%}%>
+                                    
+                            
+                            </tbody>
+                        </table>
+                
+                    </div>
+                    
+                    <%}%>
+
+<% if (data.floor_plan && data.floor_plan.length > 0){ %>
+<div class="data-card">
+    <h3>Floor Plans</h3>
+    <% for(var i=0; i < data.floor_plan.length; i++) { %>
+    <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal"
+        data-target="#floorplanmodal<%=[i]%>">
+        PDF <%=[i+1]%>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="floorplanmodal<%=[i]%>" tabindex="-1" role="dialog"
+        aria-labelledby="floorplanmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl transparent-background" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                <div class="modal-body">
+                    <embed
+                        src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.floor_plan[i]%>#toolbar=0"
+                        width="100%" height="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}%>
+</div>
+<% } %>
+
+
+<% if (data.site_plan && data.site_plan.length > 0){ %>
+<div class="data-card">
+    <h3>Site Plans</h3>
+    <% for(var i=0; i < data.site_plan.length; i++) { %>
+    <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal" data-target="#siteplan<%=[i]%>">
+        PDF <%=[i+1]%>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="siteplan<%=[i]%>" tabindex="-1" role="dialog" aria-labelledby="siteplanLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl transparent-background" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                <div class="modal-body">
+                    <embed
+                        src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.site_plan[i]%>#toolbar=0"
+                        width="100%" height="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}%>
+</div>
+<%}%>
+
+<% if (data.brochure && data.brochure.length > 0){ %>
+<div class="data-card">
+    <h3>Brochure</h3>
+    <% for(var i=0; i < data.brochure.length; i++) { %>
+    <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal"
+        data-target="#brochuremodal<%=[i]%>">
+        PDF <%=[i+1]%>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="brochuremodal<%=[i]%>" tabindex="-1" role="dialog" aria-labelledby="brochuremodalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl transparent-background" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                <div class="modal-body">
+                    <embed
+                        src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.brochure[i]%>#toolbar=0"
+                        width="100%" height="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}%>
+</div>
+<%}%>
+
+<% if (data.price_list && data.price_list.length > 0){ %>
+<div class="data-card">
+    <h3>Price List</h3>
+    <% for(var i=0; i < data.price_list.length; i++) { %>
+    <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal"
+        data-target="#pricelistmodal<%=[i]%>">
+        PDF <%=[i+1]%>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="pricelistmodal<%=[i]%>" tabindex="-1" role="dialog"
+        aria-labelledby="pricelistmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl transparent-background" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                <div class="modal-body ">
+                    <embed
+                        src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.price_list[i]%>#toolbar=0"
+                        width="100%" height="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}%>
+</div>
+<%}%>
+
+<% if (data.specification && data.specification.length > 0){ %>
+<div class="data-card">
+    <h3>Specifications</h3>
+    <% for(var i=0; i < data.specification.length; i++) { %>
+    <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal"
+        data-target="#specificationmodal<%=[i]%>">
+        PDF <%=[i+1]%>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="specificationmodal<%=[i]%>" tabindex="-1" role="dialog"
+        aria-labelledby="specificationmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl transparent-background" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                <div class="modal-body">
+                    <embed
+                        src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.specification[i]%>#toolbar=0"
+                        width="100%" height="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}%>
+</div>
+<%}%>
+
+<% if (data.other_document && data.other_document.length > 0){ %>
+<div class="data-card">
+    <h3>Other Documents</h3>
+    <% for(var i=0; i < data.other_document.length; i++) { %>
+    <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal"
+        data-target="#otherdocumentmodal<%=[i]%>">
+        PDF <%=[i+1]%>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="otherdocumentmodal<%=[i]%>" tabindex="-1" role="dialog"
+        aria-labelledby="otherdocumentmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl transparent-background" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                <div class="modal-body">
+                    <embed
+                        src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.other_document[i]%>#toolbar=0"
+                        width="100%" height="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}%>
+</div>
+<%}%>
+</div>
+                <div class="col-md-4">
+                    <div class="data-card">
+
+                        <% if (true) { %>
+                            <!-- locals.project && project.location.location && project.location.location.lat && project.location.location.lng && project.location.location.lat.length > 0 && project.location.location.lng.length > 0 -->
+                            <h3><%= data.name %></h3>
+                            <div id="side_map"></div>
+                            <%} else {%>
+                            <div style="padding:40px 0;">
+                                <h3 class="text-center">No location found!!!</h3>
+                            </div>
+                            <% } %>
+
+                        
+                        <div style="padding-top:15px;">
+                            <% if (data.address){ %>
+                            <strong>Address</strong><br>
+                            <span><%= data.address %></span><br>
+                            <% } %>
+
+                            <% if (data.pincode){ %>
+                                <strong>Pincode: </strong><br>
+                                <span><%= data.pincode %></span><br>
+                                <% } %>
+
+                        </div>
+                        <% if (locals.similar && similar.length>0) { %>
+                        <hr>
+                        <h3 class="text-center mt-3"><strong>Similar Properties</strong></h3>
+                        <div class="text-center">
+                            <div class="swiper-container similar-swiper">
+                                <div class="swiper-wrapper">
+                                    <% for(var i=0; i < similar.length; i++) { %>
+                                    <div class="swiper-slide">
+                                        <div class="data-card cursor" onclick=go_to_page("<%=similar[i].url %>")>
+                                            <img src="<%=similar[i].banner_image %>" class="w-100" alt="">
+                                            <h4 class="mt-2"><%=similar[i].name%></h4>
+                                        </div>
+                                    </div>
+                                    <%}%>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <%}%>
+                                    <% if (locals.by_builder && by_builder.length>0) { %>
+                                    <hr>
+                                    <h3 class="text-center mt-3"><strong>Properties By Builder</strong></h3>
+                                    <div class="text-center">
+                                        <div class="swiper-container by-builder-swiper">
+                                            <div class="swiper-wrapper">
+                                                <% for(var i=0; i < by_builder.length; i++) { %>
+                                                <div class="swiper-slide">
+                                                    <div class="data-card cursor"
+                                                        onclick=go_to_page("<%=by_builder[i].url %>")>
+                                                        <img src="<%=by_builder[i].banner_image %>" class="w-100"
+                                                            alt="">
+                                                        <h4 class="mt-2"><%=by_builder[i].name%></h4>
+                                                    </div>
+                                                </div>
+                                                <%}%>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <%}%>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- MODAL -->
+                                <div class="modal fade bd-example-modal-lg" id="moreInfo" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <!-- HEADER -->
+                                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active clr-darkgrey" id="pills-images-tab"
+                                                            data-toggle="pill" href="#pills-images" role="tab"
+                                                            aria-controls="pills-images" aria-selected="true">Images</a>
+                                                    </li>
+                                                    <li class="nav-item clr-darkgrey">
+                                                        <a class="nav-link" id="pills-maps-tab" data-toggle="pill"
+                                                            href="#pills-maps" role="tab" aria-controls="pills-maps"
+                                                            aria-selected="false">Maps</a>
+                                                    </li>
+                                                    <!-- <li class="nav-item clr-darkgrey">
+                                                        <a class="nav-link" id="pills-docs-tab" data-toggle="pill"
+                                                            href="#pills-docs" role="tab" aria-controls="pills-docs"
+                                                            aria-selected="false">Documents</a>
+                                                    </li> -->
+                                                    <li
+                                                                                                        class="nav-item clr-darkgrey">
+                                                                                                        <a class="nav-link"
+                                                                                                            id="pills-video-tab"
+                                                                                                            data-toggle="pill"
+                                                                                                            href="#pills-video"
+                                                                                                            role="tab"
+                                                                                                            aria-controls="pills-video"
+                                                                                                            aria-selected="false">Video</a>
+                                                                                                    </li>
+                                                </ul>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" style="min-height: 500px;">
+                                                <!-- MODAL BODY -->
+
+                                                <div class="tab-content" id="pills-tabContent">
+                                                    <!-- CAROUSEL -->
+                                                    <div class="tab-pane fade show active" id="pills-images"
+                                                        role="tabpanel" aria-labelledby="pills-images-tab">
+                                                        <%if (data.images && data.images.length > 0) { %>
+                                                        <div class="swiper-container text-center" id="popupGallery" style="height: auto !important;">
+                                                            <div class="swiper-wrapper">
+                                                                <% for(var i=0; i < data.images.length; i++) { %>
+                                                                <div class="swiper-slide">
+                                                                    <img data-src="<%=data.images[i]%>"
+                                                                        class="swiper-lazy modal-image">
+                                                                    <div
+                                                                        class="swiper-lazy-preloader swiper-lazy-preloader-white">
+                                                                    </div>
+                                                                </div>
+                                                                <% } %>
+                                                            </div>
+                                                            <div class="swiper-button-next"></div>
+                                                            <div class="swiper-button-prev"></div>
+                                                            <div class="swiper-pagination"></div>
+                                                        </div>
+                                                        <% } else {%>
+                                                        <h4>No Images Found</h4>
+                                                        <% } %>
+                                                    </div>
+                                                    <!-- MAPS -->
+                                                    <div class="tab-pane fade" id="pills-maps" role="tabpanel"
+                                                        aria-labelledby="pills-maps-tab">
+                                                        <% if (true) { %>
+                                                            <!-- locals.project && project.location.location && project.location.location.lat && project.location.location.lng && project.location.location.lat.length>0&& project.location.location.lng.length>0 -->
+                                                            <h3><%= data.name %></h3>
+                                                            <div id="modal-map"></div>
+                                                            <img src="/v1/img/logo.webp" class="logo-over-modal"/>
+                                                            <div>
+                                                                <% if (data.address){ %>
+                                                                <strong>Address</strong><br>
+                                                                <span><%= data.address %></span><br>
+                                                                <% } %>
+    
+                                                            </div>
+                                                            <%} else {%>
+                                                            <div style="padding:40px 0;">
+                                                                <h3 class="text-center">No location found!!!</h3>
+                                                            </div>
+                                                            <% } %>
+                                                        <!-- <h3><%= data.name %></h3>
+                                                        <div id="modal-map"></div> -->
+                                                        
+                                                    </div>
+                                                    <!-- DOCUMENTS -->
+                                                    <div class="tab-pane fade" id="pills-docs" role="tabpanel"
+                                                        aria-labelledby="pills-docs-tab">
+
+
+                                                        <div class="swiper-container" id="popupGalleryDocs"
+                                                            style="background-color: black">
+                                                            <div class="swiper-wrapper">
+                                                                <% for(var i=0; i < data.floor_plan.length; i++) { %>
+                                                                <div class="swiper-slide">
+                                                                        <div class="my_pdf_viewer">
+                                                                                <div class="canvas_container">
+                                                                                    <canvas class="pdf_renderer"></canvas>
+                                                                                </div>
+                                                                            </div>
+                                                                    <!-- <div
+                                                                        class="swiper-lazy-preloader swiper-lazy-preloader-white">
+                                                                    </div> -->
+                                                                </div>
+                                                                <% } %>
+                                                            </div>
+                                                            <div class="swiper-button-next"></div>
+                                                            <div class="swiper-button-prev"></div>
+                                                            <div class="swiper-pagination"></div>
+                                                        </div>
+
+
+                                                        
+
+                                                    </div>
+
+                                                    <!-- Video -->
+                                                    <div class="tab-pane fade"
+                                                    id="pills-video"
+                                                    role="tabpanel"
+                                                    aria-labelledby="pills-video-tab">
+                                                    <!-- <h1><%= data.video_url %></h1> -->
+                                                    <% if (data.video_url){ %>
+                                                        <iframe width="100%" height="415" src="<%= data.video_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                        <!-- <iframe
+                                                        width="100%"
+                                                        height="315"
+                                                        src="<%= data.video_url %>"
+                                                        frameborder="0"
+                                                        allowfullscreen></iframe> -->
+                                                        <%} else {%>
+                                                            <h3 class="text-center">
+                                                                No Video available
+                                                            </h3>
+                                                            <%}%>
+                                                </div>
+
+                                                    <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                                                        aria-labelledby="pills-contact-tab">...</div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FIXED BUTTONS FOR MOBILE -->
+                                <!-- <div class="btm-btns">
+        <button class="btn btn-danger my-2 my-sm-0 mr-2" type="submit">Call</button>
+        <button class="btn btn-danger my-2 my-sm-0 ml-2" type="submit">Email</button>
+    </div> -->
+
+
+</body>
+<%- include ../partials/footer.ejs%>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw&callback=initialize"
+    async defer></script> -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw&callback=initialize"
+        async
+        defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js">
+</script>
+
+<script>
+        <% if (locals.project && project.location) { %>
+        var map;
+        var mapModal;
+        var lat =<%=project.location.location.lat %>;
+        var lng =<%=project.location.location.lng %>;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('side_map'), {
+                center: { lat: lat, lng: lng },
+                zoom:12,
+                fullscreenControl: false,
+            });
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lat, lng),
+                map: map
+            });
+        }
+
+        function initMap2() {
+            map = new google.maps.Map(document.getElementById('modal-map'), {
+                center: { lat: lat, lng: lng },
+                zoom:12
+            });
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lat, lng),
+                map: map
+            });
+        }
+        function initialize() {
+            initMap();
+            initMap2();
+        }
+        <%} else {%>
+            console.log('initializing')
+        function initialize() { }
+        <%}%>
+</script>
+
+
+
+<script>
+  var popupGallery;
+  var popupGalleryDocs;
+    var pageLoadModal = false;
+    $(document).ready(function () {
+
+
+        $('#moreInfo').on('show.bs.modal', function (e) {
+            popupGallery = new Swiper('#popupGallery', {
+                spaceBetween: 2,
+                loop: true,
+                lazy: true,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    dynamicBullets: true,
+                }
+            });
+        });
+
+        $('#moreInfo').on('shown.bs.modal', function (e) {
+            
+        });
+
+        $('#moreInfo').on('show.bs.modal', function (e) {
+                  popupGalleryDocs = new Swiper('#popupGalleryDocs', {
+                      spaceBetween: 2,
+                      loop: true,
+                      lazy: true,
+                      navigation: {
+                          nextEl: '.swiper-button-next',
+                          prevEl: '.swiper-button-prev',
+                      },
+                      pagination: {
+                          el: '.swiper-pagination',
+                          dynamicBullets: true,
+                      }
+                  });
+              });
+      
+              $('#moreInfo').on('shown.bs.modal', function (e) {
+                popupGallery.update();
+                  popupGalleryDocs.update();
+              });
+
+        if (pageLoadModal) { $('#moreInfo').modal(); }
+        else {
+            pageLoadModal = true;
+        }
+    });
+</script>
+
+
+
+<script>
+    var similarSwiper = new Swiper('.similar-swiper', {
+        loop: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+
+    });
+    var byBuilderSwiper = new Swiper('.by-builder-swiper', {
+        loop: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+
+    });
+</script>
+
+<!-- <script>
+        <% for (var i = 0; i < data.floor_plan.length; i++) { %>
+
+                var myState = {
+                pdf: null,
+                currentPage: 1,
+                zoom: 1
+            }
+
+
+            pdfjsLib.getDocument('https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%= data.floor_plan[i] %>').then((pdf) => {
+                myState.pdf = pdf;
+                render(<%= [i] %>);
+
+            });
+
+        <% } %>
+
+
+        function render(index) {
+            myState.pdf.getPage(myState.currentPage).then((page) => {
+
+                var currentCanvas = document.getElementsByClassName("pdf_renderer")[index];
+                var ctx = currentCanvas.getContext('2d');
+                var viewport = page.getViewport(myState.zoom);
+                currentCanvas.width = viewport.width;
+                currentCanvas.height = viewport.height;
+                page.render({
+                    canvasContext: ctx,
+                    viewport: viewport
+                });
+            });
+        }
+
+
+
+</script> -->
+
+<script>
+        var myState = {
+            pdf: null,
+            currentPage: 1,
+            zoom: 1
+        }
+    
+        function showPDF(pdfFile) {
+    
+            function render() {
+                myState.pdf.getPage(myState.currentPage).then((page) => {
+    
+                    var canvas = document.getElementById("pdf_renderer");
+                    var ctx = canvas.getContext('2d');
+    
+                    var viewport = page.getViewport(myState.zoom);
+    
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+    
+                    page.render({
+                        canvasContext: ctx,
+                        viewport: viewport
+                    });
+    
+                });
+            }
+            console.log('pdf file name is', pdfFile)
+            pdfjsLib.getDocument('https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/' + pdfFile + '').then((pdf) => {
+                myState.pdf = pdf;
+                render();
+    
+            });
+    
+            document.getElementById('go_previous')
+                .addEventListener('click', (e) => {
+                    if (myState.pdf == null
+                        || myState.currentPage == 1) return;
+                    myState.currentPage -= 1;
+                    document.getElementById("current_page")
+                        .value = myState.currentPage;
+                    render();
+                });
+    
+            document.getElementById('go_next')
+                .addEventListener('click', (e) => {
+                    if (myState.pdf == null
+                        || myState.currentPage > myState.pdf
+                            ._pdfInfo.numPages)
+                        return;
+    
+                    myState.currentPage += 1;
+                    document.getElementById("current_page")
+                        .value = myState.currentPage;
+                    render();
+                });
+    
+            document.getElementById('current_page')
+                .addEventListener('keypress', (e) => {
+                    if (myState.pdf == null) return;
+    
+                    // Get key code
+                    var code = (e.keyCode ? e.keyCode : e.which);
+    
+                    // If key code matches that of the Enter key
+                    if (code == 13) {
+                        var desiredPage =
+                            document.getElementById('current_page')
+                                .valueAsNumber;
+    
+                        if (desiredPage >= 1
+                            && desiredPage <= myState.pdf
+                                ._pdfInfo.numPages) {
+                            myState.currentPage = desiredPage;
+                            document.getElementById("current_page")
+                                .value = desiredPage;
+                            render();
+                        }
+                    }
+                });
+    
+            document.getElementById('zoom_in')
+                .addEventListener('click', (e) => {
+                    if (myState.pdf == null) return;
+                    myState.zoom += 0.5;
+                    render();
+                });
+    
+            document.getElementById('zoom_out')
+                .addEventListener('click', (e) => {
+                    if (myState.pdf == null) return;
+                    myState.zoom -= 0.5;
+                    render();
+                });
+    
+        }
+    
+        
+    
+
+
+    
+    </script>
+
+<script>
+$(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();   
+    });
+</script>
+
+<script>
+    function getExpCompDate() {
+        var date = new Date('<%= data.expected_completion %>');
+        $('#expected_completion').text(date.getFullYear());
+    }
+    getExpCompDate();
+</script>
+
+</html>

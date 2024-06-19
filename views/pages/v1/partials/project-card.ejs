@@ -1,0 +1,460 @@
+<% if (card==true){ %>
+  <% for(var i=0; i < results.length; i++) { %>
+    <!-- <div class="col-lg-4 col-sm-6 col-12 folder-view-properties" id="<%=i%>_project-card-<%=results[i].id%>">
+      	<div class="appartement-grid-box">
+			<div class="appartment-checkbox lc-grid-checkbox-new">
+				<div class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=results[i].id%>-card-view" name="example-<%=results[i].id%>-card-view" onchange="add_to_compare('<%=JSON.stringify(results[i])%>', 'example-<%=results[i].id%>-card-view')">
+					<label class="custom-control-label" for="example-<%=results[i].id%>-card-view"></label>
+				</div>
+			</div>
+			<div class="app-grid-img" onclick="go_to_page('<%=results[i].url %>')">
+			<img class="img img-fluid" src="<%=results[i].banner_image %>" alt="">
+			</div>
+			<div class="app-grid-content left-align-content">
+				<div>
+					<h2>
+						<%- include('./bookmark-list', {url: results[i].url, is_bookmarked: results[i].is_bookmarked, id: i + "_project-card-" + results[i].id}); %>
+						<span onclick="go_to_page('<%=results[i].url %>'')"><%=results[i].name %></span>
+					</h2>
+					<% if (results[i].builder){ %>
+						<h5 class="builder-name-listing"><%=results[i].builder %></h5>
+					<%}%>
+				</div>
+				<div class="located_area justify-content-center">
+					<div class="loc-left ">
+						<i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+						<p>
+							<% if (results[i].subcity){ %> 
+								<%=results[i].subcity %>,
+							<%}%>
+							<% if (results[i].city){ %>
+								<%=results[i].city %>
+							<%}%>
+						</p>
+					</div>
+				</div>
+				<div class="app-grid-price">
+					<div class="row align-items-center">
+					<% if (results[i].price && results[i].price.min && (results[i].price.min !== '" NaN "')){ %>
+						<div class="col-12">
+							<h3 class="text-center">
+								Starting Price :
+								<b>
+									<%=changeNumberFormat(results[i].price.min)%>
+								</b>
+							</h3>
+						</div>
+					<%} else {%>
+					<%}%>
+					</div>
+				</div>
+				<div class="featured-points">
+					<ul>
+						<% if (results[i].project_status){ %>
+						<li>
+							<h5><%=results[i].project_status %></h5>
+						</li>
+						<%}%>
+						<% if (results[i].property_type){ %>
+						<li>
+							<h5><%=results[i].property_type %></h5>
+						</li>
+						<%}%>
+						<% if (results[i].lease_rent){ %>
+						<li>
+							<h5><%=results[i].lease_rent %></h5>
+						</li>
+						<%}%>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<div class="col-lg-6 col-sm-6 col-12 folder-view-properties">
+		<div class="apparment-list apparment-list-updated" id="<%=i+20000+custSkip%>_project-<%=results[i].id%>" onmouseenter="showBox('<%=results[i].id%>', <%=i+20000+custSkip%>, <%=i+20000+custSkip%>)" onmouseleave="hideBox('<%=results[i].id%>', <%=i+20000+custSkip%>, <%=i+20000+custSkip%>)">
+		  <div class="apparment-list-left">
+			<a href="javascript:;" class="add-com-btn">
+			  <div class="appartment-checkbox">
+				<div class="custom-control custom-checkbox ">
+					<input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=results[i].id%>-card-view" name="example-<%=results[i].id%>-card-view" onchange="add_to_compare('<%=JSON.stringify(results[i])%>', 'example-<%=results[i].id%>-card-view')">
+					<label class="custom-control-label" for="example-<%=results[i].id%>-card-view">
+				  </label>
+				</div>
+			  </div>
+			</a>
+			<div class="owl-carousel owl-theme allProp-first-owl" onclick="go_to_page('<%=results[i].url%>')">
+			  <% if (results[i].images && results[i].images.length> 0){ %>
+				<% for(var j=0; j < results[i].images.length; j++) {%>
+				  <div class="item">
+					<div class="all-prop-heart">
+					  <img src="<%=results[i].images[j] %>" class="img img-fluid">
+					</div>
+				  </div>
+				<% } %>
+			  <%} else {%>
+				<div class="item">
+				  <div class="all-prop-heart">
+					<img src="/images/placeholder_bg.webp" class="img img-fluid">
+				  </div>
+				</div>
+			  <% } %>
+			</div>
+			<% if (emi_per_lac && (results[i].price && results[i].price.min)) { %>
+				<p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+				  <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+				</button></p>
+			  <% } %>
+		  </div>
+		  <div class="apparment-list-right">
+			<div class="row">
+			  <div class="col-lg-8">
+				<h2>
+				  <%- include('./bookmark-list', {url: results[i].url, is_bookmarked: results[i].is_bookmarked, id: i + "_project-" + results[i].id, name:results[i].name, builder:results[i].builder}); %>
+				  <span onclick='go_to_page("<%=results[i].url %>")'><%=results[i].name %></span>
+				</h2>
+				<% if (results[i].builder){ %>
+				<p class="pl-42">
+				  <%=results[i].builder %>
+				</p>
+				<%}%>
+				<% if (results[i].area && results[i].area.area){ %>
+					<div class="col-lg-4 pl-42 d-lg-none">
+					  <div class="area_prices">
+						<h2>
+						  <%=results[i].area.area %> acres
+						</h2>
+					  </div>
+					</div>
+				  <%} else {%>
+
+				  <%}%>
+			  </div>
+				<% if (results[i].area && results[i].area.area){ %>
+				<div class="col-lg-4 d-none d-lg-flex justify-content-end">
+				  <div class="area_prices">
+					<h2>
+					  <%=results[i].area.area %> acres
+					</h2>
+				  </div>
+				</div>
+				<%} else {%>
+
+				<%}%>
+			  </div>  
+			  <% if ((results[i].price && results[i].price.min && (results[i].price.min !== " NaN "))||(results[i].sq_fit_cost && results[i].sq_fit_cost.min)){%>
+				<hr>
+				<div class="row align-items-center">
+				  <% if (results[i].price && results[i].price.min && (results[i].price.min !== " NaN ")){%>
+				  <div class="col-6 pr-0">
+					<!-- <h3>Starting Price : 
+					  <span>
+						<%=changeNumberFormat(results[i].price.min)%>
+					  </span>
+					</h3> -->
+					<table class="px-0">
+						<tr>
+						  <td>
+							<h3 class="text-left">Starting: </h3>
+						  </td>
+						  <td>
+							<h3><span> ₹ <%=changeNumberFormat(results[i].price.min)%></span></h3>
+						  </td>
+						</tr>
+						<!-- <% if(emi_per_lac) {%>
+						<tr>
+						  <td>
+							<h3 class="text-left">EMI Starting :</h3>
+						  </td>
+						  <td>
+							<h3><span> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results[i].price.min / 100000))%></span><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+								<svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+							  </button></h3>
+						  </td>
+						</tr>
+						<% } %> -->
+					</table>
+				  </div>
+				  <%} else if(results[i].price.min === '" NaN "') {%>
+
+				  <%} else {%>
+
+
+				  <%}%>
+				  <% if (results[i].sq_fit_cost && results[i].sq_fit_cost.min){ %>
+				  <div class="col-6">
+					<h6>
+					  Starting SqFt. cost:
+					  <b>
+						₹<%=(results[i].sq_fit_cost.min).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>
+					  </b>
+				  </div>
+				  <%} else {%>
+
+				  <%}%>
+				  </div>
+				  <%} else {%>
+
+				  <%}%>
+				  <hr>
+				  <div class="located_area">
+					<div class="loc-left">
+					  <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+					  <p>
+						<% if (results[i].subcity){ %>
+						  <%=results[i].subcity %>,
+						<%}%>
+						<% if (results[i].city){ %>
+						  <%=results[i].city%>
+						<%}%>
+					  </p>
+					</div>
+					<% if (results[i].details_area  && results[i].details_area.min && results[i].details_area.max){ %>
+					<div class="area_prices">
+					  <h2>(<%=results[i].details_area.min %>-<%=results[i].details_area.max%>) sq.ft</h2>
+					</div>
+					<%} else {%>
+
+					<%}%>
+				  </div>
+				  <hr>
+				  <div class="featured-points">
+					<ul>
+					  <% if (results[i].project_status){%>
+						<li>
+						  <h5>
+							<%=results[i].project_status %>
+						  </h5>
+						</li>
+						<%}%>
+						<% if(results[i].property_type){%>
+						<li>
+						  <h5>
+							<%=results[i].property_type %>
+						  </h5>
+						</li>
+						<%}%>
+						<% if (results[i].lease_rent){ %>
+						<li>
+						  <h5>
+							<%=results[i].lease_rent %>
+						  </h5>
+						</li>
+					  <%}%>
+					</ul>
+				  </div>
+				</div>                                                        
+		</div>
+		<div class="book-prop-btn-phone d-md-none" onclick="go_to_page('/properties?project=<%=results[i].name%>')">
+			<% if (results[i].total_properties !== 0) {%>
+				<button class="btn explore-properties  d-flex justify-content-center align-items-center">Available Properties (<%=results[i].total_properties%>)</button>
+			  <%} else { %>
+				<button class="btn explore-properties  d-flex justify-content-center align-items-center">Register your interest</button>
+			  <%}%>
+		  </div>   
+		<div onmouseenter="showBox('<%=results[i].id%>', <%=i+20000+custSkip%>, <%=i+20000+custSkip%>)"
+		onmouseleave="hideBox('<%=results[i].id%>', <%=i+20000+custSkip%>, <%=i+20000+custSkip%>)"
+		id="<%=i+20000+custSkip%>_project-btns-<%=results[i].id%>"
+		class="book-prop-btn"
+		onclick="go_to_page('/properties?project=<%=results[i].name%>')"
+		style="display: none">
+		<% if (results[i].total_properties !== 0) {%>
+		  <button class="btn explore-properties  d-flex justify-content-center align-items-center">Available Properties (<%=results[i].total_properties%>)</button>
+		<%} else { %>
+		  <button class="btn explore-properties  d-flex justify-content-center align-items-center">Register your interest</button>
+		<%}%>
+		  <!-- <button class="btn">Available Properties</button> -->
+		</div>
+	  </div>
+	<%}%>
+	<!-- <div class="col-12 folder-view-properties use_filters">
+		<div>
+				<p class="text-center mb-0">Please use filters and sorting effectively to shortlist your options</p>
+		</div>
+	</div> -->
+	<% if (!to_individual_entity){%>
+	<div class="col-12 folder-view-properties no-login-msg-div">
+		<h3 class="no-login-msg see_more_results w-100">
+			<span>
+				<p class="btn blue-text w-100" onclick='see_more_results()'>
+					See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+				</p>
+			</span>
+		</h3>
+	</div>
+	<%}%>
+<%}%>
+<% if (partial==true){ %>
+  <% for(var i=0; i < results.length; i++) { %>
+    <div class="patrital-map-card-view-project">
+      <div class="apparment-list apparment-list-updated" id="<%=i+custSkip%>_project-<%=results[i].id%>" <% if (!to_individual_entity){%> onmouseenter="showBox('<%=results[i].id%>', '<%=i%>', '<%=i+custSkip%>')" onmouseleave="hideBox('<%=results[i].id%>', '<%=i%>', '<%=i+custSkip%>')"<%}%>>
+        <div class="apparment-list-left">
+          <a href="javascript:;" class="add-com-btn">
+            <div class="appartment-checkbox">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=results[i].id%>" name="example-<%=results[i].id%>" onchange="add_to_compare('<%=JSON.stringify(results[i])%>')">
+                <label class="custom-control-label" for="example-<%=results[i].id%>"></label>
+              </div>
+            </div>
+          </a>
+          <div class="owl-carousel owl-theme allProp-first-owl" onclick="go_to_page('<%=results[i].url %>')">
+   		      <% if (results[i].images && results[i].images.length > 0){ %>
+            <% for(var j=0; j <results[i].images.length; j++) { %>
+              <div class="item">
+                <div class="all-prop-heart">
+                  <img src="<%=results[i].images[j] %>" class="img img-fluid"/>
+				</div>
+              </div>
+            <% } %>
+            <%} else {%>
+				<div class="item">
+					<div class="all-prop-heart">
+						<img src="/images/placeholder_bg.webp" class="img img-fluid"/>
+					</div>
+				</div>
+            <% } %>
+          </div>
+		  <% if (emi_per_lac && (results[i].price && results[i].price.min)) { %>
+			<p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+			  <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+			</button></p>
+		  <% } %>
+        </div>
+        <div class="apparment-list-right">
+          <div class="row">
+            <div class="col-lg-8">
+              <h2>
+                <%- include('./bookmark-list', {url: results[i].url, is_bookmarked: results[i].is_bookmarked, id: i + "_project-" + results[i].id}); %>
+                  <span onclick="go_to_page('<%=results[i].url %>')"><%=results[i].name %></span>
+              </h2>
+              <% if (results[i].builder){ %>
+                <p class="pl-42"><%=results[i].builder %></p>
+              <%}%>
+            </div>
+            <% if (results[i].area && results[i].area.area){ %>
+              <div class="col-lg-4 d-none d-lg-flex justify-content-end">
+                <div class="area_prices">
+                  <h2>
+                    <%=results[i].area.area %>
+                      acres
+                  </h2>
+                </div>
+              </div>
+            <%} else {%>
+            <%}%>
+          </div>
+          <% if ((results[i].price && results[i].price.min && results[i].price.min != '" NaN "')||(results[i].sq_fit_cost && results[i].sq_fit_cost.min)){ %>
+						<hr>
+						<div class="row align-items-center">
+            <% if (results[i].price && results[i].price.min && results[i].price.min !== '" NaN "'){ %>
+              <div class="col-6 pr-0">
+                <!-- <h3>Starting Price :
+                  <span>
+                    <%=changeNumberFormat(results[i].price.min)%>
+                  </span>
+                </h3> -->
+				<table class="px-0">
+					<tr>
+					  <td>
+						<h3 class="text-left">Starting: </h3>
+					  </td>
+					  <td>
+						<h3><span> ₹ <%=changeNumberFormat(results[i].price.min)%></span></h3>
+					  </td>
+					</tr>
+					<!-- <% if(emi_per_lac) {%>
+					<tr>
+					  <td>
+						<h3 class="text-left">EMI Starting :</h3>
+					  </td>
+					  <td>
+						<h3><span> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results[i].price.min / 100000))%></span><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+							<svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+						  </button></h3>
+					  </td>
+					</tr>
+					<% } %> -->
+				  </table>
+              </div>
+              <%} else {%>
+              <%}%>
+              <% if (results[i].sq_fit_cost && results[i].sq_fit_cost.min){ %>
+              	<div class="col-6">
+                  <h6>
+                    Starting SqFt. cost:
+                    <b>
+                      ₹<%=results[i].sq_fit_cost.min%>
+                    </b>
+									</h6>
+								</div>
+              <%} else {%>
+              <%}%>
+            </div>
+					<%} else {%>
+					<%}%>
+					<hr>
+					<div class="located_area">
+						<div class="loc-left">
+							<i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+							<p>
+								<% if (results[i].subcity){ %>
+									<%=results[i].subcity %>,
+								<%}%>
+								<% if (results[i].city){ %>
+									<%=results[i].city %>
+								<%}%>
+							</p>
+						</div>
+						<% if (results[i].details_area && results[i].details_area.min && results[i].details_area.max){ %>
+							<div class="area_prices">
+								<h2>
+									(<%=results[i].details_area.min %>-<%=results[i].details_area.max %>) sq. ft.
+								</h2>
+							</div>
+						<%} else {%>
+						<%}%>
+					</div>
+					<hr>
+					<div class="featured-points">
+						<ul>
+							<% if (results[i].project_status){ %>
+								<li>
+									<h5><%=results[i].project_status %></h5>
+								</li>
+							<%}%>
+							<% if (results[i].property_type){ %>
+								<li>
+									<h5><%=results[i].property_type %></h5>
+								</li>
+							<%}%>
+							<% if (results[i].lease_rent){ %>
+								<li>
+									<h5><%=results[i].lease_rent %></h5>
+								</li>
+							<%}%>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div <% if (!to_individual_entity){%> onmouseenter="showBox('<%=results[i].id%>', <%=i%>, <%=i+custSkip%>)" onmouseleave="hideBox('<%=results[i].id%>', <%=i%>, <%=i+custSkip%>)"<%}%> id="<%=i%>_project-btns-<%=results[i].id%>" class="book-prop-btn" onclick="go_to_page('/properties?project=<%=results[i].name%>')" style="display: none">
+				<!-- <button class="btn">Available Properties (<%=results[i].total_properties%>)</button> -->
+				<% if (results[i].total_properties !== 0) {%>
+					<button class="btn explore-properties  d-flex justify-content-center align-items-center">Available Properties (<%=results[i].total_properties%>)</button>
+				<%} else { %>
+					<button class="btn explore-properties  d-flex justify-content-center align-items-center">Register your interest</button>
+				<%}%>
+			</div>
+		</div>
+	<% } %>
+	<% if (!to_individual_entity){%>
+	<div class="patrital-map-card-view-project no-login-msg-div">
+		<h3 class="no-login-msg see_more_results w-100">
+		  <span>
+			<p class="btn blue-text w-100" onclick="see_more_results()">
+			  See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+			</p>
+		  </span>
+		</h3>
+	  </div>	
+	<%}%>
+<%}%>

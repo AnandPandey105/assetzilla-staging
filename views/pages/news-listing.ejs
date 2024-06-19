@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><% if (data.tag_name){ %> Top articles related to <%=data.tag_name%> <% } else {%> Real Estate News | Property Articles | Assetzilla <% } %>
+  </title>
+  <meta name="title" content="Top articles related to (Tag Name) | AssetZilla">
+  <meta name="description" content="Find the Perfect Property @Assetzilla. We're the most trusted portal to Buy or sell Property.">
+</head>
+<%- include ../partials/head.ejs%>
+
+<body>
+  <%- include ../partials/navigation_bar.ejs%>
+  <div class="container-fluid blog-jumbo top-margin">
+    <div class="container">
+      <div class="jumbotron cstm-jumbo">
+        <h1 class="display-4" style="color: #FFF !important;">
+          <% if (data.tag_name){ %>
+          #<%=data.tag_name%>
+          <% } else {%>
+          Stay Informed!
+          <% } %>
+        </h1>
+        <p class="lead">Latest Insights, updates, news to make your Property buying decision smart and easier.</p>
+      </div>
+    </div>
+  </div>
+  <div class=" container">
+    <div class="news-container row">
+      <div class="col-md-9">
+        <div class="row">
+          <% for(var i=0; i < data.results.length; i++) { %>
+          <div class="col-md-4">
+            <div class="card mb-3 shadow" onclick="go_to_page('<%=data.results[i].url %>')">
+              <!-- style="width: 22rem;" -->
+              <div class="cursor">
+                <img src="<%=data.results[i].news_banner%>" class="card-img-top">
+              </div>
+              <div class="card-body">
+                <div class="mb-2">
+                  <span><small class="text-muted font-weight-bold">
+                      <% if (data.results[i].publish_date){ %>
+                      Published on -
+                      <%=data.results[i].publish_date%>
+                      <!-- <%=data.results[i].publish_date.date%> <%=data.results[i].publish_date.month%>. <%=data.results[i].publish_date.year%> -->
+                      <%}%>
+                                    </small></span>
+                                </div>
+                                <h5 class="card-title"><%=data.results[i].heading%></h5>
+                      <p class="card-text">
+                        <a href="<%=data.results[i].link%>" target="_blank" class="clr-black"></a>
+                        <%=data.results[i].link_name%>
+                      </p>
+                </div>
+              </div>
+            </div>
+            <%}%>
+            </div>
+            <div id="infinite-scroll" class="row"></div>
+            </div>
+            
+            <div class="col-md-3">
+                    <hr style="margin: 40px 0;" class="mob-show">
+                <div class="">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Seach..." aria-label="Recipient's username"
+                        aria-describedby="button-addon2" id="news_search" onchange=news_search()">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button"  onclick="news_search()">Search</button>
+                    </div>
+                </div>
+                <!-- LATEST POST -->
+                <h5 style="margin-top: 45px;">Latest Post</h5>
+                <hr>
+                <% for(var i=0; i < recent_blog.length; i++) { %>
+            <div class="d-flex flex-column bd-highlight mb-3" onclick="go_to_page('<%=recent_blog[i].url %>')">
+              <div class="p-2 bd-highlight">
+                <img src="<%=recent_blog[i].news_banner%>" class="w-100">
+              </div>
+              <div class="p-2 bd-highlight">
+                <p class="card-text"><small class="text-muted">Last <%=recent_blog[i].updated.date%> <%=recent_blog[i].updated.month%>. <%=recent_blog[i].updated.year%></small>
+                </p>
+                <p class="card-text"><%=recent_blog[i].heading%></p>
+              </div>
+            </div>
+            <%}%>
+                
+                <!-- CATEGORIES -->
+                <!-- <h5>Latest Post</h5>
+                <hr>
+                <ul>
+                    <li><strong>Properties</strong><span class="float-right">(12)</span></li>
+                    <li><strong>Projects</strong><span class="float-right">(7)</span></li>
+                    <li><strong>Builders</strong><span class="float-right">(10)</span></li>
+                    <li><strong>Locations</strong><span class="float-right">(4)</span></li>
+                </ul> -->
+                <!-- POPULAR TAGS -->
+                <h5>Popular Tags</h5>
+                <hr>
+                <% for(var j=0; j < popular_tags.length; j++) { %>
+            <a href="/news/tags/<%=popular_tags[j].key%>">
+              <span class="badge badge-pill sidebar-tags-pill"><%=popular_tags[j].key%>(<%=popular_tags[j].doc_count%>)</span>
+            </a>
+            <%}%>
+            </div>
+            </div>
+        </div>
+    </div>
+
+<%- include ../partials/footer.ejs%>
+</body>
+<script>
+  let hold = false;
+  let skip = 1;
+  let limit = 10;
+  $(window)
+    .scroll(function() {
+      if ($(window)
+        .scrollTop() >= $(document)
+        .height() - $(window)
+        .height() - 500) {
+        if (hold == false) {
+          hold = true;
+          $.post('/api/news/infinite', {
+            skip: skip
+            , limit: limit
+            , query: JSON.stringify(filter_state)
+          }, function(data) {
+            if (data.length > 1) {
+              $("#infinite-scroll")
+                .append(data);
+              hold = false
+              skip += 1
+            }
+          });
+
+        }
+      }
+    });
+</script>
+<script>
+  if (filter_state && "q" in filter_state) {
+    $("#news_search")
+      .val(filter_state.q[0])
+
+  }
+  let news_url = window.location.pathname;
+  news_url = news_url.split("/")
+  if (news_url.length > 2 && news_url[2] == "tags") {
+    filter_state.tag = (decodeURI(news_url[3]))
+  }
+</script>
+
+</html>

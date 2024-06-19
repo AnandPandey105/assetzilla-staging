@@ -1,0 +1,163 @@
+<div class="container-fluid p-5">
+    <div class="box">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="name">
+                                <strong>Name</strong>
+                            </label>
+                            <input type="text" class="form-control" id="name"
+                                placeholder="Name Of the Lead" ng-model="data.name" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="email">
+                                <strong>Email</strong>
+                            </label>
+                            <input type="text" class="form-control" id="email" placeholder="Email"
+                                ng-model="data.email" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="phone">
+                                <strong>Phone</strong>
+                            </label>
+                            <input type="text" class="form-control" id="phone"
+                                placeholder="Contact Number - If Multiple then seperate by ','" ng-model="data.phone" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="property_type">
+                            <strong>Property Type</strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="property_type" style="width: 100%;" ng-model="data.type"
+                                ng-change="property_type_selected()">
+                                <option value="" selected>Choose...</option>
+                                <option data-ng-repeat="projectType in projectTypesList" value="{{projectType}}">
+                                    {{projectType}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="condition">
+                            <strong>Select Condition</strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="condition" style="width: 100%;" ng-model="data.condition">
+                                <option value="" selected>Choose...</option>
+                                <option value="fresh">Fresh</option>
+                                <option value="resale">Resale</option>
+                                <option value="rent">Rent</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="builder">
+                            <strong>Builder</strong>
+                        </label>
+                        <input type="text" ng-model="data.builder" id="builder" placeholder="Select a Builder"
+                            uib-typeahead="builder for builder in getBuilders($viewValue)" class="form-control"
+                            typeahead-editable="typeaheadEditable">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="project">
+                            <strong>Project</strong>
+                        </label>
+                        <input type="text" ng-model="data.project" id="project" placeholder="Select a project"
+                            uib-typeahead="project for project in getProjects($viewValue)" class="form-control"
+                            typeahead-editable="typeaheadEditable">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="state">
+                            <strong>State</strong>
+                        </label>
+                        <div>
+                            <input type="text" ng-model="data.state" id="state" placeholder="Select a State"
+                                uib-typeahead="address for address in getStates($viewValue)" class="form-control"
+                                typeahead-editable="typeaheadEditable">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="district">
+                            <strong>District</strong>
+                        </label>
+                        <div>
+                            <input type="text" id="district" ng-model="data.district" placeholder="Select a District"
+                                uib-typeahead="address for address in getDistricts($viewValue)" class="form-control"
+                                typeahead-editable="typeaheadEditable">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="city">
+                            <strong>City</strong>
+                        </label>
+                        <div>
+                            <input type="text" id="city" ng-model="data.city" placeholder="Select a City"
+                                uib-typeahead="address for address in getCities($viewValue)" class="form-control"
+                                typeahead-editable="typeaheadEditable">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center p-5">
+                        <button type="submit" class="btn btn-block btn-info" ng-click="getData()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="tableInit">
+                <div class="col-md-3">
+                    <h5>Total Results : <strong>{{table.total}}</strong></h5>
+                </div>
+                <div class="col-md-9 text-left">
+                    <button type="button" class="btn btn-fw dark" ng-click="sendResponse()">
+                        Send Response
+                    </button>
+                </div>
+            </div>
+            <div ng-if="tableInit">
+                <hr>
+                <!-- Results table -->
+                <div class="padding">
+                    <view-table title="table.title" limit="table.limit" fields="table.fields" results="table.results"
+                        query="table.query" getdata="getData" skip="table.skip" total="table.total"
+                        refresh="table.refresh" sort="table.sort"></view-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

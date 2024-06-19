@@ -1,0 +1,156 @@
+<!-- <div class="appartement-grid-box">
+  <div class="app-grid-img" onclick=go_to_page("<%=results.results.locations[i].url %>")>
+    <img class="img img-fluid" src="<%=results.results.locations[i].banner_image %>" alt="">
+  </div>
+  <div class="location-grid-content">
+    <div class="lc-content-row">
+      <div class="row align-items-center">
+        <div class="col-9">
+          <div class="text-left">
+            <h2>
+              <span onclick=go_to_page("<%=results.results.locations[i].url %>")><%=results.results.locations[i].name %>
+              </span>
+            </h2>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="text-right">
+            <h3>
+              <%=results.results.locations[i].location_type %>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lc-content-dt">
+      <% if ((results.results.locations[i].price && results.results.locations[i].price.min ) ||
+        (results.results.locations[i].total_projects )){ %>
+        <div class="row">
+          <div class="col-12">
+            <div class="text-left border-bottom">
+              <p>
+                <% if (results.results.locations[i].total_projects ){ %>
+                  <%=results.results.locations[i].total_projects %> Projects
+                    <% }else{ %>
+
+
+                      <% } %>
+                        <% if (results.results.locations[i].price && results.results.locations[i].price.min ){ %>
+                          Starting ₹<%= changeNumberFormat(results.results.locations[i].price.min) %>
+                            <% }else{ %>
+
+
+                              <% } %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <% }else{ %>
+
+
+          <% } %>
+            <% if (results.results.locations[i].population){ %>
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <div class="text-left">
+                    <p>Population (Lakhs)</p>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="text-right">
+                    <h6>
+
+                      <%=results.results.locations[i].population %>
+
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <%} else {%>
+
+                <%}%>
+                  <% if (results.results.locations[i].capital_income){ %>
+                    <div class="row align-items-center">
+                      <div class="col-8">
+                        <div class="text-left">
+                          <p>Per Capita Income (Rs)</p>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="text-right">
+                          <h6>
+
+                            <%=results.results.locations[i].capital_income %>
+
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                    <%} else {%>
+
+                      <%}%>
+                        <% if (results.results.locations[i].gdp){ %>
+                          <div class="row align-items-center">
+                            <div class="col-8">
+                              <div class="text-left">
+                                <p>GDP (Crore Rs) </p>
+                              </div>
+                            </div>
+                            <div class="col-4">
+                              <div class="text-right">
+                                <h6>
+
+                                  <%=results.results.locations[i].gdp %>
+
+                                </h6>
+                              </div>
+                            </div>
+                          </div>
+                          <%} else {%>
+
+                            <%}%>
+    </div>
+  </div>
+</div> -->
+
+<div class="item">
+  <div class="home-apartment" onclick="go_to_page('<%=results.results.locations[i].url%>')">
+    <div class="ha-img-cities">
+      <img src="<%=results.results.locations[i].banner_image%>" class="img img-fluid-custom">
+    </div>
+    <div class="ha-content location_info">
+      <h2 class="city-name">
+        <%=results.results.locations[i].name%>
+        <p class="llt mb-0" 
+          style="
+          text-transform: uppercase;
+          font-size: 12px;
+          font-weight: lighter;
+          padding: 5px;
+          background: khaki;
+          border-radius: 8px;
+          width: fit-content;
+          line-height: 100%;"
+        >
+          <%=results.results.locations[i].location_type%>
+        </>
+      </h2>
+      <p>
+        <% if (results.results.locations[i].total_projects ){ %>
+          <span class="city-projects">
+            <%=results.results.locations[i].total_projects %> Projects
+          </span><br />
+        <% }else{ %>
+        <% } %>
+        <% if (results.results.locations[i].price && results.results.locations[i].price.min ){ %>
+          <span class="city-starting">Starting 
+            <strong>
+              <%= changeNumberFormat(results.results.locations[i].price.min) %>
+            </strong>
+        <% }else{ %>
+        <% } %>
+      </p>
+    </div>
+  </div>
+</div>

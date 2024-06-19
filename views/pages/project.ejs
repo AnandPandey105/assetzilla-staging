@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <title>About
+    <%= data.name %> in
+    <% if (location.city){%>
+    <%= location.city.name %>
+    <%}%>,
+        <% if (location.state){%>
+    <%= location.state.name %>
+    <%}%> with property type, prices & area | Assetzilla</title>
+    <meta name="title" content="About <%= data.name %> in <% if (location.city){%>
+    <%= location.city.name %><%}%>, <% if (location.state){%> <%= location.state.name %> <%}%> with property type, prices & area | Assetzilla">
+    <meta name="description" content="View <%= data.property_type %> in <%= data.name %>, <% if (location.subcity){%>
+    <%= location.subcity.name %><%}%>, <% if (location.city){%>
+    <%= location.city.name %><%}%>.  Prices, offers, area, amenities for <%= data.property_type %> in
+    <%= data.name %>. Visit Now">
+</head>
+<%- include ../partials/head.ejs%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+
+<body>
+  <%- include ../partials/navigation_bar.ejs%>
+  <div class="top-margin single-sub-head">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="cursor text-center" data-toggle="modal" data-target="#moreInfo" id="moreInfoTrigger" data-keyboard="true">
+            <img src="<%=data.banner_image %>" class="banner-image" data-toggle="tooltip" data-placement="auto" title=" Click to view photos, videos and maps !">
+          </div>
+        </div>
+        <div class="col-md-8 single-page-heading">
+          <div class="builder-description">
+            <a class="clr-white" href="/projects" target="_blank">Projects</a><span class="clr-white">&nbsp;/&nbsp;</span>
+            <% if (data.property_type){ %>
+            <a class="clr-white" href="/projects?type=<%= data.property_type %>" target="_blank">
+              <%= data.property_type %></a>
+            <%}%>
+                        <h2 class="clr-white">
+                            <span style="font-size: .6em; vertical-align: middle;">
+                                <%- include ../partials/bookmark.ejs%></span>
+            &nbsp;
+            <%= data.name %>
+            </h2>
+            <% if (locals.location){%>
+            <p class="clr-white"><i class="fas fa-map-marker-alt"></i> &nbsp;&nbsp;
+              <% if (location.subcity){%>
+              <a class="clr-white" href="<%=location.subcity.url%>" target="_blank">
+                <%= location.subcity.name %></a>,
+              <%}%>
+                            <% if (location.city){%>
+              <a class="clr-white" href="<%=location.city.url%>" target="_blank">
+                <%= location.city.name %></a>,
+              <%}%>
+                            <% if (location.district){%>
+              <a class="clr-white" href="<%=location.district.url%>" target="_blank">
+                <%= location.district.name %></a>,
+              <%}%>
+                            <% if (location.state){%>
+              <a class="clr-white" href="<%=location.state.url%>" target="_blank">
+                <%= location.state.name %></a>
+              <%}%>
+                        </p>
+                        <%}%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="padding-top: 40px;">
+    <div class="row">
+      <div class="col-md-8">
+        <% if (data.description){ %>
+        <div class="data-card">
+          <h3>Description</h3>
+          <%- data.description %>
+          <%}%>
+                </div>
+                <% if (data.details && data.details.length > 0){ %>
+          <div class="data-card">
+            <h3>Properties Available</h3>
+            <table class="table">
+              <% if (data.property_type && data.property_type === "Residential Plots"){ %>
+              <thead>
+                <tr>
+                  <th scope="col">Type</th>
+                  <th scope="col">Area
+                    <span>
+                      <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                        <option selected>sq ft</option>
+                        <option>acre</option>
+                        <option>sq yards</option>
+                        <option>sq meter</option>
+                      </select>
+                    </span>
+                  </th>
+                  <th scope="col">Total Units</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i=0; i < data.details.length; i++) { %>
+                <tr>
+                  <td><%=data.details[i].name %></td>
+                  <td>
+                    <span id="area-<%= [i]%>%>">
+                      <%=data.details[i].area %>
+                    </span>
+                  </td>
+                  <td>
+                    <%=data.details[i].count %>
+                  </td>
+                </tr>
+                <%}%>
+                            </tbody> 
+
+                         <%}%>
+                <% if (data.property_type && data.property_type === "Villas"){ %>
+                <thead>
+                  <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">Build Up Area
+                      <span>
+                        <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                          <option selected>sq ft</option>
+                          <option>acre</option>
+                          <option>sq yards</option>
+                          <option>sq meter</option>
+                        </select>
+                      </span>
+                    </th>
+                    <th scope="col"> Land Area</th>
+                    <th scope="col">Total Units</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <% for(var i=0; i < data.details.length; i++) { %>
+                <tr>
+                  <td><%=data.details[i].unit_size %></td>
+                  <td>
+                    <span id="area-<%= [i]%>%>">
+                      <%=data.details[i].area %>
+                    </span>
+                  </td>
+                  <td>
+                    <span id="land-area-<%= [i]%>%>">
+                      <%=data.details[i].land_area %> </span>
+                  </td>
+                  <td>
+                    <%=data.details[i].count %>
+                  </td>
+                </tr>
+                <%}%>
+                            </tbody> 
+
+                         <%}%>
+                <% if (data.property_type && data.property_type === "Apartments"){ %>
+                <thead>
+                  <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">Area
+                      <span>
+                        <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                          <option selected>sq ft</option>
+                          <option>acre</option>
+                          <option>sq yards</option>
+                          <option>sq meter</option>
+                        </select>
+                      </span>
+                    </th>
+                    <th scope="col">Total Units</th>
+                    <th>Additional Rooms</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <% for(var i=0; i < data.details.length; i++) { %>
+                <tr>
+                  <td><%=data.details[i].unit_size %></td>
+                  <td>
+                    <span id="area-<%= [i]%>%>">
+                      <%=data.details[i].area %>
+                    </span>
+                  </td>
+                  <td>
+                    <%=data.details[i].count %>
+                  </td>
+                  <td>
+                    <% if (data.details[i] && data.details[i].additional_rooms && data.details[i].additional_rooms.length > 0){ %>
+
+                    <% for(var x=0; x < data.details[i].additional_rooms.length; x++) { %>
+                    <%=data.details[i].additional_rooms[x]%><br>
+                    <%}%>
+                                            <%}%>
+                  </td>
+                </tr>
+                <%}%>
+                            </tbody> 
+
+                        <%}%>
+                <% if (data.property_type && data.property_type === "Floors"){ %>
+                <thead>
+                  <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">Apartment Area
+                      <span>
+                        <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                          <option selected>sq ft</option>
+                          <option>acre</option>
+                          <option>sq yards</option>
+                          <option>sq meter</option>
+                        </select>
+                      </span>
+                    </th>
+                    <th scope="col">Land Area
+                    <th scope="col">Total Units</th>
+                    <th>Additional Rooms</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <% for(var i=0; i < data.details.length; i++) { %>
+                <tr>
+                  <td><%=data.details[i].unit_size %></td>
+                  <td>
+                    <span id="area-<%= [i]%>%>">
+                      <%=data.details[i].area %>
+                    </span>
+                  </td>
+
+                  <td>
+                    <span id="apartment_area-<%= [i]%>%>"><%=data.details[i].apartment_area %></span>
+                  </td>
+                  <td>
+                    <%=data.details[i].count %>
+                  </td>
+                  <td>
+                    <% if (data.details[i] && data.details[i].additional_rooms && data.details[i].additional_rooms.length > 0){ %>
+
+                    <% for(var x=0; x < data.details[i].additional_rooms.length; x++) { %>
+                    <%=data.details[i].additional_rooms[x]%><br>
+                    <%}%>
+                                            <%}%>
+                  </td>
+                </tr>
+                <%}%>
+                            </tbody> 
+
+                        <%}%>
+                <% if (data.property_type && data.property_type === "Commercial Land"){ %>
+                <thead>
+                  <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">Area
+                      <span>
+                        <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                          <option selected>sq ft</option>
+                          <option>acre</option>
+                          <option>sq yards</option>
+                          <option>sq meter</option>
+                        </select>
+                      </span>
+                    </th>
+                    <th scope="col">Total Units</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <% for(var i=0; i < data.details.length; i++) { %>
+                <tr>
+                  <td><%=data.details[i].name %></td>
+                  <td>
+                    <span id="area-<%= [i]%>%>">
+                      <%=data.details[i].area %>
+                    </span>
+                  </td>
+                  <td>
+                    <%=data.details[i].count %>
+                  </td>
+                </tr>
+                <%}%>
+                            </tbody> 
+
+                        <%}%>
+                <% if (data.property_type && data.property_type === "Commercial Office"){ %>
+                <thead>
+                  <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">Area
+                      <span>
+                        <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                          <option selected>sq ft</option>
+                          <option>acre</option>
+                          <option>sq yards</option>
+                          <option>sq meter</option>
+                        </select>
+                      </span>
+                    </th>
+                    <th scope="col">Total Units</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <% for(var i=0; i < data.details.length; i++) { %>
+                <tr>
+                  <td><%=data.details[i].unit_size %></td>
+                  <td>
+                    <span id="area-<%= [i]%>%>">
+                      <%=data.details[i].area %>
+                    </span>
+                  </td>
+                  <td>
+                    <%=data.details[i].count %>
+                  </td>
+                </tr>
+                <%}%>
+                            </tbody> 
+
+                        <%}%>
+                <% if (data.property_type && data.property_type === "Retail Shop"){ %>
+                <thead>
+                  <tr>
+                    <th scope="col">Space Type</th>
+                    <th scope="col">Shop Type</th>
+                    <th scope="col">Area
+                      <span>
+                        <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                          <option selected>sq ft</option>
+                          <option>acre</option>
+                          <option>sq yards</option>
+                          <option>sq meter</option>
+                        </select>
+                      </span>
+                    </th>
+                    <th scope="col">Total Units</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <% for(var i=0; i < data.details.length; i++) { %>
+                <tr>
+                  <td><%=data.details[i].space_type %></td>
+                  <td><%=data.details[i].shop_type %></td>
+                  <td>
+                    <span id="area-<%= [i]%>%>">
+                      <%=data.details[i].area %>
+                    </span>
+                  </td>
+                  <td>
+                    <%=data.details[i].count %>
+                  </td>
+                </tr>
+                <%}%>
+                            </tbody> 
+
+                        <%}%>
+                <% if (data.property_type && (data.property_type === "Serviced Apartments" || data.property_type === "Penthouse" || data.property_type === "Duplex" )){ %>
+                <thead>
+                  <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">Area
+                      <span>
+                        <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                          <option selected>sq ft</option>
+                          <option>acre</option>
+                          <option>sq yards</option>
+                          <option>sq meter</option>
+                        </select>
+                      </span>
+                    </th>
+                    <th scope="col">Total Units</th>
+                    <th>Additional Rooms</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <% for(var i=0; i < data.details.length; i++) { %>
+                <tr>
+                  <td><%=data.details[i].unit_size %></td>
+                  <td>
+                    <span id="area-<%= [i]%>%>">
+                      <%=data.details[i].area %>
+                    </span>
+                  </td>
+                  <td>
+                    <%=data.details[i].count %>
+                  </td>
+                  <td>
+                    <% if (data.details[i] && data.details[i].additional_rooms && data.details[i].additional_rooms.length > 0){ %>
+
+                    <% for(var x=0; x < data.details[i].additional_rooms.length; x++) { %>
+                    <%=data.details[i].additional_rooms[x]%><br>
+                    <%}%>
+                                            <%}%>
+                  </td>
+                </tr>
+                <%}%>
+                            </tbody> 
+
+                        <%}%>
+                <% if (data.property_type && (data.property_type === "Industrial Land" || data.property_type === "Farm house")){ %>
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Area
+                      <span>
+                        <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                          <option selected>sq ft</option>
+                          <option>acre</option>
+                          <option>sq yards</option>
+                          <option>sq meter</option>
+                        </select>
+                      </span>
+                    </th>
+                    <th scope="col">Total Units</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <% for(var i=0; i < data.details.length; i++) { %>
+                <tr>
+                  <td><%=data.details[i].name %></td>
+                  <td>
+                    <span id="area-<%= [i]%>%>">
+                      <%=data.details[i].area %>
+                    </span>
+                  </td>
+                  <td>
+                    <%=data.details[i].count %>
+                  </td>
+                </tr>
+                <%}%>
+                            </tbody> 
+
+                        <%}%>
+                <!-- <thead>
+                            <tr>
+                                <% if (data.details && data.details.length>0 && data.details[0].unit_size){ %>
+                                <th scope="col">Type</th>
+                                <%}%>
+                                <% if (data.details && data.details.length>0 && data.details[0].name){ %>
+                                <th scope="col">
+                                    Name
+                                </th>
+                                <%}%>
+                                <% if (data.details && data.details.length>0 && data.details[0].shop_type){ %>
+                                <th scope="col">
+                                    Shop Type
+                                </th>
+                                <%}%>
+                                <% if (data.details[i] && data.details.length>0 && data.details[0].area){ %>
+                                <%}%>
+                                <th scope="col">Area
+                                    <span>
+                                        <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                                            <option selected>sq ft</option>
+                                            <option>acre</option>
+                                            <option>sq yards</option>
+                                            <option>sq meter</option>
+                                        </select>
+                                    </span>
+                                </th>
+                                <% if (data.details && data.details.length>0 && data.details[0].land_area){ %>
+                                <th scope="col"> Land Area</th>
+                                <%}%>
+                                <% if (data.details[0] && data.details[0].apartment_area){ %>
+                                <th scope="col">Apartment Area
+                                </th>
+                                <%}%>
+                                <% if (data.details[i] && data.details.length>0 && data.details[0].count){ %>
+                                <%}%>
+                                <th scope="col">Total Units</th>
+                                <% if (data.property_type && data.property_type !== "Villas"){ %>
+                                <th scope="col"> Additional Rooms</th>
+                                <%}%>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var i=0; i < data.details.length; i++) { %>
+                            <tr>
+                                <% if (data.details[i] && data.details[i].unit_size){ %>
+                                <td>
+                                    <%=data.details[i].unit_size %>
+                                </td>
+                                <%}%>
+                                <% if (data.details[i] && data.details[i].name){ %>
+                                <td>
+                                    <%=data.details[i].name %>
+                                </td>
+                                <%}%>
+                                <% if (data.details[i] && data.details[i].shop_type){ %>
+                                <td>
+                                    <%=data.details[i].shop_type %>
+                                </td>
+                                <%}%>
+                                <% if (data.details[i] && data.details[i].area){ %>
+                                <%}%>
+                                <td>
+                                    <span id="area-<%= [i]%>%>">
+                                        <%=data.details[i].area %></span>
+                                </td>
+                                <% if (data.details[i] && data.details[i].apartment_area){ %>
+                                <td>
+                                    <span>
+                                        <%=data.details[i].apartment_area %> SqFt.</span>
+                                </td>
+                                <%}%>
+                                <% if (data.details[i] && data.details[i].land_area){ %>
+                                <td>
+                                    <span id="land-area-<%= [i]%>%>">
+                                        <%=data.details[i].land_area %> </span>
+                                </td>
+                                <%}%>
+                                <% if (data.details[i] && data.details[i].count){ %>
+                                <%}%>
+                                <td>
+                                    <%=data.details[i].count%>
+                                </td>
+                                <% if (data.details[i] && data.details[i].additional_rooms){ %>
+                                <td>
+                                    <% for(var x=0; x < data.details[i].additional_rooms.length; x++) { %>
+                                    <%=data.details[i].additional_rooms[x]%><br>
+                                    <%}%>
+                                </td>
+                                <%}%>
+                            </tr>
+                            <%}%>
+                        </tbody> -->
+            </table>
+          </div>
+          <%}%>
+                <% if (data.floor_plan && data.floor_plan.length > 0){ %>
+          <div class="data-card">
+            <h3>Floor Plans</h3>
+            <% for(var i=0; i < data.floor_plan.length; i++) { %>
+            <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal" data-target="#floorplanmodal<%=[i]%>">
+              PDF
+              <%=[i+1]%>
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="floorplanmodal<%=[i]%>" tabindex="-1" role="dialog" aria-labelledby="floorplanmodalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl  transparent-background" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body wrapper">
+                    <embed src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.floor_plan[i]%>#toolbar=0" width="100%" height="100%">
+                    <div class="embed-cover"></div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <%}%>
+                </div>
+                <%}%>
+            <% if (data.site_plan && data.site_plan.length > 0){ %>
+            <div class="data-card">
+              <h3>Site Plans</h3>
+              <% for(var i=0; i < data.site_plan.length; i++) { %>
+              <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal" data-target="#siteplan<%=[i]%>">
+                PDF
+                <%=[i+1]%>
+              </button>
+              <!-- Modal -->
+              <div class="modal fade" id="siteplan<%=[i]%>" tabindex="-1" role="dialog" aria-labelledby="siteplanLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl transparent-background" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <embed src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.site_plan[i]%>#toolbar=0" width="100%" height="100%">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <%}%>
+                </div>
+                <%}%>
+              <% if (data.brochure && data.brochure.length > 0){ %>
+              <div class="data-card">
+                <h3>Brochure</h3>
+                <% for(var i=0; i < data.brochure.length; i++) { %>
+                <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal" data-target="#brochuremodal<%=[i]%>">
+                  PDF
+                  <%=[i+1]%>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="brochuremodal<%=[i]%>" tabindex="-1" role="dialog" aria-labelledby="brochuremodalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-xl transparent-background" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <embed src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.brochure[i]%>#toolbar=0" width="100%" height="100%">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <%}%>
+                </div>
+                <%}%>
+                <% if (data.price_list && data.price_list.length > 0){ %>
+                <div class="data-card">
+                  <h3>Price List</h3>
+                  <% for(var i=0; i < data.price_list.length; i++) { %>
+                  <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal" data-target="#pricelistmodal<%=[i]%>">
+                    PDF
+                    <%=[i+1]%>
+                  </button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="pricelistmodal<%=[i]%>" tabindex="-1" role="dialog" aria-labelledby="pricelistmodalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl transparent-background" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <embed src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.price_list[i]%>#toolbar=0" width="100%" height="100%">
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <%}%>
+                </div>
+                <%}%>
+                  <% if (data.specification && data.specification.length > 0){ %>
+                  <div class="data-card">
+                    <h3>Specifications</h3>
+                    <% for(var i=0; i < data.specification.length; i++) { %>
+                    <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal" data-target="#specificationmodal<%=[i]%>">
+                      PDF
+                      <%=[i+1]%>
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="specificationmodal<%=[i]%>" tabindex="-1" role="dialog" aria-labelledby="specificationmodalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-xl transparent-background" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <embed src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.specification[i]%>#toolbar=0" width="100%" height="100%">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <%}%>
+                </div>
+                <%}%>
+                    <% if (data.other_document && data.other_document.length > 0){ %>
+                    <div class="data-card">
+                      <h3>Other Documents</h3>
+                      <% for(var i=0; i < data.other_document.length; i++) { %>
+                      <button type="button" class="btn btn-sm navy-blue-bg clr-white" data-toggle="modal" data-target="#otherdocumentmodal<%=[i]%>">
+                        PDF
+                        <%=[i+1]%>
+                      </button>
+                      <!-- Modal -->
+                      <div class="modal fade" id="otherdocumentmodal<%=[i]%>" tabindex="-1" role="dialog" aria-labelledby="otherdocumentmodalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl transparent-background" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <embed src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/doc/<%=data.other_document[i]%>#toolbar=0" width="100%" height="100%">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <%}%>
+                </div>
+                <%}%>
+                      <div class="data-card">
+                        <h3>Project Details</h3>
+                        <table class="table text-center">
+                          <tbody>
+                            <% if (builder.length > 0){ %>
+                            <tr>
+                              <td>
+                                <strong>Builder</strong>
+                              </td>
+                              <td>
+                                <a href="<%= builder[0].url %>" target="_blank">
+                                  <div style="width: 200px; height: 60px; text-align: center; margin: auto;">
+                                    <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/builder/<%= builder[0].logo %>" alt="" class="w-100 h-100">
+                                  </div>
+                                  <div>
+                                    <%= builder[0].name %>
+                                  </div>
+                                </a>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.authority){ %>
+                            <tr>
+                              <td>
+                                <strong>Authority</strong>
+                              </td>
+                              <td>
+                                <% if (data.authortiy_url){ %>
+                                <a href="<%= data.authortiy_url %> ">
+                                  <%= data.authority %></a>
+                                <%} else{ %>
+                                <%= data.authority %>
+                                <%}%>
+                                </td>
+                            </tr>
+                            <%}%>
+                                <% if (data.property_type){ %>
+                            <tr>
+                              <td>
+                                <strong>Property Type</strong>
+                              </td>
+                              <td>
+                                <%= data.property_type %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.area && data.area.area){ %>
+                            <tr>
+                              <td>
+                                <strong>Area</strong>
+                              </td>
+                              <td>
+                                <%= data.area.area %> Acre(s)
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.expected_completion){ %>
+                            <tr>
+                              <td>
+                                <strong>Possession Year</strong>
+                              </td>
+                              <td id="expected_completion">
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.rera){ %>
+                            <tr>
+                              <td>
+                                <strong>Rera Number</strong>
+                              </td>
+                              <td>
+                                <%= data.rera %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.project_status){ %>
+                            <tr>
+                              <td>
+                                <strong>Status</strong>
+                              </td>
+                              <td>
+                                <%= data.project_status %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.road_width && data.road_width.width){ %>
+                            <tr>
+                              <td>
+                                <strong>Road Width</strong>
+                              </td>
+                              <td>
+                                <%= data.road_width.width %> Feet
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.total_floors && data.total_floors.toString().length>0){ %>
+                            <tr>
+                              <td>
+                                <strong>Total Floors</strong>
+                              </td>
+                              <td>
+                                <%= data.total_floors %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.total_properties && data.total_properties.length >0){ %>
+                            <tr>
+                              <td>
+                                <strong>Total Properties</strong>
+                              </td>
+                              <td>
+                                <%= data.total_properties %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.parking_details && data.parking_details.parking ){ %>
+                            <tr>
+                              <td>
+                                <strong>Parking Available</strong>
+                              </td>
+                              <td>
+                                <%= data.parking_details.parking %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.visitor_parking_spot && data.visitor_parking_spot.length >0){ %>
+                            <tr>
+                              <td>
+                                <strong>Visitor's Parking</strong>
+                              </td>
+                              <td>
+                                <%= data.visitor_parking_spot %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.space && data.space.length >0){ %>
+                            <tr>
+                              <td>
+                                <strong>Space</strong>
+                              </td>
+                              <td>
+                                <%= data.space %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.retail_floor_type && data.retail_floor_type.length >0){ %>
+                            <tr>
+                              <td>
+                                <strong>Retail floor Type</strong>
+                              </td>
+                              <td>
+                                <%= data.retail_floor_type %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.retail_type && data.retail_type.length >0){ %>
+                            <tr>
+                              <td>
+                                <strong>Retail Type</strong>
+                              </td>
+                              <td>
+                                <%= data.retail_type %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.retail_additional && data.retail_additional.length >0){ %>
+                            <tr>
+                              <td>
+                                <strong>Retail Additional</strong>
+                              </td>
+                              <td>
+                                <%= data.retail_additional %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <!-- <% if (data.floors && data.floors.length >0){ %>
+                            <tr>
+                              <td>
+                                <strong>Total Floors</strong>
+                              </td>
+                              <td>
+                                <%= data.floors %>
+                              </td>
+                            </tr>
+                            <%}%> -->
+                            <% if (data.basement_purpose && data.basement_purpose.length >0){ %>
+                            <tr>
+                              <td>
+                                <strong>Basement purpose</strong>
+                              </td>
+                              <td>
+                                <%= data.basement_purpose %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.facing && data.facing.length >0){ %>
+                            <tr>
+                              <td>
+                                <strong>Facing</strong>
+                              </td>
+                              <td>
+                                <%= data.facing %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.amenities_json && data.amenities_json.length>0){ %>
+                            <tr>
+                              <td>
+                                <strong>Amenities</strong>
+                              </td>
+                              <td>
+                                <%= data.amenities_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.connectivity_amenites_json && data.connectivity_amenites_json.length>0){ %>
+                            <tr>
+                              <td>
+                                <strong>Connectivity</strong>
+                              </td>
+                              <td>
+                                <%= data.connectivity_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.other_amenites_json && data.other_amenites_json.length>0){ %>
+                            <tr>
+                              <td>
+                                <strong>Other Amenities</strong>
+                              </td>
+                              <td>
+                                <%= data.other_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.kid_amenites_json && data.kid_amenites_json.length>0){ %>
+                            <tr>
+                              <td>
+                                <strong>Kid's Amenities</strong>
+                              </td>
+                              <td>
+                                <%= data.kid_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.health_amenites_json && data.health_amenites_json.length>0){ %>
+                            <tr>
+                              <td>
+                                <strong>Health Amenities</strong>
+                              </td>
+                              <td>
+                                <%= data.health_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.green_amenites_json && data.green_amenites_json.length>0){ %>
+                            <tr>
+                              <td>
+                                <strong>Green Amenities</strong>
+                              </td>
+                              <td>
+                                <%= data.green_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %>
+                              </td>
+                            </tr>
+                            <%}%>
+                            <% if (data.township){ %>
+                            <tr>
+                              <td>
+                                <strong>Township</strong>
+                              </td>
+                              <td>
+                                <%= data.township %>
+                              </td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <%if (data.images && data.images.length > 0) { %>
+                            <h3>Images</h3>
+                            <% for(var i=0; i < data.images.length; i++) { %>
+                            <img src="<%- data.images[i] %>" alt="dfgdfg" class="w-100 p-2">
+                            <% } %>
+                            <% } %> -->
+                            <div class="data-card">
+                              <% for(var i=0; i < top_property_type.length; i++) { %>
+                              <h3><strong>Projects's Top Properties</strong></h3>
+                              <div class="selectable-tags ml-2" onclick="getProjects('<%= top_property_type[i].key%>','property_type','<%= top_property_type[i].doc_count%>',this)">
+                                <%= top_property_type[i].key%>(
+                                <%= top_property_type[i].doc_count%>)
+                              </div>
+                              <% } %>
+                            </div>
+
+                            <% if (locals.top_properties && top_properties.results.length >0){ %>
+                            <div class="data-card">
+                              <h3><strong>All Properties <span id="city_name"></span></strong></h3>
+                              <div id="top_properties">
+                                <% for(var i=0; i < top_properties.results.length; i++) { %>
+                                <div class="card mb-3 cursor" onclick=go_to_page("<%=top_properties.results[i].url %>")>
+                                  <div class="row no-gutters">
+                                    <div class="col-4">
+                                      <% if (top_properties.results[i].banner_image){ %>
+                                      <% if (top_properties.results[i].banner_image[1] == null){ %>
+                                      <img class="w-100" src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/image/<%=top_properties.results[i].images.Projects[0]%>">
+                                      <%} else {%>
+                                      <img class="w-100 h-100" src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/property/image/<%=top_properties.results[i].banner_image[1] %>">
+                                      <% } %>
+                                      <%}%>
+                                </div>
+                                <div class="col-8">
+                                    <div class="card-body">
+                                        <div class="d-flex bd-highlight">
+                                            <div class="p-2 w-100 bd-highlight">
+                                                <h5 class="card-title">
+                                                    <%=top_properties.results[i].name %>
+                                      </h5>
+                                      <span style="margin-left: 0;">
+                                        <% if (top_properties.results[i].price && top_properties.results[i].price){ %>
+                                        <strong>(₹)
+                                          <%=top_properties.results[i].price.price.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %></strong>
+                                        <%}%>
+                                                </span>
+                                                <span style="margin-left: 12px; float: right;">
+                                                    <% if (top_properties.results[i].area && top_properties.results[i].area.area){ %>
+                                        <strong>
+                                          <%=top_properties.results[i].area.area %> SqFt.</strong>
+                                        <%}%>
+                                                </span>
+                                                <div>
+                                                    <small class="light-grey-clr">
+                                                        <i class="fas fa-map-marker-alt"></i>
+                                                        <% if (top_properties.results[i].subcity){ %>
+                                        <%=top_properties.results[i].subcity %>,
+                                        <%}%>
+                                                        <% if (top_properties.results[i].city){ %>
+                                        <%=top_properties.results[i].city %>
+                                        <%}%>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="table">
+                                            <!-- <thead>
+        <tr>
+            <% if (top_properties.results[i].bhk_space){ %>
+                                        <th scope="col">Config</th>
+                                        <%}%>
+            <% if (top_properties.results[i].property_type){ %>
+                                        <th scope="col">Type</th>
+                                        <%}%>
+            <% if (top_properties.results[i].furnished){ %>
+                                        <th scope="col">Status</th>
+                                        <%}%>
+        </tr>
+    </thead> -->
+                                            <tbody>
+                                                <tr>
+                                                    <% if(top_properties.results[i].property_type === 'Apartments'){ %>
+                                        <% if (top_properties.results[i].tower_number){ %>
+                                        <td>
+                                          <%=top_properties.results[i].tower_number %>
+                                        </td>
+                                        <%}%>
+                                                     <% } else{ %>
+                                        <% if(top_properties.results[i].property_type === 'Villas' || top_properties.results[i].property_type === 'Residential Plots'){ %>
+                                        <% if (top_properties.results[i].facing){ %>
+                                        <td>
+                                          <%=top_properties.results[i].facing %> Facing
+                                        </td>
+                                        <%}%>
+                                                         <% } else{ %>
+                                        <% if (top_properties.results[i].bhk_space){ %>
+                                        <td>
+                                          <%=top_properties.results[i].bhk_space %>
+                                        </td>
+                                        <%}%>
+                                                        <% } %>
+                                        <% } %>
+
+
+                                        <% if(top_properties.results[i].property_type === 'Villas' || top_properties.results[i].property_type === 'Residential Plots' || top_properties.results[i].property_type === 'Apartments'){ %>
+                                        <% if (data.project_status){ %>
+                                        <td>
+                                          <%=data.project_status %>
+                                        </td>
+                                        <%}%>
+                                                     <% } else{ %>
+                                        <% if (top_properties.results[i].property_type){ %>
+                                        <td>
+                                          <%=top_properties.results[i].property_type %>
+                                        </td>
+                                        <%}%>
+                                                    <% } %>
+
+                                        <% if (top_properties.results[i].furnished && top_properties.results[i].property_type !== 'Residential Plots'){ %>
+                                        <td>
+                                          <%=top_properties.results[i].furnished %>
+                                        </td>
+                                        <%}%>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                                    </div>
+                                    <p id="see_all_projects" class="text-center">
+                                      <% if  (top_properties.count > 5) {%>
+                                      <a href="/projects?builder=<%=data.name%>" target="_blank">See All</a>
+                                      <% } %>
+                                    </p>
+                                  </div>
+                                  <% } %>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="data-card">
+                                    <% if (data.location && data.location.location.lat && data.location.location.lng && data.location.location.lat.length > 0 && data.location.location.lng.length >0) { %>
+                                    <h3>
+                                      <%= data.name %>
+                                    </h3>
+                                    <div id="side_map"></div>
+                                    <div>
+                                      <% if (data.address){ %>
+                                      <strong>Address: </strong><br>
+                                      <span>
+                                        <%= data.address %></span><br>
+                                      <% } %>
+                                      <% if (data.pincode){ %>
+                                      <strong>Pincode: </strong><br>
+                                      <span>
+                                        <%= data.pincode %></span><br>
+                                      <% } %>
+                                    </div>
+                                    <%} else {%>
+                                    <div style="padding:40px 0;">
+                                      <h3 class="text-center">No location found!!!
+                                      </h3>
+                                    </div>
+                                    <% } %>
+                                  </div>
+                                  <div class="data-card">
+                                    <h4>Apply For Loan :</h4>
+                                    <hr>
+                                    <form action="" id="loan-project-form">
+                                      <div class="form-group">
+                                        <label for="bank_name">Project: <span class="clr-red">*</span>
+                                        </label>
+                                        <select name="project" class="custom-select" id="loan-project">
+                                          <option value="<%= data.name %>" selected>
+                                            <%= data.name %>
+                                          </option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="project">Bank: <span class="clr-red">*</span></label>
+                                        <select name="bank_name" class="custom-select" id="loan-project-bank">
+                                          <option value="Others" selected>
+                                            Any Bank</option>
+                                          <% for(var i=0; i < data.banks.length; i++) { %>
+                                          <option value="<%= data.banks[i] %>">
+                                            <%= data.banks[i] %>
+                                          </option>
+                                          <%}%>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="applicant_name">Applicant's Name:<span class="clr-red">*</span> </label>
+                            <input type="text" class="form-control" id="loan-project-user" placeholder="Enter Applicant's Name" name="applicant_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:<span class="clr-red">*</span></label>
+                            <input type="email" class="form-control" id="loan-project-email" placeholder="Email Address" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone:</label>
+                            <input type="number" class="form-control" id="loan-project-phone" placeholder="Contact Details" name="phone" required>
+                        </div>
+                        <button type="submit" class="btn clr-white navy-blue-bg btn-block">Submit</button>
+                    </form>
+                </div>
+                <div class="data-card">
+                    <% if (locals.similar && similar.length>0) { %>
+                                          <!-- <hr> -->
+                                          <h3 class="text-center mt-3">
+                                            <strong>Similar
+                                              Projects</strong>
+                                          </h3>
+                                          <div class="text-center">
+                                            <div class="swiper-container similar-swiper">
+                                              <div class="swiper-wrapper">
+                                                <% for(var i=0; i < similar.length; i++) { %>
+                                                <div class="swiper-slide">
+                                                  <div class="data-card cursor" onclickonclick=go_to_page("<%=similar[i].url %>")>
+                                                    <img src="<%=similar[i].banner_image %>" class="w-100" alt="">
+                                                    <h4 class="mt-2">
+                                                      <%=similar[i].name%>
+                                                    </h4>
+                                                  </div>
+                                                </div>
+                                                <%}%>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                    <%}%>
+                                              </div>
+                                              <div class="data-card">
+                                                <% if (locals.by_builder && by_builder.length>0) { %>
+                                                <hr>
+                                                <h3 class="text-center mt-3">
+                                                  <strong>Projects By
+                                                    Builder</strong>
+                                                </h3>
+                                                <div class="text-center">
+                                                  <div class="swiper-container by-builder-swiper">
+                                                    <div class="swiper-wrapper">
+                                                      <% for(var i=0; i < by_builder.length; i++) { %>
+                                                      <div class="swiper-slide">
+                                                        <div class="data-card cursor" onclick=go_to_page("<%=by_builder[i].url %>")>
+                                                          <img src="<%=by_builder[i].banner_image %>" class="w-100" alt="">
+                                                          <h4 class="mt-2">
+                                                            <%=by_builder[i].name%>
+                                                          </h4>
+                                                        </div>
+                                                      </div>
+                                                      <%}%>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                    <%}%>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div class="modal more-info-modal new-mo" id="moreInfo" tabindex="-1">
+                                                <div class="modal-dialog  modal-dialog-centered modal-lg transparent-background ">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <!-- HEADER -->
+                                                      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                                        <li class="nav-item">
+                                                          <!-- <a class="nav-link active clr-darkgrey"
+                                id="pills-images-tab"
+                                data-toggle="pill"
+                                href="#pills-images"
+                                role="tab"
+                                aria-controls="pills-images"
+                                aria-selected="true">Images</a> -->
+                                                          <a class="active clr-darkgrey" id="pills-images-tab" data-toggle="pill" href="#pills-images" role="tab" aria-controls="pills-images" aria-selected="true"><img class="pill-icon-img" src="/images/Images2x.webp" data-toggle="tooltip" data-placement="auto" title="Images" /></a>
+                                                        </li>
+                                                        <li class="nav-item clr-darkgrey">
+                                                          <a class="" id="pills-maps-tab" data-toggle="pill" href="#pills-maps" role="tab" aria-controls="pills-maps" aria-selected="false"><img class="pill-icon-img" src="/images/Location2x.webp" data-toggle="tooltip" data-placement="auto" title="Location" /></a>
+                                                        </li>
+                                                        <!-- <li
+                class="nav-item clr-darkgrey">
+                <a class="nav-link"
+                    id="pills-docs-tab"
+                    data-toggle="pill"
+                    href="#pills-docs"
+                    role="tab"
+                    aria-controls="pills-docs"
+                    aria-selected="false">Documents</a>
+            </li> -->
+                                                        <li class="nav-item clr-darkgrey">
+                                                          <a class="" id="pills-video-tab" data-toggle="pill" href="#pills-video" role="tab" aria-controls="pills-video" aria-selected="false"><img class="pill-icon-img" src="/images/Play2x.webp" data-toggle="tooltip" data-placement="auto" title="Video" /></a>
+                                                        </li>
+                                                      </ul>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <img class="pill-icon-img" src="/images/Cancel2x.webp" data-toggle="tooltip" data-placement="auto" title="Close" />
+                                                        <!-- <span aria-hidden="true">&times;</span> -->
+                                                      </button>
+                                                    </div>
+                                                    <div class="modal-body" style="min-height: 500px;">
+                                                      <!-- MODAL BODY -->
+                                                      <div class="tab-content" id="pills-tabContent">
+                                                        <!-- CAROUSEL -->
+                                                        <div class="tab-pane fade show active" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
+                                                          <%if (data.images && data.images.length > 0) { %>
+                                                          <div class="swiper-container text-center" style="height: auto !important;" id="popupGallery">
+                                                            <div class="swiper-wrapper">
+                                                              <% for(var i=0; i < data.images.length; i++) { %>
+                                                              <div class="swiper-slide">
+                                                                <img data-src="<%=data.images[i]%>" class="swiper-lazy modal-image">
+                                                                <div class="swiper-lazy-preloader swiper-lazy-preloader-white">
+                                                                </div>
+                                                              </div>
+                                                              <% } %>
+                                                            </div>
+                                                            <div class="swiper-button-next">
+                                                            </div>
+                                                            <div class="swiper-button-prev">
+                                                            </div>
+                                                            <div class="swiper-pagination">
+                                                            </div>
+                                                          </div>
+                                                          <% } else {%>
+                                                          <h4>No
+                                                            Images
+                                                            Found
+                                                          </h4>
+                                                          <% } %>
+                                                        </div>
+                                                        <!-- MAPS -->
+                                                        <div class="tab-pane fade project-map-section" id="pills-maps" role="tabpanel" aria-labelledby="pills-maps-tab">
+                                                          <% if (data.location && data.location.location && data.location.location.lat && data.location.location.lng && data.location.location.lat.length > 0 && data.location.location.lng.length >0) { %>
+                                                          <h3>
+                                                            <%= data.name %>
+                                                          </h3>
+                                                          <div id="modal-map">
+                                                          <img src="/v1/img/logo.webp" class="logo-over-modal"/>
+                                                          </div>
+                                                          <div>
+                                                            <% if (data.address){ %>
+                                                            <strong>Address:
+                                                            </strong><br>
+                                                            <span>
+                                                              <%= data.address %></span><br>
+                                                            <% } %>
+                                                          </div>
+                                                          <%} else {%>
+                                                          <div style="padding:40px 0;">
+                                                            <h3 class="text-center">
+                                                              No
+                                                              location
+                                                              found!!!
+                                                            </h3>
+                                                          </div>
+                                                          <% } %>
+                                                          <!-- <h3><%= data.name %>
+                </h3>
+                <div
+                    id="modal-map">
+                </div>
+                <div>
+                    <% if (data.address){ %>
+                    <strong>Address</strong><br>
+                    <span><%= data.address %></span><br>
+                    <% } %>
+
+                </div> -->
+                                                        </div>
+                                                        <!-- Documents -->
+                                                        <!-- <div class="tab-pane fade"
+                id="pills-docs"
+                role="tabpanel"
+                aria-labelledby="pills-docs-tab">
+                <h3>the data is
+                    <%= data.floor_plan[0] %>
+                </h3>
+            </div> -->
+                                                        <!-- Video -->
+                                                        <div class="tab-pane fade project-map-section" id="pills-video" role="tabpanel" aria-labelledby="pills-video-tab">
+                                                          <% if (data.video_url){ %>
+                                                          <!-- <h1>https://<%= data.video_url %></h1> -->
+                                                          <iframe id="video-player" width="100%" height="500" src="<%= data.video_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                          <!-- <iframe
+                    width="100%"
+                    height="315"
+                    src="<%= data.video_url %>"
+                    frameborder="0"
+                    allowfullscreen></iframe> -->
+                                                          <%} else {%>
+                                                          <h3 class="text-center">
+                                                            No
+                                                            Video
+                                                            available
+                                                          </h3>
+                                                          <%}%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<%- include ../partials/footer.ejs%>
+                                                          <script>
+                                                            <% if (data.location) { %>
+                                                            var map;
+                                                            var mapModal;
+                                                            var lat = <%=data.location.location.lat %>;
+                                                            var lng = <%=data.location.location.lng %>;
+
+                                                            function initMap() {
+                                                              map = new google.maps.Map(document.getElementById('side_map'), {
+                                                                center: {
+                                                                  lat: lat
+                                                                  , lng: lng
+                                                                }
+                                                                , zoom:12,
+                                                                fullscreenControl: false,
+                                                              });
+                                                              marker = new google.maps.Marker({
+                                                                position: new google.maps.LatLng(lat, lng)
+                                                                , map: map
+                                                              });
+                                                            }
+
+                                                            function initMap2() {
+                                                              map = new google.maps.Map(document.getElementById('modal-map'), {
+                                                                center: {
+                                                                  lat: lat
+                                                                  , lng: lng
+                                                                }
+                                                                , zoom:12
+                                                              });
+                                                              marker = new google.maps.Marker({
+                                                                position: new google.maps.LatLng(lat, lng)
+                                                                , map: map
+                                                              });
+                                                            }
+
+                                                            function initialize() {
+                                                              initMap();
+                                                              initMap2();
+                                                            }
+
+                                                            <%} else {%>
+
+                                                            function initialize() {}
+                                                            <%}%>
+                                                          </script>
+                                                          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw&callback=initialize" async defer></script>
+                                                          <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+                                                          <script>
+                                                            var popupGallery;
+                                                            var pageLoadModal = false;
+                                                            $(document)
+                                                              .ready(function() {
+                                                                $('#moreInfo')
+                                                                  .on('show.bs.modal', function(e) {
+                                                                    popupGallery = new Swiper('#popupGallery', {
+                                                                      spaceBetween: 2
+                                                                      , loop: true
+                                                                      , lazy: true
+                                                                      , navigation: {
+                                                                        nextEl: '.swiper-button-next'
+                                                                        , prevEl: '.swiper-button-prev'
+                                                                      , }
+                                                                      , pagination: {
+                                                                        el: '.swiper-pagination'
+                                                                      , }
+                                                                      , keyboard: {
+                                                                        enabled: true,
+                                                                        // onlyInViewport: false,
+                                                                      }
+                                                                    });
+                                                                  });
+
+                                                                $('#moreInfo')
+                                                                  .on('shown.bs.modal', function(e) {
+                                                                    popupGallery.update();
+                                                                  });
+
+                                                                //Stop playing video on modal close
+                                                                $('#moreInfo')
+                                                                  .on('hidden.bs.modal', function() {
+                                                                    var video = $("#video-player")
+                                                                      .attr("src");
+                                                                    $("#video-player")
+                                                                      .attr("src", "");
+                                                                    $("#video-player")
+                                                                      .attr("src", video);
+
+                                                                  })
+                                                                //Stop playing video on modal close
+                                                                $('a[data-toggle="pill"]')
+                                                                  .on('shown.bs.tab', function(e) {
+                                                                    if (e.relatedTarget.id === "pills-video-tab") {
+                                                                      var video = $("#video-player")
+                                                                        .attr("src");
+                                                                      $("#video-player")
+                                                                        .attr("src", "");
+                                                                      $("#video-player")
+                                                                        .attr("src", video);
+                                                                    }
+                                                                  });
+
+                                                                if (pageLoadModal) {
+                                                                  $('#moreInfo')
+                                                                    .modal();
+                                                                } else {
+                                                                  pageLoadModal = true;
+                                                                }
+
+                                                              })
+                                                          </script>
+                                                          <script>
+                                                            var similarSwiper = new Swiper('.similar-swiper', {
+                                                              loop: true
+                                                              , spaceBetween: 30
+                                                              , centeredSlides: true
+                                                              , autoplay: {
+                                                                delay: 2500
+                                                                , disableOnInteraction: false
+                                                              , }
+                                                              , pagination: {
+                                                                el: '.swiper-pagination'
+                                                                , clickable: true
+                                                              },
+
+                                                            });
+                                                            var byBuilderSwiper = new Swiper('.by-builder-swiper', {
+                                                              loop: true
+                                                              , spaceBetween: 30
+                                                              , centeredSlides: true
+                                                              , autoplay: {
+                                                                delay: 2500
+                                                                , disableOnInteraction: false
+                                                              , }
+                                                              , pagination: {
+                                                                el: '.swiper-pagination'
+                                                                , clickable: true
+                                                              },
+
+                                                            });
+                                                          </script>
+                                                          <script>
+                                                            $(document)
+                                                              .ready(function() {
+                                                                $('[data-toggle="tooltip"]')
+                                                                  .tooltip();
+                                                              });
+
+                                                            function unitConverter(areas, currentUnit, idx, changeInto) {
+                                                              // console.log('unitConverter called', currentUnit, changeInto)
+                                                              var res;
+                                                              for (var i = 0; i <= areas.length; i++) {
+                                                                val = Number(areas[i].area);
+                                                                var landArea = areas[i].land_area;
+                                                                var apartment_area = areas[i].apartment_area;
+
+                                                                // Acre
+                                                                if (currentUnit == "acre") {
+                                                                  if (changeInto == "sq ft") {
+                                                                    res = val;
+                                                                  } else if (changeInto == "sq ft") {
+                                                                    res = val * 43560;
+                                                                    if (landArea) landArea = landArea * 43560;
+                                                                    if (apartment_area) apartment_area = apartment_area * 43560;
+
+                                                                  } else if (changeInto == "sq yards") {
+                                                                    res = val * 4840;
+                                                                    if (landArea) landArea = landArea * 4840;
+                                                                    if (apartment_area) apartment_area = apartment_area * 4840;
+
+                                                                  } else if (changeInto == "sq meter") {
+                                                                    res = val * 4046.856;
+                                                                    if (landArea) landArea = landArea * 4046.856;
+                                                                    if (apartment_area) apartment_area = apartment_area * 4046.856;
+
+                                                                  }
+                                                                }
+                                                                // Sq feet
+                                                                else if (currentUnit == "sq ft") {
+                                                                  if (changeInto == "sq ft") {
+                                                                    res = val;;
+                                                                  } else if (changeInto == "acre") {
+                                                                    res = val / 43560;
+
+                                                                    if (landArea) landArea = landArea / 43560;
+                                                                    if (apartment_area) apartment_area = apartment_area / 43560;
+
+                                                                  } else if (changeInto == "sq yards") {
+                                                                    res = val / 9;
+                                                                    if (landArea) landArea = landArea / 9;
+                                                                    if (apartment_area) apartment_area = apartment_area / 9;
+
+                                                                  } else if (changeInto == "sq meter") {
+
+                                                                    res = val / 10.764;
+                                                                    if (landArea) landArea = landArea / 10.764;;
+                                                                    if (apartment_area) apartment_area = apartment_area / 10.764;;
+                                                                  }
+                                                                }
+                                                                // Sq yards
+                                                                else if (currentUnit == "sq yards") {
+                                                                  if (changeInto == "sq yards") {
+                                                                    res = val;;
+                                                                  } else if (changeInto == "acre") {
+                                                                    res = val / 4840;
+
+                                                                    if (landArea) landArea = landArea / 4840;
+                                                                    if (apartment_area) apartment_area = apartment_area / 4840;
+
+                                                                  } else if (changeInto == "sq ft") {
+                                                                    res = val / 9;
+                                                                    if (landArea) landArea = landArea / 9;
+                                                                    if (apartment_area) apartment_area = apartment_area / 9;
+
+
+                                                                  } else if (changeInto == "sq meter") {
+                                                                    res = val / 1.196;
+
+                                                                    if (landArea) landArea = landArea / 1.196;
+                                                                    if (apartment_area) apartment_area = apartment_area / 1.196;
+                                                                  }
+                                                                }
+                                                                // Sq meter
+                                                                else if (currentUnit == "sq meter") {
+                                                                  if (changeInto == "sq meter") {
+                                                                    res = val;;
+                                                                  } else if (changeInto == "acre") {
+                                                                    res = val / 4046.856;
+                                                                    if (landArea) landArea = landArea / 4046.856;
+                                                                    if (apartment_area) apartment_area = apartment_area / 4046.856;
+
+                                                                  } else if (changeInto == "sq ft") {
+                                                                    res = val * 10.764;
+
+                                                                    if (landArea) landArea = landArea * 10.764;
+                                                                    if (apartment_area) apartment_area = apartment_area * 10.764;
+
+                                                                  } else if (changeInto == "sq yards") {
+                                                                    res = val * 81.196;
+
+                                                                    if (landArea) landArea = landArea * 81.196;
+                                                                    if (apartment_area) apartment_area = apartment_area * 81.196;
+
+                                                                  }
+                                                                }
+                                                                document.getElementById('area-' + i)
+                                                                  .innerHTML = res.toFixed(2);
+
+                                                                if (landArea) {
+                                                                  document.getElementById('land-area-' + i)
+                                                                    .innerHTML = landArea.toFixed(2);
+                                                                }
+
+                                                                if (apartment_area) {
+                                                                  document.getElementById('apartment_area-' + i)
+                                                                    .innerHTML = apartment_area.toFixed(2);
+                                                                }
+                                                              }
+                                                            }
+                                                          </script>
+                                                          <script>
+                                                            function getExpCompDate() {
+                                                              var date = new Date('<%= data.expected_completion %>');
+                                                              $('#expected_completion')
+                                                                .text(date.getFullYear());
+                                                            }
+                                                            getExpCompDate();
+                                                          </script>
+                                                          <!-- <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> -->
+                                                          <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.js"></script> -->
+
+</html>

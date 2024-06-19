@@ -1,0 +1,61 @@
+<strong>Builders</strong>
+<div class="d-flex flex-column bd-highlight mt-2">
+    <div class="input-group w-80" id="builder-search">
+        <input type="text" class="form-control typeahead radius-none bg-white clr-black directory-search"
+            placeholder="Search Builder..." aria-describedby="basic-addon1">
+    </div>
+</div>
+<div id="builder-filter-container-list" class="hide-filters">
+</div>
+<div class="flex-column bd-highlight mt-2" id="builder-filter-see-more">
+    <div class="pretty p-default">
+        <label onclick="showContentBuilder()" class="see-more-filters">Show More</label>
+    </div>
+</div> 
+<div class="flex-column bd-highlight mt-2 d-none" id="builder-filter-see-less">
+    <div class="pretty p-default">
+        <label onclick="hideContentBuilder()" class="see-more-filters">Show Less</label>
+    </div>
+</div> 
+
+<script>
+
+        let holdBuilder = false;
+        let skipBuilder = 0;
+        let limitBuilder = 1000;
+
+    function hideContentBuilder() {
+        $("#builder-filter-container-list").addClass("hide-filters");
+        $("#builder-filter-see-more").removeClass("d-none");
+        $("#builder-filter-see-less").addClass("d-none");
+    }  
+        
+
+    function showContentBuilder() {
+        $("#builder-filter-container-list").removeClass("hide-filters");
+        $("#builder-filter-see-more").addClass("d-none");
+        $("#builder-filter-see-less").removeClass("d-none");
+    } 
+    function getDataBuilder() {
+        
+        if (holdBuilder == false) {
+            holdBuilder = true;
+            $.post('/api/getFilterData/builders', { skip: skipBuilder, limit: limitBuilder, query: JSON.stringify(filter_state_for_project) }, function (data) {
+                if (data.length > 1) {
+                    $("#builder-filter-container-list").append(data);
+                    set_filter_after_api_call(["builder"])
+                    holdBuilder = false
+                    skipBuilder += 1
+                } else {
+                    document.getElementById("builder-filter-see-more").style.display = "none";
+
+                }
+            });
+
+        }
+    }
+    getDataBuilder() 
+    
+</script>
+
+

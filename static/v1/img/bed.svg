@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="24px" viewBox="0 0 36 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>bed</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home" transform="translate(-141.000000, -2215.000000)" fill="#B2BFCD" fill-rule="nonzero">
+            <g id="grp1" transform="translate(100.000000, 1786.000000)">
+                <g id="bed" transform="translate(41.000000, 429.000000)">
+                    <path d="M31.6209375,5 L13.3790625,5 C12.4878125,5 11,5.33021077 11,7.57142857 L11,11 L34,11 L34,7.57142857 C34,5.33723653 32.5121875,5 31.6209375,5 Z" id="Path"></path>
+                    <polygon id="Path" points="5.89117587 12.38101 2.3476666 12.38101 2.3476666 0 0 0 0 24 2.3476666 24 2.3476666 17.8022377 33.6523334 17.8022377 33.6523334 23.9927427 36 23.9927427 36 12.38101"></polygon>
+                    <circle id="Oval" cx="6.5" cy="7.5" r="3.5"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,61 @@
+<strong>Loan approved by</strong>
+<div class="d-flex flex-column bd-highlight mt-2">
+    <div class="input-group w-80" id="bank-search">
+        <input type="text" class="form-control typeahead radius-none bg-white clr-black directory-search"
+            placeholder="Search Bank..." aria-describedby="basic-addon1">
+    </div>
+</div>
+<div id="bank-filter-container-list" class="hide-filters">
+</div>
+<div class="flex-column bd-highlight mt-2" id="bank-filter-see-more">
+    <div class="pretty p-default">
+        <label onclick="showContentBank()" class="see-more-filters">Show More</label>
+    </div>
+</div> 
+<div class="flex-column bd-highlight mt-2 d-none" id="bank-filter-see-less">
+    <div class="pretty p-default">
+        <label onclick="hideContentBank()" class="see-more-filters">Show Less</label>
+    </div>
+</div>  
+
+<script>
+
+        let holdBank = false;
+        let skipBank = 0;
+        let limitBank = 1000;
+
+    function hideContentBank() {
+        $("#bank-filter-container-list").addClass("hide-filters");
+        $("#bank-filter-see-more").removeClass("d-none");
+        $("#bank-filter-see-less").addClass("d-none");
+    }  
+        
+
+    function showContentBank() {
+        $("#bank-filter-container-list").removeClass("hide-filters");
+        $("#bank-filter-see-more").addClass("d-none");
+        $("#bank-filter-see-less").removeClass("d-none");
+    }
+    function getDataBanks() {
+        
+        if (holdBank == false) {
+            holdBank = true;
+            $.post('/api/getFilterData/bank', { skip: skipBank, limit: limitBank , query: JSON.stringify(filter_state_for_project)}, function (data) {
+                if (data.length > 1) {
+                    $("#bank-filter-container-list").append(data);
+                    
+                    set_filter_after_api_call(["bank"])
+                    holdBank = false
+                    skipBank += 1
+                } else {
+                    let selection = document.getElementById("bank-filter-see-more")
+                    if (selection)
+                        selection.style.display = "none";
+                }
+            });
+
+        }
+    }
+    getDataBanks() 
+    
+</script>

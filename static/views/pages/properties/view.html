@@ -1,0 +1,44 @@
+<div class="padding">
+    <div style="background-color: white;padding: 20px 0px 20px 0px;">
+        <div class="row ml-2">
+            <div class="col-sm-3">
+                <label class="form-control-label"><Strong>Filter By Project :</Strong></label>
+                <div>
+                    <input type="text" ng-model="projectFilter" id="project" placeholder="Select a Project"
+                        uib-typeahead="project for project in getProjects($viewValue)" class="form-control"
+                        typeahead-editable="typeaheadEditable">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="form-control-label"><Strong>Filter By Builder :</Strong></label>
+                <div>
+                    <input type="text" ng-model="builderFilter" id="builder" placeholder="Select a Builder"
+                        uib-typeahead="builder for builder in getBuilders($viewValue)" class="form-control"
+                        typeahead-editable="typeaheadEditable">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="form-control-label"><Strong>Filter By Property Type :</Strong></label>
+                <select class="custom-select" id="property_type" style="width: 100%;" ng-model="propertyTypeFilter"
+                    ng-change="property_type_selected()">
+                    <option value="" selected>Choose...</option>
+                    <option data-ng-repeat="projectType in projectTypesList" value="{{projectType}}">
+                        {{projectType}}</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <label class="form-control-label"><Strong>Filter By Location :</Strong></label>
+                <div>
+                    <input type="text" ng-model="locationFilter" class="form-control" placeholder="Select a Location"
+                        uib-typeahead="address.name as address.name + '  -  ' +address.location_type for address in getLocation($viewValue)"
+                        class="form-control" typeahead-editable="typeaheadEditable"
+                        typeahead-on-select="onSelect($item,$model,$label)">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <view-table title="table.title" limit="table.limit" fields="table.fields" results="table.results"
+        query="table.query" getdata="getData" skip="table.skip" total="table.total" status="table.status"
+        refresh="table.refresh" sort="table.sort"></view-table>
+</div>

@@ -1,0 +1,119 @@
+<div class="padding">
+    <div class="row">
+        <!-- notifications -->
+        <div class="alert alert-success" id="SuccessAlertBox" style="position: fixed;top: 23%;right:2px;display: none;">
+                <p data-ng-bind="SucessSaveMessage"></p>
+                </div>
+                <div class="alert alert-danger" id="ErrorAlertBox" style="position: fixed;top: 23%;right:2px;display: none;">
+                <p data-ng-bind="ErrorSaveMessage"></p>
+                </div>
+        <div class="col-sm-8" style="margin: auto;">
+            <form name="form" class="form-horizontal" ng-submit=addProcess()>
+                <div>
+                        <div class="form-group">
+                                <label for="processName">Name of Repair Schema</label>
+                                <input type="text" ng-model="process.name" class="form-control" id="processName" placeholder="Enter Repair Schema"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="processDescription">Repair Schema Description</label>
+                                <textarea class="form-control" ng-model="process.desc" id="processDescription" placeholder="Enter description"
+                                    rows="3" ></textarea>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">
+                                    Select parts
+                                    <i ng-show="showClearParts" class="material-icons md-24" data-toggle="tooltip" data-placement="top" title="Clear locations" ng-click="clearPartsDrpDwn()"></i>
+                                </label>
+                                <ui-select multiple ng-model="multipleParts.selectedPartsWithGroupBy" ng-change="onChangePartsDrpDwn()" theme="bootstrap" ng-disabled="disabled">
+                                    <ui-select-match class="ui-select-match" placeholder="Select parts...">{{$item.name}}
+                                        &lt;</ui-select-match>
+                                    <ui-select-choices class="ui-select-choices" group-by="someGroupFn" repeat="part in partList | propsFilter: {name: $select.search}">
+                                        <div ng-bind-html="part.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+            
+                                <!-- <label for="exampleFormControlTextarea1">Select products</label>
+                                        <ui-select multiple ng-model="multipleParts.selectedPartsWithGroupBy" theme="bootstrap"
+                                            ng-disabled="disabled">
+                                            <ui-select-match class="ui-select-match" placeholder="Select parts...">{{$item.name}}
+                                                &lt;</ui-select-match>
+                                            <ui-select-choices class="ui-select-choices" group-by="someGroupFn" repeat="product in productsList | propsFilter: {name: $select.search}">
+                                                <div ng-bind-html="product.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select> -->
+                            </div>
+            
+                            <br>
+            
+                            <div class="row" data-ng-repeat="stage in stageList track by $index">
+                                <div class="col-sm-3">
+                                    <h3>Stage {{$index+1}}
+                                        <span class="mx-2" data-toggle="modal" data-target="#addNewLocationModal" ng-if="($index != 0)">
+                                            <i class="material-icons md-24" ng-click="remove_input($index)" style="cursor: pointer;">&#xe5cd;</i>
+                                        </span>
+                                    </h3>
+            
+                                    <hr>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <label for="processName">Name</label>
+                                        <input type="text" ng-model="stage.name" class="form-control" id="stageName" placeholder="Enter Name of the Stage"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="processName">Description</label>
+                                        <input type="text" ng-model
+                                        ="stage.desc" class="form-control" id="stageDesc" placeholder="Stage Description"
+                                            >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="processName">Hours</label>
+                                        <input type="number" ng-model="stage.hours" class="form-control" id="processName"
+                                            placeholder="Enter Estimated Hours" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="processName">No Of Employees</label>
+                                        <input type="number" ng-model="stage.employeeCount" class="form-control" id="stageEmployeeCount"
+                                            placeholder="Enter Employees Count" >
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="text-center">
+                                <button type="button" style="background: #2E3E4E; color: white;" class="btn" data-ng-click="add_more_stage_field()">
+                                    Add More Stage
+                                </button>
+                            </div>
+                            <div ng-show="!submitConfirmation;">
+                                    <div class="text-center" style="margin-top: 20px;">
+                                            <button type="button" ng-click="submitConfirmationFn()" class="btn" style="background: #2E3E4E; color: white;">
+                                                <!-- <span ng-show="!processEdit">Create</span><span ng-show="processEdit">Update</span> -->
+                                                Submit
+                                            </button>
+                                            <button type="button" class="btn" data-ng-click="blankForm()" style="background: #2E3E4E; color: white;">
+                                                Cancel
+                                            </button>
+                                        </div>
+                            </div>
+                            
+
+                            <div ng-show="submitConfirmation" class="mt-4 text-center">
+                                    <p>Are you sure you want to <span ng-show="!processEdit">add</span> <span ng-show="processEdit">update</span> this Process?</p>
+                                    <button type="submit" class="btn" style="background: #2E3E4E; color: white;">
+                                            <span ng-show="!processEdit">Create</span><span ng-show="processEdit">Update</span>
+                                        </button>
+                                        <button type="button" class="btn" ng-click="blankFormFn()" data-dismiss="modal" style="background: #2E3E4E; color: white;">Cancel</button>
+                                </div>
+                </div>
+                
+                <div>
+                        
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

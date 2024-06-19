@@ -1,0 +1,129 @@
+<% for(var i=0; i < results.length; i++) { %>
+<div class="col-lg-3 col-sm-6 col-12">
+  <div class="appartement-grid-box builder-box bank-app-grid-box">
+    <div class="appartment-checkbox lc-grid-checkbox-new">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=results[i].id%>" name="example-<%=results[i].id%>" onchange="add_to_compare('<%=JSON.stringify(results[i])%>')">
+        <label class="custom-control-label" for="example-<%=results[i].id%>">
+        </label>
+      </div>
+    </div>
+    <div class="app-grid-img cursor-pointor" onclick="go_to_page('<%=results[i].url %>')">
+      <img class="img img-fluid" src="<%=results[i].logo %>" alt="">
+    </div>
+    <div class="app-grid-content pt-0">
+      <div>
+        <h2>
+          <%- include("./bookmark-list", {url: results[i].url, is_bookmarked: results[i].is_bookmarked, id: i + "_builder-" + results[i].id}) %> 
+          <b onclick="go_to_page('<%= results[i].url %>')"> <%=results[i].name %> </b>
+        </h2>
+      </div>
+      <div class="located_area justify-content-center">
+        <div class="loc-left ">
+          <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+          <p class="builder-location-font"><% if (results[i].subcity){ %><%=results[i].subcity %>,<%}%><% if (results[i].city){ %><%=results[i].city %> <%}%></p>
+                    </div>
+                </div>
+
+                <div class="lc-content-dt">
+
+                    <!-- <div class="row align-items-center">
+                        <div class="col-6">
+                            <div class="text-left">
+                                <p>Total Projects</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                                <h6>
+                                    <% if (results[i].total_projects){ %>
+            <%=results[i].total_projects %>
+            <%} else {%>
+            -
+            <%}%>  
+                                </h6>
+                            </div>
+                        </div>
+                    </div> -->
+                    <% if ((results[i].total_projects) || (results[i].price && results[i].price.min)) { %>
+          <div class="row align-items-center">
+            <div class="col-12">
+              <div class="text-center border-bottom">
+                <p>
+                  <% if (results[i].total_projects){ %>
+                  <%=results[i].total_projects %> Projects
+                  <%}%>
+                                    <% if (results[i].price && results[i].price.min){ %>
+
+                  Starting ₹ <%=changeNumberFormat(results[i].price.min) %>
+                  <%}%>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+
+                <div class="row">
+                  <div class="col-4">
+                    <div class="text-center">
+                      <p>Under Const.</p>
+                      <h6>
+                        <% if (results[i].project_status_count && results[i].project_status_count.UnderConstruction ){ %>
+                        <%=results[i].project_status_count.UnderConstruction %>
+                        <%} else {%>
+                        -
+                        <%}%>
+                                </h6>
+                            </div>
+                        </div>
+                       <div class="col-4">
+                       <div class="text-center">
+                        <p>Pre Launch</p>
+                        <h6>
+                            <% if (results[i].project_status_count && results[i].project_status_count.PreLaunch){ %>
+                        <%=results[i].project_status_count.PreLaunch %>
+                        <%} else {%>
+                        -
+                        <%}%>
+                        </h6>
+                       </div>
+                       </div>
+                       <div class="col-4">
+                        <div class="text-center">
+                            <p>Ready To Move </p>
+                            <h6>
+                                <% if (results[i].project_status_count  && results[i].project_status_count.ReadyToMove){ %>
+                        <%=results[i].project_status_count.ReadyToMove %>
+                        <%} else {%>
+                        -
+                        <%}%>
+                            </h6>
+                        </div>
+                       </div>
+                       <!-- <div class="col-4">
+                      <div  class="text-center">
+                        <p>Properties starting </p>
+                        <h6>
+                            <% if (results[i].price && results[i].price.min){ %>
+                        <%=changeNumberFormat(results[i].price.min) %>
+                        <%} else {%>
+                        -
+                        <%}%>
+                        </h6>
+                      </div>
+                       </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<% } %>
+<div class="col-12 no-login-msg-div">
+  <h3 class="no-login-msg see_more_results w-100">
+    <span>
+      <p class="btn blue-text w-100" onclick="see_more_results()">
+        See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+      </p>
+    </span>
+  </h3>
+</div>

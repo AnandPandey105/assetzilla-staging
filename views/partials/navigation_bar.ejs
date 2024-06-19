@@ -1,0 +1,382 @@
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    #parent img {
+        vertical-align: middle;
+        max-height: 500px;
+    }
+
+    input {
+        outline: 0;
+        border-width: 0 0 2px;
+        /* border-color: blue */
+    }
+
+    input:focus {
+        border-color: #3C5E9B;
+    }
+
+    /* .nav-pills .nav-link.active,
+    .nav-pills .show>.nav-link {
+        color: #3C5E9B;
+        background-color: #FFF;
+        border-bottom: 1px solid;
+    } */
+
+    .nav-pills .nav-link {
+        border-radius: 0;
+    }
+
+    .tab-pane a {
+        color: #1B4F72;
+        text-decoration: none
+    }
+</style>
+<div class="container-fluid main-nav fixed-top bg-white">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="/">
+                <div class="logo">
+                    <img src="/images/logo.webp" class="w-100" alt="">
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="color: blue;"><i class="fas fa-bars"></i></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown nav-margin">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Explore
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/properties">All Properties</a>
+                            <a class="dropdown-item" href="/projects">All Projects</a>
+                            <a class="dropdown-item" href="/builders">All Builders</a>
+                            <a class="dropdown-item" href="/locations">All Locations</a>
+                            <a class="dropdown-item" href="/authorities">All Authorities</a>
+                            <a class="dropdown-item" href="/banks">All Banks</a>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-margin">
+                        <a class="nav-link" id="nav-news" href="/news">News <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item nav-margin">
+                        <a class="nav-link cursor" data-toggle="modal" data-target="#consultation-modal"
+                            id="openSignUpModal">Get Free Consultation <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                <%if (locals.user) {%>
+                    <div class="form-inline my-2 my-lg-0 ml-2">
+
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="avatarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/images/avatar.webp" width="30" height="30" class="">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="avatarDropdown">
+                                <a class="dropdown-item" href="/profile">Profile</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }else{ %>
+                        <div class="form-inline my-2 my-lg-0 ml-2">
+                            <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal"
+                                data-target="#loginModal">
+                                Log In </button>
+                            <!-- / Register -->
+                        </div>
+                        <% } %>
+
+            </div>
+        </nav>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="loginModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- Login/ SignUp Window -->
+                <div class="row" style="padding: 20px">
+                    <div class="col-md-5">
+                        <div id="parent">
+                            <img src="/images/login_bg.webp" class="w-100" />
+                        </div>
+                    </div>
+                    <div class="col-md-7" style="padding:0px 45px 0px 45px">
+                        <div style="display: block" id="login_pane">
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-signin-tab" data-toggle="pill"
+                                        href="#pills-signin" role="tab" aria-controls="pills-signin"
+                                        aria-selected="true">Log In</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-signup"
+                                        role="tab" aria-controls="pills-signup" aria-selected="false">Sign Up</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="pills-tabContent">
+                                <!-- LOGIN -->
+                                <div class="tab-pane fade show active" id="pills-signin" role="tabpanel"
+                                    aria-labelledby="pills-signin-tab">
+                                    <div>
+                                        <div class="pt-4 form-group">
+                                            <input type="number" class="w-100" placeholder="10 Digit Mobile Number"
+                                                id="login_contact_number">
+                                        </div>
+                                        <div class="pt-4">
+                                            <input type="password" class="w-100" placeholder="Password"
+                                                id="login_password">
+                                        </div>
+                                        <div class="pt-4">
+                                            <button type="button" class="btn btn-outline-success btn-block"
+                                                onclick="userLogin()">Submit</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- SIGNUP -->
+                                <div class="tab-pane fade" id="pills-signup" role="tabpanel"
+                                    aria-labelledby="pills-signup-tab">
+                                    <div class="tab-pane fade show active" id="pills-signin" role="tabpanel"
+                                        aria-labelledby="pills-signin-tab">
+                                        <div>
+                                            <div class="pt-4">
+                                                <input type="number" class="w-100" placeholder="10 Digit Mobile Number"
+                                                    id="signup_contact_number">
+                                            </div>
+                                            <div class="pt-4">
+                                                <input type="password" class="w-100" placeholder="Password"
+                                                    id="signup_password">
+                                            </div>
+                                            <div class="pt-4">
+                                                <input type="password" class="w-100" placeholder="Confirm Password"
+                                                    id="signup_password_re">
+                                            </div>
+                                            <div class="pt-4">
+                                                <button type="button" class="btn btn-outline-info btn-block"
+                                                    onclick="userSignUp()">Get
+                                                    OTP</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: none;padding-top: 50px;" id="login_otp_pane">
+                            <h4 style="color: #3C5E9B;">Verify OTP</h4>
+                            <div class="pt-4 form-group">
+                                <input type="number" class="w-100" placeholder="OTP" id="signup_otp">
+                            </div>
+                            <div style="padding-top: 20px;">
+                                <button type="button" class="btn btn-outline-success btn-block"
+                                    onclick="verifyOtp()">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="consultation-modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body consultation-modal_body">
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="modal-title" id="exampleModalCenterTitik hai"
+                                style="text-align: center; margin-bottom: 22px;">Helping you find the dream property
+                                hassle free!</h2>
+                            <div class="d-flex flex-row bd-highlight mb-3">
+                                <div class="p-2 bd-highlight">
+                                    <div style="max-width: 150px;">
+                                        <img src="/images/explore.webp" class="w-100" alt="">
+                                    </div>
+                                </div>
+                                <div class="p-2 bd-highlight">
+                                    <h5>EXPLORE NEW AREAS</h5>
+                                    <p>Research about geographies, historical market prices,
+                                        scope of growth, hidden gems and a lot
+                                        more!</p>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row bd-highlight desk-show">
+                                <div class="p-2 bd-highlight">
+                                    <div style="max-width: 150px;">
+                                        <img src="/images/dollar.webp" class="w-100" alt="">
+                                    </div>
+                                </div>
+                                <div class="p-2 bd-highlight">
+                                    <h5>GET A FRESH PERSPECTIVE</h5>
+                                    <p>We use Data and Numbers to help you find what's best
+                                        for you! Let us know & we're sure you won't
+                                        regret it!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="consultaion-modal-head desk-show">
+                                <h3 class=" clr-white">Find your Dream Property</h3>
+                            </div>
+
+                            <div class="modal-form">
+                                <form action="" id="consult-form">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="consult-user"
+                                            placeholder="Full Name" >
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="consult-phone"
+                                            placeholder="Phone Number" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="consult-email" placeholder="Email" >
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="d-flex flex-column bd-highlight mt-2">
+                                            <div class="input-group w-80" id="property-type-search">
+                                                <!-- <input type="text" id="consult-looking-for"
+                                                    class="form-control typeahead radius-none bg-white clr-black directory-search"
+                                                    placeholder="Property type..." aria-describedby="basic-addon1"> -->
+
+                                                <select name="project" class="custom-select" id="consult-looking-for" >
+                                                    <option value="Residential Plots" selected>Select any...</option>
+                                                    <option value="Residential Plots">Residential Plots</option>
+                                                    <option value="Villas">Villas</option>
+                                                    <option value="Apartments">Apartments</option>
+                                                    <option value="Floors">Floors</option>
+                                                    <option value="Commercial Land">Commercial Land</option>
+                                                    <option value="Commercial Office">Commercial Office</option>
+                                                    <option value="Retail Shop">Retail Shop</option>
+                                                    <option value="Serviced Apartments">Serviced Apartments</option>
+                                                    <option value="Industrial Land">Industrial Land</option>
+                                                    <option value="Penthouse">Penthouse</option>
+                                                    <option value="Duplex">Duplex</option>
+                                                    <option value="Farm house">Farm house</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- <select class="form-control" id="consult-looking-for" name="lookingfor">
+                                            <option>Looking For</option>
+                                            <option>Apartments</option>
+                                            <option>Residential Plots</option>
+                                            <option>Villas</option>
+                                            <option>Commercial Office Spaces</option>
+                                            <option>Retail Shops</option>
+                                        </select> -->
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="d-flex flex-column bd-highlight mt-2">
+                                            <div class="input-group w-80" id="location-home-search">
+                                                <input type="text" id="consult-city"
+                                                    class="form-control typeahead radius-none bg-white clr-black directory-search"
+                                                    placeholder="Location..." aria-describedby="basic-addon1" >
+
+                                                <!-- <select name="project" class="custom-select" id="consult-city">
+                                                                                    <option value="Residential Plots" selected>Residential Plots</option>
+                                                                                    <option value="Villas">Villas</option>
+                                                                                    <option value="Apartments">Apartments</option>
+                                                                                    <option value="Floors">Floors</option>
+                                                                                    <option value="Commercial Land">Commercial Land</option>
+                                                                                    <option value="Commercial Office">Commercial Office</option>
+                                                                                    <option value="Retail Shop">Retail Shop</option>
+                                                                                    <option value="Serviced Apartments">Serviced Apartments</option>
+                                                                                    <option value="Industrial Land">Industrial Land</option>
+                                                                                    <option value="Penthouse">Penthouse</option>
+                                                                                    <option value="Duplex">Duplex</option>
+                                                                                    <option value="Farm house">Farm house</option>
+                                                    </select> -->
+                                            </div>
+                                        </div>
+                                        <!-- <select class="form-control" id="consult-city" name="city">
+                                                            <option>City</option>
+                                                            <option>Delhi</option>
+                                                            <option>Gurgaon</option>
+                                                            <option>Noida</option>
+                                                            <option>Banglore</option>
+                                                            <option>Others</option>
+                                                        </select> -->
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" id="consult-btn"
+                                            class="btn btn-outline-success my-2 my-sm-0 w-100">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5db183b0526de468"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.jquery.min.js"
+    integrity="sha256-Dr2c2MZpJ7kUvTEtyitW4QV1nTh0JP/ifC7XYvyGgOw=" crossorigin="anonymous"></script>
+<script>
+    let location_home_typeahead = $('#location-home-search .typeahead').typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 1,
+    },
+        {
+            name: 'location-home-search',
+            display: 'name',
+            source: function (query, syncResults, asyncResults) {
+                if (query.length > 0) {
+                    $.post('/api/location/typeahead', { data: query }, function (data) {
+                        asyncResults(data.results);
+                    });
+                }
+            },
+            templates: {
+                suggestion: function (data) {
+                    result = '<div>' + data.name
+                    result += '<p class="entity__type_suggestions">' + data.location_type + '</p>'
+                    result += '</div>'
+                    return result
+                }
+            }
+
+
+
+        });</script>

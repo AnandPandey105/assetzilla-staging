@@ -1,0 +1,8 @@
+<% for(var i=0; i < location_type.length; i++) { %>
+    <li class="popup" id="li-<%=location_type[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="<%=location_type[i].nameAsURL %>"  onchange="handleFilters('location_type','<%=location_type[i].location_type %>')"  autocomplete="off">
+            <label class="custom-control-label" for="<%=location_type[i].nameAsURL %>"><%=location_type[i].location_type.charAt(0).toUpperCase() + location_type[i].location_type.slice(1)%> (<%=location_type[i].count %>)</label>
+        </div>
+    </li>
+<% } %> 

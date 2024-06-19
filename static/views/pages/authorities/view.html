@@ -1,0 +1,15 @@
+<div class="padding">
+    <div style="background-color: white;padding: 20px 0px 20px 0px;">
+        <div class="row ml-2">
+            <label class="col-sm-3 form-control-label"><Strong>Filter By Location :</Strong></label>
+            <div class="col-sm-4">
+                <input type="text" ng-model="locationFilter" class="form-control"
+                    uib-typeahead="address.name as address.name + '  -  ' +address.location_type for address in getLocation($viewValue)" class="form-control"
+                    typeahead-editable="typeaheadEditable" typeahead-on-select="onSelect($item,$model,$label)">
+            </div>
+        </div>
+    </div>
+    <view-table title="table.title" limit="table.limit" fields="table.fields" results="table.results"
+        query="table.query" getdata="getData" skip="table.skip" total="table.total" sort="table.sort"
+        status="table.status" refresh="table.refresh"></view-table>
+</div>

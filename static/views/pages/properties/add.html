@@ -1,0 +1,785 @@
+<div ng-class="{true:'blurry', false:'non-blurry'}[loader]">
+
+    <div class="container-fluid" style="padding: 40px 30px 30px 30px;" ng-if="show_case_id_details">
+        <div class="col-md-12" id="property_details">
+            <h4 style="margin-top: 20px">Case Id:
+                {{case_id}}</h4>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Project/Society Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone No</th>
+                        <th scope="col">Property Type</th>
+                        <th scope="col">Builder Name</th>
+                        <th scope="col">User Entered City</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Locality</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Size</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{case_id_details.property_name}}</td>
+                        <td>{{case_id_details.email}}</td>
+                        <td>({{case_id_details.country.code}}) {{case_id_details.username}}</td>
+                        <td>{{case_id_details.property_type}}</td>
+                        <td>{{case_id_details.builder}}</td>
+                        <td>{{case_id_details.userSubmittedCity ? case_id_details.userSubmittedCity : case_id_details.city}}</td>
+                        <td>
+                          <input type="text" ng-hide="case_id_details.userSubmittedCity" id="city" ng-model="data.city" placeholder="Select a City" uib-typeahead="address for address in getCities($viewValue)" class="form-control" typeahead-editable="typeaheadEditable">
+                          <p ng-show="case_id_details.userSubmittedCity">{{case_id_details.city}}</p>
+                        </td>
+                        <td>{{case_id_details.locality}}</td>
+                        <td>{{case_id_details.price}}</td>
+                        <td>{{case_id_details.size}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <!-- <div ng-if="case_id_details.property_images.length>0">
+                            <div ng-repeat="image in case_id_details.property_images track by $index" class="col-2 text-center">
+                                
+                                <img ng-src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/property/image/{{image}}"
+                                    class="w-100">
+                                
+                            </div>
+            
+                        </div> -->
+
+        </div>
+
+
+    </div>
+    <div class="container-fluid" style="padding: 40px 30px 30px 30px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="project">
+                        <strong>Project</strong>
+                    </label>
+                    <input type="text" ng-model="data.project" id="project" placeholder="Select a project" uib-typeahead="project as project.name +' | '+ project.type for project in getProjects($viewValue)" class="form-control" typeahead-editable="typeaheadEditable">
+                </div>
+            </div>
+        </div>
+        <div ng-if="data.project">
+            <div class="row">
+                <div class="col-md-4" ng-repeat="field in copy_elements">
+                    <div ng-if="field == 'expected_completion'">
+                        <label for="name">
+                            <strong>Possession Year</strong>
+                        </label>
+                        <input type="text" class="form-control" value="{{data[field]}}" disabled>
+                    </div>
+                    <div ng-if="field !== 'expected_completion'">
+                        <label for="name">
+                            <strong>{{field}}</strong>
+                        </label>
+                        <input type="text" class="form-control" value="{{data[field]}}" disabled>
+                    </div>
+
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!-- Project Images -->
+        <div ng-if="project_images.length>0">
+            <h5>
+                <strong>Project Images</strong>
+            </h5>
+            <div class="row" ng-if="project_images.length>0">
+                <div class="col-2" ng-repeat="image in project_images">
+                    <img style="width: 240px;height:160px;margin-left:10%" ng-src="{{image.name}}"><br>
+                    <label class="md-check">
+                        <input type="checkbox" ng-model="image.selected">
+                        <i class="blue"></i>
+                        Select This
+                    </label>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!-- Project Floor Plans -->
+        <div ng-if="project_floor_plan.length>0">
+            <h5>
+                <strong>Project Floor Plans</strong>
+            </h5>
+            <div class="row" ng-if="project_floor_plan.length>0">
+                <div class="col-4" ng-repeat="plan in project_floor_plan">
+                    <iframe ng-src="{{trustSrc(plan.name)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                    <label class="md-check">
+                        <input type="checkbox" ng-model="plan.selected">
+                        <i class="blue"></i>
+                        Select This
+                    </label>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!-- Project Site Plans -->
+        <div ng-if="project_site_plan.length>0">
+            <h5>
+                <strong>Project Site Plans</strong>
+            </h5>
+            <div class="row" ng-if="project_site_plan.length>0">
+                <div class="col-4" ng-repeat="plan in project_site_plan">
+                    <iframe ng-src="{{trustSrc(plan.name)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                    <label class="md-check">
+                        <input type="checkbox" ng-model="plan.selected">
+                        <i class="blue"></i>
+                        Select This
+                    </label>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!-- Project Brochure -->
+        <div ng-if="project_brochure.length>0">
+            <h5>
+                <strong>Project Brochure</strong>
+            </h5>
+            <div class="row" ng-if="project_brochure.length>0">
+                <div class="col-4" ng-repeat="plan in project_brochure">
+                    <iframe ng-src="{{trustSrc(plan.name)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                    <label class="md-check">
+                        <input type="checkbox" ng-model="plan.selected">
+                        <i class="blue"></i>
+                        Select This
+                    </label>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!-- Project Price List -->
+        <div ng-if="project_price_list.length>0">
+            <h5>
+                <strong>Project Price List</strong>
+            </h5>
+            <div class="row" ng-if="project_price_list.length>0">
+                <div class="col-4" ng-repeat="plan in project_price_list">
+                    <iframe ng-src="{{trustSrc(plan.name)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                    <label class="md-check">
+                        <input type="checkbox" ng-model="plan.selected">
+                        <i class="blue"></i>
+                        Select This
+                    </label>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!-- Project Specification -->
+        <div ng-if="project_specification.length>0">
+            <h5>
+                <strong>Project Specification</strong>
+            </h5>
+            <div class="row" ng-if="project_specification.length>0">
+                <div class="col-4" ng-repeat="plan in project_specification">
+                    <iframe ng-src="{{trustSrc(plan.name)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                    <label class="md-check">
+                        <input type="checkbox" ng-model="plan.selected">
+                        <i class="blue"></i>
+                        Select This
+                    </label>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!-- Project Other Document -->
+        <div ng-if="project_other_document.length>0">
+            <h5>
+                <strong>Project Other Document</strong>
+            </h5>
+            <div class="row" ng-if="project_other_document.length>0">
+                <div class="col-4" ng-repeat="plan in project_other_document">
+                    <iframe ng-src="{{trustSrc(plan.name)}}" style="width:300px; height:350px;" frameborder="0"></iframe><br>
+                    <label class="md-check">
+                        <input type="checkbox" ng-model="plan.selected">
+                        <i class="blue"></i>
+                        Select This
+                    </label>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div></div>
+
+        <div ng-if="data.project">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="propertyType">
+                            <strong>Property Type/Size<span style="color: red">
+                                    *</span>
+                            </strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="propertyType" style="width: 100%;" ng-model="data.propertyType">
+                                <option value="" selected>Choose...</option>
+                                <option data-ng-repeat='option in projectOptions track by $index' value="{{$index}}">
+                                    {{option[optionsKey]}}
+                                    |
+                                    {{option['area']}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="condition">
+                            <strong>Deal Type<span style="color: red">
+                                    *</span>
+                            </strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="condition" style="width: 100%;" ng-model="data.condition">
+                                <option value="" selected>Choose...</option>
+                                <option value="Fresh">Fresh</option>
+                                <option value="Resale">Resale</option>
+                                <option value="Rent">Rent</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="facing">
+                            <strong>Select Facing</strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="facing" style="width: 100%;" ng-model="data.facing">
+                                <option value="" selected>Choose...</option>
+                                <option value="North">North</option>
+                                <option value="East">East</option>
+                                <option value="South">South</option>
+                                <option value="West">West</option>
+                                <option value="North-East">North-East</option>
+                                <option value="North-West">North-West</option>
+                                <option value="South-East">South-East</option>
+                                <option value="South-West">South-West</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="description">
+                            <strong>Property Description</strong>
+                        </label>
+                         <summernote on-paste="onPasting(evt)" id="description" on-image-upload="imageUpload(files, 'description')" height="100" style="border: 1px solid #aaa" ng-model="data.description"></summernote>
+                        <!-- <textarea type="text" class="form-control" id="description" placeholder="Property Description"
+                                                    ng-model="data.description" rows="3"></textarea> -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="ownership">
+                            <strong>Ownership</strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="ownership" style="width: 100%;" ng-model="data.ownership">
+                                <option value="" selected>Choose...</option>
+                                <option value="Freehold">Freehold</option>
+                                <option value="Leasehold">Leasehold</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-2">
+                                    <label for="construction_years">
+                                        <strong>Construction Years</strong>
+                                    </label>
+                                    <input type="date" class="form-control" id="construction_years" placeholder="Construction Years"
+                                        ng-model="data.construction_years">
+                                </div> -->
+                <div class="col-md-2" ng-if="data.property_type !== 'Villas' && data.property_type !== 'Residential Plots'">
+                    <label for="tower_number">
+                        <strong>Tower Number<span style="color: red">
+                                *</span>
+                        </strong>
+                    </label>
+                    <input type="text" class="form-control" id="tower_number" placeholder="Tower Number" ng-model="data.tower_number">
+                </div>
+                <div class="col-md-2">
+                    <label for="unit_number">
+                        <strong>Unit Number<span style="color: red">
+                                *</span>
+                        </strong>
+                    </label>
+                    <input type="text" class="form-control" id="unit_number" placeholder="Unit Number" ng-model="data.unit_number">
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="md-check">
+                            <input type="checkbox" ng-model="data.bank_loan">
+                            <i class="blue"></i>
+                            <strong>Bank Loan</strong>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3" ng-if="data.bank_loan">
+                    <label for="loan_amount">
+                        <strong>Loan Amount</strong>
+                    </label>
+                    <input type="number" class="form-control" id="loan_amount" placeholder="Loan Amount" ng-model="data.loan_amount" min="0">
+                </div>
+                <div class="col-md-7"></div>
+                <div class="col-md-3" ng-if="data.bank_loan">
+                    <label for="loan_bank">
+                        <strong>Loan Bank</strong>
+                    </label>
+                    <input
+                    type="text" ng-model="data.loan_bank" id="bank" placeholder="Select a Bank for loan" uib-typeahead="bank for bank in getBanks($viewValue)" class="form-control" typeahead-editable="typeaheadEditable">
+                <!-- <input type="text" class="form-control" id="loan_bank" placeholder="Loan Bank"
+                                        ng-model="data.loan_bank" min="0"> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="owner_name">
+                            <strong>Owner Name</strong>
+                        </label>
+                        <input type="text" class="form-control" id="owner_name" placeholder="Owner Name" ng-model="data.owner_name">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="owner_name">
+                            <strong>Owner Phone No</strong>
+                        </label>
+                        <input type="text" class="form-control" id="owner_phone" placeholder="Owner Phone" ng-model="data.owner_phone">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="owner_address">
+                            <strong>Owner Address</strong>
+                        </label>
+                        <textarea type="text" class="form-control" id="owner_address" placeholder="Owner Address" ng-model="data.owner_address" rows="1"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="data.project">
+            <div class="row">
+                <div class="col-4" ng-if="(data.property_type !== 'Villas' && data.property_type !== 'Residential Plots') && floors.length>0">
+                    <div class="form-group">
+                        <label for="floors">
+                            <strong>Floor<span style="color: red">
+                                    *</span>
+                            </strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="floors" style="width: 100%;" ng-model="data.floor">
+                                <option  value={{floor}} ng-repeat="floor in floors">{{floor}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="furnished">
+                            <strong>Furnished Status</strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="furnished" style="width: 100%;" ng-model="data.furnished">
+                                <option value="UnFurnished">UnFurnished</option>
+                                <option value="Semi Furnished">Semi Furnished</option>
+                                <option value="Fully Furnished">Fully Furnished</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="case_id">
+                            <strong>Case Id</strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="case_id" style="width: 100%;" ng-model="data.case_id">
+                                <option value="" selected>Choose...</option>
+                                <option data-ng-repeat="case_id in case_ids" value="{{case_id}}">
+                                    {{case_id}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div ng-if="data.project">
+            <div class="form-group">
+                <label for="condition">
+                    <strong>Basic Cost Calculation<span style="color: red">
+                            *</span>
+                    </strong>
+                </label>
+                <div>
+                    <select class="custom-select" id="condition" style="width: 100%;" ng-model="data.price.type">
+                        <option value="" selected>Choose...</option>
+                        <option value="fc">Fixed Cost</option>
+                        <option value="cc">Cost Calculation</option>
+                    </select>
+                </div>
+            </div>
+            <div ng-if="data.price.type=='fc'">
+                <div class="form-group">
+                    <label for="totalcost">
+                        <strong>Total Cost<span style="color: red">
+                                *</span>
+                        </strong>
+                    </label>
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">INR</span>
+                        <input type="number" class="form-control" placeholder="Total Cost Of the Property" ng-model="data.price.price" min="0">
+                    </div>
+                </div>
+            </div>
+            <div ng-if="data.price.type=='cc'">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="unit_price">
+                                <strong>Unit Price<span style="color: red">
+                                        *</span>
+                                </strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="unit_price" placeholder="Unit Price Of the Property" ng-model="data.price.unit_price" ng-change="calculatePrice('unit_price',data.area.area)" min="0">
+                            </div>
+                        </div>
+                        <hr>
+                        <label>
+                            <strong>Fixed Charges</strong>
+                        </label>
+                        <div class="form-group">
+                            <label for="car_parking">
+                                <strong>Car Parking<span style="color: red">
+                                        *</span>
+                                </strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="car_parking" placeholder="Car Parking" ng-model="data.price.car_parking" ng-change="calculatePrice('car_parking',1)" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="club_membership">
+                                <strong>Club Membership<span style="color: red">
+                                        *</span>
+                                </strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="club_membership" placeholder="Club Membership" ng-model="data.price.club_membership" ng-change="calculatePrice('club_membership',1)" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edc">
+                                <strong>EDC<span style="color: red">
+                                        *</span>
+                                </strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="edc" placeholder="EDC" ng-model="data.price.edc" ng-change="calculatePrice('edc',1)" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="idc">
+                                <strong>IDC<span style="color: red">
+                                        *</span>
+                                </strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="idc" placeholder="IDC" ng-model="data.price.idc" ng-change="calculatePrice('idc',1)" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ifms">
+                                <strong>IFMS<span style="color: red">
+                                        *</span>
+                                </strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="ifms" placeholder="IFMS" ng-model="data.price.ifms" ng-change="calculatePrice('ifms',1)" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="other_fixed_charges">
+                                <strong>Other Fixed Charges</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="other_fixed_charges" placeholder="Other Fixed Charges" ng-model="data.price.other_fixed_charges" ng-change="calculatePrice('other_fixed_charges',1)" min="0">
+                            </div>
+                        </div>
+                        <hr>
+                        <label>
+                            <strong>Variable Charges (Per sq. ft.)</strong>
+                        </label>
+                        <div class="form-group">
+                            <label for="maintenance">
+                                <strong>Maintenance<span style="color: red">
+                                        *</span>
+                                </strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="maintenance" placeholder="Maintenance" ng-model="data.price.maintenance" ng-change="calculatePrice('maintenance',data.area.area)" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferential_location_Charges">
+                                <strong>Preferential Location Charges<span style="color: red">
+                                        *</span>
+                                </strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="preferential_location_Charges" placeholder="Preferential Location Charges (per sq ft)" ng-model="data.price.preferential_location_Charges" ng-change="calculatePrice('preferential_location_Charges',data.area.area)" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="other_variable_charges">
+                                <strong>Other Variable Charges<span style="color: red">
+                                        *</span>
+                                </strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="other_variable_charges" placeholder="Preferential Location Charges (per sq ft)" ng-model="data.price.other_variable_charges" ng-change="calculatePrice('other_variable_charges',data.area.area)" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="calculated_unit_price">
+                                <strong>Unit Price</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_unit_price" placeholder="Unit Price Of the Property" ng-model="data.price.calculated_unit_price" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                        <hr>
+                        <label>
+                            <strong>Fixed Charges</strong>
+                        </label>
+                        <div class="form-group">
+                            <label for="calculated_car_parking">
+                                <strong>Car Parking</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_car_parking" placeholder="Car Parking" ng-model="data.price.calculated_car_parking" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="calculated_club_membership">
+                                <strong>Club Membership</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_club_membership" placeholder="Club Membership" ng-model="data.price.calculated_club_membership" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="calculated_edc">
+                                <strong>EDC</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_edc" placeholder="EDC" ng-model="data.price.calculated_edc" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="calculated_idc">
+                                <strong>IDC</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_idc" placeholder="IDC" ng-model="data.price.calculated_idc" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="calculated_ifms">
+                                <strong>IFMS</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_ifms" placeholder="IFMS" ng-model="data.price.calculated_ifms" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="calculated_other_fixed_charges">
+                                <strong>Other Fixed Charges</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_other_fixed_charges" placeholder="Other Fixed Charges" ng-model="data.price.calculated_other_fixed_charges" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                        <hr>
+                        <label>
+                            <strong>Variable Charges (Per sq. ft.)</strong>
+                        </label>
+                        <div class="form-group">
+                            <label for="calculated_maintenance">
+                                <strong>Maintenance</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_maintenance" placeholder="Maintenance" ng-model="data.price.calculated_maintenance" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="calculated_preferential_location_Charges">
+                                <strong>Preferential Location Charges
+                                                      (per
+                                                      sq ft)</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_preferential_location_Charges" placeholder="Preferential Location Charges (per sq ft)" ng-model="data.price.calculated_preferential_location_Charges" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="calculated_other_variable_charges">
+                                <strong>Other Variable
+                                                      Charges</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_other_variable_charges" placeholder="Other Variable Charges" ng-model="data.price.calculated_other_variable_charges" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="totalcost">
+                        <strong>Total Cost<span style="color: red">
+                                *</span>
+                        </strong>
+                    </label>
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">INR</span>
+                        <input type="number" class="form-control" placeholder="Total Cost Of the Property" ng-model="data.price.price" min="0" ng-disabled="true">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>
+                            <strong>Commercial Only</strong>
+                        </label>
+                        <div class="form-group">
+                            <label for="rent">
+                                <strong>Rent<span style="color: red">
+                                        *</span>
+                                </strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="rent" placeholder="Rent" ng-model="data.price.rent" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="calculated_rent">
+                                <strong>Rental Yield</strong>
+                            </label>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">INR</span>
+                                <input type="number" class="form-control" id="calculated_rent" placeholder="Rent" ng-model="data.price.rentalYield" min="0" ng-disabled="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div ng-if="data.project">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <strong>Video Link</strong>
+                        <input required type="text" class="form-control" placeholder="Video Link" ng-model="data.video_url">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="data.project">
+            <div ng-if="property_images.length>0">
+                <h5>
+                    <strong>Property Images</strong>
+                </h5>
+                <div class="row" ng-if="property_images.length>0">
+                    <div class="col-2" ng-repeat="image in property_images">
+                        <img style="width: 240px;height:160px;margin-left:10%" ng-src="{{image.name}}"><br>
+                        <label class="md-check">
+                            <input type="checkbox" ng-model="image.selected">
+                            <i class="blue"></i>
+                            Select This
+                        </label>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <label>
+                <strong>Upload Image For Your Property<span style="color: red">
+                        (upload only png or
+                                    jpeg)</span>
+                </strong>
+                <a href ng-click="new_images.push({})" class="ml-2" data-toggle="tooltip" data-placement="auto" title="Add more Samples">
+                    <span class="fa fa-plus-square"></span>
+                </a>
+            </label>
+            <div class="row">
+                <div class="col-6" ng-repeat="image in new_images track by $index">
+                    <div class="form-group">
+                        <div class="input-group mt-1">
+                            <span class="input-group-addon">
+                                <input type="radio" name="images" ng-model="data.banner_image" ng-value="$index"/>
+                            </span>
+                            <input type="file" id="properties_{{$index}}" class="form-control" file-model="new_images[$index]" accept="image/x-png,image/jpeg">
+                            <span class="input-group-btn" ng-click="removeParameter('properties_'+$index,new_images,$index)">
+                                <button class="btn white" type="button">
+                                    <span class="fa fa-minus-square"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container text-center p-2" ng-if="data.project">
+        <button type="submit" class="btn btn-block green" ng-click="add()" ng-disabled="loader">
+            Submit
+        </button>
+    </div>
+</div>
+
+<!-- loader -->
+<div class="container" ng-show="loader" style="position: fixed;top:15em">
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="loader-box"><img src="images/loading.gif"></div>
+        </div>
+    </div>
+</div>
+<!-- End : loader -->

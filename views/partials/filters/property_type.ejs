@@ -1,0 +1,116 @@
+    <strong>Property Type</strong>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-apartments" onchange="handleFilters('type','Apartments')" />
+            <div class="state">
+                <label>Apartments <span id="appartmentCount"></span>
+                    
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-residential-plots" onchange="handleFilters('type','Residential Plots')" />
+            <div class="state">
+                <label>Residential Plots <span id="residentialPlotsCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-villas" onchange="handleFilters('type','Villas')" />
+            <div class="state">
+                <label>Villas <span id="villasCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-commercial-office"
+                onchange="handleFilters('type','Commercial Office')" />
+            <div class="state">
+                <label>Commercial Office Spaces<span id="commercialOfficeCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-retail-shops" onchange="handleFilters('type','Retail Shop')" />
+            <div class="state">
+                <label>Retail Shops<span id="retailShopCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-floors" onchange="handleFilters('type','Floors')" />
+            <div class="state">
+                <label>Floors<span id="floorsCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-commercial-land" onchange="handleFilters('type','Commercial Land')" />
+            <div class="state">
+                <label>Commercial Land<span id="commercialLandCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-serviced-apartments" onchange="handleFilters('type','Serviced Apartments')" />
+            <div class="state">
+                <label>Serviced Apartments<span id="servicedApartmentsCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-industrial-land" onchange="handleFilters('type','Industrial Land')" />
+            <div class="state">
+                <label>Industrial Land<span id="industrialLandCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-penthouse" onchange="handleFilters('type','Penthouse')" />
+            <div class="state">
+                <label>Penthouse<span id="penthouseCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-duplex" onchange="handleFilters('type','Duplex')" />
+            <div class="state">
+                <label>Duplex<span id="duplexCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="type-farm-house" onchange="handleFilters('type','Farm house')" />
+            <div class="state">
+                <label>Farm house<span id="farmhouseCount"></span></label>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    function setPropertyTypeData() {
+        $.post('/api/getFilterData/property_type', {query: JSON.stringify(filter_state_for_project)}, function (data) {
+            if(data.success) {
+                    Object.keys(data.data).forEach(function(key) {
+                        document.getElementById(`${key}`).innerHTML = ` (${data.data[key]})` 
+                    })
+            }
+        })
+    }
+    
+    setPropertyTypeData()
+</script>
+

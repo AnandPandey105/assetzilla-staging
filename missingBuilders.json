@@ -1,0 +1,89 @@
+[
+  {
+    "_id": {
+      "$oid": "5d77bd335f627d2353f914b2"
+    },
+    "state": "TBD",
+    "logo": "builder_1507127523.png",
+    "country": "india",
+    "url": "/builders/Piedmont-Development-Pvt.-Ltd",
+    "id": "124",
+    "city": "TBD - Dont delete",
+    "pincode": 122001,
+    "address": "Spazedge sector 47,, Gurugram, Haryana ",
+    "name": "Piedmont Development Pvt. Ltd",
+    "district": "TBD",
+    "status": "1",
+    "subcity": "TBD",
+    "builder_property_type": [
+      "Apartments",
+      "Penthouse"
+    ],
+    "total_projects": null,
+    "local_presence": [
+      "Gurgaon",
+      "Dwarka Expressway",
+      "Main Gurgaon",
+      "Gurgaon",
+      "Haryana"
+    ],
+    "is_live": "2",
+    "status_project": [
+      {
+        "type": "Ready To Move",
+        "count": 2
+      }
+    ],
+    "price": {
+      "min": null,
+      "max": null
+    },
+    "project_status_count": {
+      "PreLaunch": null,
+      "UnderConstruction": null,
+      "ReadyToMove": null
+    },
+    "total_properties": 1
+  },
+  {
+    "_id": {
+      "$oid": "5d77bd335f627d2353f914cf"
+    },
+    "id": "153",
+    "url": "/builders/Indiabulls-Real-Estate",
+    "country": "india",
+    "state": "TBD",
+    "city": "TBD - Dont delete",
+    "name": "Indiabulls Real Estate",
+    "district": "TBD",
+    "status": "1",
+    "subcity": "TBD",
+    "builder_property_type": [
+      "Apartments"
+    ],
+    "total_projects": null,
+    "local_presence": [
+      "Gurgaon",
+      "Dwarka Expressway",
+      "Gurgaon",
+      "Haryana"
+    ],
+    "is_live": "2",
+    "status_project": [
+      {
+        "type": "Ready To Move",
+        "count": 1
+      }
+    ],
+    "price": {
+      "min": null,
+      "max": null
+    },
+    "project_status_count": {
+      "PreLaunch": null,
+      "UnderConstruction": null,
+      "ReadyToMove": null
+    },
+    "total_properties": 0
+  }
+]

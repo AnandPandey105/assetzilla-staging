@@ -1,0 +1,19 @@
+
+
+<% for(var i=0; i < status.length; i++) { %>
+    <li class="popup" id="li-<%=status[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="<%=status[i].nameAsURL %>"  onchange="handleFilters('status','<%=status[i].status %>')"  autocomplete="off">
+            <label class="custom-control-label" for="<%=status[i].nameAsURL %>"><%=status[i].status %> (<%=status[i].count %>)</label>
+        </div>
+    </li>
+<% } %> 
+
+<% for(var i=0; i < status.length; i++) { %>
+    <li class="quick" id="quick-li-<%=status[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="quick-<%=status[i].nameAsURL %>" onchange="handleFilters('status','<%=status[i].status %>')" autocomplete="off">
+            <label class="custom-control-label" for="quick-<%=status[i].nameAsURL %>"><%=status[i].status %> (<%=status[i].count %>)</label>
+        </div>
+    </li>
+<% } %> 

@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"realestate.boundary_data"}],"uuid":"8003f614f9c045e8aaa83e45c3eb5657","collectionName":"boundary_data"}

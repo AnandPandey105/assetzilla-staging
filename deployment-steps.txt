@@ -1,0 +1,27 @@
+sudo service elasticsearch start
+curl http://localhost:9200/
+export PORT=4000
+pm2 start server.js
+
+------
+DB_HOST="3.87.184.6"
+DB_PASSWORD="Sv25074R7uR"
+DB_USER="realestate"
+DB_NAME="realestate"
+PORT = 5100
+MSG_KEY="315143AxpZL7oY9T45e2d9aa8P1"
+ENV="prod"
+log_file="real-estate.log"
+
+3.87.184.6/4r7ur
+
+http://3.87.184.6/4r7ur
+
+
+http://localhost:9200/assetzilla/_search?q=name:Parsvnath%20Developers,doc_type:property
+http://localhost:9200/assetzilla/_search?q=doc_type:property
+
+
+
+Production db URL
+'mongodb://realestate:Sv25074R7uR@3.87.184.6:27017/realestate

@@ -1,0 +1,79 @@
+[
+  {
+    "img": "Image_1486740547.png",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\n"
+  },
+  {
+    "img": "",
+    "e": {
+      "errno": -21,
+      "syscall": "open",
+      "code": "EISDIR",
+      "path": "./properties/"
+    }
+  },
+  {
+    "img": "",
+    "e": {
+      "errno": -21,
+      "syscall": "open",
+      "code": "EISDIR",
+      "path": "./properties/"
+    }
+  },
+  {
+    "img": "",
+    "e": {
+      "errno": -21,
+      "syscall": "open",
+      "code": "EISDIR",
+      "path": "./properties/"
+    }
+  },
+  {
+    "img": "property_1669904325454.jpeg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./properties/property_1669904325454.jpeg\" -o \"./properties/webp/property_1669904325454.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "property_1669904325471.jpeg",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./properties/property_1669904325471.jpeg\" -o \"./properties/webp/property_1669904325471.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "property_1672405482095866540.webp",
+    "e": {
+      "message": "The specified key does not exist.",
+      "code": "NoSuchKey",
+      "region": null,
+      "time": "2022-12-31T06:04:28.828Z",
+      "requestId": "XNEGK3K8E4G1JX20",
+      "extendedRequestId": "4C498vApQmY/vnmqmYA0G+GIvab53RpDZQA7bg2dSNoYqkPGoKwni+gmj1dSKJCe2Kk4JyuhfZboi9xBnaGY5w==",
+      "statusCode": 404,
+      "retryable": false,
+      "retryDelay": 74.38537040394921
+    }
+  },
+  {
+    "img": "property_1672405482095682555.webp",
+    "e": {
+      "message": "The specified key does not exist.",
+      "code": "NoSuchKey",
+      "region": null,
+      "time": "2022-12-31T06:04:30.240Z",
+      "requestId": "7YYD7BMGZSWZHVR5",
+      "extendedRequestId": "jCgjwbF9IMxrHHwIfw2y1mQlZbfkfnnjGkbuOnwahpR/Fu8Mtln88mL65VIvRi7E/Bgs4xqRh+Et87uUx9ZYrQ==",
+      "statusCode": 404,
+      "retryable": false,
+      "retryDelay": 96.98244277363548
+    }
+  }
+]

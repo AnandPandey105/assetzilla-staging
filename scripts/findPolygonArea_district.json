@@ -1,0 +1,110 @@
+[
+  {
+    "name": "East Delhi",
+    "area": { "sq-m": "10,587,203.291", "sq-km": "10.587" }
+  },
+  {
+    "name": "North East Delhi",
+    "area": { "sq-m": "12,346,420.757", "sq-km": "12.346" }
+  },
+  {
+    "name": "South East Delhi",
+    "area": { "sq-m": "24,151,722.377", "sq-km": "24.152" }
+  },
+  {
+    "name": "New Delhi",
+    "area": { "sq-m": "41,721,023.081", "sq-km": "41.721" }
+  },
+  {
+    "name": "North Delhi",
+    "area": { "sq-m": "73,819,649.918", "sq-km": "73.82" }
+  },
+  {
+    "name": "West Delhi",
+    "area": { "sq-m": "32,964,702.021", "sq-km": "32.965" }
+  },
+  {
+    "name": "South Delhi",
+    "area": { "sq-m": "38,053,401.137", "sq-km": "38.053" }
+  },
+  {
+    "name": "Central Delhi",
+    "area": { "sq-m": "18,804,386.791", "sq-km": "18.804" }
+  },
+  {
+    "name": "South West Delhi",
+    "area": { "sq-m": "72,503,555.271", "sq-km": "72.504" }
+  },
+  {
+    "name": "North West Delhi",
+    "area": { "sq-m": "41,019,481.872", "sq-km": "41.019" }
+  },
+  { "name": "Shahdara", "area": { "sq-m": "8,759,934.817", "sq-km": "8.76" } },
+  {
+    "name": "Gurugram",
+    "area": { "sq-m": "318,853,358.193", "sq-km": "318.853" }
+  },
+  {
+    "name": "Gautambudh Nagar",
+    "area": { "sq-m": "346,597,752.856", "sq-km": "346.598" }
+  },
+  {
+    "name": "Faridabad",
+    "area": { "sq-m": "537,822,485.626", "sq-km": "537.822" }
+  },
+  {
+    "name": "Ghaziabad",
+    "area": { "sq-m": "226,085,073.834", "sq-km": "226.085" }
+  },
+  {
+    "name": "Alwar",
+    "area": { "sq-m": "2,205,877,675.524", "sq-km": "2,205.878" }
+  },
+  {
+    "name": "Jaipur",
+    "area": { "sq-m": "3,095,153,351.657", "sq-km": "3,095.153" }
+  },
+  {
+    "name": "Bengaluru Urban",
+    "area": { "sq-m": "479,540,283.951", "sq-km": "479.54" }
+  },
+  {
+    "name": "Mumbai Suburban",
+    "area": { "sq-m": "121,136,117.115", "sq-km": "121.136" }
+  },
+  {
+    "name": "Lucknow",
+    "area": { "sq-m": "448,857,341.524", "sq-km": "448.857" }
+  },
+  { "name": "Noida" },
+  {
+    "name": "Mumbai City District",
+    "area": { "sq-m": "22,392,699.835", "sq-km": "22.393" }
+  },
+  { "name": "" },
+  {
+    "name": "wardha",
+    "area": { "sq-m": "1,341,387,535.157", "sq-km": "1,341.388" }
+  },
+  {
+    "name": "pune",
+    "area": { "sq-m": "4,556,461,987.619", "sq-km": "4,556.462" }
+  },
+  { "name": "test" },
+  { "name": "Part 123", "area": { "sq-m": "303.755", "sq-km": "0" } },
+  {
+    "name": "Meerut",
+    "area": { "sq-m": "630,041,742.812", "sq-km": "630.042" }
+  },
+  {
+    "name": "Kanpur Nagar",
+    "area": { "sq-m": "573,095,726.909", "sq-km": "573.096" }
+  },
+  {
+    "name": "Bengaluru Rural",
+    "area": { "sq-m": "510,830,329.905", "sq-km": "510.83" }
+  },
+  { "name": "Thane District", "area": { "error": {} } },
+  { "name": "test district" },
+  { "name": "Testing Summernote" }
+]

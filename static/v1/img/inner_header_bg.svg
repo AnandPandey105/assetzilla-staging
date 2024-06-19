@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1150px" height="313px" viewBox="0 0 1150 313" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>Group 12</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="43.4875308%" x2="101.999998%" y2="56.6427184%" id="linearGradient-1">
+            <stop stop-color="#3CDBFF" offset="0%"></stop>
+            <stop stop-color="#7169FF" offset="100%"></stop>
+        </linearGradient>
+        <path d="M350.569332,808.619677 L2409.46277,808.440219 C2614.63655,808.350804 2780.97726,974.662521 2780.99514,1179.8363 C2780.99515,1179.86015 2780.99515,1179.884 2780.92361,1179.90784 L2780.89536,1447.90765 C2780.8022,1653.05349 2614.50205,1819.3506 2409.35621,1819.44003 L350.462769,1819.61948 C145.288991,1819.7089 -21.0517211,1653.39718 -21.0696045,1448.2234 C-21.0696066,1448.19955 -21.0696064,1448.17571 -20.9980722,1448.15187 L-20.9698239,1180.15206 C-20.8766552,975.006217 145.423492,808.709104 350.569332,808.619677 Z" id="path-2"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Listing" transform="translate(-290.000000, 0.000000)">
+            <g id="Group-12" transform="translate(-196.755033, -2267.266370)">
+                <g id="19114104-tatler-home-14-august-201824283v2_cover_1600x1168" transform="translate(1796.000000, 1762.000000) rotate(24.000000) translate(-1796.000000, -1762.000000) translate(416.000000, 448.000000)">
+                    <mask id="mask-3" fill="white">
+                        <use xlink:href="#path-2"></use>
+                    </mask>
+                    <use id="Mask" fill="url(#linearGradient-1)" transform="translate(1379.962770, 1314.029852) rotate(-222.000000) translate(-1379.962770, -1314.029852) " xlink:href="#path-2"></use>
+                </g>
+                <path d="M1494.75503,2473.26637 L1600.75503,2473.26637 L1600.75503,2367.26637 L1494.75503,2367.26637 L1494.75503,2473.26637 Z M1515.75503,2388.26637 L1579.75503,2388.26637 L1579.75503,2452.26637 L1515.75503,2452.26637 L1515.75503,2388.26637 Z" id="Shape-Copy" fill="#6CA5FF" fill-rule="nonzero" opacity="0.109956287" transform="translate(1547.755033, 2420.266370) rotate(-19.000000) translate(-1547.755033, -2420.266370) "></path>
+                <g id="x" transform="translate(786.839954, 2454.445818) rotate(18.000000) translate(-786.839954, -2454.445818) translate(771.339954, 2438.945818)" fill="#FFFFFF" fill-rule="nonzero" opacity="0.224539621">
+                    <polygon id="Path" points="4.68121892 30.3555768 15.3637823 19.6727481 26.0463456 30.3555768 30.3637824 26.038033 19.681219 15.3552043 30.3637824 4.67237552 26.0463456 0.355576821 15.3637823 11.0384056 4.68121892 0.355576821 0.36378235 4.67237552 11.0463457 15.3552043 0.36378235 26.038033"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

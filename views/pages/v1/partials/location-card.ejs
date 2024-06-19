@@ -1,0 +1,186 @@
+<% for(var i=0; i < results.length; i++) { %>
+   <div class="col-lg-3 col-sm-6 col-12">
+      <div class="appartement-grid-box" >
+         <div class="appartment-checkbox lc-grid-checkbox-new">
+            <div class="custom-control custom-checkbox">
+               <input 
+                  type="checkbox" 
+                  class="custom-control-input add-to-comare"
+                  id="example-<%=results[i].id%>-<%=results[i].location_type%>" 
+                  name="example-<%=results[i].id%>-<%=results[i].location_type%>"
+                  onchange="add_to_compare('<%=JSON.stringify(results[i])%>', 'example-<%=results[i].id%>-<%=results[i].location_type%>')"
+               >
+               <label class="custom-control-label"
+                  for="example-<%=results[i].id%>-<%=results[i].location_type%>">
+               </label>
+            </div>
+         </div>
+         <div class="app-grid-img" onclick=go_to_page("<%=encodeURI(results[i].url) %>")>
+            <img class="img img-fluid" src="<%=results[i].banner_image %>" alt="">
+         </div>
+         <div class="location-grid-content">
+            <div class="lc-content-row">
+               <div class="row align-items-center">
+                  <div class="col-9">
+                     <div class="text-left">
+                        <h2 >
+                           <%- include('./bookmark-list', {url: results[i].url, is_bookmarked: results[i].is_bookmarked, id: i + "_location-" + results[i].id}); %>
+                           <span onclick=go_to_page("<%=encodeURI(results[i].url) %>")><%=results[i].name %> </span>
+                        </h2>
+                  </div>
+                  </div>
+                  <div class="col-3">
+                     <div class="text-right">
+                           <h3><%=results[i].location_type %></h3>
+                     </div>
+                  </div>
+               </div>    
+            </div> 
+
+            <div class="lc-content-dt">
+               <% if ((results[i].price && results[i].price.min ) || (results[i].total_projects )){ %>
+                  <div class="row">
+                     <div class="col-12">
+                        <div class="text-left border-bottom">
+                           <p>
+                              <% if (results[i].total_projects ){ %>
+                                 <%=results[i].total_projects %> Projects 
+                              <%}%>
+                              <% if (results[i].price && results[i].price.min ){ %>
+                                 Starting ₹<%= changeNumberFormat(results[i].price.min) %>
+                              <%}%>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               <%}%>
+
+               
+               <!-- <div class="row align-items-center">
+                  <div class="col-6">
+                     <div class="text-left">
+                        <p>Total Projects</p>
+                     </div>
+                  </div>
+                  <div class="col-6">
+                     <div class="text-right">
+                        <h6> 
+                           <% if (results[i].total_projects ){ %>
+                              <%=results[i].total_projects %>
+                           <%} else {%>
+                              - 
+                          <%}%>
+                        </h6>
+                     </div>
+                  </div>
+               </div>     -->
+
+               <!-- <div class="row align-items-center">
+                  <div class="col-6">
+                     <div class="text-left">
+                        <p>Properties starting from</p>
+                     </div>
+                  </div>
+                  <div class="col-6">
+                     <div class="text-right">
+                        <h6>
+                           <% if (results[i].price && results[i].price.min ){ %>
+                              <%= changeNumberFormat(results[i].price.min) %>
+                           <%} else {%>
+                              - 
+                          <%}%>
+                        </h6>
+                     </div>
+                  </div>
+               </div>   -->
+               <% if (results[i].population){ %>
+                  <div class="row align-items-center">
+                     <div class="col-8">
+                        <div class="text-left">
+                           <p>Population (Lakhs)</p>
+                        </div>
+                     </div>
+                     <div class="col-4">
+                        <div class="text-right">
+                           <h6>
+                              
+                                 <%=results[i].population %>
+                              
+                           </h6>
+                        </div>
+                     </div>
+                  </div>
+               <%} else {%>
+                  
+               <%}%>
+               <% if (results[i].capital_income){ %>
+                  <div class="row align-items-center">
+                     <div class="col-8">
+                        <div class="text-left">
+                           <p>Per Capita Income (Rs)</p>
+                        </div>
+                     </div>
+                     <div class="col-4">
+                        <div class="text-right">
+                           <h6>
+                              
+                                 <%=results[i].capital_income %>
+                              
+                           </h6>
+                        </div>
+                     </div>
+                  </div> 
+               <%} else {%>
+                   
+               <%}%>
+               <% if (results[i].gdp){ %>
+                  <div class="row align-items-center">
+                     <div class="col-8">
+                        <div class="text-left">
+                           <p>GDP  (Crore Rs) </p>
+                        </div>
+                     </div>
+                     <div class="col-4">
+                        <div class="text-right">
+                           <h6>
+                              
+                                 <%=results[i].gdp %>
+                              
+                           </h6>
+                        </div>
+                     </div>
+                  </div> 
+               <%} else {%>
+                  
+               <%}%>
+               <% if (results[i].area && results[i].area.area && results[i].area.unit){ %>
+                  <div class="row align-items-center">
+                     <div class="col-4">
+                        <div class="text-left">
+                           <p>Area </p>
+                        </div>
+                     </div>
+                     <div class="col-8">
+                        <div class="text-right">
+                           <h6>
+                              <%=results[i].area.area %> Sq.Km
+                           </h6>
+                        </div>
+                     </div>
+                  </div>  
+               <%}%>
+            </div> 
+         </div>
+      </div>
+   </div>
+<% } %>
+
+ <div class="col-12 no-login-msg-div">
+   <h3 class="no-login-msg see_more_results w-100">
+     <span>
+       <p class="btn blue-text w-100" onclick="see_more_results()">
+         See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+       </p>
+     </span>
+   </h3>
+ </div>

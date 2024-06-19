@@ -1,0 +1,395 @@
+<style>
+    .sort-button {
+        background-color: white;
+    }
+    .has-link{
+        text-decoration: underline;
+        color: blue;
+    }
+</style>
+<div class="padding">
+    <form class="form-group" ng-submit="getAll(1, sortBy, sortForm)">
+        <div class="row">
+            <div class="col-sm-1">
+                Search:
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group input-group-sm mb-3">
+                    <input type="search" class="form-control" placeholder="Seach here..." aria-label="Small"
+                        aria-describedby="inputGroup-sizing-sm" ng-model="search" ng-change="clearSearchBox()" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success btn-sm" type="submit">Search</button>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-1"></div>
+        </div>
+    </form>
+
+    <div class="row" style="margin-top: 5px !important;
+        background: white;
+        padding-top: 10px;
+        border-radius: 10px;">
+        <div class="col-md-12" style="margin: auto;">
+            <h4 class="text-center" style="color: #9E9E9E; margin: 10px 0 20px 0;">
+                List of Registered Users
+            </h4>
+            <div class="mb-3 d-flex flex-row justify-content-center align-items-center" style="width:100%"
+                ng-show="$root.isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">
+                Total Results :
+                <strong>{{totalRecords}}</strong>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th scope="col">#</th>
+                        <th scope="col">
+                            Name
+                            <span>
+                                <button ng-class="(sortBy === 'name' && sortForm === 1) ? 'btn btn-sm':'btn btn-sm sort-button'"
+                                    ng-click="changeSort('name', 1)">
+                                    &uarr;
+                                </button>
+                                <button ng-class="(sortBy === 'name' && sortForm === -1) ? 'btn btn-sm':'btn btn-sm sort-button'"
+                                    ng-click="changeSort('name', -1)">
+                                    &darr;
+                                </button>
+                            </span>
+                        </th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Verified Number</th>
+                        <th scope="col">
+                            Created
+                            <span>
+                                <button ng-class="(sortBy === 'createdAt' && sortForm === 1) ? 'btn btn-sm':'btn btn-sm sort-button'"
+                                    ng-click="changeSort('createdAt', 1)">
+                                    &uarr;
+                                </button>
+                                <button ng-class="(sortBy === 'createdAt' && sortForm === -1) ? 'btn btn-sm':'btn btn-sm sort-button'"
+                                    ng-click="changeSort('createdAt', -1)">
+                                    &darr;
+                                </button>
+                            </span>
+                        </th>
+                        <!-- <th scope="col">
+                            Last Login 
+                            <span>
+                                <button ng-class="(sortBy === 'lastLogin' && sortForm === 1) ? 'btn btn-sm':'btn btn-sm sort-button'"
+                                    ng-click="changeSort('lastLogin', 1)">
+                                    &uarr;
+                                </button>
+                                <button ng-class="(sortBy === 'lastLogin' && sortForm === -1) ? 'btn btn-sm':'btn btn-sm sort-button'"
+                                    ng-click="changeSort('lastLogin', -1)">
+                                    &darr;
+                                </button>
+                            </span>
+                        </th> -->
+                        <th scope="col">
+                            Last Activity
+                            <span>
+                                <button ng-class="(sortBy === 'lastActivity' && sortForm === 1) ? 'btn btn-sm':'btn btn-sm sort-button'"
+                                    ng-click="changeSort('lastActivity', 1)">
+                                    &uarr;
+                                </button>
+                                <button ng-class="(sortBy === 'lastActivity' && sortForm === -1) ? 'btn btn-sm':'btn btn-sm sort-button'"
+                                    ng-click="changeSort('lastActivity', -1)">
+                                    &darr;
+                                </button>
+                            </span>
+                        </th>
+                        <th scope="col" class="text-center">Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in usersList track by $index">
+                        <th>{{((pageIndex-1)*10)+$index+1}}</th>
+                        <!-- <td data-toggle="modal" data-target="#detailsModal" data-ng-click="setModalData($index)">{{user.name}}</td> -->
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td><span ng-show="user.username !== '0000000000'">({{user.country.code}})</span> {{user.username}}</td>
+                        <td>{{user.createdAt | date : 'dd MMMM yyyy hh:mm a'}}</td>
+                        <!-- <td>{{user.lastLogin | date : 'dd MMMM yyyy hh:mm a'}}</td> -->
+                        <td>{{user.lastActivity | date : 'dd MMMM yyyy hh:mm a'}}</td>
+                        <td class="text-center cursor-pointer"><a
+                                href={{"admin-panel#/app/registered-buyer/buyer/"+user.username}}>View</a></td>
+                    </tr>
+                    <tr></tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" data-ng-show="currentArrayIndex != 0"
+                        data-ng-click="previousPaginationArray()">
+                        <a class="page-link" href="" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" data-ng-repeat="i in mainArray[currentArrayIndex] track by $index">
+                        <a ng-if="i === pageIndex" style="color: blue !important; font-weight: bold !important;" class="page-link" href="" data-ng-bind="i" data-ng-click="getAll(i, sortBy, sortForm)"></a>
+                        <a ng-if="i !== pageIndex" class="page-link" href="" data-ng-bind="i" data-ng-click="getAll(i, sortBy, sortForm)"></a>
+                    </li>
+                    <li class="page-item" data-ng-show="currentArrayIndex != mainArray.length-1"
+                        data-ng-click="nextPaginationArray()">
+                        <a class="page-link" href="" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- modal -->
+        <!-- The Modal -->
+        <div class="container">
+            <div class="modal fade" id="detailsModal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{modalData['name']}} | {{modalData['username']}} |
+                                {{modalData['email']}} - </h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <!-- Bookmarks -->
+                            <div>
+                                <h6><strong>Bookmarks</strong></h6>
+
+                                <ul class="nav nav-pills mb-3" id="pills-tab-{{modalData['username']}}" role="tablist"
+                                    tabindex="0">
+                                    <li class="nav-item" data-ng-click="bmfilter='properties'">
+                                        <a class="nav-link active" id="pills-properties-tab-{{modalData['username']}}"
+                                            data-toggle="pill"
+                                            href="#/app/registered-buyer#pills-properties-{{modalData['username']}}"
+                                            role="tab" aria-controls="pills-properties" aria-selected="true">
+                                            Properties
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-ng-click="bmfilter='projects'"
+                                        data-ng-click="bmfilter='properties'">
+                                        <a class="nav-link" id="pills-projects-tab-{{modalData['username']}}"
+                                            data-toggle="pill"
+                                            href="#/app/registered-buyer#pills-projects-{{modalData['username']}}"
+                                            role="tab" aria-controls="pills-projects" aria-selected="false">
+                                            Projects
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-ng-click="bmfilter='builders'">
+                                        <a class="nav-link" id="pills-builders-tab-{{modalData['username']}}"
+                                            data-toggle="pill"
+                                            href="#/app/registered-buyer#pills-builders-{{modalData['username']}}"
+                                            role="tab" aria-controls="pills-builders" aria-selected="false">
+                                            Builders
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-ng-click="bmfilter='authorities'">
+                                        <a class="nav-link" id="pills-authorities-tab-{{modalData['username']}}"
+                                            data-toggle="pill"
+                                            href="#/app/registered-buyer#pills-authorities-{{modalData['username']}}"
+                                            role="tab" aria-controls="pills-authorities" aria-selected="false">
+                                            Authorities
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-ng-click="bmfilter='locations'">
+                                        <a class="nav-link" id="pills-locations-tab-{{modalData['username']}}"
+                                            data-toggle="pill"
+                                            href="#/app/registered-buyer#pills-locations-{{modalData['username']}}"
+                                            role="tab" aria-controls="pills-locations" aria-selected="false">
+                                            Locations
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-ng-click="bmfilter='banks'">
+                                        <a class="nav-link" id="pills-banks-tab-{{modalData['username']}}"
+                                            data-toggle="pill"
+                                            href="#/app/registered-buyer#pills-banks-{{modalData['username']}}"
+                                            role="tab" aria-controls="pills-banks" aria-selected="false">
+                                            Banks
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="table-responsive" data-ng-if="modalData.bookmark.length>0">
+                                    <!-- <ul class="list-group" data-ng-repeat="bookmark in modalData.bookmark | filter:{type:bmfilter} track by $index">
+                                        <li class="list-group-item" data-ng-if="bookmark.url">
+                                            <a ng-href="{{bookmark.url}}" target="_blank">{{(bookmark.data.resp.name) ? bookmark.data.resp.name : bookmark.url}}</a>
+                                        </li>
+                                    </ul> -->
+                                    <table class="table table-hover table-bordered">
+                                        <thead class="thead-light" data-ng-if="bmfilter === 'properties'">
+                                            <tr>
+                                                <th>Link</th>
+                                                <th>Name</th>
+                                                <th>Project</th>
+                                                <th>Builder</th>
+                                                <th>Price</th>
+                                            </tr>
+                                        </thead>
+                                        <thead class="thead-light" data-ng-if="bmfilter === 'projects'">
+                                            <tr>
+                                                <th>Link</th>
+                                                <th>Name</th>
+                                                <th>Builder</th>
+                                                <th>Starting Price</th>
+                                            </tr>
+                                        </thead>
+                                        <thead class="thead-light" data-ng-if="bmfilter === 'builders'">
+                                            <tr>
+                                                <th>Link</th>
+                                                <th>Name</th>
+                                                <th>Starting Price</th>
+                                            </tr>
+                                        </thead>
+                                        <thead class="thead-light" data-ng-if="bmfilter === 'authorities'">
+                                            <tr>
+                                                <th>Link</th>
+                                                <th>Name</th>
+                                                <th>Starting Price</th>
+                                            </tr>
+                                        </thead>
+                                        <thead class="thead-light" data-ng-if="bmfilter === 'locations'">
+                                            <tr>
+                                                <th>Link</th>
+                                                <th>Name</th>
+                                                <th>Starting Price</th>
+                                            </tr>
+                                        </thead>
+                                        <thead class="thead-light" data-ng-if="bmfilter === 'banks'">
+                                            <tr>
+                                                <th>Link</th>
+                                                <th>Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                data-ng-repeat="bookmark in modalData.bookmark | filter:{type:bmfilter} track by $index">
+                                                <td><a ng-href="{{bookmark.url}}" target="_blank"
+                                                        style="color: blue;">Link</a></td>
+                                                <td>{{bookmark.data.resp.name}}</td>
+                                                <td data-ng-if="bmfilter === 'properties'">
+                                                    {{bookmark.data.resp.project}}</td>
+                                                <td data-ng-if="bmfilter === 'properties' || bmfilter === 'projects'">
+                                                    {{bookmark.data.resp.builder}}</td>
+                                                <td data-ng-if="bmfilter === 'properties'">
+                                                    {{bookmark.data.resp.price.price.toLocaleString("en-IN")}}</td>
+                                                <td data-ng-if="bmfilter !== 'properties'">
+                                                    {{bookmark.data.resp.price.min.toLocaleString("en-IN")}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="table-responsive" data-ng-if="modalData.bookmark.length==0">
+                                    <p>-- No Property Bookmarked yet --</p>
+                                </div>
+                                <hr>
+                            </div>
+                            <!-- Submitted Properties -->
+                            <div>
+                                <h6><strong>Submitted Properties</strong></h6>
+                                <div class="table-responsive" data-ng-if="modalData.submitted_property.length>0">
+                                    <table class="table table-hover table-bordered">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Property Name</th>
+                                                <th>Type</th>
+                                                <th>Case ID</th>
+                                                <th>Link</th>
+                                                <th>Builder</th>
+                                                <th>Locality</th>
+                                                <th>User Submitted City</th>
+                                                <th>District</th>
+                                                <th>Pincode</th>
+                                                <th>Price</th>
+                                                <th>Size</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                data-ng-repeat="property in modalData.submitted_property track by $index">
+                                                <td>{{property['property_name']}}</td>
+                                                <td>{{property['property_type']}}</td>
+                                                <td>{{property['case_id']}}</td>
+                                                <td>
+                                                    <span ng-click=getLink(property)
+                                                        style="color: blue; cursor: pointer;">
+                                                        Link
+                                                    </span>
+                                                </td>
+                                                <td>{{property['builder']}}</td>
+                                                <td>{{property['locality']}}</td>
+                                                <td>{{property['city']}}</td>
+                                                <td>{{property['district']}}</td>
+                                                <td>{{property['pincode']}}</td>
+                                                <td>{{property['price']}}</td>
+                                                <td>{{property['size']}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div data-ng-if="modalData.submitted_property.length==0">
+                                    <p>-- No Property Submitted yet --</p>
+                                </div>
+                                <hr>
+                            </div>
+                            <!-- User history -->
+                            <div>
+                                <h6><strong>View History</strong></h6>
+                                <div ng-show="modalData['viewHistory']">
+                                    <div ng-show="userViewHistory">
+                                        <div data-ng-repeat="date in userViewHistory">
+                                            <h6>{{date}}</h6>
+                                            <ul>
+
+                                                <li ng-repeat="history in modalData.viewHistory[date]">
+                                                    <a data-ng-show="history.name"
+                                                        href={{history.url}}>{{history.name}}</a>
+                                                    <a data-ng-show="history.heading"
+                                                        href={{history.url}}>{{history.heading}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div ng-hide="modalData['viewHistory']">
+                                    <p>No history stored</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h6><strong>Search History</strong></h6>
+                                <div ng-show="modalData['searchHistory']">
+                                    <div ng-show="userSearchHistory">
+                                        <div data-ng-repeat="date in userSearchHistory">
+                                            <h6>{{date}}</h6>
+                                            <ul>
+
+                                                <li ng-repeat="history in modalData.searchHistory[date]">
+                                                    <a data-ng-show="history.url"
+                                                        href={{history.url}}>{{history.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div ng-hide="modalData['searchHistory']">
+                                    <p>No history stored</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end : modal -->
+    </div>
+</div>

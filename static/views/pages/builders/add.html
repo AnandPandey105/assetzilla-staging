@@ -1,0 +1,169 @@
+<div ng-class="{true:'blurry', false:'non-blurry'}[loader]">
+  <div class="container-fluid p-5">
+    <div class="box">
+      <div class="box-body">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group"><label for="name">
+                <strong>Name of Builder<span style="color: red"> *</span></strong>
+              </label>
+              <input required type="text" class="form-control" id="name" placeholder="Name of the Builder"
+                ng-model="data.name">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <strong>Upload Logo For Builder<span style="color: red"> *(upload only png or jpeg)</span></strong>
+              <input type="file" class="form-control" file-model="data.logo" accept="image/png, image/jpeg">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <strong>Video Link</strong>
+              <input required type="text" class="form-control" placeholder="Video Link" ng-model="data.video_url">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group"><label for="email">
+                <strong>Email</strong>
+              </label>
+              <input required type="text" class="form-control" id="email" placeholder="Email of the Builder"
+                ng-model="data.email">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group"><label for="phone">
+                <strong>Phone</strong>
+              </label>
+              <input required type="text" class="form-control" id="phone" placeholder="Phone of the Builder"
+                ng-model="data.phone">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group"><label for="website">
+                <strong>Website<span style="color: red"> *</span></strong>
+              </label>
+              <input required type="text" class="form-control" id="website" placeholder="Website of the Builder"
+                ng-model="data.website">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-9">
+            <div class="form-group"><label for="address">
+                <strong>Address Line 1</strong>
+              </label>
+              <textarea required type="text" class="form-control" id="address" placeholder="Address of the Builder"
+                ng-model="data.address"></textarea>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group"><label for="pincode">
+                <strong>Pincode</strong>
+              </label>
+              <input required type="number" class="form-control" id="pincode" placeholder="Pincode of the Builder"
+                ng-model="data.pincode">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="country">
+                <strong>State</strong><span style="color: red"> *</span>
+              </label>
+              <div>
+                <input type="text" ng-model="data.state" placeholder="Select a State"
+                  uib-typeahead="address for address in getStates($viewValue)" class="form-control"
+                  typeahead-editable="typeaheadEditable">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" ng-show="data.state">
+            <div class="form-group">
+              <label for="country">
+                <strong>District</strong><span style="color: red"> *</span>
+              </label>
+              <div>
+                <input type="text" ng-model="data.district" placeholder="Select a District"
+                  uib-typeahead="address for address in getDistricts($viewValue)" class="form-control"
+                  typeahead-editable="typeaheadEditable">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" ng-show="data.district && data.state">
+            <div class="form-group">
+              <label for="country">
+                <strong>City</strong><span style="color: red"> *</span>
+              </label>
+              <div>
+                <input type="text" ng-model="data.city" placeholder="Select a City"
+                  uib-typeahead="address for address in getCities($viewValue)" class="form-control"
+                  typeahead-editable="typeaheadEditable">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" ng-show="data.district && data.state && data.city">
+            <div class="form-group">
+              <label for="country">
+                <strong>Sub City</strong><span style="color: red"> *</span>
+              </label>
+              <div>
+                <input type="text" ng-model="data.subcity" placeholder="Select a Subcity"
+                  uib-typeahead="address for address in getSubcities($viewValue)" class="form-control"
+                  typeahead-editable="typeaheadEditable">
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label for="local_presence">
+            <strong>Local Presence (All cities)<a href ng-click="data.local_presence.push('')" class="ml-2" data-toggle="tooltip"
+                data-placement="auto" title="Add more local presence"><span
+                  class="fa fa-plus-square"></span></a></strong>
+          </label>
+          <div ng-repeat="city in data.local_presence track by $index">
+            <div class="input-group">
+              <input type="text" ng-model="data.local_presence[$index]" placeholder="Select a city"
+                uib-typeahead="address for address in getLocalPresence($viewValue)" class="form-control"
+                typeahead-editable="typeaheadEditable">
+              <span class="input-group-btn" ng-click="data.local_presence.splice($index,1)"><button class="btn white"
+                  type="button">X</button></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="text-center p-2 mt-3">
+              <button type="submit" class="btn btn-block success" data-ng-click="add()" ng-disabled="loader">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="float-right">
+          <p>Fields marked as <span style="color: red">*</span> are mandatory.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- loader -->
+<div class="container" ng-show="loader" style="position: fixed;top:15em">
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="loader-box"><img src="images/loading.gif"></div>
+    </div>
+  </div>
+</div>
+<!-- End : loader -->

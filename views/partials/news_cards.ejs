@@ -1,0 +1,26 @@
+<% for(var i=0; i < results.length; i++) { %>
+<div class="col-md-4">
+    <div class="card mb-3 shadow" onclick="go_to_page('<%=results[i].url %>')">
+        <div class="cursor">
+            <img src="<%=results[i].news_banner%>" class="card-img-top">
+        </div>
+        <div class="card-body">
+            <div class="mb-2">
+                <span><small class="text-muted font-weight-bold">
+                        <% if (results[i].publish_date){ %>
+                            Published on - 
+                            <%=results[i].publish_date%>
+                            <%}%>
+                    <!-- <%=results[i].updated.date%>
+                        <%=results[i].updated.month%>. <%=results[i].updated.year%> -->
+                    </small></span>
+            </div>
+            <h5 class="card-title"><%=results[i].heading%></h5>
+            <p class="card-text">
+                    <a href="<%=results[i].link%>" target="_blank" class="clr-black"></a>
+                    <%=results[i].link_name%>
+                </p>
+        </div>
+    </div>
+</div>
+<% } %>

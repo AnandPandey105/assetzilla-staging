@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<%- include ../partials/head.ejs%>
+<body>
+<%- include ../partials/navigation_bar.ejs%>
+<%- include ../partials/top_search_directory_pages.ejs%>
+
+<div class="container mt-4">
+<!-- PROPERTIES -->
+<% if (results.results.properties.length >0){   %>
+<div class="col-12 mb-2">
+<span class="clubbed-head">Properties</span>
+<% if (locals.query){ %>
+<div class="sub-hd"><a href="/properties?q=<%= query %>">See All</a></div>
+<% }else{ %>
+<div class="sub-hd"><a href="/properties">See All</a></div>
+<% } %>
+</div>
+
+<% if (results.results.properties.length >3){   %>
+<!-- Desk slider -->
+<div class="desk-show">
+<div class="row">
+<!-- Desktop Slider -->
+<div class="col-12">
+<!-- Swiper -->
+<div class="swiper-container top-swiper-desktop">
+<div class="swiper-wrapper">
+<% for(var i=0; i < results.results.properties.length; i++) { %>
+<div class="swiper-slide">
+<div class="card mb-3 listing-card"
+onclick=go_to_page("<%=results.results.properties[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<!-- <img src="<%=results.results.properties[i].banner_image %>" class="card-img" alt=""> -->
+
+<% if (results.results.properties[i].banner_image && results.results.properties[i].banner_image == "/images/placeholder_bg.webp"){   %>
+    <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=results.results.properties[i].images.Projects[0] %>"
+        class="card-img" alt="">
+    <% }else{ %>
+    <img src="<%=results.results.properties[i].banner_image %>" class="card-img" alt="">
+	<% } %>
+	
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.properties[i].name %></h5>
+<small class="light-grey-clr">
+<i class="fas fa-map-marker-alt"></i>
+<% if (results.results.properties[i].subcity){ %><%=results.results.properties[i].subcity %>,
+<%}%><% if (results.results.properties[i].city){ %><%=results.results.properties[i].city %> <%}%>
+</small>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr>
+<% if (results.results.properties[i].bhk_space){ %>
+<th scope="col">Config</th>
+<%}%>
+<% if (results.results.properties[i].property_type){ %>
+<th scope="col">Type</th>
+<%}%>
+<% if (results.results.properties[i].furnished){ %>
+<th scope="col">Status</th>
+<%}%>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% if (results.results.properties[i].bhk_space){ %>
+<td>
+<%=results.results.properties[i].bhk_space %>
+</td>
+<%}%>
+<% if (results.results.properties[i].property_type){ %>
+<td>
+<%=results.results.properties[i].property_type %>
+</td>
+<%}%>
+<% if (results.results.properties[i].furnished){ %>
+<td>
+<%=results.results.properties[i].furnished %>
+</td>
+<%}%>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+</div>
+<!-- Add Pagination -->
+<div class="swiper-pagination"></div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+<!-- Mobile SLIDER -->
+<div class="mob-show">
+<div class="row mt-4">
+<div class="col-12">
+<!-- swiper -->
+<div class="text-center" >
+<div
+class="swiper-container top-properties-swiper">
+<div
+class="swiper-wrapper">
+<% for(var i=0; i < results.results.properties.length; i++) { %>
+<div
+class="swiper-slide">
+
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.properties[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<!-- <img src="<%=results.results.properties[i].banner_image %>" class="card-img" alt=""> -->
+<% if (results.results.properties[i].banner_image && results.results.properties[i].banner_image == "/images/placeholder_bg.webp"){   %>
+    <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=results.results.properties[i].images.Projects[0] %>"
+        class="card-img" alt="">
+    <% }else{ %>
+    <img src="<%=results.results.properties[i].banner_image %>" class="card-img" alt="">
+	<% } %>
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.properties[i].name %></h5>
+<small class="light-grey-clr">
+<i class="fas fa-map-marker-alt"></i>
+<% if (results.results.properties[i].subcity){ %><%=results.results.properties[i].subcity %>,
+<%}%><% if (results.results.properties[i].city){ %><%=results.results.properties[i].city %> <%}%>
+</small>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr>
+<% if (results.results.properties[i].bhk_space){ %>
+<th scope="col">Config</th>
+<%}%>
+<% if (results.results.properties[i].property_type){ %>
+<th scope="col">Type</th>
+<%}%>
+<% if (results.results.properties[i].furnished){ %>
+<th scope="col">Status</th>
+<%}%>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% if (results.results.properties[i].bhk_space){ %>
+<td>
+<%=results.results.properties[i].bhk_space %>
+</td>
+<%}%>
+<% if (results.results.properties[i].property_type){ %>
+<td>
+<%=results.results.properties[i].property_type %>
+</td>
+<%}%>
+<% if (results.results.properties[i].furnished){ %>
+<td>
+<%=results.results.properties[i].furnished %>
+</td>
+<%}%>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<%}%>
+</div>
+<!-- Add Pagination -->
+<div class="swiper-pagination"></div>
+</div>
+</div>
+<!-- swiper ends -->
+</div>
+</div>
+</div>
+<!-- less than 3 results on desktop -->
+<% if (results.results.properties.length <=3){   %>
+<div class="desk-show">
+<div class="row">
+<% for(var i=0; i < results.results.properties.length; i++) { %>
+<div class="col-md-4">
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.properties[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<!-- <img src="<%=results.results.properties[i].banner_image %>" class="card-img" alt=""> -->
+<% if (results.results.properties[i].banner_image && results.results.properties[i].banner_image == "/images/placeholder_bg.webp"){   %>
+    <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=results.results.properties[i].images.Projects[0] %>"
+        class="card-img" alt="">
+    <% }else{ %>
+    <img src="<%=results.results.properties[i].banner_image %>" class="card-img" alt="">
+	<% } %>
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.properties[i].name %></h5>
+<small class="light-grey-clr">
+<i class="fas fa-map-marker-alt"></i>
+<% if (results.results.properties[i].subcity){ %><%=results.results.properties[i].subcity %>,
+<%}%><% if (results.results.properties[i].city){ %><%=results.results.properties[i].city %> <%}%>
+</small>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr>
+<% if (results.results.properties[i].bhk_space){ %>
+<th scope="col">Config</th>
+<%}%>
+<% if (results.results.properties[i].property_type){ %>
+<th scope="col">Type</th>
+<%}%>
+<% if (results.results.properties[i].furnished){ %>
+<th scope="col">Status</th>
+<%}%>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% if (results.results.properties[i].bhk_space){ %>
+<td>
+<%=results.results.properties[i].bhk_space %>
+</td>
+<%}%>
+<% if (results.results.properties[i].property_type){ %>
+<td>
+<%=results.results.properties[i].property_type %>
+</td>
+<%}%>
+<% if (results.results.properties[i].furnished){ %>
+<td>
+<%=results.results.properties[i].furnished %>
+</td>
+<%}%>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+</div>
+</div>
+<% } %>
+<hr>
+<% } %>
+
+<!-- PROJECTS -->
+<% if (results.results.projects.length >0){   %>
+<div class="col-12 mb-2">
+<span class="clubbed-head">Projects</span>
+<% if (locals.query){ %>
+<div class="sub-hd"><a href="/projects?q=<%= query %>">See All</a></div>
+<% }else{ %>
+<div class="sub-hd"><a href="/projects">See All</a></div>
+<% } %>
+</div>
+
+<% if (results.results.projects.length >3){   %>
+<!-- Desktop slider -->
+<div class="desk-show">
+<div class="row">
+<div class="col-12">
+<!-- Swiper -->
+<div class="swiper-container top-swiper-desktop">
+<div class="swiper-wrapper">
+<% for(var i=0; i < results.results.projects.length; i++) { %>
+<div class="swiper-slide">
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.projects[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<img src="<%=results.results.projects[i].banner_image %>" class="card-img" alt="">
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.projects[i].name %></h5>
+<small class="light-grey-clr">
+<i class="fas fa-map-marker-alt"></i>
+<% if (results.results.projects[i].subcity){ %><%=results.results.projects[i].subcity %>,
+<%}%><% if (results.results.projects[i].city){ %><%=results.results.projects[i].city %> <%}%>
+</small>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr>
+<% if (results.results.projects[i].project_status){ %>
+<th scope="col">Status</th>
+<%}%>
+<% if (results.results.projects[i].property_type){ %>
+<th scope="col">Type</th>
+<%}%>
+<% if (results.results.projects[i].lease_rent){ %>
+<th scope="col">Lease/Rent</th>
+<%}%>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% if (results.results.projects[i].project_status){ %>
+<td>
+<%=results.results.projects[i].project_status %>
+</td>
+<%}%>
+<% if (results.results.projects[i].property_type){ %>
+<td>
+<%=results.results.projects[i].property_type %>
+</td>
+<%}%>
+<% if (results.results.projects[i].lease_rent){ %>
+<td>
+<%=results.results.projects[i].lease_rent %>
+</td>
+<%}%>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+</div>
+<!-- Add Pagination -->
+<div class="swiper-pagination"></div>
+</div>																								
+</div>	
+</div>
+</div>
+<% } %>
+
+
+<!-- Mobile SLIDER -->
+<div class="mob-show">
+<div class="row mt-4">
+<div class="col-12">
+<!-- swiper -->
+<div class="text-center" >
+<div
+class="swiper-container top-properties-swiper">
+<div
+class="swiper-wrapper">
+<% for(var i=0; i < results.results.projects.length; i++) { %>
+<div
+class="swiper-slide">
+
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.projects[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<img src="<%=results.results.projects[i].banner_image %>" class="card-img" alt="">
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.projects[i].name %></h5>
+<small class="light-grey-clr">
+<i class="fas fa-map-marker-alt"></i>
+<% if (results.results.projects[i].subcity){ %><%=results.results.projects[i].subcity %>,
+<%}%><% if (results.results.projects[i].city){ %><%=results.results.projects[i].city %> <%}%>
+</small>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr>
+<% if (results.results.projects[i].project_status){ %>
+<th scope="col">Status</th>
+<%}%>
+<% if (results.results.projects[i].property_type){ %>
+<th scope="col">Type</th>
+<%}%>
+<% if (results.results.projects[i].lease_rent){ %>
+<th scope="col">Lease/Rent</th>
+<%}%>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% if (results.results.projects[i].project_status){ %>
+<td>
+<%=results.results.projects[i].project_status %>
+</td>
+<%}%>
+<% if (results.results.projects[i].property_type){ %>
+<td>
+<%=results.results.projects[i].property_type %>
+</td>
+<%}%>
+<% if (results.results.projects[i].lease_rent){ %>
+<td>
+<%=results.results.projects[i].lease_rent %>
+</td>
+<%}%>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<%}%>
+</div>
+<!-- Add Pagination -->
+<div class="swiper-pagination"></div>
+</div>
+</div>
+<!-- swiper ends -->
+</div>
+</div>
+</div>
+
+<!-- less than 3 results on desktop -->
+<% if (results.results.projects.length <=3){   %>
+<div class="desk-show">
+<div class="row">
+<% for(var i=0; i < results.results.projects.length; i++) { %>
+<div class="col-md-4">
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.projects[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<img src="<%=results.results.projects[i].banner_image %>" class="card-img" alt="">
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.projects[i].name %></h5>
+<small class="light-grey-clr">
+<i class="fas fa-map-marker-alt"></i>
+<% if (results.results.projects[i].subcity){ %><%=results.results.projects[i].subcity %>,
+<%}%><% if (results.results.projects[i].city){ %><%=results.results.projects[i].city %> <%}%>
+</small>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr>
+<% if (results.results.projects[i].project_status){ %>
+<th scope="col">Status</th>
+<%}%>
+<% if (results.results.projects[i].property_type){ %>
+<th scope="col">Type</th>
+<%}%>
+<% if (results.results.projects[i].lease_rent){ %>
+<th scope="col">Lease/Rent</th>
+<%}%>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% if (results.results.projects[i].project_status){ %>
+<td>
+<%=results.results.projects[i].project_status %>
+</td>
+<%}%>
+<% if (results.results.projects[i].property_type){ %>
+<td>
+<%=results.results.projects[i].property_type %>
+</td>
+<%}%>
+<% if (results.results.projects[i].lease_rent){ %>
+<td>
+<%=results.results.projects[i].lease_rent %>
+</td>
+<%}%>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+</div>	
+</div>
+<% } %>
+
+<hr>
+<% } %>
+
+
+<!-- BUILDERS -->
+<% if (results.results.builders.length >0){   %>
+<div class="col-12 mb-2">
+<span class="clubbed-head">Builders</span>
+<% if (locals.query){ %>
+<div class="sub-hd"><a href="/builders?q=<%= query %>">See All</a></div>
+<% }else{ %>
+<div class="sub-hd"><a href="/builders">See All</a></div>
+<% } %>
+</div>
+
+<% if (results.results.builders.length >3){   %>
+<!-- Builders desktop slider -->
+<div class="desk-show">
+<div class="row">
+<div class="col-12">
+<!-- Swiper -->
+<div class="swiper-container top-swiper-desktop">
+<div class="swiper-wrapper">
+<% for(var i=0; i < results.results.builders.length; i++) { %>
+<div class="swiper-slide">
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.builders[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<img src="<%=results.results.builders[i].logo %>" class="card-img" alt="">
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.builders[i].name %></h5>
+<small class="light-grey-clr">
+<i class="fas fa-map-marker-alt"></i>
+<% if (results.results.builders[i].subcity){ %><%=results.results.builders[i].subcity %>,<%}%><% if (results.results.builders[i].city){ %><%=results.results.builders[i].city %> <%}%>
+</small>
+</div>
+</div>
+
+<div class="d-flex d-flex align-content-start flex-wrap bd-highlight mb-3">
+<% if (results.results.builders[i].phone){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-mobile"></i>
+<%=results.results.builders[i].phone %>
+</div>
+<%}%>
+<% if (results.results.builders[i].email){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-envelope"></i>
+<%=results.results.builders[i].email %>
+</div>
+<%}%>
+<% if (results.results.builders[i].address){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-home"></i>
+<%=results.results.builders[i].address %>
+</div>
+<%}%>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+</div>
+<!-- Add Pagination -->
+<div class="swiper-pagination"></div>
+</div>																								
+</div>	
+</div>
+</div>
+<% } %>
+
+<!-- Mobile SLIDER -->
+<div class="mob-show">
+<div class="row mt-4">
+<div class="col-12">
+<!-- swiper -->
+<div class="text-center" >
+<div
+class="swiper-container top-properties-swiper">
+<div
+class="swiper-wrapper">
+<% for(var i=0; i < results.results.builders.length; i++) { %>
+<div
+class="swiper-slide">
+
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.builders[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<img src="<%=results.results.builders[i].logo %>" class="card-img" alt="">
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.builders[i].name %></h5>
+<small class="light-grey-clr">
+<i class="fas fa-map-marker-alt"></i>
+<% if (results.results.builders[i].subcity){ %><%=results.results.builders[i].subcity %>,<%}%><% if (results.results.builders[i].city){ %><%=results.results.builders[i].city %> <%}%>
+</small>
+</div>
+</div>
+
+<div class="d-flex d-flex align-content-start flex-wrap bd-highlight mb-3">
+<% if (results.results.builders[i].phone){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-mobile"></i>
+<%=results.results.builders[i].phone %>
+</div>
+<%}%>
+<% if (results.results.builders[i].email){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-envelope"></i>
+<%=results.results.builders[i].email %>
+</div>
+<%}%>
+<% if (results.results.builders[i].address){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-home"></i>
+<%=results.results.builders[i].address %>
+</div>
+<%}%>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<%}%>
+</div>
+<!-- Add Pagination -->
+<div class="swiper-pagination"></div>
+</div>
+</div>
+<!-- swiper ends -->
+</div>
+</div>
+</div>
+
+<!-- less than 3 results on desktop -->
+<% if (results.results.builders.length <=3){   %>
+<div class="desk-show">
+<div class="row">
+<% for(var i=0; i < results.results.builders.length; i++) { %>
+<div class="col-md-4">
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.builders[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<img src="<%=results.results.builders[i].logo %>" class="card-img" alt="">
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.builders[i].name %></h5>
+<small class="light-grey-clr">
+<i class="fas fa-map-marker-alt"></i>
+<% if (results.results.builders[i].subcity){ %><%=results.results.builders[i].subcity %>,<%}%><% if (results.results.builders[i].city){ %><%=results.results.builders[i].city %> <%}%>
+</small>
+</div>
+</div>
+
+<div class="d-flex d-flex align-content-start flex-wrap bd-highlight mb-3">
+<% if (results.results.builders[i].phone){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-mobile"></i>
+<%=results.results.builders[i].phone %>
+</div>
+<%}%>
+<% if (results.results.builders[i].email){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-envelope"></i>
+<%=results.results.builders[i].email %>
+</div>
+<%}%>
+<% if (results.results.builders[i].address){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-home"></i>
+<%=results.results.builders[i].address %>
+</div>
+<%}%>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+</div>
+</div>
+<% } %>
+
+<% } %>
+
+<!-- LOCATIONS -->
+<% if (results.results.locations.length >0){   %>
+<div class="col-12 mb-2">
+<span class="clubbed-head">Locations
+</span>
+<% if (locals.query){ %>
+<div class="sub-hd"><a href="/locations?q=<%= query %>">See All</a></div>
+<% }else{ %>
+<div class="sub-hd"><a href="/locations">See All</a></div>
+<% } %>
+</div>
+
+<% if (results.results.locations.length >3){   %>
+<div class="desk-show">
+<div class="row">
+<div class="col-12">
+<!-- Swiper -->
+<div class="swiper-container top-swiper-desktop">
+<div class="swiper-wrapper">
+<% for(var i=0; i < results.results.locations.length; i++) { %>
+<div class="swiper-slide">
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.locations[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<img src="<%=results.results.locations[i].banner_image %>" class="card-img" alt="">
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.locations[i].name %></h5>
+<small class="light-grey-clr">
+<strong>Location Type</strong>&nbsp; <%=results.results.locations[i].location_type %>
+</small>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr>
+<% if (results.results.locations[i].capital_income){ %>
+<th scope="col">Per Capita Income</th>
+<%}%>
+<% if (results.results.locations[i].gdp){ %>
+<th scope="col">GDP</th>
+<%}%>
+<% if (results.results.locations[i].population){ %>
+<th scope="col">Population</th>
+<%}%>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% if (results.results.locations[i].capital_income){ %>
+<td>
+<%=results.results.locations[i].capital_income %>
+</td>
+<%}%>
+<% if (results.results.locations[i].gdp){ %>
+<td>
+<%=results.results.locations[i].gdp %>
+</td>
+<%}%>
+<% if (results.results.locations[i].population){ %>
+<td>
+<%=results.results.locations[i].population %>
+</td>
+<%}%>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+</div>
+<!-- Add Pagination -->
+<div class="swiper-pagination"></div>
+</div>																								
+</div>	
+</div>
+</div>
+<% } %>
+
+<div class="mob-show">
+<!-- Mobile SLIDER -->
+<div class="mob-show">
+<div class="row mt-4">
+<div class="col-12">
+<!-- swiper -->
+<div class="text-center" >
+<div
+class="swiper-container top-properties-swiper">
+<div
+class="swiper-wrapper">
+<% for(var i=0; i < results.results.locations.length; i++) { %>
+<div
+class="swiper-slide">
+
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.locations[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<img src="<%=results.results.locations[i].banner_image %>" class="card-img" alt="">
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.locations[i].name %></h5>
+<small class="light-grey-clr">
+<strong>Location Type</strong>&nbsp; <%=results.results.locations[i].location_type %>
+</small>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr>
+<% if (results.results.locations[i].capital_income){ %>
+<th scope="col">Per Capita Income</th>
+<%}%>
+<% if (results.results.locations[i].gdp){ %>
+<th scope="col">GDP</th>
+<%}%>
+<% if (results.results.locations[i].population){ %>
+<th scope="col">Population</th>
+<%}%>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% if (results.results.locations[i].capital_income){ %>
+<td>
+<%=results.results.locations[i].capital_income %>
+</td>
+<%}%>
+<% if (results.results.locations[i].gdp){ %>
+<td>
+<%=results.results.locations[i].gdp %>
+</td>
+<%}%>
+<% if (results.results.locations[i].population){ %>
+<td>
+<%=results.results.locations[i].population %>
+</td>
+<%}%>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<%}%>
+</div>
+<!-- Add Pagination -->
+<div class="swiper-pagination"></div>
+</div>
+</div>
+<!-- swiper ends -->
+</div>
+</div>
+</div>
+</div>
+
+<% if (results.results.locations.length <=3){   %>
+<div class="desk-show">
+<div class="row">
+<% for(var i=0; i < results.results.locations.length; i++) { %>
+<div class="col-md-4">
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.locations[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+<img src="<%=results.results.locations[i].banner_image %>" class="card-img" alt="">
+
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.locations[i].name %></h5>
+<small class="light-grey-clr">
+<strong>Location Type</strong>&nbsp; <%=results.results.locations[i].location_type %>
+</small>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr>
+<% if (results.results.locations[i].capital_income){ %>
+<th scope="col">Per Capita Income</th>
+<%}%>
+<% if (results.results.locations[i].gdp){ %>
+<th scope="col">GDP</th>
+<%}%>
+<% if (results.results.locations[i].population){ %>
+<th scope="col">Population</th>
+<%}%>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% if (results.results.locations[i].capital_income){ %>
+<td>
+<%=results.results.locations[i].capital_income %>
+</td>
+<%}%>
+<% if (results.results.locations[i].gdp){ %>
+<td>
+<%=results.results.locations[i].gdp %>
+</td>
+<%}%>
+<% if (results.results.locations[i].population){ %>
+<td>
+<%=results.results.locations[i].population %>
+</td>
+<%}%>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+</div>
+</div>
+<% } %>
+<% } %>
+
+<% if (results.results.authorities.length >0){   %>
+<div class="col-12 mb-2">
+<span class="clubbed-head">Authorities</span>
+<% if (locals.query){ %>
+<div class="sub-hd"><a href="/authorities?q=<%= query %>">See All</a></div>
+<% }else{ %>
+<div class="sub-hd"><a href="/authorities">See All</a></div>
+<% } %>
+</div>
+
+<% if (results.results.authorities.length >3){   %>
+<div class="desk-show">
+<div class="row">
+<div class="col-12">
+<!-- Swiper -->
+<div class="swiper-container top-swiper-desktop">
+<div class="swiper-wrapper">
+<% for(var i=0; i < results.results.authorities.length; i++) { %>
+<div class="swiper-slide">
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.authorities[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+
+<!-- <img src="<%=results.results.authorities[i].banner_image %>" class="card-img" alt=""> -->
+<% if (results.results.authorities[i].banner_image && results.results.authorities[i].banner_image == "/images/placeholder_bg.webp"){   %>
+<img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=results.results.authorities[i].logo %>"
+	class="card-img" alt="">
+<% }else{ %>
+<img src="<%=results.results.authorities[i].banner_image %>" class="card-img" alt="">
+
+<% } %>
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.authorities[i].name %></h5>
+</div>
+</div>
+
+<div class="d-flex d-flex align-content-start flex-wrap bd-highlight mb-3">
+<% if (results.results.authorities[i].phone){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-mobile"></i>
+<%=results.results.authorities[i].phone %>
+</div>
+<%}%>
+<% if (results.results.authorities[i].email){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-envelope"></i>
+<%=results.results.authorities[i].email %>
+</div>
+<%}%>
+<% if (results.results.authorities[i].address){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-home"></i>
+<%=results.results.authorities[i].address %>
+</div>
+<%}%>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+</div>
+<!-- Add Pagination -->
+<div class="swiper-pagination"></div>
+</div>																								
+</div>	
+</div>
+</div>
+<% } %>
+<div class="mob-show">
+<!-- Mobile SLIDER -->
+<div class="mob-show">
+<div class="row mt-4">
+<div class="col-12">
+<!-- swiper -->
+<div class="text-center" >
+<div
+class="swiper-container top-properties-swiper">
+<div
+class="swiper-wrapper">
+<% for(var i=0; i < results.results.authorities.length; i++) { %>
+<div
+class="swiper-slide">
+
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.authorities[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+
+<!-- <img src="<%=results.results.authorities[i].banner_image %>" class="card-img" alt=""> -->
+<% if (results.results.authorities[i].banner_image && results.results.authorities[i].banner_image == "/images/placeholder_bg.webp"){   %>
+	<img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=results.results.authorities[i].logo %>" class="card-img" alt="">
+	<% }else{ %>
+		<img src="<%=results.results.authorities[i].banner_image %>" class="card-img" alt="">
+		<% } %>
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.authorities[i].name %></h5>
+</div>
+</div>
+
+<div class="d-flex d-flex align-content-start flex-wrap bd-highlight mb-3">
+<% if (results.results.authorities[i].phone){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-mobile"></i>
+<%=results.results.authorities[i].phone %>
+</div>
+<%}%>
+<% if (results.results.authorities[i].email){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-envelope"></i>
+<%=results.results.authorities[i].email %>
+</div>
+<%}%>
+<% if (results.results.authorities[i].address){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-home"></i>
+<%=results.results.authorities[i].address %>
+</div>
+<%}%>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<%}%>
+</div>
+<!-- Add Pagination -->
+<div class="swiper-pagination"></div>
+</div>
+</div>
+<!-- swiper ends -->
+</div>
+</div>
+</div>
+</div>
+
+<% if (results.results.authorities.length <=3){   %>
+<div class="desk-show">
+<div class="row">
+<% for(var i=0; i < results.results.authorities.length; i++) { %>
+<div class="col-md-4">
+<div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results.authorities[i].url %>")>
+<div class="row no-gutters">
+<div class="col-md-12">
+
+	<% if (results.results.authorities[i].banner_image && results.results.authorities[i].banner_image == "/images/placeholder_bg.webp"){   %>
+		<img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=results.results.authorities[i].logo %>" class="card-img" alt="">
+		<% }else{ %>
+			<img src="<%=results.results.authorities[i].banner_image %>" class="card-img" alt="">
+
+			<% } %>
+
+<div class="card-body">
+
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<h5 class="card-title"><%=results.results.authorities[i].name %></h5>
+</div>
+</div>
+
+<div class="d-flex d-flex align-content-start flex-wrap bd-highlight mb-3">
+<% if (results.results.authorities[i].phone){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-mobile"></i>
+<%=results.results.authorities[i].phone %>
+</div>
+<%}%>
+<% if (results.results.authorities[i].email){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-envelope"></i>
+<%=results.results.authorities[i].email %>
+</div>
+<%}%>
+<% if (results.results.authorities[i].address){ %>
+<div class="p-2 bd-highlight">
+<i class="fas fa-home"></i>
+<%=results.results.authorities[i].address %>
+</div>
+<%}%>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<% } %>
+</div>
+</div>
+<% } %>
+<% } %>
+
+
+</div>
+
+
+
+</body>
+
+
+
+<%- include ../partials/footer.ejs%>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<script>
+var swiperMob = function () {
+var topProjectsSwiperDesk = new Swiper('.top-swiper-desktop', {
+slidesPerView: 3,
+spaceBetween: 30,
+grabCursor: true,
+loop: true,
+autoplay: {
+delay: 2500,
+disableOnInteraction: false,
+},
+
+pagination: {
+el: '.swiper-pagination',
+clickable: true,
+}
+});
+}
+swiperMob();
+
+var topPropertiesSwiper = new Swiper('.top-properties-swiper', {
+loop: true,
+spaceBetween: 30,
+centeredSlides: true,
+autoplay: {
+delay: 2500,
+disableOnInteraction: false,
+},
+pagination: {
+el: '.swiper-pagination',
+clickable: true
+},
+
+});
+</script>
+<% if (!locals.user) {%>
+	<script>
+	  let storedViewH = JSON.parse(window.localStorage.getItem('userSrchH'));
+	  if (storedViewH){
+		storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+	  } else{
+		storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+	  }
+	  window.localStorage.setItem('userSrchH', JSON.stringify(storedViewH))
+	</script>
+  <% } %>
+</html>

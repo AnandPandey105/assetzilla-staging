@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+<%- include ./partials/header.ejs%>
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <%- include ./partials/topbar_info_pages.ejs%>
+  
+  <div class="top-margin background-texture">
+    <div class="container">
+      <div class="">
+        <div class="view-change-header background-texture>
+          <div style="clear: both;"></div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="profile-tabs-upper">
+                  <div class="main_box_list">
+                    <div class="filter w-100">
+                      <div class="filter_list w-100">
+                        <ul class="nav nav-tabs align-items-center" id="faq-tabs-section">
+                          <li class="col-4 cursor active" onclick="change_faq_section('all-assetzilla-users')" id="all-assetzilla-users-btn"><a class="font-weight-lato-bold" href="javascript:;">For All AssetZilla Users</a></li>
+                          <li class="col-4 cursor" onclick="change_faq_section('buyers-customers')" id="buyers-customers-btn"><a class="font-weight-lato-bold" href="javascript:;">For Buyers / Customers</a> </li>
+                          <li class="col-4 cursor" onclick="change_faq_section('sellers-propertyowners')" id="sellers-propertyowners-btn"><a class="font-weight-lato-bold" href="javascript:;">For Sellers / Property Owners</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="all-assetzilla-users-container" class="common-box-dt faq-section accordion" style="display: block; margin-bottom: 2vh;">
+          <div id="accordion" class="dt-accordions">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse41" aria-expanded="true" aria-controls="collapse41">
+                    <span class="faq-number font-family-lato-regular">1.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">Are there any paid packages on AssetZilla?</span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse41" class="collapse" aria-labelledby="heading41" data-parent="#all-assetzilla-users-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  Assetzilla does not charge anything for the listings, all listings are free.
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse42" aria-expanded="true" aria-controls="collapse42">
+                    <span class="faq-number font-family-lato-regular">2.</span>
+                    <span class="col-10 faq-question font-family-lato-regular"> How can I change my password on Assetzilla ?</span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse42" class="collapse" aria-labelledby="heading42" data-parent="#all-assetzilla-users-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  Follow these simple steps to change your password:
+                  <ul>
+                    <li>Click <a href="/profile">here</a> and go to your Assetzilla's account → Go to your profile and then change your password.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse43" aria-expanded="true" aria-controls="collapse43">
+                    <span class="faq-number font-family-lato-regular">3.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How can I change my email ID on Assetzilla?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse43" class="collapse" aria-labelledby="heading43" data-parent="#all-assetzilla-users-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  You can change your Assetzilla Email ID in three simple steps:
+                  <ul>
+                    <li>Click <a href="/profile"> here</a> and go to your Assetzilla's account → Go to your profile and change your account Email ID.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse44" aria-expanded="true" aria-controls="collapse44">
+                    <span class="faq-number font-family-lato-regular">4.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How can I change my mobile number on Assetzilla?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse44" class="collapse" aria-labelledby="heading44" data-parent="#all-assetzilla-users-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  Follow these simple steps to change your mobile number:
+                  <ul>
+                    <li>Click <a href="/profile"> here</a> and go to your Assetzilla's account → Go to your profile and change your account mobile number.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse45" aria-expanded="true" aria-controls="collapse45">
+                    <span class="faq-number font-family-lato-regular">5.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      Can I create multiple accounts on Assetzilla ?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse45" class="collapse" aria-labelledby="heading45" data-parent="#all-assetzilla-users-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  Assetzilla does not allow users to create multiple accounts. A user can register with only one account on Assetzilla with his/her mobile number and email address.
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse46" aria-expanded="true" aria-controls="collapse46">
+                    <span class="faq-number font-family-lato-regular">6.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      Can I deactivate my account?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse46" class="collapse" aria-labelledby="heading46" data-parent="#all-assetzilla-users-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  To reactivate/deactivate your Assetzilla account, please email us on <a href="mailto:support@assetzilla.com">support@assetzilla.com</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="buyers-customers-container" class="common-box-dt faq-section accordion" style="display: none; margin-bottom: 2vh;">
+          <div id="accordion" class="dt-accordions">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <span class="faq-number font-family-lato-regular">1.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">How can I book a property on Assetzilla?</span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">Follow these simple steps to book a property:</p>
+                  <ul>
+                    <li>Click <a href="/">here</a> to go to Assetzilla's home page</li>
+                    <li>Click Explore → All Properties → Book this property.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <span class="faq-number font-family-lato-regular">2.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">What documents are required to buy a property, and what are the paper formalities?</span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">You would require the following documents to buy a property for verification purpose.</p>
+                  <ul>
+                    <li>For Booking</li>
+                    <ul>
+                      <li>PAN Card</li>
+                      <li>Aadhar Card (if applicable)</li>
+                    </ul>
+                    <li> For Buying</li>
+                    <ul>
+                      <li>Stamp papers for registration
+                      <li>Advance cheque</li>
+                      <li>Bank details (in case of refund)</li>
+                      <li>Loan papers (if applicable)</li>
+                    </ul>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                    <span class="faq-number font-family-lato-regular">3.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How much percentage will have to be paid to book property online?</span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  Booking amount is 1% of the total property value.
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapseOne">
+                    <span class="faq-number font-family-lato-regular">4.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      I want to know more about a property, how do I request a call back from the sales team?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  You can get a free consultation from our team.
+                  Click <a href="/">here</a> to go to Assetzilla's home page → Scroll on top menu → Click “Get free consultation” → Submit your query
+                  Our team will reach you in 24 hrs.
+
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                    <span class="faq-number font-family-lato-regular">5.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How to register on Assetzilla?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  Follow these simple steps to register yourself:
+                  <ul>
+                    <li>Click <a href="/">here</a> to go to Assetzilla's home page </li>
+                    <li>Click Login button from top right corner → Signup → Use your mobile number and create a password with OTP verification</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+                    <span class="faq-number font-family-lato-regular">6.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How to know the right market value of any property?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">The price of property is decided by a variety of factors like location, type of property, amenities offered, neighborhood, builder’s reputation, connectivity, and so on.</p>
+                  <p class="font-family-lato-regular">Although there is no set price for any property, you may get an idea by looking at comparable properties in the same Subcity or in nearby localities in the same neighborhood.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+                    <span class="faq-number font-family-lato-regular">7.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How does Assetzilla ensure safety of its users against fraudulent activities?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">All Assetzilla buyers and sellers are required to have appropriate KYC and documentation. We conduct complete document verification to ensure that there are no complications during the actual sale or transaction.</p>
+                  <p class="font-family-lato-regular">We are committed towards 100% transparency and making the buying/selling as simple as possible.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+                    <span class="faq-number font-family-lato-regular">8.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      I am not comfortable with online payment; Can I pay with a cheque?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse8" class="collapse" aria-labelledby="heading8" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">AssetZilla is an online marketplace, we prefer online transactions. However, if the buyer wants to pay with a cheque, kindly email us on <a href="mailto:support@assetzilla.com">support@assetzilla.com</a></p>
+                  <p class="font-family-lato-regular">Please note that the property will be reserved only after the booking amount is successfully received.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+                    <span class="faq-number font-family-lato-regular">9.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      My Booking has been canceled due to bounced payment. What should I do?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  You can again try to make the booking, if the property hasn’t been booked by someone else. Once the property is booked, it can’t be canceled without the seller’s consent.
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
+                    <span class="faq-number font-family-lato-regular">10.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      If I am buying any property from Assetzilla will I have to deal with any agent?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse10" class="collapse" aria-labelledby="heading10" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  No, there are just three parties to the agreement: the consumer (buyer), seller and Assetzilla (facilitator). No other parties are engaged in the process.
+                </div>
+              </div>
+            </div><!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+                    <span class="faq-number font-family-lato-regular">11.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                    Are property prices negotiable?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse11" class="collapse" aria-labelledby="heading11" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  We currently use a fixed price business model. However, we are developing a module that will soon allow for one level of negotiation.
+                </div>
+              </div>
+            </div><!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
+                    <span class="faq-number font-family-lato-regular">12.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                    How many properties should I explore before purchasing?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse12" class="collapse" aria-labelledby="heading12" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">There is no set criteria for this, but the buyer should consider a few options that match their needs before making a final decision. </p>
+                  <p class="font-family-lato-regular">Recommended comparison criteria can be:</p>
+                  <ul>
+                    <li>Location</li>
+                    <li>Price per square foot</li>
+                    <li>Property size/area</li>
+                    <li>Construction quality</li>
+                    <li>Amenities and facilities</li>
+
+                </div>
+              </div>
+            </div><!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse13" aria-expanded="true" aria-controls="collapse13">
+                    <span class="faq-number font-family-lato-regular">13.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      What are the important things to consider before buying any property?
+                    </span>  
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse13" class="collapse" aria-labelledby="heading13" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">Assetzilla recommends following criteria a buyer should consider before buying any property</p>
+                  <ul>
+                    <li>Loan availability on the project</li>
+                    <li>Buyer’s credit limit</li>
+                    <li>Approvals from the local authority</li>
+                    <li>Extra costs like registration cost, repairs, utility bills, taxes, etc.</li>
+                  </ul>
+                </div>
+              </div>
+            </div><!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
+                    <span class="faq-number font-family-lato-regular">14.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      What are the other charges which I should consider before buying a property?
+                    </span>  
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse14" class="collapse" aria-labelledby="heading14" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  AssetZilla advises customers to never go above their comfortable spending limit. In short, you should never go beyond your budget.
+                  <ul>
+                    <li>There is a possibility of increased interest rates which can increase your EMIs and damage your monthly budgets. </li>
+                    <li>There are various taxes and maintenance fees involved with property ownership which buyers often choose to disregard initially at the time of property acquisition.</li>
+                  </ul>
+                </div>
+              </div>
+            </div><!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse15" aria-expanded="true" aria-controls="collapse15">
+                    <span class="faq-number font-family-lato-regular">15.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      What is the process for loan Approval?
+                    </span>  
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>                  
+                </h5>
+              </div>
+              <div id="collapse15" class="collapse" aria-labelledby="heading15" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  To apply for loan through AssetZilla:
+                  <ol>
+                    <li>You can select your preferred bank on our website under the Bank area.</li>
+                    <li>Complete your basic KYC and documentation.</li>
+                    <li>AssetZilla can help you in receiving a loan from your preferred bank within 45 to 60 days of your loan application.</li>
+                  </ol>
+                </div>
+              </div>
+            </div><!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse16" aria-expanded="true" aria-controls="collapse16">
+                    <span class="faq-number font-family-lato-regular">16.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      Are all properties RERA registered?
+                    </span>  
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse16" class="collapse" aria-labelledby="heading16" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">RERA was introduced in India in 2016-17. RERA registration was only required for properties that were under development at the time. RERA regulations did not apply to finished or completed projects.</p>
+                  <p class="font-family-lato-regular">Since AssetZilla focuses on completed projects, you will find a mix of projects that have been registered under RERA and those that were previously completed prior to the implementation of RERA (these projects are exempted from RERA). </p>
+                </div>
+              </div>
+            </div><!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse17" aria-expanded="true" aria-controls="collapse17">
+                    <span class="faq-number font-family-lato-regular">17.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      If the buyer cancels the property, in how many days will the amount be refunded and how much?
+                    </span>  
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse17" class="collapse" aria-labelledby="headingOne" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  A buyer cannot withdraw an offer after it has been accepted by the seller. If the seller rejects/cancels the transaction, the whole booking amount will be instantly refunded to the buyer.
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse18" aria-expanded="true" aria-controls="collapse18">
+                    <span class="faq-number font-family-lato-regular">18.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      Can I buy a property If I am outside India?
+                    </span>  
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <!-- ********************************************************************************************************** -->
+              <div id="collapse18" class="collapse" aria-labelledby="heading18" data-parent="#buyers-customers-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  Yes, you can buy the property even if you’re outside the country. However, you’ll have to travel to India for registration the property in your name. You may also issue a Power of Attorney (POA) to any of your family members to complete the property registration process.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="sellers-propertyowners-container" class="common-box-dt faq-section accordion" style="display: none; margin-bottom: 2vh;">
+          <div id="accordion" class="dt-accordions">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse21" aria-expanded="true" aria-controls="collapse21">
+                    <span class="faq-number font-family-lato-regular">1.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How to post a property on Assetzilla?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse21" class="collapse" aria-labelledby="heading21" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">Follow these simple steps to list your property on AssetZilla: </p>
+                  <ul>
+                    <li>Click <a href=" /">here</a> and go to Assetzilla home page.</li>
+                    <li>Click on “Sell Your Property” from top menu bar.</li>
+                    <li>Fill the basic property details and Submit.</li>
+                    <li>AssetZilla team will verify the details and property will be listed after successful verification.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse22" aria-expanded="true" aria-controls="collapse22">
+                    <span class="faq-number font-family-lato-regular">2.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      Is there any fee for listing my property on AssetZilla?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse22" class="collapse" aria-labelledby="heading22" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">No, there is no listing fee. All our listings are free on AssetZilla.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse23" aria-expanded="true" aria-controls="collapse23">
+                    <span class="faq-number font-family-lato-regular">3.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      When will my property get activated?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse23" class="collapse" aria-labelledby="heading23" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">Once a property is submitted by the seller, the AssetZilla team verifies the property before listing it on the website. Once the property has passed the verification process, it will be made live so that potential buyers may begin to see it on the platform.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse24" aria-expanded="true" aria-controls="collapse24">
+                    <span class="faq-number font-family-lato-regular">4.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How to register as a Seller on Assetzilla?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse24" class="collapse" aria-labelledby="heading24" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  Sellers do not require a separate registration. You only need to register as a user on Assetzilla to begin listing your properties there.
+
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse25" aria-expanded="true" aria-controls="collapse25">
+                    <span class="faq-number font-family-lato-regular">5.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      What documents are required to sell property on AssetZilla?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse25" class="collapse" aria-labelledby="heading25" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  The seller require the following documents:
+                  <ul>
+                    <li>PAN Card</li>
+                    <li>Aadhar Card</li>
+                    <li>Bank account information like cancelled cheque, passbook</li>
+                    <li>Property records, such as utility bills, house taxes, etc.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse26" aria-expanded="true" aria-controls="collapse26">
+                    <span class="faq-number font-family-lato-regular">6.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How to know the right market value of my property?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse26" class="collapse" aria-labelledby="heading26" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">The price of your property is decided by a variety of factors like location, type of property, amenities offered, neighborhood, builder’s reputation, and so on.</p>
+                  <p class="font-family-lato-regular">Although there is no set price for every property, you may get an idea by looking at comparable properties in your nearby region to get an idea before setting your expected price</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse27" aria-expanded="true" aria-controls="collapse27">
+                    <span class="faq-number font-family-lato-regular">7.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How can buyers contact me after my property is live?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse27" class="collapse" aria-labelledby="heading27" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">When your property is live and a buyer expresses interest, the AssetZilla team will contact you with the update. In addition, an Assetzilla invoice and notification of the sale of your property will be generated as soon as someone books your property through our platform.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse28" aria-expanded="true" aria-controls="collapse28">
+                    <span class="faq-number font-family-lato-regular">8.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How does Assetzilla ensure safety of its users against fraudulent activities?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse28" class="collapse" aria-labelledby="heading28" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">All Assetzilla’s buyers and sellers are required to have appropriate KYC and documentation. We conduct complete document verification to ensure that there are no complications during the actual sale or transaction.</p>
+                  <p class="font-family-lato-regular">We are committed towards transparency and making the buying/selling as simple as possible.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse29" aria-expanded="true" aria-controls="collapse29">
+                    <span class="faq-number font-family-lato-regular">9.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How to contact Assetzilla customer care?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse29" class="collapse" aria-labelledby="heading29" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 4.6%;">
+                  <p class="font-family-lato-regular">You can reach out to us on email at <a href="mailto:support@assetzilla.com">support@assetzilla.com</a></p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse30" aria-expanded="true" aria-controls="collapse30">
+                    <span class="faq-number font-family-lato-regular">10.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      Can I put my property on hold for some duration, if I am considering any other offers?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse30" class="collapse" aria-labelledby="heading30" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">Yes, you can put your property on hold by emailing us at <a href="mailto:seller@assetzilla.com">seller@assetzilla.com</a> </p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse31" aria-expanded="true" aria-controls="collapse31">
+                    <span class="faq-number font-family-lato-regular">11.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How can I view the responses received for my property on Assetzilla?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse31" class="collapse" aria-labelledby="heading31" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">Assetzilla team will contact you once a buyer shows interest on your listed property.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse32" aria-expanded="true" aria-controls="collapse32">
+                    <span class="faq-number font-family-lato-regular">12.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      Can I edit the details of the property after submission?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse32" class="collapse" aria-labelledby="heading32" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">Yes, as long as the property is not booked, you may change the pricing and add new photos. Once booked, you are responsible for adhering to all conditions outlined in the Sale Agreement.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse33" aria-expanded="true" aria-controls="collapse33">
+                    <span class="faq-number font-family-lato-regular">13.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      Are property prices negotiable?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse33" class="collapse" aria-labelledby="heading33" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">We are currently using a fixed price approach. However, we are developing a module that will soon allow for one level of negotiation.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse34" aria-expanded="true" aria-controls="collapse34">
+                    <span class="faq-number font-family-lato-regular">14.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      How will I get the booking amount once a buyer books my property on Assetzilla?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse34" class="collapse" aria-labelledby="heading34" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">Once any buyers books your property, our team will reach out to you for a confirmation. Once you confirm the offer, AssetZilla will transfer half the booking amount as an advance for your property.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse35" aria-expanded="true" aria-controls="collapse35">
+                    <span class="faq-number font-family-lato-regular">15.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      If the buyer cancels the property, Will I need to refund the booking amount?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse35" class="collapse" aria-labelledby="heading35" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">Ans. After making a reservation for a property, the buyer cannot change or cancel the reservation. The booking fee will be forfeited if they decide not to proceed. You can keep the money paid to you as booking advance.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#36" aria-expanded="true" aria-controls="36">
+                    <span class="faq-number font-family-lato-regular">16.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      If the seller cancels the property, in how many days will the money be refunded and for how much?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="36" class="collapse" aria-labelledby="heading36" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">Once the deal is confirmed from both sides, neither of the parties allowed to backout. For some reason, if the seller decides to cancel the offer, they must pay twice the value of the booking amount to Assetzilla.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ********************************************************************************************************** -->
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse37" aria-expanded="true" aria-controls="collapse37">
+                    <span class="faq-number font-family-lato-regular">17.</span>
+                    <span class="col-10 faq-question font-family-lato-regular">
+                      Can I sell a Property If I am outside India?
+                    </span>
+                    <i class="col-1 fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapse37" class="collapse" aria-labelledby="heading37" data-parent="#sellers-propertyowners-container">
+                <div class="card-body" style="margin-left: 5.3%;">
+                  <p class="font-family-lato-regular">Yes, you can list your property on Assetzilla for sale. The property has to be in the cities where AssetZilla is live.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
+  <%- include ./partials/footer.ejs%>
+</body>
+<script>
+  function change_faq_section(idx) {
+    $(".faq-section")
+      .css("display", "none");
+    $("#" + idx + "-container")
+      .css("display", "block");
+
+    //Switch active class
+    $("#faq-tabs-section li")
+      .removeClass("active");
+    $("#" + idx + "-btn")
+      .addClass("active");
+  }
+</script>
+
+
+
+</html>

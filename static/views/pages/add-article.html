@@ -1,0 +1,118 @@
+<div class="container-fluid p-5">
+    <div class="box">
+        <div class="box-body">
+            <div class="row">
+                <!-- LEFT ROW -->
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="form-group"><label for="exampleInputEmail1">
+                                <strong>Heading</strong>
+                            </label>
+                            <input required type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Heading" ng-model="$root.property.owner_address">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-group"><label for="exampleInputEmail1">
+                                <strong>Content</strong>
+                            </label>
+
+                            <div class="box m-b-md">
+                                <div ui-jp="summernote">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-group"><label for="exampleInputEmail1">
+                                <strong>Source Name</strong>
+                            </label>
+                            <input required type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Source Name" ng-model="$root.property.owner_address">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-group"><label for="exampleInputEmail1">
+                                <strong>Master Plan Image</strong>
+                            </label>
+                            <input type="file" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+                <!-- RIGHT ROW -->
+                <div class="col-lg-6">
+
+                    <div class="form-group">
+                        <div class="form-group"><label for="exampleInputEmail1">
+                                <strong>Video Link</strong>
+                            </label>
+                            <input required type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Video Link" ng-model="$root.property.owner_address">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-group"><label for="exampleInputEmail1">
+                                <strong>Source
+                                    <LInk>
+                                    </LInk></strong>
+                            </label>
+                            <input required type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Source" ng-model="$root.property.owner_address">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-group"><label for="exampleInputEmail1">
+                                <strong>Article Tags</strong>
+                            </label>
+                            <input required type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Article Tags" ng-model="$root.property.owner_address">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">
+                            <strong>Status</strong>
+                        </label>
+                        <div>
+                            <select required class="custom-select" id="inputGroupSelect01" style="width: 100%;"
+                                ng-model="$root.property.bank_loan">
+                                <option value="" selected>Status</option>
+                                <option value="yes">Active</option>
+                                <option value="no">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-group"><label for="exampleInputEmail1">
+                                <strong>Date</strong>
+                            </label>
+                            <input required type="text" class="form-control" id="exampleInputEmail1" placeholder="Date"
+                                ng-model="$root.property.owner_address">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center p-5">
+                        <button type="submit" class="btn">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

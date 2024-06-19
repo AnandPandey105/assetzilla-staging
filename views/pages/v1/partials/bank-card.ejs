@@ -1,0 +1,74 @@
+<% for(var i=0; i < results.length; i++) { %>
+   <div class="col-lg-3 col-sm-4 col-12">
+      <div class="appartement-grid-box bank-app-grid-box">
+         <div class="appartment-checkbox lc-grid-checkbox-new">
+            <div class="custom-control custom-checkbox">
+               <input 
+                  type="checkbox" 
+                  class="custom-control-input add-to-comare"
+                  id="example-<%=results[i].id%>" 
+                  name="example-<%=results[i].id%>"
+                  onchange="add_to_compare('<%=JSON.stringify(results[i])%>')"
+               >
+               <label class="custom-control-label"
+                  for="example-<%=results[i].id%>">
+               </label>
+            </div>
+         </div>
+         <div class="app-grid-img bank-logo-img" onclick=go_to_page("<%=results[i].url %>")>
+            <img class="img img-fluid" src="<%=results[i].logo %>" alt="">
+         </div>
+         <div class="location-grid-content">
+            <div class="lc-content-row">
+               <div class="row align-items-center">
+                  <div class="col-12">
+                     <div class="text-center">
+                           <h2>
+                              <%- include('./bookmark-list', {url: results[i].url, is_bookmarked: results[i].is_bookmarked, id: i + "_bank-" + results[i].id}); %>
+                              <span onclick=go_to_page("<%=results[i].url %>")><%=results[i].name %> </span>
+                           </h2>
+                           <% if (results[i].type){ %>
+                              
+                              <% if (results[i].type === "nbfcs"){ %>
+                                 <p>NBFC Bank</p>
+                              <%} else {%>
+                                 <p class="text-capitalize"><%=results[i].type %> Bank</p>
+                              <%}%>
+                           <%}%>
+                     </div>
+                  </div>
+               </div>    
+            </div> 
+            <div class="lc-content-dt">
+               <div class="row align-items-center">
+                  <div class="col-8">
+                     <div class="text-left">
+                        <p>Approved Projects</p>
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <div class="text-right">
+                        <h6>
+                           <% if (results[i].total_projects){ %>
+                              <%=results[i].total_projects %>
+                           <%} else {%>
+                                 - 
+                           <%}%>
+                        </h6>
+                     </div>
+                  </div>
+               </div>    
+            </div> 
+         </div>
+      </div>
+   </div>
+<% } %>
+ <div class="col-12 no-login-msg-div">
+   <h3 class="no-login-msg see_more_results w-100">
+     <span>
+       <p class="btn blue-text w-100" onclick="see_more_results()">
+         See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+       </p>
+     </span>
+   </h3>
+ </div>

@@ -1,0 +1,172 @@
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <title><% if (data.tag_name){ %> Top articles related to <%=data.tag_name%> <% } else {%> Real Estate News | Property Articles | Assetzilla  <% } %>
+        </title>
+        <meta name="title" content="Top articles related to (Tag Name) | AssetZilla">
+        <meta name="description" content="Find the Perfect Property @Assetzilla. We're the most trusted portal to Buy or sell Property.">
+    </head>
+    <%- include ./partials/header.ejs%>
+   <body>
+      <%- include ./partials/navigation.ejs%>
+      <div class="common-wrapper">
+        <div class="details-breadcrumb news-breadcrumb pb-25 ">
+            <div class="container">
+               <div class="dbread-top">
+                  <div class="row align-items-center">
+                     <div class="col-lg-8 col-sm-6">
+                            <div class="text-left">
+                                <h2>
+                                    <% if (data.tag_name){ %>
+                                        #<%=data.tag_name%>
+                                    <% } else {%>
+                                        Stay Informed!
+                                    <% } %>
+                                </h2>
+                                <p>Latest Insights, updates, news to make your Property buying decision smart and easier.</p>
+                            </div>
+                     </div>
+                     <div class="col-lg-4 col-sm-6">
+                        <div class="group_search justify-content-end " id="type-ahead-search">
+                            <input type="text" class="form-control" placeholder="Search here" id="news_search">
+                            <a href="javascript:void(0)" class="btn searchicon" onclick="news_search()"><i class="fa fa-search" aria-hidden="true"></i></a>
+                         </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="details-box-wrapper mt-5 background-texture">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-9">
+                <div class="news-wrapper">
+                    <div class="row grid" id="infinite-scroll">
+                        
+                        <% for(var i=0; i < data.results.length; i++) { %>
+                            
+                            <div class="grid-item">
+                                <div class="news-listing-box mb-0">
+                                    <div class="" onclick="go_to_page(`<%-data.results[i].url.toString() %>`)">
+                                        <img src="<%=data.results[i].news_banner%>" class="img img-fluid" alt="">
+                                    </div>
+                                    <div class="news-listing-content">
+                                        <% if (data.results[i].publish_date) {%>
+                                            <% if (data.results[i].publish_date.full && data.results[i].publish_date.full !== "Invalid Date"){ %>
+                                                
+                                                <p onclick="go_to_page(`<%-data.results[i].url %>`)">Published on -<%=data.results[i].publish_date.full%></p>
+                                            <%} else if (data.results[i].publish_date) {%>
+                                                <p onclick="go_to_page(`<%-data.results[i].url %>`)">Published on -<%=data.results[i].publish_date%></p>
+                                            <% } %>
+                                        <%}%>
+                                        <h6 onclick="go_to_page(`<%-data.results[i].url %>`)"><%=data.results[i].heading%></h6>
+                                        <p><%=data.results[i].link_name%></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <%}%>                                                                                                   
+                        
+                    </div> 
+                </div>                                 
+               </div>
+               <div class="col-lg-3">
+                <div class="popular-tags news-popular-tags new-listing-page-tags">
+                    <h2>Popular Tags :</h2>
+                    <p>
+                        <% for(var j=0; j < popular_tags.length; j++) { %>
+                            <a href="/news/tags/<%=popular_tags[j].key%>">
+                                <span class="badge badge-pill sidebar-tags-pill"><%=popular_tags[j].key%>(<%=popular_tags[j].doc_count%>)</span>
+                            </a>
+                        <%}%>
+                    </p>
+                 </div>
+                 <div class="">
+                    <div>
+                        <h3>Latest Post :</h3>
+                    </div>
+                 </div>
+                 <% for(var i=0; i < recent_blog.length; i++) { %>
+                    <div class="latest-post-wrp" onclick="go_to_page('<%=recent_blog[i].url %>')">
+                        <div>
+                            <img src="<%=recent_blog[i].news_banner%>" alt="">
+                            <h2>Last <%=recent_blog[i].publish_date.date%> <%=recent_blog[i].publish_date.month%>. <%=recent_blog[i].publish_date.year%></h2>
+                            <p><%=recent_blog[i].heading%></p>
+
+                        </div>
+                    </div>
+                <%}%> 
+               </div>
+            </div>
+         </div>
+      </div>
+      <%- include ./partials/footer.ejs%>
+      <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+   </body>
+   <script>
+        // $(".footer_section").addClass("d-none")
+    </script>
+    <script>
+			let hold = false;
+			let skip = 1;
+			let limit = 30;
+			$(window).scroll(function () {
+				if ($(window).scrollTop() >= $(document).height() - $(window).height() - 500) {
+					// console.log("Hold", hold);
+					// console.log("skip", skip);
+					// console.log($(window).scrollTop(), $(document).height(), $(window).height() - 500)
+					if (hold == false) {
+						hold = true;
+						$.post('/api/news/infinite', { skip: skip, limit: limit, query: JSON.stringify(filter_state) }, function (data) {
+							// console.log("data.length : ", data);
+							if (data.length > 1) {
+								var $elems = $( data );
+								$grid.append( $elems ).masonry( 'appended', $elems );
+								hold = false
+								skip += 1
+							}
+						});
+					}
+				}
+			});
+
+			//  Masonry View
+			$grid = $('.grid').masonry({
+					// options
+					itemSelector: '.grid-item'
+			});
+
+    </script>
+    <script>
+        if (filter_state && "q" in filter_state){
+            $("#news_search").val(filter_state.q[0])
+
+        }
+        let news_url=window.location.pathname;
+            news_url=news_url.split("/")
+        if(news_url.length>2 && news_url[2]=="tags"){
+            filter_state.tag=(decodeURI(news_url[3]))
+        }
+        const news_search_ = document.getElementById('news_search');
+         $('#news_search').keyup(function(e){
+            if (e.keyCode === 13 && news_search_.value.length > 0){
+                news_search();
+            }
+        })
+    </script>
+      <% if (!locals.user) {%>
+        <script>
+          let storedViewH = JSON.parse(window.localStorage.getItem('userSrchH'));
+          if (storedViewH){
+            storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+          } else{
+            storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+          }
+          window.localStorage.setItem('userSrchH', JSON.stringify(storedViewH))
+        </script>
+      <% } %>
+    
+</html>
+

@@ -1,0 +1,37 @@
+<!-- <div class="col-md-3 py-3"> -->
+        <strong>Project Status</strong>
+        <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="pretty p-default">
+                <input type="checkbox" autocomplete="off" id="status-under-construction" onchange="handleFilters('status','Under Construction')" />
+                <div class="state">
+                    <label>Under Construction<span id="underConstructionCount"></span></label>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="pretty p-default">
+                <input type="checkbox" autocomplete="off" id="status-ready-to-move" onchange="handleFilters('status','Ready To Move')" />
+                <div class="state">
+                    <label>Ready To Move<span id="readyToMoveCount"></span></label>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="pretty p-default">
+                <input type="checkbox" autocomplete="off" id="status-pre-launch" onchange="handleFilters('status','Pre-launch')" />
+                <div class="state">
+                    <label>Pre Launch<span id="preLaunchCount"></span></label>
+                </div>
+            </div>
+        </div>
+        <script>
+
+     $.post('/api/getFilterData/status', {query: JSON.stringify(filter_state_for_project)}, function (data) {
+                if(data.success) {
+                        Object.keys(data.data).forEach(function(key) {
+                            document.getElementById(`${key}`).innerHTML = ` (${data.data[key]})` 
+                        })
+                   }
+        })
+</script>
+    <!-- </div> -->

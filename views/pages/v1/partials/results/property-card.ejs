@@ -1,0 +1,185 @@
+<% if (locals.query) {%>
+    <div class="apparment-list apparment-list-updated no-border mb-0">
+        <div class="apparment-list-left" style="height: 200px;">
+            <div class="owl-carousel owl-theme allProp-first-owl-property mt-0"
+                onclick='go_to_page("<%=results.results.properties[i].url%>")'>
+                <% if(results.results.properties[i].banner_image=="/images/placeholder_bg.webp" &&
+                    results.results.properties[i].images && results.results.properties[i].images.Projects &&
+                    results.results.properties[i].images.Projects[0]){ %>
+                    <% for(var j=0; j < results.results.properties[i].images.Projects.length; j++) { %>
+                        <div class="item">
+                            <div class="all-prop-heart">
+                                <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=results.results.properties[i].images.Projects[j]%>"
+                                    class="img img-fluid">
+                            </div>
+                        </div>
+                        <% } %>
+                            <%} else {%>
+                                <div class="item">
+                                    <div class="all-prop-heart">
+                                        <img src="<%=results.results.properties[i].banner_image %>"
+                                            class="img img-fluid">
+                                    </div>
+                                </div>
+                                <% } %>
+            </div>
+
+            <% if (emi_per_lac && (results.results.properties[i].price && results.results.properties[i].price.price)) { %>
+                <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results.results.properties[i].price.price / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                    <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                  </button></p>
+            <% } %>
+        </div>
+        <div class="apparment-list-right">
+            <h2>
+                <div>
+                    <span onclick='go_to_page("<%=results.results.properties[i].url%>")'>
+                        <%=results.results.properties[i].name %>
+                    </span>
+                </div>
+            </h2>
+            <p>
+                <% if (results.results.properties[i].builder){ %>
+                    <%=results.results.properties[i].builder %>
+                        <%}%>
+            </p>
+            <% if ((results.results.properties[i].price &&
+                results.results.properties[i].price)||(results.results.properties[i].sq_fit_cost &&
+                results.results.properties[i].sq_fit_cost.cost)){ %>
+                <hr>
+                <div class="row align-items-center">
+                    <% if (results.results.properties[i].price && results.results.properties[i].price){ %>
+                        <div class="col-6">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <h3 class="text-left">Price :</h3>
+                                    </td>
+                                    <td>
+                                        <h3><span> ₹ <%=changeNumberFormat(results.results.properties[i].price.price)%></span></h3>
+                                    </td>
+                                </tr>
+                                <!-- <% if (emi_per_lac) { %>
+                                    <tr>
+                                        <td>
+                                            <h3 class="text-left">EMI Starting :</h3>
+                                        </td>
+                                        <td>
+                                            <h3><span> ₹ <%=Math.round(emi_per_lac * results.results.properties[i].price.price / 100000).toLocaleString("en-IN")%></span></h3>
+                                        </td>
+                                    </tr>
+                                <% } %> -->
+                            </table>
+                        </div>
+                        <%} else {%>
+                            <%}%>
+                    <% if (results.results.properties[i].sq_fit_cost &&
+                        results.results.properties[i].sq_fit_cost.cost){ %>
+                        <div class="col-6">
+                            <h6>
+                                SqFt. cost: <b>₹<%=results.results.properties[i].sq_fit_cost.cost%></b>
+                            </h6>
+                        </div>
+                        <%} else {%>
+                            <%}%>
+                </div>
+                <%} else {%>
+                    <%}%>
+                        <hr>
+                        <div class="located_area">
+                            <div class="loc-left">
+                                <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                                <p>
+                                    <% if (results.results.properties[i].subcity){ %>
+                                        <%=results.results.properties[i].subcity %>,
+                                            <%}%>
+                                                <% if (results.results.properties[i].city){ %>
+                                                    <%=results.results.properties[i].city %>
+                                                        <%}%>
+                                </p>
+                            </div>
+                            <div class="area_prices">
+                                <h2>
+                                    <% if (results.results.properties[i].area &&
+                                        results.results.properties[i].area.area){%>
+                                        <%=results.results.properties[i].area.area %> sq ft.
+                                            <%} else {%>
+                                                -
+                                                <%}%>
+                                </h2>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="featured-points">
+                            <ul>
+                                <% if (results.results.properties[i].bhk_space){ %>
+                                    <li>
+                                        <h5>
+                                            <%=results.results.properties[i].bhk_space %>
+                                        </h5>
+                                    </li>
+                                    <%}%>
+                                        <% if (results.results.properties[i].property_type){ %>
+                                            <li>
+                                                <h5>
+                                                    <%=results.results.properties[i].property_type %>
+                                                </h5>
+                                            </li>
+                                            <%}%>
+                                                <% if (results.results.properties[i].furnished){ %>
+                                                    <li>
+                                                        <h5>
+                                                            <%=results.results.properties[i].furnished %>
+                                                        </h5>
+                                                    </li>
+                                                    <%}%>
+                            </ul>
+                        </div>
+        </div>
+    </div>
+<%} else {%>
+    <div class="home-apartment px-0"
+        onclick="go_to_page('/properties?project=<%=results.results.properties[i].name%>')">
+        <div class="ha-img">
+            <% if (results.results.properties[i].banner_image &&
+                results.results.properties[i].banner_image=="/images/placeholder_bg.webp" ){ %>
+                <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=results.results.properties[i].images.Projects[0] %>"
+                    class="img img-fluid" alt="">
+            <% }else{ %>
+                <img src="<%=results.results.properties[i].banner_image %>" class="img img-fluid" alt="">
+            <% } %>
+            <% if (emi_per_lac && (results.results.properties[i].price && results.results.properties[i].price.min)) { %>
+                <p class="text-left emi_starting_block br-0">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results.results.properties[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                    <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                  </button></p>
+            <% } %>
+        </div>
+        
+        <div class="ha-content loaction_img">
+            <h3>
+                <%=results.results.properties[i].name %>
+            </h3>
+            <% if (results.results.properties[i].price && results.results.properties[i].price.min) { %>
+                <p class="price-text-prop-hm">
+                <img class="ob-contain" src="/v1/img/rupee_1217539.webp" alt="" />
+                <% if (results.results.properties[i].total_properties) { %>
+                    <span>
+                        <%=changeNumberFormat(results.results.properties[i].total_properties)%> properties&nbsp;
+                    </span>
+                <%}%>
+                    starting&nbsp;<%=changeNumberFormat(results.results.properties[i].price.min)%>
+                </p>
+            <%}%>
+
+            <p>
+                <img src="/v1/img/location_black.webp" alt="">
+                <% if (results.results.properties[i].subcity){ %>
+                    <%=results.results.properties[i].subcity %>,
+                <%}%>
+                <% if (results.results.properties[i].city){ %>
+                    <%=results.results.properties[i].city %>
+                <%}%>
+            </p>
+        </div>
+    </div>
+<%}%>

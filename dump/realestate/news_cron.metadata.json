@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"realestate.news_cron"}],"uuid":"bea1d6fa40b740489a917733e406cb7e","collectionName":"news_cron"}

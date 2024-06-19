@@ -1,0 +1,17 @@
+<div class="padding">
+    <div style="background-color: white;">
+        <strong class="ml-2">Filters</strong>
+        <div class="input-group mb-3 table-top-ele" style="width:20%">
+            <span>Bank Type</span>
+            <select class="custom-select" ng-model="filter">
+                <option value='all'>All</option>
+                <option value="nationalized">Nationalized</option>
+                <option value="private">Private</option>
+                <option value="nbfcs">NBFCs</option>
+            </select>
+        </div>
+    </div>
+    <view-table title="table.title" limit="table.limit" fields="table.fields" results="table.results"
+        query="table.query" getdata="getData" skip="table.skip" total="table.total" status="table.status"
+        refresh="table.refresh" sort="table.sort"></view-table>
+</div>

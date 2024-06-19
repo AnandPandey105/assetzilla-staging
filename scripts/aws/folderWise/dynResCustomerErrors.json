@@ -1,0 +1,20 @@
+[
+  {
+    "img": "1498646020_Screen Shot 2017-06-28 at 4.42.38 AM.png",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./customers/1498646020_Screen Shot 2017-06-28 at 4.42.38 AM.png\" -o \"./customers/webp/1498646020_Screen Shot 2017-06-28 at 4.42.38 AM.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "1498646023_chromium-browser-linux.png",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./customers/1498646023_chromium-browser-linux.png\" -o \"./customers/webp/1498646023_chromium-browser-linux.webp\" \"-quiet\""
+    }
+  }
+]

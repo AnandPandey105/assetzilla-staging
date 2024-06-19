@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Find Best Apartments, Villas, Residential Plots @Assetzilla </title>
+  <meta name="title" content="Find Best Apartments, Villas, Residential Plots @Assetzilla ">
+  <meta name="description" content="Assetzilla compiled a quick list of the top Apartments, Villas, Residential Plots, Commercial Office Spaces, Retail Shops, Low-rise Floors and much more Visit now.">
+</head>
+
+<%- include ../partials/head.ejs%>
+
+<body>
+  <%- include ../partials/navigation_bar.ejs%>
+  <%- include ../partials/top_search_directory_pages.ejs%>
+  <div class="container" style="padding-top: 14px;">
+    <!-- <span class="desk-show">All | Latest | Oldest</span> -->
+    <div class="hide-sort" style="display: inline-block;">
+      <div>
+        <select id="sort-filter" class="form-control">
+          <option id="sort-default" value="default" selected>Price ↑</option>
+          <!-- <option id="sort-default" value="default" selected>Default</option>
+                    <option id="sort-newest" value="name"><i class="fas mr-2 fa-sort-alpha-down"></i>Name ↑</option>
+                    <option id="sort-oldest" value="namereverse"><i class="fas mr-2 fa-sort-alpha-up"></i>Name ↓
+                    </option>
+                    <option id="sort-newest" value="newest">Newest</option>
+                    <option id="sort-oldest" value="oldest">Oldest</option> -->
+          <option id="sort-pricedesc" value="pricedesc">Price ↓</option>
+          <option id="sort-areaasc" value="areaasc">Area ↑</option>
+          <option id="sort-areadesc" value="areadesc">Area ↓</option>
+          <!-- <option id="sort-bhkasc" value="bhkasc">BHK Space ↑</option>
+                    <option id="sort-bhkdesc" value="bhkdesc">BHK Space ↓</option> -->
+        </select>
+      </div>
+    </div>
+
+    <div class="sub-hd" id="desk-toggle-btns">
+      <button type="button" class="btn btn-top view-cntrl-btn" id="partial-btn" onclick="handle_view_change('partial')"><i class="fas fa-th-large"></i></button>
+      <button type="button" class="btn btn-top view-cntrl-btn" id="card-btn" onclick="handle_view_change('card')"><i class="fas fa-list"></i></i></button>
+      <button type="button" class="btn btn-top view-cntrl-btn" id="map-btn" onclick="handle_view_change('map')"><i class="fas fa-map-marker-alt"></i></button>
+      <button type="button" class="btn btn-top view-cntrl-btn" id="table-btn" onclick="handle_view_change('table')"><i class="fas fa-table"></i></button>
+
+    </div>
+
+    <div class="sub-hd">
+      <a class="mr-2 filter-size btn filter-margin navy-blue-bg clr-white" data-toggle="collapse" href="#pageFilters" aria-expanded="false" aria-controls="pageFilters" onclick=changeFilterText()>
+        <span><i class="fas fa-filter"></i></span>
+        <span id="filter_text">Show Filters</span>
+      </a>
+    </div>
+  </div>
+
+  <hr>
+  <div class="collapse" id="pageFilters">
+    <div class="container">
+
+      <div class="row" style="padding: 10px;">
+        <div class="col-12 text-center">
+          <span style="float: right;">
+            <button type="button" class="btn btn-warning clr-white" onclick="generateUrl('<%=results.view %>')">Apply
+              Filters</button>
+            <button type="button" class="btn btn-basic " onclick="go_to_page('/properties', true)">Clear
+              All</button>
+          </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <span class="filters-cross mob-show" data-toggle="collapse" href="#pageFilters" aria-expanded="false" aria-controls="pageFilters" onclick=changeFilterText()><i class="fas fa-times"></i></span>
+        </div>
+      </div>
+      <!-- Config -->
+      <div class="row">
+        <!-- <div class="col-md-3 py-3">
+                    <strong>Config</strong>
+                    <div class="d-flex flex-column bd-highlight mt-2">
+                        <div class="pretty p-default">
+                            <input type="checkbox" id="config-1bhk" onchange="handleFilters('config','1bhk')" />
+                            <div class="state">
+                                <label>1bhk</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column bd-highlight mt-2">
+                        <div class="pretty p-default">
+                            <input type="checkbox" id="config-2bhk" onchange="handleFilters('config','2bhk')" />
+                            <div class="state">
+                                <label>2bhk</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column bd-highlight mt-2">
+                        <div class="pretty p-default">
+                            <input type="checkbox" id="config-3bhk" onchange="handleFilters('config','3bhk')" />
+                            <div class="state">
+                                <label>3bhk</label>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+        <div class="col-md-3 py-3" id="area-filter-container">
+          <%- include ../partials/filters/area.ejs%>
+        </div>
+        <div class="col-md-3 py-3" id="price-filter-container">
+          <%- include ../partials/filters/price.ejs%>
+        </div>
+        <div class="col-md-3 py-3" id="facing-filter-container">
+          <strong>Property Facing</strong>
+          <%- include ../partials/filters/facing.ejs%>
+        </div>
+        <div class="col-md-3 py-3">
+          <%- include ../partials/filters/property_type.ejs%>
+        </div>
+        <div class="col-md-3 py-3" id="location-filter-container">
+          <%- include ../partials/filters/locations.ejs%>
+        </div>
+        <div class="col-md-3 py-3" id="project-filter-container">
+          <%- include ../partials/filters/projects.ejs%>
+        </div>
+        <div class="col-md-3 py-3" id="builder-filter-container">
+          <%- include ../partials/filters/builders.ejs%>
+        </div>
+        <div class="col-md-3 py-3">
+          <strong>Condition</strong>
+          <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="pretty p-default">
+              <input type="checkbox" id="condition-fresh" onchange="handleFilters('condition','fresh')" />
+              <div class="state">
+                <label>Fresh</label>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="pretty p-default">
+              <input type="checkbox" id="condition-resale" onchange="handleFilters('condition','resale')" />
+              <div class="state">
+                <label>Resale</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 py-3" id="authority-filter-container">
+          <%- include ../partials/filters/authorities.ejs%>
+        </div>
+      </div>
+
+    </div>
+    <hr>
+  </div>
+
+  <% if (results.results.length<=0) { %>
+  <div class="container" id="no-result-div">
+    <div class="row">
+      <div class="col-8 offset-2 text-center">
+        <form>
+          <div class="form-column align-items-end justify-content-center">
+            <!-- <div class="col-8 offset-2">
+              <label class="" for="inlineFormInput">Show your interest for this<br>project by sharing your email with us</label>
+              <input type="email" class="form-control mb-2 w-100" id="inlineFormInput" placeholder="email">
+            </div> -->
+            <!-- <div class="col-4 offset-4">
+              <button type="submit" style="background-color: #071f4c; color: white;" class="btn mb-2 w-100">Submit</button>
+            </div> -->
+          </div>
+        </form>
+        <div><img class="w-100" src="/images/no-result-found.gif"></div>
+      </div>
+
+      <%} else {%>
+      <div class="container" id="loader-div">
+        <div class="row">
+          <div class="col-12 text-center">
+            <div><img class="w-100" src="/images/entity_loader.gif"></div>
+          </div>
+        </div>
+      </div>
+      <div class="container mt-4" id="main-data-div">
+
+        <!-- CARD VIEW -->
+        <div class="row card-view result-section" id="card-view-container">
+          <% for(var i=0; i < results.results.length; i++) { %>
+          <div class="col-md-4">
+            <div class="card mb-3 listing-card" style="margin-bottom: 1rem;" onmouseenter="showBox(<%=results.results[i].id%>, <%=i%>)" onmouseleave="hideBox(<%=results.results[i].id%>, <%=i%>)" onclick=go_to_page("<%=results.results[i].url %>")>
+              <div class="row no-gutters shadow">
+                <div class="col-md-12">
+                  <% if (results.results[i].banner_image == "/images/placeholder_bg.webp" && results.results[i].images && results.results[i].images.Projects && results.results[i].images.Projects[0]){ %>
+                  <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/image/<%=results.results[i].images.Projects[0]%>" class="card-img">
+                  <%} else {%>
+                  <img src="<%=results.results[i].banner_image %>" class="card-img" alt="">
+                  <% } %>
+
+                  <!-- <img src="<%=results.results[i].banner_image %>" class="card-img" alt=""> -->
+                  <div class="card-body">
+
+                    <div class="d-flex bd-highlight">
+                      <div class="p-2 w-100 bd-highlight">
+                        <h5 class="card-title"><%=results.results[i].name %>
+                          <% if (results.results[i].builder){ %>
+                          (<%=results.results[i].builder %>)
+                          <%}%>
+                                        </h5>
+                                        
+                                                <span style="margin-left: 0;">
+                                                    <!-- margin-top: -20px; -->
+                                                    <% if (results.results[i].price && results.results[i].price){ %>
+                          <strong>(₹)
+                            <%=results.results[i].price.price.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %></strong>
+                          <%}%>
+                                            </span>
+                                            <span style="margin-left: 12px; float: right;">
+                                                <!-- margin-top: -20px; -->
+                                                <% if (results.results[i].area && results.results[i].area.area){ %>
+                          <strong><%=results.results[i].area.area %> SqFt.</strong>
+                          <%}%>
+                                        </span>
+                                        <div>
+                                            <small class="light-grey-clr">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <% if (results.results[i].subcity){ %><%=results.results[i].subcity %>,
+                          <%}%><% if (results.results[i].city){ %><%=results.results[i].city %> <%}%>
+                                                    </small>
+                                        </div>
+                                            </div>
+                                        </div>
+                                        <table class="table">
+                                            <!-- <thead>
+                                                <tr>
+                                                    <% if (results.results[i].bhk_space){ %>
+                          <th scope="col">Config</th>
+                          <%}%>
+                                                    <% if (results.results[i].property_type){ %>
+                          <th scope="col">Type</th>
+                          <%}%>
+                                                    <% if (results.results[i].furnished){ %>
+                          <th scope="col">Status</th>
+                          <%}%>
+                                                </tr>
+                                            </thead> -->
+                                            <tbody>
+                                                <tr>
+                                                    <% if (results.results[i].bhk_space){ %>
+                          <td>
+                            <%=results.results[i].bhk_space %>
+                          </td>
+                          <%}%>
+                                                    <% if (results.results[i].property_type){ %>
+                          <td>
+                            <%=results.results[i].property_type %>
+                          </td>
+                          <%}%>
+                                                    <% if (results.results[i].furnished){ %>
+                          <td>
+                            <%=results.results[i].furnished %>
+                          </td>
+                          <%}%>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div style="margin-left: 12px; margin-top: -20px;">
+                                            <% if (results.results[i].price && results.results[i].price.min){ %>
+                          Property starting:
+                          <%=results.results[i].price.min.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %>
+                          <%}%>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                      </div>
+                      <!-- CARD-MAP VIEW -->
+                      <div class="row partial-view result-section" style="display: none">
+                        <div class="col-5" id="partial-view-container">
+                          <% for(var i=0; i < results.results.length; i++) { %>
+                          <div class="card partial-card-data no-border" style="margin-bottom: 1rem;" id="<%=i%>_property-<%=results.results[i].id%>" onmouseenter="showBox('<%=results.results[i].id%>',  <%=i%>)" onmouseleave="hideBox('<%=results.results[i].id%>', <%=i%>)" onclick=go_to_page("<%=results.results[i].url %>")>
+                            <div class="row no-gutters shadow">
+                              <div class="col-4">
+                                <% if (results.results[i].banner_image == "/images/placeholder_bg.webp" && results.results[i].images && results.results[i].images.Projects && results.results[i].images.Projects[0]){ %>
+                                <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/project/image/<%=results.results[i].images.Projects[0]%>" class="w-100">
+                                <%} else {%>
+                                <img src="<%=results.results[i].banner_image %>" class="w-100" alt="">
+                                <% } %>
+
+                                <!-- <img src="<%=results.results[i].banner_image %>" class="w-100"
+                                alt=""> -->
+                              </div>
+                              <div class="col-8">
+                                <div class="card-body">
+
+                                  <div class="d-flex bd-highlight">
+                                    <div class="p-2 w-100 bd-highlight">
+                                      <h5 class="card-title">
+                                        <%=results.results[i].name %>
+                                        <% if (results.results[i].builder){ %>
+                                        (<%=results.results[i].builder %>)
+                                        <%}%>
+                                        </h5>
+                        
+                                        <span style="margin-left: 12px; float: right;">
+                                            <!-- margin-top: -20px; -->
+                                            <% if (results.results[i].area && results.results[i].area.area){ %>
+                                        <strong><%=results.results[i].area.area %>
+                                          SqFt.</strong>
+                                        <%}%>
+                
+                                    </span>
+                                        
+                        <span style="margin-left: 0;">
+                            <!-- margin-top: -20px; -->
+                            <% if (results.results[i].price && results.results[i].price.price){ %>
+                                        <strong>(₹)
+                                          <%=results.results[i].price.price.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %></strong>
+                                        <%}%>
+                    </span>
+                        
+                        
+                    <div>
+                        <small class="light-grey-clr">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <% if (results.results[i].subcity){ %><%=results.results[i].subcity %>,
+                                        <%}%><% if (results.results[i].city){ %><%=results.results[i].city %> <%}%>
+                            
+        </small>
+                    </div>
+                    </div>
+                </div>
+                
+                <table class="table">
+                    <!-- <thead>
+                        <tr>
+                            <% if (results.results[i].bhk_space){ %>
+                                        <th scope="col">Config</th>
+                                        <%}%>
+                            <% if (results.results[i].property_type){ %>
+                                        <th scope="col">Type</th>
+                                        <%}%>
+                            <% if (results.results[i].furnished){ %>
+                                        <th scope="col">Status</th>
+                                        <%}%>
+                        </tr>
+                    </thead> -->
+                    <tbody>
+                        <tr>
+                            <% if (results.results[i].bhk_space){ %>
+                                        <td>
+                                          <%=results.results[i].bhk_space %>
+                                        </td>
+                                        <%}%>
+                            <% if (results.results[i].property_type){ %>
+                                        <td>
+                                          <%=results.results[i].property_type %>
+                                        </td>
+                                        <%}%>
+                            <% if (results.results[i].furnished){ %>
+                                        <td>
+                                          <%=results.results[i].furnished %>
+                                        </td>
+                                        <%}%>
+                        </tr>
+                    </tbody>
+                </table>
+                
+</div>
+</div>
+</div>
+</div>
+<div class="mb-3" id="<%=i%>_property-btns-<%=results.results[i].id%>" style="display: none;"
+                                        onmouseenter="showBox('<%=results.results[i].id%>',
+                                        <%=i%>)"
+                                        onmouseleave="hideBox('<%=results.results[i].id%>',
+                                        <%=i%>)">
+                                        <div class="navy-blue-bg book-btn cursor font-weight-bold" data-toggle="modal" data-target="#booking-modal">Book this
+                                          Property</div>
+                                        <!-- <div class="d-inline-block navy-blue-bg book-btn w-50" onclick=go_to_page("<%=results.results[i].url %>")> Explore </div> -->
+                                    </div>
+                                    <% } %>
+                                  </div>
+                                  <div class="col-7">
+                                    <div id="partial-map"></div>
+                                  </div>
+                                </div>
+
+                                <!-- MAP VIEW -->
+                                <div class="map-view result-section" style="display: none">
+
+                                  <div id="full_map"></div>
+
+                                </div>
+
+
+                                <!-- TABLE VIEW -->
+                                <div class="row table-view result-section" style="display: none">
+                                  <div class="col-6 mb-3">
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="search">Search</span>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="Search here..." id="tab-search">
+                                    </div>
+                                  </div>
+                                  <div class="col-3 offset-md-3 mb-3">
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <label class="input-group-text">Show
+                                          entries</label>
+                                      </div>
+                                      <select class="custom-select" id="no_of_entries">
+                                        <option value="10" selected>10</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="col-12">
+                                    <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <!-- <th scope="col" class="text-left">S.No.
+                                                                                        </th> -->
+                                          <th scope="col" class="text-left">Name
+                                            <!-- onclick="tableSort('name', 'namereverse')" -->
+                                            <!-- <span class="mr-2"><i class="fas fa-sort"></i></span> -->
+                                          </th>
+                                          <th scope="col" class="text-left">Type
+                                          </th>
+                                          <th scope="col" class="text-left">Space
+                                          </th>
+                                          <th scope="col" class="text-left">
+                                            Subcity</th>
+                                          <th scope="col" class="text-left">City
+                                          </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody id="data-table">
+                                      </tbody>
+                                    </table>
+                                    <ul id="pagination-demo" class="pagination-md pull-right"></ul>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <% } %>
+
+
+
+
+                              <!-- FIXED BUTTONS FOR MOBILE -->
+                              <div class="btm-btns" style="border-top: none; margin: auto; width: 92%;">
+                                <button class="btn navy-blue-bg clr-white my-sm-0" type="submit" disabled id="card-btm-btn" onclick="handle_view_change('card')">Card</button>
+                                <button class="btn navy-blue-bg clr-white my-sm-0" type="submit" id="map-btm-btn" onclick="handle_view_change('map')">Map</button>
+                              </div>
+
+                              <div class="modal fade" id="booking-modal" tabindex="-1" role="dialog" aria-labelledby="booking-modalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <!-- <div class="modal-header">
+                                                                  <h5 class="modal-title" id="booking-modalLabel">Modal title</h5>
+                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                  </button>
+                                                                </div> -->
+                                    <div class="modal-body">
+                                      <h3 class="text-center">
+                                        Book your dream home for Just Rs. 25,000/-.
+                                        Coming soon.
+                                      </h3>
+                                      <br>
+                                      <h2 class="text-center">Coming soon.</h2>
+                                    </div>
+                                    <!-- <div class="modal-footer">
+                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                                                </div> -->
+                                  </div>
+                                </div>
+                              </div>
+
+</body>
+
+
+
+<%- include ../partials/footer.ejs%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw&callback=initMap" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js" integrity="sha256-swvs/72H2JZrIbyDdMskQv2t0bpTO5tgJOWVMBgZq6U=" crossorigin="anonymous"></script>
+<script src="/js/map_support.js"> </script>
+<script>
+  document.onreadystatechange = function() {
+    document.getElementById('loader-div')
+      .style.display = 'block';
+    document.getElementById('main-data-div')
+      .style.display = 'none';
+    if (document.readyState == "complete") {
+      document.getElementById('loader-div')
+        .style.display = 'none';
+      document.getElementById('main-data-div')
+        .style.display = 'block';
+      if ('<%- results.view%>' != "") {
+        var currentView = '<%- results.view %>'
+      } else {
+        var currentView = 'partial'
+      }
+      handle_view_change(currentView)
+    }
+  };
+</script>
+<script>
+  let hold = false;
+  let skip = 1;
+  let limit = 12;
+  currentView = "partial"
+  $(window)
+    .scroll(function() {
+      if ($(window)
+        .scrollTop() >= $(document)
+        .height() - $(window)
+        .height() - 500) {
+
+        if (hold == false && currentView != "map") {
+          hold = true;
+          $.post('/api/property/infinite', {
+            skip: skip
+            , limit: limit
+            , query: JSON.stringify(filter_state)
+          }, function(data) {
+            if (data.length > 1) {
+              $.post('/api/property/infinite-map', {
+                skip: skip
+                , limit: limit
+                , query: JSON.stringify(filter_state)
+              }, function(map_data) {
+                // console.log("old locations", locations)
+                // console.log("map_data", map_data.results)
+                // console.log('markers ', markers)
+                // locations.push.apply(locations, map_data.results)
+                locations.push.apply(locations, map_data.results)
+                // console.log('Locations ', location);
+                if (currentView == "partial") {
+                  add_markers(false);
+                }
+              })
+              let holder = document.createElement('span')
+              holder.innerHTML = data;
+              let extended_cards = holder.getElementsByClassName("cards-infinte");
+              ecl = extended_cards.length
+              for (let index = 0; index < ecl; index++) {
+                document.getElementById("card-view-container")
+                  .appendChild(extended_cards.item(0));
+              }
+              let extended_partials = holder.getElementsByClassName("partials-infinte");
+              epl = extended_partials.length
+              for (let index = 0; index < epl; index++) {
+                document.getElementById("partial-view-container")
+                  .appendChild(extended_partials.item(0));
+              }
+              skip += 1
+              hold = false;
+              $(".partial-card-data")
+                .unbind("hover");
+
+              //                         $(".partial-card-data").hover(
+              //                             function () {
+              //                                 // --------------------
+              //                                 // let hover_id = (this.id).split("-")[1];
+              //                                 // let center = location_mapping[hover_id];
+              //                                 // if (center) {
+              //                                 //     map.panTo(center);
+              //                                 //     // window.showme(0)
+              //                                 // }
+
+              // // ---------------------------------------------
+              //                             }, function () {
+              //                             }
+              //                         );
+            }
+          });
+
+        }
+      }
+    });
+</script>
+<script>
+  var map;
+  window.markers = [];
+  var locations = [];
+  var location_mapping = {};
+  <% for (let i = 0; i < results.results.length; i++) {
+        if (results.results[i].location) {
+        %>
+  locations.push([<%=results.results[i].location.location.lat %>, <%=results.results[i].location.location.lng %>, '<%=results.results[i].name %>', '<%=results.results[i].url %>', '<%=results.results[i].property_type %>', '<%=results.results[i].id %>'])
+  <%}
+    }%>
+
+
+
+  function add_markers(bound_adjust = false) {
+    // console.log('locations ', locations)
+
+    // for (const marker of window.markers) {
+    //     marker.setMap(null);
+    // }
+
+    // window.markers.length = 0;
+    var totalMarkers = window.markers.length
+    for (let i = totalMarkers; i < locations.length; i++) {
+
+      latlng = new google.maps.LatLng(locations[i][0], locations[i][1]);
+      location_mapping[locations[i][5]] = latlng;
+
+      marker = new google.maps.Marker({
+        position: latlng
+        , map: map
+      , });
+      window.markers.push(marker);
+      if (bound_adjust) {
+        bounds.extend(marker.getPosition());
+      }
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          if (currentView == "partial") {
+            bring_card_to_view(i + "_property-" + locations[i][5])
+          }
+          infowindow.setContent("<a href=" + locations[i][3] + " target='_blank'>" + locations[i][2] + "</a>");
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+    if (bound_adjust) {
+      map.fitBounds(bounds);
+    }
+  }
+
+  function initMap(map_id = "partial-map") {
+    map = new google.maps.Map(document.getElementById(map_id), {
+      streetViewControl: false
+      , rotateControl: false,
+      fullscreenControl: false,
+      zoom:12,
+    });
+    infowindow = new google.maps.InfoWindow();
+    bounds = new google.maps.LatLngBounds();
+    add_markers(true);
+  }
+
+  window.oldIndex = undefined;
+  window.currentIndex = undefined;
+  window.showme = function(index) {
+    index = parseInt(index)
+    console.log('window.markers[index].getAnimation() ', window.markers[index].getAnimation())
+    if (window.markers[index].getAnimation() != google.maps.Animation.BOUNCE) {
+      window.markers[index].setAnimation(google.maps.Animation.BOUNCE);
+      console.log('animating : ', index)
+    } else {
+      window.markers[index].setAnimation(null);
+      console.log('Not animating : ', index)
+    }
+  }
+
+  // $(".partial-card-data").hover(
+  //     function () {
+  //         let hover_id=(this.id).split("-")[1];
+  //         let center = location_mapping[hover_id];
+  //         if (center)
+  //         {map.panTo(center);}
+  //         var indx = (this.id).split("_")[0];
+  //         window.showme(indx)
+
+  //     }, function () {
+  //         // var indx = (this.id).split("_")[0];
+  //         // // window.showme(indx)
+  //         var indx = (this.id).split("_")[0];
+  //         // indx = parseInt(indx) + <%=results.results.length %>
+  //         window.markers[indx].setAnimation(null);
+  //         // window.markers[i].setIcon()
+  //     }
+  // );
+</script>
+<!-- Location Code -->
+<script>
+  let location_typeahead = $('#location-search .typeahead')
+    .typeahead({
+      hint: false
+      , highlight: true
+      , minLength: 1
+    , }, {
+      name: 'location-search'
+      , display: 'name'
+      , source: function(query, syncResults, asyncResults) {
+        if (query.length > 0) {
+          $.post('/api/location/typeahead', {
+            data: query
+          }, function(data) {
+            asyncResults(data.results);
+          });
+        }
+      }
+      , templates: {
+        suggestion: function(data) {
+          result = '<div>' + data.name
+          result += '<p class="entity__type_suggestions">' + data.location_type + '</p>'
+          result += '</div>'
+          return result
+        }
+      }
+
+
+    });
+
+  $('#location-search')
+    .bind('typeahead:selected', function(obj, datum, name) {
+      if (!(datum.location_type in filter_state)) {
+        filter_state[datum.location_type] = [];
+      }
+      if (filter_state[datum.location_type].indexOf(datum.name) == -1) {
+        filter_state[datum.location_type].push(datum.name);
+      }
+      let idx = (datum.location_type + "-" + datum.name.split(" ")
+        .join("-"));
+      idx = idx.toLowerCase();
+      let ele = document.getElementById(idx)
+      if (ele === undefined || ele === null) {
+        check_and_create_filter(datum.location_type, datum.name)
+      } else {
+        ele.checked = true;
+      }
+      location_typeahead.typeahead('val', '');
+    });
+
+  // PROJECT FILTER
+  let project_typeahead = $('#project-search .typeahead')
+    .typeahead({
+      hint: false
+      , highlight: true
+      , minLength: 1
+    , }, {
+      name: 'project-search'
+      , display: 'name'
+      , source: function(query, syncResults, asyncResults) {
+        if (query.length > 0) {
+          $.post('/api/project/typeahead', {
+            data: query
+          }, function(data) {
+            asyncResults(data.results);
+          });
+        }
+      }
+      , templates: {
+        suggestion: function(data) {
+          result = '<div>' + data.name
+          result += '<p class="entity__type_suggestions"></p>'
+          result += '</div>'
+          return result
+        }
+      }
+
+
+    });
+
+  $('#project-search')
+    .bind('typeahead:selected', function(obj, datum, name) {
+      if (!(datum.doc_type in filter_state)) {
+        filter_state[datum.doc_type] = [];
+      }
+      if (filter_state[datum.doc_type].indexOf(datum.name) == -1) {
+        filter_state[datum.doc_type].push(datum.name);
+      }
+      let idx = (datum.doc_type + "-" + datum.name.split(" ")
+        .join("-"));
+      idx = idx.toLowerCase();
+      let ele = document.getElementById(idx)
+      if (ele === undefined || ele === null) {
+        check_and_create_filter(datum.doc_type, datum.name)
+      } else {
+        ele.checked = true;
+      }
+      project_typeahead.typeahead('val', '');
+    });
+  // Authority FILTER
+  let authority_typeahead = $('#authority-search .typeahead')
+    .typeahead({
+      hint: false
+      , highlight: true
+      , minLength: 1
+    , }, {
+      name: 'authority-search'
+      , display: 'name'
+      , source: function(query, syncResults, asyncResults) {
+        if (query.length > 0) {
+          $.post('/api/authority/typeahead', {
+            data: query
+          }, function(data) {
+            asyncResults(data.results);
+          });
+        }
+      }
+      , templates: {
+        suggestion: function(data) {
+          result = '<div>' + data.name
+          result += '<p class="entity__type_suggestions"></p>'
+          result += '</div>'
+          return result
+        }
+      }
+
+
+    });
+
+  $('#authority-search')
+    .bind('typeahead:selected', function(obj, datum, name) {
+      if (!(datum.doc_type in filter_state)) {
+        filter_state[datum.doc_type] = [];
+      }
+      if (filter_state[datum.doc_type].indexOf(datum.name) == -1) {
+        filter_state[datum.doc_type].push(datum.name);
+      }
+      let idx = (datum.doc_type + "-" + datum.name.split(" ")
+        .join("-"));
+      idx = idx.toLowerCase();
+      let ele = document.getElementById(idx)
+      if (ele === undefined || ele === null) {
+        check_and_create_filter(datum.doc_type, datum.name)
+      } else {
+        ele.checked = true;
+      }
+      authority_typeahead.typeahead('val', '');
+    });
+</script>
+<!-- Table Views -->
+<script>
+  let page_limit = 10;
+  let total_records = <%= results.count %>
+  let totalPages = <%= results.count %> / page_limit;
+  let current_page = 1;
+  var $tbs_pagination = $('#pagination-demo');
+  // 
+  $("#tab-search")
+    .on('keyup', function() {
+      filter_state.q = [this.value]
+      $.post('/api/property/table-pagination', {
+        skip: current_page - 1
+        , limit: page_limit
+        , query: JSON.stringify(filter_state)
+      }, function(data) {
+        total_records = data.total;
+        totalPages = total_records / page_limit;
+        $tbs_pagination.twbsPagination('destroy');
+        table_rows = (data.results)
+        create_pagination();
+        current_page = 1;
+        create_table_body();
+      });
+    })
+
+  $("#no_of_entries")
+    .on('change', function() {
+      page_limit = this.value
+      totalPages = total_records / this.value;
+      $tbs_pagination.twbsPagination('destroy');
+      create_pagination();
+      current_page = 1;
+      pagination()
+    });
+  let pagination = function() {
+    $.post('/api/property/table-pagination', {
+      skip: current_page - 1
+      , limit: page_limit
+      , query: JSON.stringify(filter_state)
+    }, function(data) {
+      table_rows = (data.results)
+      create_table_body();
+    });
+  }
+
+  let table_rows = [];
+
+  <% for (var i = 0; i < results.table_data.length; i++) { %>
+  table_rows.push({
+    name: '<%=results.table_data[i].name %>'
+    , property_type: '<%=results.table_data[i].property_type %>'
+    , bhk_space: '<%=results.table_data[i].bhk_space %>'
+    , subcity: '<%=results.table_data[i].subcity %>'
+    , city: '<%=results.table_data[i].city %>'
+    , url: '<%=results.table_data[i].url %>'
+  })
+  <%}%>
+
+            function create_table_body() {
+                html_string = ""
+                let idx = 1
+                table_rows.forEach(element => {
+                    html_string += "<tr><td><a href='" + element.url + "' target='_blank'>" + element.name + "</td><td>" + element.property_type + "</td><td>" + element.bhk_space + "</td><td>" + element.subcity + "</td><td>" + element.city + "</td></tr>"
+                    // <td>" + ((current_page - 1) * page_limit + idx) + "</td>
+                    idx += 1;
+
+                });
+                document.getElementById("data-table").innerHTML = html_string;
+            }
+    create_table_body();
+    function create_pagination() {
+
+
+        $tbs_pagination.twbsPagination({
+            totalPages: totalPages + 1,
+            visiblePages: 5,
+            onPageClick: function (event, page) {
+                current_page = page;
+                pagination();
+            }
+        });
+
+    }
+    create_pagination();
+
+    // BUILDER FILTER
+    let builder_typeahead = $('#builder-search .typeahead').typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 1,
+    },
+        {
+            name: 'builder-search',
+            display: 'name',
+            source: function (query, syncResults, asyncResults) {
+                if (query.length > 0) {
+                    $.post('/api/builder/typeahead', { data: query }, function (data) {
+                        asyncResults(data.results);
+                    });
+                }
+            },
+            templates: {
+                suggestion: function (data) {
+                    result = '<div>' + data.name
+                    result += '<p class="entity__type_suggestions"></p>'
+                    result += '</div>'
+                    return result
+                }
+            }
+
+
+        });
+
+    $('#builder-search').bind('typeahead:selected', function (obj, datum, name) {
+        if (!(datum.doc_type in filter_state)) {
+            filter_state[datum.doc_type] = [];
+        }
+        if (filter_state[datum.doc_type].indexOf(datum.name) == -1) {
+            filter_state[datum.doc_type].push(datum.name);
+        }
+        let idx = (datum.doc_type + "-" + datum.name.split(" ").join("-"));
+        idx = idx.toLowerCase();
+        let ele = document.getElementById(idx)
+        if (ele === undefined || ele === null) {
+            check_and_create_filter(datum.doc_type, datum.name)
+        }
+        else {
+            ele.checked = true;
+        }
+        builder_typeahead.typeahead('val', '');
+    });
+</script>
+
+<script>
+  function showBox(idx, i) {
+    // console.log(' show ', i)
+    $('#' + i + '_property-btns-' + idx)
+      .css({
+        'display': 'block'
+        , '-webkit-animation': 'slide-down .3s ease-out'
+        , '-moz-animation': 'slide-down .3s ease-out'
+      });
+    $('#' + i + '_property-' + idx)
+      .css({
+        'margin-bottom': '0'
+      });
+
+    let center = location_mapping[idx];
+    if (center) {
+      map.panTo(center);
+    }
+    // console.log('show marker ', window.markers)
+    window.markers[i].setAnimation(google.maps.Animation.BOUNCE);
+    // console.log('markers :', markers)
+    // setTimeout(() => {
+    //     for (let k = 0; k < markers.length; k++) {
+    //         window.markers[k].setAnimation(null);
+    //         // console.log('ani is' , k, window.markers[k].getAnimation())
+    //         if (window.markers[k].getAnimation() == google.maps.Animation.BOUNCE) {
+    //             console.log('animating : ', k, "is bouncing ", window.markers[k].getAnimation())
+    //             window.markers[k].setAnimation(null);
+    //         }
+    //     }
+    // }, 1000);
+
+
+
+    //     $(".partial-card-data").hover(
+    //         function () {
+    //             let hover_id = (this.id).split("-")[1];
+
+    //             var indx = parseInt((this.id).split("_")[0]);
+    //             console.log("if ",indx)
+    //             // window.showme(indx)
+
+    //         }, function () {
+    //             var indx = parseInt((this.id).split("_")[0])
+    //             console.log("else ",indx)
+    //         }
+    //     );
+  }
+
+  function hideBox(idx, i) {
+    // console.log(' hide ', i)
+    // console.log('hide marker ', window.markers)
+    $('#' + i + '_property-btns-' + idx)
+      .css({
+        '-webkit-animation': 'slide-up .3s ease-in'
+        , '-moz-animation': 'slide-up .3s ease-in'
+        , 'display': 'none'
+      });
+    $('#' + i + '_property-' + idx)
+      .css({
+        'margin-bottom': '1rem'
+      });
+    window.markers[i].setAnimation(null);
+
+
+  }
+</script>
+
+</html>

@@ -1,0 +1,74 @@
+[
+  {
+    "img": "project_1668618482645.png",
+    "e": "libpng warning: iCCP: extra compressed data\n"
+  },
+  {
+    "img": "project_1668618482656.png",
+    "e": "libpng warning: iCCP: extra compressed data\n"
+  },
+  {
+    "img": "project_1668618482664.png",
+    "e": "libpng warning: iCCP: extra compressed data\n"
+  },
+  {
+    "img": "Image 3_32016-08-26-07-38-06.jpg",
+    "e": {
+      "killed": false,
+      "code": 255,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./projects/Image 3_32016-08-26-07-38-06.jpg\" -o \"./projects/webp/Image 3_32016-08-26-07-38-06.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "projects_1510241926.jpg",
+    "e": {
+      "message": "The specified key does not exist.",
+      "code": "NoSuchKey",
+      "region": null,
+      "time": "2022-12-30T07:17:46.922Z",
+      "requestId": "W509TCDC9W6QX0BW",
+      "extendedRequestId": "AOLz02aJuGQIa/ENzwK+uANg6g8J0jOs6OMhFH7GRuqzmKnmjAAGJNl4a5KMiAOcBRnqV6CC41s=",
+      "statusCode": 404,
+      "retryable": false,
+      "retryDelay": 0.5033247026258181
+    }
+  },
+  {
+    "img": "project_1656406972214.jpg",
+    "e": {
+      "killed": false,
+      "code": 255,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./projects/project_1656406972214.jpg\" -o \"./projects/webp/project_1656406972214.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "project_1634282783521.jpg",
+    "e": {
+      "killed": false,
+      "code": 255,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./projects/project_1634282783521.jpg\" -o \"./projects/webp/project_1634282783521.webp\" \"-quiet\""
+    }
+  },
+  {
+    "img": "project_1634282783562.jpg",
+    "e": {
+      "killed": false,
+      "code": 255,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./projects/project_1634282783562.jpg\" -o \"./projects/webp/project_1634282783562.webp\" \"-quiet\""
+    }
+  },
+  { "img": "" },
+  {
+    "img": "project_1671524186861969921.jpg",
+    "e": {
+      "killed": false,
+      "code": 255,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./projects/project_1671524186861969921.jpg\" -o \"./projects/webp/project_1671524186861969921.webp\" \"-quiet\""
+    }
+  }
+]

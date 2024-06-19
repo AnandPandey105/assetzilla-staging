@@ -1,0 +1,141 @@
+<div class="filters-hide">
+    <h5> Property Type </h5>
+    <ul id="property-type-search" class="pe-1">
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>category-1" onchange="handleChangeCategory('<% if (parentId){ %><%= parentId %>-<%}%>category-1')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>category-1"> 
+                </label>
+                <span class="showHideSubCat cursor-pointor" onclick="showHideSubCat('<% if (parentId){ %><%= parentId %>-<%}%>category-1')">All Residential<span id="<% if (parentId){ %><%= parentId %>-<%}%>allResidentialCount"></span> </span>
+            </div>
+            <ul id="ul-<% if (parentId){ %><%= parentId %>-<%}%>category-1" class="d-none">
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-apartments" onchange="handleFilters('type','Apartments')">
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-apartments">
+                            Apartments <span id="<% if (parentId){ %><%= parentId %>-<%}%>appartmentCount"></span> 
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-residential-plots" onchange="handleFilters('type','Residential Plots')" >
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-residential-plots">
+                            Residential Plots <span id="<% if (parentId){ %><%= parentId %>-<%}%>residentialPlotsCount"></span>
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-villas" onchange="handleFilters('type','Villas')">
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-villas">
+                            Villas <span id="<% if (parentId){ %><%= parentId %>-<%}%>villasCount"></span>
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-floors" onchange="handleFilters('type','Floors')">
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-floors">
+                            Floors<span id="<% if (parentId){ %><%= parentId %>-<%}%>floorsCount"></span>
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-penthouse" onchange="handleFilters('type','Penthouse')">
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-penthouse">
+                            Penthouse<span id="<% if (parentId){ %><%= parentId %>-<%}%>penthouseCount"></span>
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-duplex" onchange="handleFilters('type','Duplex')">
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-duplex">
+                            Duplex<span id="<% if (parentId){ %><%= parentId %>-<%}%>duplexCount"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>category-2" onchange="handleChangeCategory('<% if (parentId){ %><%= parentId %>-<%}%>category-2')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>category-2">
+                </label>
+                <span class="showHideSubCat cursor-pointor" onclick="showHideSubCat('<% if (parentId){ %><%= parentId %>-<%}%>category-2')">All Commercial<span id="<% if (parentId){ %><%= parentId %>-<%}%>allCommercialCount"></span></span>
+            </div>
+            <ul id="ul-<% if (parentId){ %><%= parentId %>-<%}%>category-2" class="d-none">
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-commercial-office" onchange="handleFilters('type','Commercial Office')">
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-commercial-office">
+                            Commercial Office<br/>Spaces<span id="<% if (parentId){ %><%= parentId %>-<%}%>commercialOfficeCount"></span>
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-retail-shop" onchange="handleFilters('type','Retail Shop')" >
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-retail-shop">
+                            Retail Shops<span id="<% if (parentId){ %><%= parentId %>-<%}%>retailShopCount"></span>
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-commercial-land" onchange="handleFilters('type','Commercial Land')" >
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-commercial-land">
+                            Commercial Land<span id="<% if (parentId){ %><%= parentId %>-<%}%>commercialLandCount"></span>
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-serviced-apartments" onchange="handleFilters('type','Serviced Apartments')" >
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-serviced-apartments">
+                            Serviced Apartments<span id="<% if (parentId){ %><%= parentId %>-<%}%>servicedApartmentsCount"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>category-3" onchange="handleChangeCategory('<% if (parentId){ %><%= parentId %>-<%}%>category-3')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>category-3">
+                </label>
+                <span class="showHideSubCat cursor-pointor" onclick="showHideSubCat('<% if (parentId){ %><%= parentId %>-<%}%>category-3')">Others<span id="<% if (parentId){ %><%= parentId %>-<%}%>othersCount"></span></span>
+            </div>
+            <ul id="ul-<% if (parentId){ %><%= parentId %>-<%}%>category-3" class="d-none">
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-industrial-land" onchange="handleFilters('type','Industrial Land')">
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-industrial-land">
+                            Industrial Land<span id="<% if (parentId){ %><%= parentId %>-<%}%>industrialLandCount"></span>
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>type-farm-house" onchange="handleFilters('type','Farm house')">
+                        <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>type-farm-house">
+                            Farm house<span id="<% if (parentId){ %><%= parentId %>-<%}%>farmhouseCount"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- <a class="show-all-filters" href="javascript:;" onclick="showhidefilter('property-type-search')">
+        <span class="show-all-ft"> 
+            Show all property Type<i class="fa fa-angle-down ml-1"></i>
+        </span>  
+        <span class="show-less-ft"> 
+            Show less property Type<i class="fa fa-angle-up ml-1"></i>
+         </span> 
+     </a> -->
+</div>

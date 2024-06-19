@@ -1,0 +1,18 @@
+<% for(var i=0; i < results.length; i++) { %>
+    <li  class="popup <% if(i > 10) {%> d-none<%}%>" id="li-<%=results[i].location_type %>-<%=results[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="<%=results[i].location_type %>-<%=results[i].nameAsURL %>" onchange="handleFilters('<%=results[i].location_type %>','<%=results[i].name %>')" autocomplete="off">
+            <label class="custom-control-label" for="<%=results[i].location_type %>-<%=results[i].nameAsURL %>"><%=results[i].name %> - <%=results[i].location_type %> (<%=results[i].projectCount %>)</label>
+        </div>
+    </li>
+<% } %> 
+
+<% for(var i=0; i < results.length; i++) { %>
+    <li class="quick <% if(i > 10) {%> d-none<%}%>" id="quick-li-<%=results[i].location_type %>-<%=results[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="quick-<%=results[i].location_type %>-<%=results[i].nameAsURL %>" onchange="handleFilters('<%=results[i].location_type %>','<%=results[i].name %>')" autocomplete="off">
+            <label class="custom-control-label" for="quick-<%=results[i].location_type %>-<%=results[i].nameAsURL %>"><%=results[i].name %> - <%=results[i].location_type %> (<%=results[i].projectCount %>)</label>
+        </div>
+    </li>
+<% } %> 
+

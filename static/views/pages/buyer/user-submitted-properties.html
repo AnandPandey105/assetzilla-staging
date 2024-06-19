@@ -1,0 +1,408 @@
+<style>
+    .table th {
+        white-space: nowrap;
+    }
+
+    /* .w-125 {
+    width: 125px !important;
+}
+
+.w-80 {
+    width: 80px !important;
+} */
+
+    td.expand {
+        text-align: center;
+        font-weight: 800;
+        font-size: 18px;
+    }
+
+    table.accordion-table {
+        border: 2px solid #222;
+        border-radius: 3px;
+        border-spacing: 0;
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+        line-height: 150%;
+    }
+
+    table.accordion-table th,
+    .expand {
+        color: #666666;
+        padding: 10px;
+        background-color: #eceeef;
+    }
+
+    table.table thead {
+        background: #eceeef;
+    }
+
+    .accordion-table .expand {
+        cursor: pointer;
+        width: 20px !important;
+    }
+
+
+    table.table {
+        background: #fff;
+    }
+
+    tr.sub-level {
+        background: #eee;
+    }
+
+    .table th {
+        border-top: unset !important;
+        border-bottom: unset !important;
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: unset !important;
+    }
+
+    tr.sub-level table {
+        background: #eceeef !important;
+        width: 100%;
+    }
+
+    table .btn-success {
+        width: 100%;
+
+    }
+</style>
+
+<div class="padding">
+    <div class="row justify-content-center align-items-start">
+        <form class="form-group col-6" ng-submit='getAll(1, sortBy, sortForm)'>
+            <div class="row">
+                <div class="col-2 mt-2">
+                    Search:
+                </div>
+                <div class="col-6">
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="search" class="form-control" placeholder="Seach user here..." aria-label="Small"
+                            aria-describedby="inputGroup-sizing-sm" ng-model="search" ng-change="clearSearchBox()">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-success btn-sm" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="form-group col-6">
+            <label for="country">Filter by City:</label>
+            <input style="display: inline-block; width:50%;" type="text" ng-model="cityFilter"
+                placeholder="Select a City" uib-typeahead="address for address in getCities($viewValue)"
+                class="form-control ml-2" typeahead-editable="typeaheadEditable">
+        </div>
+    </div>
+    <div class="row justify-content-center"
+        style="margin-top: 5px !important; background: white; padding-top: 10px; border-radius: 10px;">
+        <div class="col-md-12" style="margin: auto;">
+            <h4 class="text-center" style="color: #9E9E9E; margin: 10px 0 20px 0;">List of User Submitted Properties
+            </h4>
+            <div class="table-responsive d-none">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="text-nowrap">
+                            <th scope="col">#</th>
+                            <th scope="col" ng-click="changeSort('name')">
+                                Name
+                                <span class="" ng-show="showAsc">
+                                    <i class="material-icons md-24" style="cursor: pointer;">&#xe5c5;</i>
+                                </span>
+                                <span class="" ng-show="!showAsc">
+                                    <i class="material-icons md-24" style="cursor: pointer;">&#xe5c7;</i>
+                                </span>
+                            </th>
+
+                            <th scope="col">Contact No.</th>
+                            <!-- <th scope="col">Property Details</th> -->
+                            <th class="w-125" scope="col">Property Name</th>
+                            <th class="w-125" scope="col">Email</th>
+                            <th class="w-125" scope="col">Phone No</th>
+                            <th class="w-125" scope="col">User Submitted City</th>
+                            <th class="w-125" scope="col">City</th>
+                            <th class="w-125" scope="col">Builder</th>
+                            <th class="w-125" scope="col">Case Id</th>
+                            <th class="w-80" scope="col">Price</th>
+                            <th class="w-80" scope="col">Size</th>
+                            <th class="w-125" scope="col">Submitted On</th>
+                            <th class="w-125" scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in usersList track by $index">
+                            <th>{{((pageIndex-1)*10)+$index+1}}</th>
+                            <td>{{user.name}}</td>
+                            <td><span ng-if="user.username !== '0000000000'">({{user.country.code}})</span>&nbsp;{{user.username}}</td>
+                            <td colspan="9">
+                                <div class="table-responsive">
+                                    <table id="example">
+
+                                        <tbody>
+                                            <tr
+                                                ng-repeat="property in user.submitted_property |orderBy:['!submittedOn', '-submittedOn'] track by $index">
+                                                <td class="w-125">{{property.property_name}}</td>
+                                                <td class="w-125">{{property.email}}</td>
+                                                <td class="w-125">{{property.username}}</td>
+                                                <td class="w-125">{{property.city}}</td>
+                                                <td class="w-125">{{property.builder}}</td>
+                                                <td class="w-125" id="doc">{{property.case_id_display}}
+                                                </td>
+                                                <td class="w-80">{{property.price}}</td>
+                                                <td class="w-80">{{property.size}}</td>
+                                                <td class="w-80">{{property.latestStatus}}</td>
+                                                <td class="w-80">{{property.latestSubStatus}}</td>
+                                                <td class="w-125" ng-show="showAsc">{{property.submittedOn| date :'dd MMM yyyy'}}</td>
+                                                <td class="w-125">
+                                                    <a href="/admin-panel#/app/property/add?case_id={{property.case_id_display}}"
+                                                        ng-if="!property.isApproved" class="btn btn-success">
+                                                        Property +
+                                                    </a>
+                                                    <p class="mb-0 cursor-pointer" ng-click="showNotesModal(user)">Add notes</p>
+                                                    <p class="mb-0 cursor-pointer" ng-click="showHistoryModal(user)">History</p>
+                                                </td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="expand"></th>
+                            <th>#</th>
+                            <th scope="col" ng-click="changeSort('name')">Name</th>
+                            <th>Contact No.</th>
+                            <th>Last Property Submitted At:</th>
+                            <!-- <th colspan="3">Property Details</th> -->
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="user in usersList track by $index">
+                        <tr class="header-level">
+                            <td class="expand cursor-pointer" ng-click="expandHide($index);">+</td>
+                            <th>{{((pageIndex-1)*10)+$index+1}}</th>
+                            <td>{{user.name}}</td>
+                            <td><span ng-if="user.username !== '0000000000'">({{user.country.code}})</span>&nbsp;{{user.username}}</td>
+                            <td ng-if="user.propertyLastSubmittedAt">{{user.propertyLastSubmittedAt | date :'dd MMMM yy, hh:mm a'}}</td>
+                        </tr>
+                        <tr ng-class="appliedClass(user.isOpen)">
+                            <td class="expand"></td>
+                            <td colspan="6">
+                                <table>
+                                    <thead>
+                                        <th scope="col">Property Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone No</th>
+                                        <th scope="col">Builder</th>
+                                        <th scope="col">User Submitted<br>City</th>
+                                        <th scope="col">City</th>
+                                        <th scope="col">Case Id</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Size</th>
+                                        <th scope="col">Latest<br>Status</th>
+                                        <th scope="col">Latest<br>Sub Status</th>
+                                        <th scope="col">Submitted On</th>
+                                        <th scope="col">Actions</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            ng-repeat="property in user.submitted_property |orderBy:['!submittedOn', '-submittedOn'] track by $index">
+                                            <td class="w-125">{{property.property_name}}</td>
+                                            <td class="w-125">{{property.email}}</td>
+                                            <td class="w-125">({{property.country.code}})&nbsp;{{property.username}}</td>
+                                            <td class="w-125">{{property.builder}}</td>
+                                            <td class="w-125">{{property.userSubmittedCity ? property.userSubmittedCity : property.city}}</td>
+                                            <td class="w-125">
+                                                <div class="row justify-content-start align-items-center"
+                                                    ng-hide="edit">
+                                                    <p class="col-8 mb-0">{{property.city}}</p>
+                                                    <button class="btn btn-success btn-sm ml-1 col-3"
+                                                        style="font-size: 18px;" ng-click="edit=true">&#9998;</button>
+                                                </div>
+                                                <div class="row justify-content-start align-items-center"
+                                                    ng-show="edit">
+                                                    <input type="text" id="city" ng-model="mappedCity"
+                                                        placeholder="Select a City"
+                                                        uib-typeahead="address for address in getCities($viewValue)"
+                                                        class="form-control col-7 mr-1"
+                                                        typeahead-editable="typeaheadEditable"
+                                                        typeahead-on-select="disabledFlag=false">
+                                                    <button class="btn btn-success btn-sm col-4 ml-1"
+                                                        ng-disabled='disabledFlag'
+                                                        ng-click="saveThisCity(user.username, property.case_id, mappedCity); disabledFlag=true; edit=false">Save</button>
+                                                </div>
+                                            </td>
+                                            <td class="w-125" id="doc">{{property.case_id_display}}</td>
+                                            <td class="w-80">{{property.price}}</td>
+                                            <td class="w-80">{{property.size}}</td>
+                                            <td class="w-80">{{property.latestStatus}}</td>
+                                            <td class="w-80">{{property.latestSubStatus}}</td>
+                                            <td class="w-125" ng-show="showAsc">{{property.submittedOn| date :'dd MMM yy, hh:mm a'}}</td>
+                                            <td class="w-125">
+                                                <a href="/admin-panel#/app/property/add?case_id={{property.case_id_display}}"
+                                                    ng-if="property.status === 'Under Review' || !property.status"
+                                                    class="btn btn-success">Property +</a>
+                                                <a ng-click="getUrl(property.case_id_display);"
+                                                    ng-if="property.status === 'Waiting For Approval'"
+                                                    class="btn btn-success">Link</a>
+                                                <a ng-click="getUrl(property.case_id_display);"
+                                                    ng-if="property.isApproved && property.status !== 'Archieved'"
+                                                    style="color:white;" class="btn btn-success">Link</a>
+                                                <a ng-if="property.status == 'Archieved'" style="color:white;"
+                                                    class="btn btn-info">Archieved</a>
+                                                
+                                                
+                                                <p class="mb-0 cursor-pointer" ng-click="showNotesModal(user, property)">Add notes</p>
+                                                <p class="mb-0 cursor-pointer" ng-click="showHistoryModal(user, property)">History</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" data-ng-show="currentArrayIndex != 0" data-ng-click="previousPaginationArray()">
+                    <a class="page-link" href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item" data-ng-repeat="i in mainArray[currentArrayIndex] track by $index">
+                    <a ng-if="i === pageIndex" style="color: blue !important; font-weight: bold !important;" class="page-link" href="" data-ng-bind="i" data-ng-click="getAll(i, sortBy, sortForm)"></a>
+                    <a ng-if="i !== pageIndex" class="page-link" href="" data-ng-bind="i" data-ng-click="getAll(i, sortBy, sortForm)"></a>
+                </li>
+                <li class="page-item" data-ng-show="currentArrayIndex != mainArray.length-1"
+                    data-ng-click="nextPaginationArray()">
+                    <a class="page-link" href="" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Add notes Modal -->
+<div class="modal fade" id="addNotesModal" tabindex="-1" role="dialog" aria-labelledby="addNotesModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addNotesModalLabel">Add a Note</h5>
+        <button type="button" ng-click="blankFormFn()" id="closeCreateEditModal" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body add-notes-modal-body">
+        <form name="addNotesForm" class="form-horizontal" ng-submit=saveNotes()>
+          <div class="form-group">
+            <label for="userSubmittedProperty-status">Status</label><span style="color: red"> *</span>
+            <select class="custom-select w-100" ng-model="userSubmittedProperty.status" id="userSubmittedProperty-status" required>
+                <option value="Live">Live</option>
+                <option value="Deactivated">Deactivated</option>
+                <option value="VerificationStage">Verification Stage</option>
+                <option value="NotQualified">Not Qualified</option>
+                <option value="First_discussion_pending">First discussion pending</option>
+            </select>
+          </div>
+          <div class="form-group" data-ng-show="userSubmittedProperty.status">
+            <label for="userSubmittedProperty-substatus">Sub Status</label>
+            <span style="color: red">*</span>
+            <select class="form-control" type="text" placeholder="date" id="userSubmittedProperty-substatus"
+              ng-model="userSubmittedProperty.subStatus" required>
+              <option data-ng-repeat="sub_status in subStatuses[userSubmittedProperty.status] track by $index" value={{sub_status}}
+                ng-attr-selected='sub_status === userSubmittedProperty.subStatus'>{{sub_status}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="username">Whatsapp Number</label>
+            <!-- <span style="color: red">*</span> -->
+            <div class="form-group row justify-content-between w-100 mx-0" style="position: relative;">
+              <div ng-click="showPhoneCodeOptions('code', 'code-name', 'phone-code-list', 'phone-code-search')" class="position-relative form-control col-3 p-0 ps-1 d-flex justify-content-around align-items-center">
+                <input type="text" class="w-100 mb-0 border-0 text-center" name="countryCode"  id="code" ng-model="phoneCode" readonly="readonly" required style="margin-bottom: 0px !important;">
+                <input id="phone-code-search" type="text" placeholder="India" ng-model="phoneCodeSearchText" class="phone-code-search w-100 p-2 mb-0 border-0 text-center" style="display: none;">
+                <input type="text" class="w-100 d-none" name="countryName"  id="code-name" ng-model="phoneCodeName" readonly="readonly" required>
+                <svg class="m-1" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 20 20" stroke-linecap="round" stroke-linejoin="round" height="18" width="18" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+              <div id="phone-code-list" class="phone-code-list bottom-0" style="display: none; position: absolute;">
+                <div class="w-100 p-2">
+                </div>
+                <table class="p-2"></table>
+              </div>
+              <input class="form-control col-8" type="text" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" ng-model="userSubmittedProperty.whatsappNumber" placeholder="Whatsapp Number" id="whatsapp-number" required >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <!-- <span style="color: red"> *</span> -->
+            <textarea id="userSubmittedProperty-notes" name="notes" ng-model="userSubmittedProperty.notes" class="form-control"
+              placeholder="Enter your notes here"  />
+          </div>
+          <hr />
+          <button type="submit" class="btn btn-primary" id="submit-notes">Submit</button>
+          <button class="btn btn-info" id="submitting-notes" disabled>Submitting ...</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End add notes modal -->
+
+<!-- show history Modal -->
+<div class="modal fade" id="showUserSubmittedPropertyHistoryModal" tabindex="-1" role="dialog"
+  aria-labelledby="showUserSubmittedPropertyHistoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="showUserSubmittedPropertyHistoryModalLabel">History</h5>
+        <button type="button" ng-click="blankFormFn()" id="closeCreateEditModal" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div data-ng-show="userHistory.length > 0" ng-repeat="history in userHistory track by $index">
+          <p class="mb-0"><span style="font-weight: 600;">Notes: </span>{{history.notes}}</p>
+          <p class="mb-0"><span style="font-weight: 600;">Status: </span>{{history.status}}</p>
+          <p class="mb-0"><span style="font-weight: 600;">Sub Status: </span>{{history.subStatus}}</p>
+          <p class="mb-0"><span style="font-weight: 600;">Whatsapp Number: </span>{{history.whatsappNumber}}</p>
+          <p class="mb-0" ng-if="history.country"><span style="font-weight: 600;">Country: </span>{{history.country.code + " " + history.country.name}}</p>
+          <p class="text-muted mb-0">Updated on: {{history.updated | date: "MMM dd yyyy hh:mm a"}}</p>
+          <p class="text-muted mb-0">Updated by: {{history.updatedBy}}</p>
+          <hr />
+        </div>
+        <div data-ng-show="!userHistory || userHistory.length === 0">
+            <h4 class="text-muted">No History</h4>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End show history modal -->
+
+<script>
+    $(function () {
+        $('.header-level').click(function () {
+            $(this).next('.sub-level').find('table').toggle();
+        });
+    });
+</script>

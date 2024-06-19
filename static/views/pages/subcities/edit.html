@@ -1,0 +1,200 @@
+<div class="container-fluid p-5" ng-class="{true:'blurry', false:'non-blurry'}[loader]">
+    <div class="box">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"><label for="name">
+                            <strong>Name of the Sub City<span style="color: red"> *</span></strong>
+                        </label>
+                        <input required type="text" class="form-control" id="name" placeholder="Name of the Sub City"
+                            ng-model="data.name" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group"><label for="population">
+                            <strong>Population (Lakhs)</strong>
+                        </label>
+                        <input required type="number" class="form-control" id="population"
+                            placeholder="Population of the Sub City" ng-model="data.population">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group"><label for="capital_income">
+                            <strong>Per Capita Income (Rs)</strong>
+                        </label>
+                        <input required type="number" class="form-control" id="capital_income"
+                            placeholder="Per capita income of the Sub City" ng-model="data.capital_income">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group"><label for="gdp">
+                            <strong>GDP (Crore Rs)</strong>
+                        </label>
+                        <input required type="number" class="form-control" id="gdp" placeholder="GDP of the Sub City"
+                            ng-model="data.gdp">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="area"><strong>Area</strong></label>
+                        <div class="input-group m-b"><input type="number" class="form-control" placeholder="area"
+                                ng-model="data.area.area">
+                            <span class="input-group-addon">Sq.Km</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="country">
+                            <strong>State<span style="color: red"> *</span></strong>
+                        </label>
+                        <div>
+                            <input type="text" ng-model="data.state" placeholder="Select a State"
+                                uib-typeahead="address for address in getStates($viewValue)" class="form-control"
+                                typeahead-editable="typeaheadEditable">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-show="data.state">
+                    <div class="form-group">
+                        <label for="country">
+                            <strong>District<span style="color: red"> *</span></strong>
+                        </label>
+                        <div>
+                            <input type="text" ng-model="data.district" placeholder="Select a District"
+                                uib-typeahead="address for address in getDistricts($viewValue)" class="form-control"
+                                typeahead-editable="typeaheadEditable">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-show="data.district && data.state">
+                    <div class="form-group">
+                        <label for="country">
+                            <strong>City<span style="color: red"> *</span></strong>
+                        </label>
+                        <div>
+                            <input type="text" ng-model="data.city" placeholder="Select a City"
+                                uib-typeahead="address for address in getCities($viewValue)" class="form-control"
+                                typeahead-editable="typeaheadEditable">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="details">
+                            <strong>Sub City Details</strong>
+                        </label>
+                         <summernote on-paste="onPasting(evt)" id="details" on-image-upload="imageUpload(files, 'details')" height="100" ng-model="data.details"></summernote>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="about">
+                            <strong>About Sub City</strong>
+                        </label>
+                         <summernote on-paste="onPasting(evt)" id="about" on-image-upload="imageUpload(files, 'about')" height="100" ng-model="data.about"></summernote>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="history">
+                            <strong>Sub City History</strong>
+                        </label>
+                         <summernote on-paste="onPasting(evt)" id="history" on-image-upload="imageUpload(files, 'history')" height="100" ng-model="data.history"></summernote>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="highlights">
+                            <strong>Sub City Highlights</strong>
+                        </label>
+                         <summernote on-paste="onPasting(evt)" id="highlights" on-image-upload="imageUpload(files, 'highlights')" height="100" style="border: 1px solid #aaa" ng-model="data.highlights"></summernote>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="highlights">
+                            <strong>Sub City Facilities</strong>
+                        </label>
+                         <summernote on-paste="onPasting(evt)" id="facilities" on-image-upload="imageUpload(files, 'facilities')" height="100" style="border: 1px solid #aaa" ng-model="data.facilities"></summernote>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <strong>Images</strong>
+                        <div class="row">
+                            <div ng-repeat="image in data.images.Subcities track by $index" class="col-2 text-center">
+                                <input type="radio" name="images" ng-model="new_banner_image" ng-value="$index"
+                                    ng-change="bannerValueChanged($index)" />
+                                <!-- <img ng-src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/subcity/{{image}}"
+                                    class="w-100"> -->
+                                <img ng-src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/subcity/{{image}}"
+                                    class="w-100">
+                                <button class="btn btn-danger mt-2" ng-click="data.images.Subcities.splice($index,1)">
+                                    Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="highlights">
+                            <strong>Upload Images For City<span style="color: red"> (upload only png or
+                                    jpeg)</span></strong>
+                            <a href ng-click="new_images.push('')" class="ml-2" data-toggle="tooltip"
+                                data-placement="auto" title="Add more Samples"><span
+                                    class="fa fa-plus-square"></span></a>
+                        </label>
+                        <div class="form-control mt-1" ng-repeat="image in new_images track by $index">
+                            <input type="radio" name="images" ng-model="new_banner_image"
+                                ng-value="($index+data.images.Subcities.length)"
+                                ng-change="bannerValueChanged(data.images.Subcities.length+$index)" />
+                            <input type="file" file-model="new_images[$index]" accept="image/png, image/jpeg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <strong>Video Link</strong>
+                        <input required type="text" class="form-control" placeholder="Video Link"
+                            ng-model="data.video_url">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center p-2 mt-3">
+                        <button type="submit" class="btn btn-block success" data-ng-click="edit()" ng-disabled="loader">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- loader -->
+<div class="container" ng-show="loader" style="position: fixed;top:15em">
+	<div class="row">
+		<div class="col-12 text-center">
+			<div class="loader-box"><img src="images/loading.gif"></div>
+		</div>
+	</div>
+</div>
+<!-- End : loader -->

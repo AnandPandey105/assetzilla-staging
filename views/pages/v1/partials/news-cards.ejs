@@ -1,0 +1,30 @@
+<% for(var i=0; i < results.length; i++) { %>
+    
+    <div class="grid-item ">
+        <div class="news-listing-box mb-0">
+            <div class="" onclick="go_to_page('<%=results[i].url %>')">
+                <img src="<%=results[i].news_banner%>" class="img img-fluid" alt="">
+            </div>
+            <div class="news-listing-content">
+                <!-- <% if (results[i].publish_date){ %>
+                    <p onclick="go_to_page('<%=results[i].url %>')">Published on -<%=results[i].publish_date%></p>
+                <%}%>
+                <h6 onclick="go_to_page('<%=results[i].url %>')"><%=results[i].heading%></h6>
+                <p><a href="<%=results[i].link%>" target="_blank" class="clr-black">
+                    <%=results[i].link_name%></a>
+                </p> -->
+                <% if (results[i].publish_date) {%>
+                    <% if (results[i].publish_date.full && results[i].publish_date.full !== "Invalid Date"){ %>
+                        
+                        <p onclick="go_to_page('<%=results[i].url %>')">Published on -<%=results[i].publish_date.full%></p>
+                    <%} else if (results[i].publish_date) {%>
+                        
+                        <p onclick="go_to_page('<%=results[i].url %>')">Published on -<%=results[i].publish_date%></p>
+                    <% } %>
+                <%}%>
+                <h6 onclick="go_to_page('<%=results[i].url %>')"><%=results[i].heading%></h6>
+                <p><%=results[i].link_name%></p>
+            </div>
+        </div>
+    </div>
+    <%}%>

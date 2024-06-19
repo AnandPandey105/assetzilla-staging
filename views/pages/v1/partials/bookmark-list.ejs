@@ -1,0 +1,12 @@
+<%if(locals.user){%>
+<div class="<%=id%> bookmark-btn-wrp">
+  <img src="/v1/img/bookmarked_green.webp" class="img img-fluid cursor-pointor unset_bookmark bookmarked" aria-hidden="true" onclick="unset_bookmark_list('<%=url.replace(/'/g, "\\'")%>', '<%=id%>')" <% if(!is_bookmarked) {%> style="display: none" <%}%>
+        />
+        <img src="/v1/img/bookmark_green.webp" class="img img-fluid cursor-pointor set_bookmark bookmarked"
+            aria-hidden="true" 
+            onclick="set_bookmark_list('<%= url.replace(/'/g, "\\'")%>', '<%=id%>' )" <% if(is_bookmarked) {%> style="display: none" <%}%>
+        />
+
+</div>    
+<%}%> <%if(!locals.user){%> <img src="/v1/img/bookmark_green.webp" class="img img-fluid cursor-pointor unset_bookmark bookmarked" data-toggle="modal" data-target="#loginModal" />
+  <%}%>

@@ -1,0 +1,75 @@
+<!-- <% if (!canvasId.includes('-small-') ) {%><% }%>
+  <!-- <div class="zoom-buttons">
+    <div class="zoom-in-button" style="right:0" onclick="zoomIn()"><img src="/images/zoom-in.svg" alt="zoom in"/></div>
+    <div class="zoom-out-button" style="right: 10;" onclick="zoomOut()"><img src="/images/zoom-out.svg"  alt="zoom out"/></div>
+  </div> -->
+<div id='pdf-viewer-custom-<%=canvasId%>' 
+  style="<% if (canvasId.includes('-small-') ) {%>width:100%;max-height: 70vh; background: rgb(0,0,0,0); overflow: auto;
+    <%} else {%>width:100%;max-height:100vh; height:100%; background: rgb(0,0,0,0); overflow: auto;<%}%>">
+</div>
+
+<script defer>
+  {let url = '<%=locals.CURRENT_IMAGE_BASE_URL%>'+'<%=url%>';
+  let thePdf = null;
+  let scale = <% if (canvasId.includes('-small-')) {%> 1 <%} else {%> 1 <% } %>;
+  let pdfJsLib = window['pdfjs-dist/build/pdf'];
+  pdfJsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+  
+  if (!url.includes('undefined')){
+    pdfDiv = document.getElementById('pdf-viewer-custom-<%=canvasId%>');
+    loader = document.createElement("div");
+    loader.setAttribute("class", "pdf-loading-screen-<%=canvasId%> w-100 d-flex justify-content-center align-items-center");
+    loader.setAttribute("style", "min-height:300px");
+    loadingImage = document.createElement("img");
+    loadingImage.setAttribute("alt", "Downloading pdf...");
+    loadingImage.setAttribute("src", "/images/loaderImage.svg");
+    loadingImage.setAttribute("style", "max-width:80px;");
+    loader.appendChild(loadingImage);
+    pdfDiv.appendChild(loader)
+    
+
+    pdfJsLib.getDocument(url).promise.then(function(pdf) {
+        thePdf = pdf;
+        viewer = document.getElementById('pdf-viewer-custom-<%=canvasId%>');
+        console.log(document.querySelector('.pdf-loading-screen-<%=canvasId%>'))
+        viewer.removeChild(document.querySelector('.pdf-loading-screen-<%=canvasId%>'));
+        
+
+        // viewer.removeChild(loader)
+        for(page = 1; page <= pdf.numPages; page++) {
+          canvas = document.createElement("canvas");
+          canvas.setAttribute("class","pdf-view-canvas <%=canvasId%>");    
+          viewer.appendChild(canvas);            
+          renderPage(page, canvas);
+        }
+    });
+  }
+  function zoomIn(pdfToZoom){
+    $('.pdf-view-canvas').css('width', "+=10%");
+    // console.log($('.<%=canvasId%>').css('width'));
+  }
+
+  function zoomOut(pdfToZoom){
+    // console.log($('#'+'pdf-viewer-custom-<%=canvasId%>' + '>canvas').css('width'));
+    $('.pdf-view-canvas').css('width', "-=10%");
+  }
+  
+  function renderPage(pageNumber, canvas) {
+    thePdf.getPage(pageNumber).then(function(page) {
+      viewport = page.getViewport({ scale: Number(scale) });
+      <% if (canvasId.includes('-small-')) {%>
+        if (viewport.width/window.innerWidth > 0.8){
+          scale = window.innerWidth/viewport.width;
+          // console.log("scale = ", scale);
+          // console.log(`${viewport.width}/${window.innerWidth}`)
+        }
+        viewport = page.getViewport({ scale: Number(scale) });
+      <% } %>
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      // console.log("canvas = ", viewport.height, viewport.width, " window = ", window.innerWidth, window.innerHeight)
+      page.render({canvasContext: canvas.getContext('2d'), viewport: viewport});
+    });
+  }}
+</script>
+ -->

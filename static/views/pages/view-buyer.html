@@ -1,0 +1,220 @@
+<div class="padding">
+    <form class="form-group" ng-submit=getAllBuyers(1)>
+        <div class="row">
+            <div class="col-sm-1">
+                Search:
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group input-group-sm mb-3">
+                    <input type="search" class="form-control" placeholder="Seach here..." aria-label="Small"
+                        aria-describedby="inputGroup-sizing-sm" ng-model="search" ng-change="clearSearchBox()">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success btn-sm" type="submit">Search</button>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+                <span>
+                    <i ng-show="showCrossForBuyer" class="material-icons md-24 cross"
+                        ng-click="clearDropdown('buyer')">&#xe14c;</i>
+                </span>
+                <ui-select ng-model="selectedRoleForFilter.selected" ng-change="showCrossForFilter('buyer')"
+                    theme="bootstrap">
+                    <ui-select-match class="ui-select-match" placeholder="Select ...">{{$select.selected}}
+                    </ui-select-match>
+                    <ui-select-choices class="ui-select-choices"
+                        repeat="item in rolesForFilter | filter: $select.search track by $index">
+                        <div ng-bind-html="item | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success btn-sm" type="button" ng-click="getAllBuyers(1)">Apply Filter</button>
+                <!-- <button class="btn btn-danger btn-sm" type="button" ng-click="getAllTickets(1)">Clear
+                    Filter</button> -->
+            </div>
+            <!-- <div class="col-sm-1">
+                <button class="md-btn md-raised m-b-sm w-xs green" ng-click="blankFormFn()" data-toggle="modal"
+                    data-target="#addNewBuyerModal">Create
+                    <span class="">
+                        <i class="material-icons md-24" ng-click="getLocationToUpdate(location, $index)"
+                            style="cursor: pointer;">&#xe146;</i>
+                    </span>
+                </button>
+            </div> -->
+        </div>
+    </form>
+
+    <!-- Add New Modal -->
+    <!-- <div class="modal fade" id="addNewBuyerModal" tabindex="-1" role="dialog"
+        aria-labelledby="addNewBuyerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addNewBuyerModalLabel">Add/Edit Buyer</h5>
+                    <button type="button" ng-click="blankFormFn()" id="closeCreateEditModal" class="close"
+                        data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form name="form" class="form-horizontal" ng-submit=createBuyer(buyer)>
+                        <div ng-show="!submitConfirmation">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Buyer</label>
+                                <input type="text" ng-model="buyer.name" class="form-control" id="validationDefault01"
+                                    placeholder="Enter name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email Id</label>
+                                <input type="email" ng-model="buyer.email" class="form-control"
+                                    id="validationDefault01" placeholder="Enter email" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Role</label>
+                                </div>
+                                <select class="custom-select w-100" ng-model="buyer.role" id="inputGroupSelect01">
+                                    <option selected ng-repeat="role in roles">{{role}}</option>
+                                </select>
+                            </div>
+                            <button type="button" ng-click="submitConfirmationFn()" class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+
+                        <div ng-show="submitConfirmation;">
+                            <h5>Are you sure you want to <span ng-show="!edit">add</span> <span
+                                    ng-show="edit">update</span> this Buyer?</h5>
+                            <button type="submit" class="btn btn-primary">
+                                <span ng-show="!edit">Create</span><span ng-show="edit">Update</span>
+                            </button>
+                            <button type="button" class="btn btn-danger" ng-click="blankFormFn()"
+                                data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- End add new modal -->
+
+    <!-- add new -->
+    <div class="row">
+        <div class="col-sm-8" style="margin: auto;">
+
+        </div>
+    </div>
+
+
+
+
+    <div class="row" style="margin-top: 5px !important;
+        background: white;
+        padding-top: 10px;
+        border-radius: 10px;">
+        <div class="col-md-12" style="margin: auto;">
+            <h4 class="text-center" style="color: #9E9E9E; margin: 10px 0 20px 0;">List of Buyers</h4>
+
+            <!-- notifications -->
+            <div class="alert alert-success" id="SuccessAlertBox"
+                style="position: fixed;top: 23%;right:2px;display: none;">
+                <p data-ng-bind="SucessSaveMessage"></p>
+            </div>
+            <div class="alert alert-danger" id="ErrorAlertBox"
+                style="position: fixed;top: 23%;right:2px;display: none;">
+                <p data-ng-bind="ErrorSaveMessage"></p>
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th scope="col">#</th>
+                        <th scope="col" ng-click="changeSort('name')">
+                            Buyer
+                            <span class="" ng-show="showAsc">
+                                <i class="material-icons md-24" style="cursor: pointer;">&#xe5c5;</i>
+                            </span>
+                            <span class="" ng-show="!showAsc">
+                                <i class="material-icons md-24" style="cursor: pointer;">&#xe5c7;</i>
+                            </span>
+                        </th>
+                        <th scope="col">email</th>
+                        <th scope="col">role</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="buyer in buyersList track by $index">
+                        <th scope="row">{{((pageIndex-1)*10)+$index+1}}</th>
+                        <td>{{buyer.name}}</td>
+                        <td>{{buyer.email}}</td>
+                        <td>{{buyer.role}}</td>
+                        <td>
+                            <span class="mx-2" data-toggle="modal" data-target="#addNewBuyerModal">
+                                <i class="material-icons md-24" ng-click="getBuyerToUpdate(buyer, $index)"
+                                    style="cursor: pointer; color: #4CAF50;">&#xe3c9;</i>
+                            </span>
+                            <span class="mx-2">
+
+                                <i class="material-icons md-24" data-toggle="modal" data-target="#deleteModal"
+                                    ng-click="getBuyerToDelete(buyer, $index)"
+                                    style="cursor: pointer; color: #C62828;">&#xe872;</i>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" data-ng-show="currentArrayIndex != 0"
+                        data-ng-click="previousPaginationArray()">
+                        <a class="page-link" href="" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" data-ng-repeat="i in mainArray[currentArrayIndex] track by $index">
+                        <a class="page-link" href="" data-ng-bind="i"
+                            data-ng-click="getAllBuyers(i, sortBy, sortForm)"></a>
+                    </li>
+                    <li class="page-item" data-ng-show="currentArrayIndex != mainArray.length-1"
+                        data-ng-click="nextPaginationArray()">
+                        <a class="page-link" href="" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalTitle">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete the buyer?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" ng-click="deleteBuyerFn()"
+                            data-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

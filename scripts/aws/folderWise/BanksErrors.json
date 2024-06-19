@@ -1,0 +1,94 @@
+[
+  { "key": "dyn-res/bank/bank_1571830074093.27" },
+  { "key": "dyn-res/bank/bank_1573288322461.net-resizeimage (10)" },
+  { "key": "dyn-res/bank/bank_1612336710013.zip" },
+  { "key": "dyn-res/bank/bank_1571830074093.27" },
+  { "key": "dyn-res/bank/bank_1573288322461.net-resizeimage (10)" },
+  { "key": "dyn-res/bank/bank_1612336710013.zip" },
+  { "key": "dyn-res/bank/bank_1571830074093.27" },
+  { "key": "dyn-res/bank/bank_1573288322461.net-resizeimage (10)" },
+  {
+    "msg": "convert to webp error caught",
+    "obj": {
+      "Key": "dyn-res/bank/bank_1612334670174.docx",
+      "LastModified": "2021-02-03T06:44:31.000Z",
+      "ETag": "\"b05a97e064cc54b99daba53bde958d58\"",
+      "ChecksumAlgorithm": [],
+      "Size": 2289073,
+      "StorageClass": "STANDARD",
+      "Owner": {
+        "DisplayName": "rickysharma_21",
+        "ID": "d03a8450411447097b9d5bbf45af281af57a835de5966d1d19375abef82be5cd"
+      }
+    },
+    "img": "bank_1612334670174.docx",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./bank/bank_1612334670174.docx\" -o \"./bank/webp/bank_1612334670174.webp\" \"-quiet\""
+    }
+  },
+  { "key": "dyn-res/bank/bank_1612336710013.zip" },
+  {
+    "msg": "convert to webp error caught",
+    "obj": {
+      "Key": "dyn-res/bank/bank_1612336710013.zip",
+      "LastModified": "2021-02-03T07:18:31.000Z",
+      "ETag": "\"9217e9fcd9c23bad42b964b276def2ae\"",
+      "ChecksumAlgorithm": [],
+      "Size": 4847185,
+      "StorageClass": "STANDARD",
+      "Owner": {
+        "DisplayName": "rickysharma_21",
+        "ID": "d03a8450411447097b9d5bbf45af281af57a835de5966d1d19375abef82be5cd"
+      }
+    },
+    "img": "bank_1612336710013.zip",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./bank/bank_1612336710013.zip\" -o \"./bank/webp/bank_1612336710013.webp\" \"-quiet\""
+    }
+  },
+  {
+    "msg": "convert to webp error caught",
+    "obj": {
+      "Key": "dyn-res/bank/banks_1494089081.png",
+      "LastModified": "2018-03-14T05:09:55.000Z",
+      "ETag": "\"09f21f7569a4c25114c3a66b0efa1ebc\"",
+      "ChecksumAlgorithm": [],
+      "Size": 15158,
+      "StorageClass": "STANDARD",
+      "Owner": {
+        "DisplayName": "rickysharma_21",
+        "ID": "d03a8450411447097b9d5bbf45af281af57a835de5966d1d19375abef82be5cd"
+      }
+    },
+    "img": "banks_1494089081.png",
+    "e": {
+      "code": 255,
+      "killed": false,
+      "signal": null,
+      "cmd": "\"/home/teson/clients/assetZilla/assetzilla/node_modules/promised-webp-converter/bin/libwebp_linux/bin/cwebp\" -q 80 \"./bank/banks_1494089081.png\" -o \"./bank/webp/banks_1494089081.webp\" \"-quiet\""
+    }
+  },
+  {
+    "msg": "convert to webp error caught",
+    "obj": {
+      "Key": "dyn-res/bank/banks_1510073781.png",
+      "LastModified": "2018-03-14T05:10:11.000Z",
+      "ETag": "\"6c1dd9e9a8a9fe5a7c0e53a7eb719e93\"",
+      "ChecksumAlgorithm": [],
+      "Size": 76029,
+      "StorageClass": "STANDARD",
+      "Owner": {
+        "DisplayName": "rickysharma_21",
+        "ID": "d03a8450411447097b9d5bbf45af281af57a835de5966d1d19375abef82be5cd"
+      }
+    },
+    "img": "banks_1510073781.png",
+    "e": "libpng warning: iCCP: known incorrect sRGB profile\n"
+  }
+]

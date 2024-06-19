@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Get Best Property Loan rates from <%= data.name %> | Assetzilla</title>
+  <meta name="title" content="Get Best Property Loan rates from <%= data.name %> | Assetzilla">
+  <meta name="description" content="<%= data.name %> offers commercial and residential property loans at best rates with Quick Loan Sanction & Disbursements. ✓ Check ✓ Processing Fees ✓ Eligibility Criteria.">
+</head>
+
+<head>
+  <title>Apply for Property | Get Loan Against Property, Land, Plot | Assetzilla </title>
+  <meta name="title" content="Apply for Property | Get Loan Against Property, Land, Plot | Assetzilla ">
+  <meta name="description" content="Loan Against Property - You can avail this loan by mortgaging a residential, commercial or industrial property. Check Now!">
+</head>
+
+<%- include ../partials/head.ejs%>
+
+<body>
+  <%- include ../partials/navigation_bar.ejs%>
+  <div class="top-margin single-sub-head">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="cursor">
+            <img src="<%=data.logo %>" class="banner-image">
+          </div>
+        </div>
+        <div class="col-md-8 single-page-heading">
+          <div class="builder-description">
+            <a class="clr-white" href="/banks" target="_blank">Banks</a>
+            <h2 class="clr-white">
+              <span style="font-size: .6em; vertical-align: middle;"><%- include ../partials/bookmark.ejs%></span>
+              &nbsp;<%= data.name %>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top: 40px;">
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Description -->
+        <% if (data.description){ %>
+        <div class="data-card">
+          <h3>Description</h3>
+          <%- data.description %>
+        </div>
+        <%}%>
+                <!-- Bank type Card -->
+                <% if (data.type){ %>
+        <div class="data-card">
+          <div class="row">
+            <div class="col-md-6">
+              <h5>Bank Type : </h5>
+            </div>
+            <div class="col-md-6">
+              <p><%= data.type %></p>
+            </div>
+          </div>
+        </div>
+        <%}%>
+
+        <% if (locals.top_projects && top_projects.length >0){ %>
+        <div class="data-card">
+          <h3><strong>Builder's Top Project Type</strong></h3>
+          <% for(var i=0; i < top_property_type.length; i++) { %>
+          <div class="selectable-tags ml-2" onclick="getProjects('<%= top_property_type[i].key%>','property_type','<%= top_property_type[i].doc_count%>',this)">
+            <%= top_property_type[i].key%>(<%= top_property_type[i].doc_count%>)</div>
+          <% } %>
+        </div>
+        <div class="data-card">
+          <h3><strong>All Projects <span id="city_name"></span></strong></h3>
+          <div id="top_projects">
+            <% for(var i=0; i < top_projects.length; i++) { %>
+            <div class="card mb-3 cursor" onclick=go_to_page("<%=top_projects[i].url %>")>
+              <div class="row no-gutters">
+                <div class="col-4">
+                  <img src="<%=top_projects[i].banner_image %>" class="w-100" alt="">
+                </div>
+                <div class="col-8">
+                  <div class="card-body">
+                    <div class="d-flex bd-highlight">
+                      <div class="p-2 w-100 bd-highlight">
+                        <h5 class="card-title"><%=top_projects[i].name %></h5>
+                        <small class="light-grey-clr">
+                          <i class="fas fa-map-marker-alt"></i>
+                          <% if (top_projects[i].subcity){ %><%=top_projects[i].subcity %>,
+                          <%}%><% if (top_projects[i].city){ %><%=top_projects[i].city %> <%}%>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                        <% if (top_projects[i].project_status){ %>
+                          <th scope="col">Status</th>
+                          <%}%>
+                                                        <% if (top_projects[i].property_type){ %>
+                          <th scope="col">Type</th>
+                          <%}%>
+                                                        <% if (top_projects[i].lease_rent){ %>
+                          <th scope="col">Lease/Rent</th>
+                          <%}%>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                        <% if (top_projects[i].project_status){ %>
+                          <td>
+                            <%=top_projects[i].project_status %>
+                          </td>
+                          <%}%>
+                                                        <% if (top_projects[i].property_type){ %>
+                          <td>
+                            <%=top_projects[i].property_type %>
+                          </td>
+                          <%}%>
+                                                        <% if (top_projects[i].lease_rent){ %>
+                          <td>
+                            <%=top_projects[i].lease_rent %>
+                          </td>
+                          <%}%>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+          </div>
+          <p id="see_all_projects" class="text-center">
+            <% if  (top_project_count > 5) {%>
+            <a href="/projects?bank=<%=data.name%>" target="_blank">See All</a>
+            <% } %>
+          </p>
+        </div>
+
+        <% } %>
+
+
+      </div>
+      <div class="col-md-4">
+        <% if (data.email || data.address || data.website){ %>
+        <div class="data-card">
+          <h3><%= data.name %></h3>
+          <div id="side_map"></div>
+          <div>
+            <% if (data.address){ %>
+            <strong>Address</strong><br>
+            <span><%= data.address %></span><br>
+            <% } %>
+            <% if (data.website){ %>
+            <strong>Website</strong><br>
+            <span><%= data.website %></span><br>
+            <% } %>
+            <% if (data.email){ %>
+            <strong>Email</strong><br>
+            <span><%= data.email %></span><br>
+            <% } %>
+
+          </div>
+        </div>
+        <% } %>
+
+        <div class="data-card">
+          <h4>Apply For Loan :</h4>
+          <hr>
+          <form action="" id="loan-form">
+            <div class="form-group">
+              <label for="bank_name">Bank Name: <span class="clr-red">*</span> </label>
+              <select name="bank_name" class="custom-select" id="loan-bank">
+                <option value="<%= data.name %>" selected><%= data.name %></option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="bank_name">Project: <span class="clr-red">*</span> </label>
+              <select name="bank_name" class="custom-select" id="loan-project">
+                <option value="Others" selected>Others</option>
+                <% for(var i=0; i < data.approvedProjects.results.length; i++) { %>
+                <option value="<%= data.name %>"><%= data.approvedProjects.results[i].name %></option>
+                <% } %>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="applicant_name">Applicant's Name:<span class="clr-red">*</span> </label>
+              <input type="text" class="form-control" id="loan-user" placeholder="Enter Applicant's Name" name="applicant_name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:<span class="clr-red">*</span></label>
+              <input type="email" class="form-control" id="loan-email" placeholder="Email Address" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone:</label>
+              <input type="number" class="form-control" id="loan-phone" placeholder="Contact Details" name="phone" required>
+            </div>
+            <!-- <div class="form-group">
+    <label for="project">Project:</label>
+    <select name="project" class="custom-select">
+        <option value="<%= data.name %>" selected><%= data.name %></option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="builder">Builder:</label>
+    <select name="builder" class="custom-select">
+        <option value="<%= data.name %>" selected><%= data.name %></option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="city">City:</label>
+    <select name="city" class="custom-select">
+        <option value="<%= data.name %>" selected><%= data.name %></option>
+    </select>
+</div> -->
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Builder DETAILS -->
+  <div class="container" style="padding-top: 40px;">
+    <div class="row">
+      <div class="col-md-8 single-page-heading">
+
+      </div>
+      <div class="col-md-4">
+
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<%- include ../partials/footer.ejs%>
+<script>
+  var getProjects = function(data, type, count, el) {
+    $(".selectable-tags")
+      .removeClass("selected-tags");
+    $(el)
+      .addClass("selected-tags");
+    filters = {
+      banks: "<%= data.name %>"
+    }
+    if (type == "property_type") {
+      filters.type = data;
+      document.getElementById("city_name")
+        .innerHTML = " type : " + data;
+
+      if (count > 5) {
+        document.getElementById("see_all_projects")
+          .innerHTML = '<a href="/projects?banks=<%=data.name%>&type=' + data + '" target="_blank" class="see_all btn w-100">See All</a>';
+      } else {
+        document.getElementById("see_all_projects")
+          .innerHTML = "";
+      }
+    } else if (type == "all") {
+      document.getElementById("city_name")
+        .innerHTML = "";
+      if (count > 5) {
+        document.getElementById("see_all_projects")
+          .innerHTML = '<a href="/projects?banks=<%=data.name%>" target="_blank" class="see_all btn w-100">See All</a>';
+      }
+    }
+    $.post('/api/project/infinite', {
+      skip: 0
+      , limit: 5
+      , query: JSON.stringify(filters)
+      , card: false
+    }, function(data) {
+      document.getElementById("top_projects")
+        .innerHTML = data;
+      $.post('/api/project/infinite-map', {
+        skip: 0
+        , limit: 5
+        , query: JSON.stringify(filters)
+      }, function(map_data) {
+        locations = map_data.results
+        initMap();
+      })
+    })
+  }
+</script>
+
+</html>

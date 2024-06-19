@@ -1,0 +1,29 @@
+<div >
+    <h5>Project Status</h5>
+    <ul id="price-search">
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" autocomplete="off" id="<% if (parentId){ %><%= parentId %>-<%}%>status-under-construction" onchange="handleFilters('status','Under Construction')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>status-under-construction">
+                    Under Construction<span id="<% if (parentId){ %><%= parentId %>-<%}%>underConstructionCount"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>status-ready-to-move" onchange="handleFilters('status','Ready To Move')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>status-ready-to-move">
+                    Ready To Move<span id="<% if (parentId){ %><%= parentId %>-<%}%>readyToMoveCount"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>status-pre-launch" onchange="handleFilters('status','Pre-launch')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>status-pre-launch">
+                    Pre Launch<span id="<% if (parentId){ %><%= parentId %>-<%}%>preLaunchCount"></span>
+                </label>
+            </div>
+        </li>
+    </ul>
+</div>

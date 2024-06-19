@@ -1,0 +1,2716 @@
+<!DOCTYPE html>
+<html>
+<%- include ./partials/header.ejs%>
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <div class="common-wrapper">
+    <div class="topbg-div">
+      <div class="container">
+        <div class="topsearch p-0 d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center">
+          <div class="topsearch-left">
+            <h3 class="mb-2">
+              <strong>
+                Howdy, <%if (user.name) { %>
+                  <%=user.name%>
+                <%}%>
+              </strong>
+            </h3>
+          </div>
+          <div class="topsearch-right mt-3 mt-md-0"> 
+            <form>
+              <div class="group_search top_bar_search" id="type-ahead-search">
+                <input id="profile-search" type="text" class="form-control typeahead" placeholder="Search for cities, builders, project name" >
+                <a href="javascript:void(0)" class="btn searchicon" onclick='search_fields_v1()'><i class="fa fa-search" aria-hidden="true"></i></a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="loader-bg" style="display: none;" id="web-loader">
+    <h3>Loading...</h3>
+    <div class="loader">
+      <span></span>
+    </div>
+  </div>
+  <div class="view-change-header">
+    <div style="clear: both;"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="profile-tabs-upper">
+            <div class="main_box_list">
+              <div class="filter w-100">
+                <div class="filter_list w-100">
+                  <ul class="nav nav-tabs" id="profile-tabs-section">
+                    <li class="cursor active" onclick="change_profile_section('profile')" id="profile-btn"><a
+                        href="javascript:;">Profile</a> </li>
+                    <li class="cursor" onclick="change_profile_section('bookmark')" id="bookmark-btn"><a
+                        href="javascript:;">Bookmarks</a></li>
+                    <li class="cursor" onclick="change_profile_section('submit')" id="submit-btn"><a
+                        href="javascript:;">Sell Your Property</a></li>
+                    <li class="cursor" onclick="change_profile_section('view')" id="view-btn"><a
+                        href="javascript:;">Submitted Properties</a></li>
+                    <li class="cursor" onclick="change_profile_section('view-history')" id="view-history-btn"><a
+                      href="javascript:;">View History</a></li>
+                    <li class="cursor" onclick="change_profile_section('search-history')" id="search-history-btn"><a
+                      href="javascript:;">Search History</a></li>
+                    <li class="cursor" onclick="change_profile_section('recent-actions')" id="recent-actions-btn"><a
+                      href="javascript:;">Recent Actions</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="common-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mb-5">
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+          <div class="profile-section p2" id="profile-container">
+            <div class="profile-left-data">
+              <strong>Profile Details</strong>
+              <button class="btn btn-link edit-profile-section" onclick="editProfile()">
+                <i class="fa fa-edit"></i>
+              </button>
+              <div class="mt-2 edit-profile-section">
+                <p>Name: 
+                  <b>
+                    <%if (user.name) { %>
+                      <%=user.name%>
+                    <%}%>
+                  </b> 
+                </p>
+                <p>Phone Number:
+                  <b>
+                    <%if (user.username) { %>
+                      <%=user.username%>
+                    <%}%>
+                  </b> 
+                </p>
+                <p>Email: 
+                  <b>
+                    <%if (user.email) { %>
+                      <%=user.email%>
+                    <%}%>
+                  </b>
+                </p>
+              </div>
+              <div class="mt-3 edit-profile-input-section" style="display: none">
+                <div class="mb-3">
+                  <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                    aria-describedby="basic-addon1" id="user_name_input"
+                    value="<%if (user.name) { %><%=user.name%> <%}%>">
+                </div>
+                <div class="mb-3">
+                  <input type="email" class="form-control" placeholder="User Email" aria-label="User Email"
+                    id="user_email_input" aria-describedby="basic-addon1"
+                    value="<%if (user.email) { %> <%=user.email%> <%}%>">
+                </div>
+                <div class="text-left">
+                  <button class="btn profile-main-btn mr-2" onclick="submitProfileChanges()">Submit</button>
+                  <button class="btn profile-main-btn" onclick="cancelEditProfile()">Cancel</button>
+                </div>
+              </div>
+            </div>
+            <div class="profile-right-data">
+              <div class="form-group w-100">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="user_password">
+              </div>
+              <div class="form-group w-100">
+                <label for="pwd"> Re-Enter Password:</label>
+                <input type="password" class="form-control" id="user_password_again">
+              </div>
+              <button type="button" class="btn profile-main-btn" onclick="change_user_password()">Change
+                Password</button>
+            </div>
+          </div>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+          <div class="profile-section p2" id="bookmark-container" style="display: none;">
+            <div class="bookmark-profile-wrp-1">
+              <div class="profile-tabs-upper">
+                <!-- <strong>Bookmarks</strong><br> -->
+                <div class="filter w-100">
+                  <div class="filter_list w-100">
+                    <ul class="nav nav-tabs d-flex flex-row flex-wrap flex-lg-nowrap justify-content-start align-items-center" id="bookmarks-tabs-section">
+                      <li class="cursor bookmark-filter active" onclick="change_bookmarks_section('properties')"
+                        id="properties-btn"><a href="javascript:;">Properties</a> </li>
+                      <li class="cursor bookmark-filter" onclick="change_bookmarks_section('projects')" id="projects-btn"><a
+                          href="javascript:;">Projects</a></li>
+                      <li class="cursor bookmark-filter" onclick="change_bookmarks_section('builders')" id="builders-btn"><a
+                          href="javascript:;">Builders</a></li>
+                      <li class="cursor bookmark-filter" onclick="change_bookmarks_section('locations')" id="locations-btn"><a
+                          href="javascript:;">Locations</a></li>
+                      <li class="cursor bookmark-filter" onclick="change_bookmarks_section('authorities')" id="authorities-btn"><a
+                          href="javascript:;">Authorities</a></li>
+                      <li class="cursor bookmark-filter" onclick="change_bookmarks_section('banks')" id="banks-btn"><a
+                          href="javascript:;">Banks</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+              <div class="bookmarks-section" id="properties-container">
+                <% if (user.bookmark){ %>
+                  <ul class="row">
+                    <% for(var i=0; i < user.bookmark.length; i++) { %>
+                      <% if (user.bookmark[i].type==="properties" && user.bookmark[i].data && user.bookmark[i].data.resp.is_live === "2") { %>
+                        <li class="col-12 col-lg-6">
+                          <!-- <a href="<%=user.bookmark[i].url%>" target="_blank">
+                            <h5 class="text-center">
+                              <%=user.bookmark[i].url.split("/")[2].split("-").slice(0, -1).join(" ")%>
+                            </h5>
+                          </a> -->
+                          <div class="">
+                            <div onmouseenter="showBox('<%=user.bookmark[i].data.resp.id%>', <%=i%>, <%=i+user.bookmark[i].data.resp.custSkip%>, '<%=user.bookmark[i].data.resp.price.price%>', '<%=user.bookmark[i].data.resp.url%>')" 
+                              onmouseleave="hideBox('<%=user.bookmark[i].data.resp.id%>', <%=i%>, <%=i+user.bookmark[i].data.resp.custSkip%>)">
+                              <div style="min-width: 100%;" class="apparment-list apparment-list-updated no-border" 
+                              id="<%=i+user.bookmark[i].data.resp.custSkip%>_profile-bookmark-<%=user.bookmark[i].data.resp.id%>" 
+                              >
+                                <div class="apparment-list-left">
+                                  <!-- <a href="javascript:;" class="add-com-btn">
+                                    <div class="appartment-checkbox">
+                                      <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=user.bookmark[i].data.resp.id%>" name="example-<%=user.bookmark[i].data.resp.id%>" onchange="add_to_compare('<%=JSON.stringify(user.bookmark[i].data.resp)%>')">
+                                        <label class="custom-control-label" for="example-<%=user.bookmark[i].data.resp.id%>">
+                                        </label>
+                                      </div>
+                                    </div> 
+                                  </a> -->
+                                  <div class="owl-carousel owl-theme allProp-first-owl" onclick=go_to_page("<%=user.bookmark[i].data.resp.url%>")>
+                                    <% if(user.bookmark[i].data.resp.images && user.bookmark[i].data.resp.images.Projects && user.bookmark[i].data.resp.images.Projects[0]){ %>
+                                      <% for(var j=0; j <user.bookmark[i].data.resp.images.Projects.length; j++) { %>
+                                        <div class="item">
+                                          <div class="all-prop-heart">
+                                            <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=user.bookmark[i].data.resp.images.Projects[j]%>" class="img img-fluid">
+                                          </div>
+                                        </div>
+                                      <% } %>
+                                      <%} else {%>
+                                        <div class="item">
+                                          <div class="all-prop-heart hello">
+                                            <img src="<%=user.bookmark[i].data.resp.banner_image %>" class="img img-fluid">
+                                          </div>
+                                        </div>
+                                      <% } %>
+                                  </div>
+                                </div>
+                                <div class="apparment-list-right">
+                                  <% console.log("--------------------->","user.bookmark[i].data.resp") %>
+                                  <h2>
+                                      <%- include('./partials/bookmark-list', {url: user.bookmark[i].data.resp.url, is_bookmarked: user.bookmark[i].data.resp.is_bookmarked, id: i + "_property-" + user.bookmark[i].data.resp.id}); %>
+                                    <span onclick="go_to_page('<%=user.bookmark[i].data.resp.url%>')"><%=user.bookmark[i].data.resp.name %></span>
+                                  </h2>
+                                  <p>
+                                    <% if (user.bookmark[i].data.resp.builder){ %>
+                                      <%=user.bookmark[i].data.resp.builder %>
+                                      <%}%>
+                                  </p>
+                                  <% if ((user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price)||(user.bookmark[i].data.resp.sq_fit_cost && user.bookmark[i].data.resp.sq_fit_cost.cost)){ %>
+                                    <hr/>
+                                    <div class="row align-items-center">
+                                      <% if (user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price){ %>
+                                      <div class="col-6">
+                                        <h3>Price :₹ <%=changeNumberFormat(user.bookmark[i].data.resp.price.price)%></h3>
+                                      </div>
+                                      <%} else {%>
+                          
+                                      <%}%>
+                                      <% if (user.bookmark[i].data.resp.sq_fit_cost && user.bookmark[i].data.resp.sq_fit_cost.cost){ %>
+                                        <div class="col-6">
+                                          <h6>
+                                            SqFt. cost:
+                                            ₹<%=user.bookmark[i].data.resp.sq_fit_cost.cost%>
+                                          </h6>
+                                        </div>
+                                      <%} else {%>
+                                        
+                                      <%}%>
+                                    </div>
+                                  <%} else {%>
+                                  <%}%>
+                                  <hr/>
+                                  <div class="located_area">
+                                    <div class="loc-left">
+                                      <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                                      <p> 
+                                        <% if (user.bookmark[i].data.resp.subcity){ %>
+                                          <%=user.bookmark[i].data.resp.subcity %>,
+                                        <%}%>
+                                        <% if (user.bookmark[i].data.resp.city){ %>
+                                          <%=user.bookmark[i].data.resp.city %>
+                                        <%}%>
+                                      </p>
+                                    </div>
+                                    <div class="area_prices">
+                                      <h2>
+                                        <% if (user.bookmark[i].data.resp.area && user.bookmark[i].data.resp.area.area){ %>
+                                          <%=user.bookmark[i].data.resp.area.area %> sq ft.
+                                        <%} else {%>
+                                          -
+                                        <%}%>
+                                      </h2>
+                                    </div>
+                                  </div>
+                                  <hr/>
+                                  <div class="featured-points">
+                                    <ul>
+                                      <% if (user.bookmark[i].data.resp.bhk_space){ %>
+                                        <li>
+                                          <h5>
+                                            <%=user.bookmark[i].data.resp.bhk_space %>
+                                          </h5>
+                                        </li>
+                                      <%}%>
+                                      <% if (user.bookmark[i].data.resp.property_type){ %>
+                                        <li>
+                                          <h5>
+                                            <%=user.bookmark[i].data.resp.property_type%>
+                                          </h5>
+                                        </li>
+                                      <%}%>
+                                      <% if (user.bookmark[i].data.resp.furnished){ %>
+                                        <li>
+                                          <h5>
+                                            <%=user.bookmark[i].data.resp.furnished %>
+                                          </h5>
+                                        </li>
+                                      <%}%>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="book-prop-btn">
+                                <button class="btn"data-toggle="modal"
+                                data-target="#booking-modal"   id="<%=i%>_profile-bookmark-btns-<%=user.bookmark[i].data.resp.id%>"
+                                style="display: none;"
+                                >Book This Property</button>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      <%} else { %>
+                        <% if ((i === user.bookmark.length - 1 || user.bookmark.find((currentBookmark)=>{if(currentBookmark.data){currentBookmark.data.resp.is_live !== "2"}})) && user.bookmark.filter((currentBookmark)=>currentBookmark.type === "properties").length === 0) {%>
+                          <div style="min-height: 20vh;" class="col-12 d-flex justify-content-center align-items-center">
+                            <h1 class="text-muted text-center">No Bookmarks </h1>
+                          </div>
+                        <% } else if (i === user.bookmark.length - 1 && user.bookmark[i].data.resp.is_live !== "2") {%>
+                          <div style="min-height: 20vh;" class="col-12 d-flex justify-content-center align-items-center">
+                            <h1 class="text-muted text-center">No Bookmarks </h1>
+                          </div>
+                        <%}%>
+                      <%}%>
+                    <%}%>
+                  </ul>
+                <% } else{ %>
+                <% } %>
+              </div>
+
+              <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+              <div class="bookmarks-section" id="projects-container" style="display: none;">
+                <% if (user.bookmark){ %>
+                  <ul class="row">
+                    <% for(var i=0; i < user.bookmark.length; i++) { %>
+                      <% if (user.bookmark[i].type==="projects" && user.bookmark[i].data && user.bookmark[i].data.resp && user.bookmark[i].data.resp.custSkip && user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price.min && user.bookmark[i].data.resp.url) { %>
+                      <li class="col-12 col-lg-6">
+                        <div onmouseenter="showBox('<%=user.bookmark[i].data.resp.id%>', '<%=i%>', '<%=i+user.bookmark[i].data.resp.custSkip%>', '<%=user.bookmark[i].data.resp.price.price%>', '<%=user.bookmark[i].data.resp.url%>')" onmouseleave="hideBox('<%=user.bookmark[i].data.resp.id%>', '<%=i%>', '<%=i+user.bookmark[i].data.resp.custSkip%>')">
+                          <div class="patrital-map-card-view-project">
+                            <div style="min-width: 100%;" class="apparment-list apparment-list-updated" 
+                            id="<%=i+user.bookmark[i].data.resp.custSkip%>_profile-bookmark-<%=user.bookmark[i].data.resp.id%>" 
+                            >
+                              <div class="apparment-list-left">
+                                <!-- <a href="javascript:;" class="add-com-btn">
+                                  <div class="appartment-checkbox">
+                                    <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=user.bookmark[i].data.resp.id%>" name="example-<%=user.bookmark[i].data.resp.id%>" onchange="add_to_compare('<%=JSON.stringify(user.bookmark[i].data.resp)%>')">
+                                      <label class="custom-control-label" for="example-<%=user.bookmark[i].data.resp.id%>">
+                                      </label>
+                                    </div>
+                                  </div>
+                                </a> -->
+                                <div class="owl-carousel owl-theme allProp-first-owl" onclick=go_to_page("<%=user.bookmark[i].data.resp.url %>")>
+                                  <% if (user.bookmark[i].data.resp.images && user.bookmark[i].data.resp.images.Projects.length > 0){ %>
+                                    <% for(var j=0; j < user.bookmark[i].data.resp.images.Projects.length; j++) { %>
+                                      <div class="item">
+                                        <div class="all-prop-heart">
+                                          <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=user.bookmark[i].data.resp.images.Projects[j] %>" class="img img-fluid">
+                                        </div>
+                                      </div>
+                                    <% } %>
+                                  <%} else {%>
+                                    <div class="item">
+                                      <div class="all-prop-heart">
+                                        <img src="/images/placeholder_bg.webp" class="img img-fluid">
+                                      </div>
+                                    </div>
+                                    <% } %>
+                                  </div>
+                              </div>
+                              <div class="apparment-list-right">
+                                <div class="row">
+                                  <div class="col-lg-8">
+                                    <h2>
+                                      <%-include('./partials/bookmark-list', {url: user.bookmark[i].data.resp.url, is_bookmarked: user.bookmark[i].data.resp.is_bookmarked, id: i + "_profile-bookmark-" + user.bookmark[i].data.resp.id}); %>
+                                      <span onclick=go_to_page("<%=user.bookmark[i].data.resp.url %>")><%=user.bookmark[i].data.resp.name %></span>
+                                    </h2>
+                                    <% if (user.bookmark[i].data.resp.builder){ %>
+                                    <p><%=user.bookmark[i].data.resp.builder %></p>
+                                    <%}%>
+                                  </div>
+                                  <% if (user.bookmark[i].data.resp.area && user.bookmark[i].data.resp.area.area){ %>
+                                    <div class="col-lg-4">
+                                      <div class="area_prices">
+                                        <h2>
+                                                  
+                                          <%=user.bookmark[i].data.resp.area.area %> acres
+                        
+                                        </h2>
+                                      </div>
+                                    </div>
+                                  <%} else {%>
+                      
+                                  <%}%>
+                                </div>
+                                <% if ((user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price.min && user.bookmark[i].data.resp.price.min != '" NaN "')||(user.bookmark[i].data.resp.sq_fit_cost && user.bookmark[i].data.resp.sq_fit_cost.min)){ %>
+                                <hr/>
+                                <div class="row align-items-center">
+                                      <% if (user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price.min && user.bookmark[i].data.resp.price.min !== '" NaN "'){ %>
+                                  <div class="col-7">
+                                    <h3>Starting Price : 
+                                      <span>
+                                        <%=changeNumberFormat(user.bookmark[i].data.resp.price.min)%>
+                                      </span>
+                                    </h3>
+                                  </div>
+                                  <%} else {%>
+                                  <%}%>
+                                  <% if (user.bookmark[i].data.resp.sq_fit_cost && user.bookmark[i].data.resp.sq_fit_cost.min){ %>
+                                  <div class="col-5">
+                                    <h6>
+                                      Starting SqFt. cost: <b>
+                                        
+                                        ₹<%=user.bookmark[i].data.resp.sq_fit_cost.min%>
+                                        
+                                      </b>
+                                  </div>
+                                  <%} else {%>
+                    
+                                  <%}%>
+                                </div>
+                                <%} else {%>
+                                  
+                                <%}%>
+                                <hr/>
+                                <div class="located_area">
+                                  <div class="loc-left">
+                                    <i class="fa fa-map-marker mr-2"
+                                    aria-hidden="true"></i>
+                                    <p>
+                                      <% if (user.bookmark[i].data.resp.subcity){ %><%=user.bookmark[i].data.resp.subcity %>,
+                                      <%}%><% if (user.bookmark[i].data.resp.city){ %><%=user.bookmark[i].data.resp.city %> <%}%>
+                                    </p>
+                                  </div>
+                                  <% if (user.bookmark[i].data.resp.details_area && user.bookmark[i].data.resp.details_area.min && user.bookmark[i].data.resp.details_area.max){ %>
+                                  <div class="area_prices">
+                                    <h2>
+                                      (<%=user.bookmark[i].data.resp.details_area.min %>-<%=user.bookmark[i].data.resp.details_area.max %>) sq. ft.
+                                    </h2>
+                                  </div>
+                                  <%} else {%>
+                                  <%}%>
+                                </div>
+                                <hr/>
+                                <div class="featured-points">
+                                  <ul>
+                                    <% if (user.bookmark[i].data.resp.project_status){ %>
+                                      <li>
+                                        <h5><%=user.bookmark[i].data.resp.project_status %></h5>
+                                      </li>
+                                    <%}%>
+                                    <% if (user.bookmark[i].data.resp.property_type){ %>
+                                      <li>
+                                        <h5><%=user.bookmark[i].data.resp.property_type %></h5>
+                                      </li>
+                                    <%}%>
+                                    <% if (user.bookmark[i].data.resp.lease_rent){ %>
+                                      <li>
+                                        <h5><%=user.bookmark[i].data.resp.lease_rent %></h5>
+                                      </li>
+                                    <%}%>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              id="<%=i%>_profile-bookmark-btns-<%=user.bookmark[i].data.resp.id%>"
+                              class="book-prop-btn"
+                              onclick="go_to_page('/properties?project=<%=user.bookmark[i].data.resp.name%>')"
+                              style="display: none">
+                              <!-- <button class="btn">Available Properties (<%=user.bookmark[i].data.resp.total_properties%>)</button> -->
+                              <% if (user.bookmark[i].data.resp.total_properties !== 0) {%>
+                                <button class="btn">Available Properties (<%=user.bookmark[i].data.resp.total_properties%>)</button>
+                                <%} else { %>
+                                  <button class="btn">Register your interest</button>
+                                  <%}%>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <%} else { %>
+                        <% if ((i === user.bookmark.length - 1 || user.bookmark.find((currentBookmark)=>{if(currentBookmark.data){currentBookmark.data.resp.is_live !== "2"}})) && user.bookmark.filter((currentBookmark)=>currentBookmark.type === "projects").length === 0) {%>
+                          <div style="min-height: 20vh;" class="col-12 d-flex justify-content-center align-items-center">
+                            <h1 class="text-muted text-center">No Bookmarks </h1>
+                          </div>
+                        <% } else if (i === user.bookmark.length - 1 && user.bookmark[i].data.resp.is_live !== "2") {%>
+                          <div style="min-height: 20vh;" class="col-12 d-flex justify-content-center align-items-center">
+                            <h1 class="text-muted text-center">No Bookmarks </h1>
+                          </div>
+                        <%}%>
+                      <%}%>
+                    <%}%>
+                  </ul>
+                <% } else{ %>
+                <% } %>
+              </div>
+
+              <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+              <div class="bookmarks-section" id="builders-container" style="display: none;">
+                <% if (user.bookmark){ %>
+                  <% for(var i=0; i < user.bookmark.length; i++) { %>
+                    <ul class="row">
+                      <% for(var i=0; i < user.bookmark.length; i++) { %>
+                        <% if (user.bookmark[i].type==="builders" && user.bookmark[i].data ) { %>
+                          <li class="col-lg-3 col-sm-6 col-12 small-logo-listing-page">
+                            <!-- <a href="<%=user.bookmark[i].url%>" target="_blank">
+                              <h5 class="text-center">
+                                <%=user.bookmark[i].url.split("/")[2].split("-").slice(0, -1).join(" ")%>
+                              </h5>
+                            </a> -->
+                            <div class="w-100">
+                              <div class="appartement-grid-box builder-box bank-app-grid-box">
+                                <div class="app-grid-img cursor-pointor" onclick="go_to_page('<%=user.bookmark[i].data.resp.url %>')"">
+                                  <img class="img img-fluid" src="<%=locals.CURRENT_IMAGE_BASE_URL%>/builder/<%=user.bookmark[i].data.resp.logo %>" alt="">
+                                </div>
+                                <div class="app-grid-content pt-0">
+                                <div>
+                                  <h2>
+                                    <%-include("./partials/bookmark-list", {url: user.bookmark[i].data.resp.url, is_bookmarked: user.bookmark[i].data.resp.is_bookmarked, id: i + "_builder-" + user.bookmark[i].data.resp.id}) %>
+                                    <b onclick="go_to_page(<%= user.bookmark[i].data.resp.url %>)"> <%=user.bookmark[i].data.resp.name %> </b>
+                                  </h2>
+                                </div>
+                                <div class="located_area justify-content-center">
+                                  <div class="loc-left ">
+                                    <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                                    <p class="builder-location-font">
+                                      <% if (user.bookmark[i].data.resp.subcity){ %><%=user.bookmark[i].data.resp.subcity %>,<%}%><% if (user.bookmark[i].data.resp.city){ %><%=user.bookmark[i].data.resp.city %> <%}%>
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="lc-content-dt">
+                                  <!-- <div class="row align-items-center">
+                                      <div class="col-6">
+                                          <div class="text-left">
+                                              <p>Total Projects</p>
+                                          </div>
+                                      </div>
+                                      <div class="col-6">
+                                          <div class="text-right">
+                                              <h6>
+                                                  <% if (user.bookmark[i].data.resp.total_projects){ %>
+                                                    <%=user.bookmark[i].data.resp.total_projects %>
+                                                  <%} else {%>
+                                                  <%}%>  
+                                              </h6>
+                                          </div>
+                                      </div>
+                                  </div> -->
+                                  <% if ((user.bookmark[i].data.resp.total_projects) || (user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price.min)) { %>
+                                    <div class="row align-items-center">
+                                      <div class="col-12">
+                                        <div class="text-center border-bottom">
+                                          <p>
+                                            <% if (user.bookmark[i].data.resp.total_projects){ %>
+                                            <%=user.bookmark[i].data.resp.total_projects %> Projects
+                                            <%}%>
+                                            <% if (user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price.min){ %>
+                                              Starting ₹ <%=changeNumberFormat(user.bookmark[i].data.resp.price.min) %>
+                                            <%}%>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  <%}%>
+                                  <div class="row">
+                                    <div class="col-4">
+                                      <div class="text-center">
+                                        <p>Under Const.</p>
+                                        <h6>
+                                          <% if (user.bookmark[i].data.resp.project_status_count && user.bookmark[i].data.resp.project_status_count.UnderConstruction ){ %>
+                                          <%=user.bookmark[i].data.resp.project_status_count.UnderConstruction %>
+                                          <%} else {%>
+                                          -
+                                          <%}%>
+                                        </h6>
+                                      </div>
+                                    </div>
+                                    <div class="col-4">
+                                      <div class="text-center">
+                                        <p>Pre Launch</p>
+                                        <h6>
+                                          <% if (user.bookmark[i].data.resp.project_status_count && user.bookmark[i].data.resp.project_status_count.PreLaunch){ %>
+                                          <%=user.bookmark[i].data.resp.project_status_count.PreLaunch %>
+                                          <%} else {%>
+                                          -
+                                          <%}%>
+                                        </h6>
+                                      </div>
+                                    </div>
+                                    <div class="col-4">
+                                      <div class="text-center">
+                                        <p>Ready To Move </p>
+                                        <h6>
+                                          <% if (user.bookmark[i].data.resp.project_status_count  && user.bookmark[i].data.resp.project_status_count.ReadyToMove){ %>
+                                          <%=user.bookmark[i].data.resp.project_status_count.ReadyToMove %>
+                                          <%} else {%>
+                                          -
+                                          <%}%>
+                                        </h6>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="col-4">
+                                      <div  class="text-center">
+                                        <p>Properties starting </p>
+                                        <h6>
+                                            <% if (user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price.min){ %>
+                                        <%=user.bookmark[i].data.resp.price.min %>
+                                        <%} else {%>
+                                        -
+                                        <%}%>
+                                        </h6>
+                                      </div>
+                                    </div> -->
+                                  </div>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        <%} else { %>
+                          <% if ((i === user.bookmark.length - 1 || user.bookmark.find((currentBookmark)=>{if(currentBookmark.data){currentBookmark.data.resp.is_live !== "2"}})) && user.bookmark.filter((currentBookmark)=>currentBookmark.type === "builders").length === 0) {%>
+                          <div style="min-height: 20vh;" class="col-12 d-flex justify-content-center align-items-center">
+                            <h1 class="text-muted text-center">No Bookmarks </h1>
+                          </div>
+                          <% }%>
+                        <% } %>
+                      <%}%>
+                    </ul>
+                  <%}%>
+                <% } else{ %>
+                <% } %>
+              </div>
+
+              <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+              <div class="bookmarks-section" id="locations-container" style="display: none;">
+                <% if (user.bookmark){ %>
+                  <ul class="row">
+                    <% for(var i=0; i < user.bookmark.length; i++) { %>
+                      <% if (user.bookmark[i].type==="locations" && user.bookmark[i].data) { %>
+                        <li class="col-lg-3 col-sm-6 col-12">
+                          <!-- <a href="<%=user.bookmark[i].url%>" target="_blank">
+                            <h5 class="text-center">
+                              <%=user.bookmark[i].url.split("/")[2].split("-").slice(0, -1).join(" ")%>
+                            </h5>
+                          </a> -->
+                          <div class="w-100">
+                            <div class="appartement-grid-box" >
+                               <div class="app-grid-img" onclick=go_to_page("<%=encodeURI(user.bookmark[i].data.resp.url) %>")>
+                                  <img class="img img-fluid" src="<%=user.bookmark[i].data.resp.banner_image %>" alt="">
+                               </div>
+                               <div class="location-grid-content">
+                                  <div class="lc-content-row">
+                                     <div class="row align-items-center">
+                                        <div class="col-9">
+                                           <div class="text-left">
+                                              <h2 >
+                                                 <%- include('./partials/bookmark-list', {url: user.bookmark[i].data.resp.url, is_bookmarked: user.bookmark[i].data.resp.is_bookmarked, id: i + "_location-" + user.bookmark[i].data.resp.id}); %>
+                                                 <span onclick=go_to_page("<%=encodeURI(user.bookmark[i].data.resp.url) %>")><%=user.bookmark[i].data.resp.name %> </span>
+                                              </h2>
+                                        </div>
+                                        </div>
+                                        <div class="col-3">
+                                           <div class="text-right">
+                                                 <h3><%=user.bookmark[i].data.resp.location_type %></h3>
+                                           </div>
+                                        </div>
+                                     </div>    
+                                  </div> 
+                      
+                                  <div class="lc-content-dt">
+                                     <% if ((user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price.min ) || (user.bookmark[i].data.resp.total_projects )){ %>
+                                        <div class="row">
+                                           <div class="col-12">
+                                              <div class="text-left border-bottom">
+                                                 <p>
+                                                    <% if (user.bookmark[i].data.resp.total_projects ){ %>
+                                                       <%=user.bookmark[i].data.resp.total_projects %> Projects 
+                                                    <%}%>
+                                                    <% if (user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price.min ){ %>
+                                                       Starting From <b> <%= changeNumberFormat(user.bookmark[i].data.resp.price.min) %></b> 
+                                                    <%}%>
+                                                 </p>
+                                              </div>
+                                           </div>
+                                        </div>
+                                     <%}%>
+                                     <% if (user.bookmark[i].data.resp.population){ %>
+                                        <div class="row align-items-center">
+                                           <div class="col-8">
+                                              <div class="text-left">
+                                                 <p>Population (Lakhs)</p>
+                                              </div>
+                                           </div>
+                                           <div class="col-4">
+                                              <div class="text-right">
+                                                 <h6>
+                                                  <%=user.bookmark[i].data.resp.population %>
+                                                 </h6>
+                                              </div>
+                                           </div>
+                                        </div>
+                                     <%} else {%>
+                                        
+                                     <%}%>
+                                     <% if (user.bookmark[i].data.resp.capital_income){ %>
+                                        <div class="row align-items-center">
+                                           <div class="col-8">
+                                              <div class="text-left">
+                                                 <p>Per Capita Income (Rs)</p>
+                                              </div>
+                                           </div>
+                                           <div class="col-4">
+                                              <div class="text-right">
+                                                 <h6>
+                                                  <%=user.bookmark[i].data.resp.capital_income %>
+                                                </h6>
+                                              </div>
+                                           </div>
+                                        </div> 
+                                     <%} else {%>
+                                         
+                                     <%}%>
+                                     <% if (user.bookmark[i].data.resp.gdp){ %>
+                                        <div class="row align-items-center">
+                                           <div class="col-8">
+                                              <div class="text-left">
+                                                 <p>GDP  (Crore Rs) </p>
+                                              </div>
+                                           </div>
+                                           <div class="col-4">
+                                              <div class="text-right">
+                                                 <h6>
+                                                  <%=user.bookmark[i].data.resp.gdp %>
+                                                 </h6>
+                                              </div>
+                                           </div>
+                                        </div> 
+                                     <%} else {%>
+                                        
+                                     <%}%>
+                                     <% if (user.bookmark[i].data.resp.area && user.bookmark[i].data.resp.area.area && user.bookmark[i].data.resp.area.unit){ %>
+                                        <div class="row align-items-center">
+                                           <div class="col-4">
+                                              <div class="text-left">
+                                                 <p>Area </p>
+                                              </div>
+                                           </div>
+                                           <div class="col-8">
+                                              <div class="text-right">
+                                                 <h6>
+                                                    <%=user.bookmark[i].data.resp.area.area %> Sq.Km
+                                                 </h6>
+                                              </div>
+                                           </div>
+                                        </div>  
+                                     <%}%>
+                                  </div> 
+                               </div>
+                            </div>
+                         </div>
+                        </li>
+                        <%} else { %>
+                          <% if ((i === user.bookmark.length - 1 || user.bookmark.find((currentBookmark)=>{if(currentBookmark.data){currentBookmark.data.resp.is_live !== "2"}})) && user.bookmark.filter((currentBookmark)=>currentBookmark.type === "locations").length === 0) {%>
+                          <div style="min-height: 20vh;" class="col-12 d-flex justify-content-center align-items-center">
+                            <h1 class="text-muted text-center">No Bookmarks </h1>
+                          </div>
+                          <% }%>
+                        <%}%>
+                        <%}%>
+                  </ul>
+                  <% } else{ %>
+                <% } %>
+              </div>
+
+              <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+              <div class="bookmarks-section" id="authorities-container" style="display: none;">
+                <% if (user.bookmark){ %>
+                  <ul class="row small-logo-listing-page">
+                  <% for(var i=0; i < user.bookmark.length; i++) { %>
+                    <% if (user.bookmark[i].type==="authorities" && user.bookmark[i].data ) { %>
+                      <li class="col-lg-3 col-sm-4 col-12 custom-mb-30">
+                        <!-- <a href="<%=user.bookmark[i].url%>" target="_blank">
+                          <h5 class="text-center">
+                              <%=user.bookmark[i].url.split("/")[2].split("-").slice(0, -1).join(" ")%>
+                          </h5>
+                        </a> -->
+                        <div class="">
+                          <div class="appartement-grid-box" >
+                            <div class="app-grid-img auth-logo-img" onclick=go_to_page("<%=user.bookmark[i].data.resp.url %>")>
+                              <img class="img img-fluid" style="width: 100% !important" src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=user.bookmark[i].data.resp.logo %>" alt="">
+                            </div>
+                            <div class="location-grid-content auth-grid-content">
+                              <div class="lc-content-row">
+                                <div class="row align-items-center">
+                                  <div class="col-12">
+                                    <div class="text-center">
+                                      <h2>
+                                         <%-include('./partials/bookmark-list', {url: user.bookmark[i].data.resp.url, is_bookmarked: user.bookmark[i].data.resp.is_bookmarked, id: i + "_authority-" + user.bookmark[i].data.resp.id}); %>
+                                        <span onclick=go_to_page("<%=user.bookmark[i].data.resp.url %>")><%=user.bookmark[i].data.resp.name %> </span>
+                                      </h2>
+                                    </div>
+                                  </div>
+                                  <div class="col-12">
+                                    <div class="text-center">
+                                      <% if (user.bookmark[i].data.resp.state || user.bookmark[i].data.resp.district){ %>
+                                        <p class="auth-location-font"><img src="/v1/img/gps.webp" alt=""> 
+                                          <% if (user.bookmark[i].data.resp.district){ %>
+                                            <%=user.bookmark[i].data.resp.district %>
+                                          <%}%>
+                                          <% if (user.bookmark[i].data.resp.state && user.bookmark[i].data.resp.district){ %>
+                                          , 
+                                          <%}%>
+                                          <% if (user.bookmark[i].data.resp.state){ %>
+                                            <%=user.bookmark[i].data.resp.state %>
+                                          <%}%>
+                                        </p>
+                                      <%}%>  
+                                    </div>
+                                  </div>
+                                </div>    
+                              </div> 
+                              <div class="lc-content-dt auth-content-dt ">
+                                <div class="row mb-0">
+                                  <div class="col-12">
+                                    <% if (user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price.min){ %>
+                                      <p class="text-center border-bottom">Properties starting from : 
+                                        <b> 
+                                          <% if (user.bookmark[i].data.resp.price && user.bookmark[i].data.resp.price.min){ %>
+                                          <%=changeNumberFormat(user.bookmark[i].data.resp.price.min) %>
+                                          <%} else {%>
+                                          - 
+                                          <%}%>
+                                        </b>
+                                      </p>
+                                    <%}%>
+                                  </div>
+                                </div>
+                                <div class="row align-items-center mb-0">
+                                  <div class="col-4">
+                                    <div class="text-center">
+                                      <p>Total Projects</p>
+                                      <h6>
+                                        <% if (user.bookmark[i].data.resp.total_projects){ %>
+                                          <%=user.bookmark[i].data.resp.total_projects %>
+                                        <%} else {%>
+                                        - 
+                                        <%}%>
+                                      </h6>
+                                    </div>
+                                  </div>
+                                  <div class="col-4">
+                                    <div class="text-center">
+                                      <p class="">Under 
+                                        Const. 
+                                      </p>
+                                      <h6>
+                                        <% if (user.bookmark[i].data.resp.project_status_count && user.bookmark[i].data.resp.project_status_count.UnderConstruction){ %>
+                                        <%=user.bookmark[i].data.resp.project_status_count.UnderConstruction %>
+                                        <%} else {%>
+                                        - 
+                                        <%}%>
+                                      </h6>
+                                    </div>
+                                  </div>
+                                  <div class="col-4">
+                                    <div class="text-center">
+                                      <p class="">Ready to move</p>
+                                      <h6>
+                                        <% if (user.bookmark[i].data.resp.project_status_count && user.bookmark[i].data.resp.project_status_count.ReadyToMove){ %>
+                                          <%=user.bookmark[i].data.resp.project_status_count.ReadyToMove %>
+                                        <%} else {%>
+                                        - 
+                                        <%}%>
+                                      </h6>
+                                    </div>
+                                  </div>                                 
+                                </div>     
+                              </div> 
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <%} else { %>
+                        <% if ((i === user.bookmark.length - 1 || user.bookmark.find((currentBookmark)=>{if(currentBookmark.data){currentBookmark.data.resp.is_live !== "2"}})) && user.bookmark.filter((currentBookmark)=>currentBookmark.type === "authorities").length === 0) {%>
+                        <div style="min-height: 20vh;" class="col-12 d-flex justify-content-center align-items-center">
+                          <h1 class="text-muted text-center">No Bookmarks </h1>
+                        </div>
+                        <% }%>
+                    <%}%>
+                    <%}%>
+                  </ul>
+              <% } else{ %>
+               <% } %>
+              </div>
+
+              <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+              <div class="bookmarks-section" id="banks-container" style="display: none;">
+                <% if (user.bookmark){ %>
+                  <ul class="row">
+                    <% for(var i=0; i < user.bookmark.length; i++) { %>
+                      <% if (user.bookmark[i].type==="banks" && user.bookmark[i].data ) { %>
+                        <li class="col-lg-3 col-sm-4 col-12 small-logo-listing-page">
+                          <!-- <a href="<%=user.bookmark[i].url%>" target="_blank">
+                            <h5 class="text-center">
+                              <%=user.bookmark[i].url.split("/")[2].split("-").slice(0, -1).join(" ")%>
+                            </h5>
+                          </a> -->
+                          <div class="">
+                            <div class="appartement-grid-box bank-app-grid-box">
+                              <div style="padding-left:0px !important;" class="app-grid-img bank-logo-img" onclick=go_to_page("<%=user.bookmark[i].data.resp.url %>")>
+                                <img class="img img-fluid" src="<%=locals.CURRENT_IMAGE_BASE_URL%>/bank/<%=user.bookmark[i].data.resp.logo %>" alt="">
+                              </div>
+                              <div class="location-grid-content">
+                                <div class="lc-content-row">
+                                  <div class="row align-items-center">
+                                    <div class="col-12">
+                                      <div class="text-center">
+                                        <h2>
+                                          <%- include('./partials/bookmark-list', {url: user.bookmark[i].data.resp.url, is_bookmarked: user.bookmark[i].data.resp.is_bookmarked, id: i + "_bank-" + user.bookmark[i].data.resp.id}); %>
+                                          <span onclick=go_to_page("<%=user.bookmark[i].data.resp.url %>")><%=user.bookmark[i].data.resp.name %> </span>
+                                        </h2>
+                                        <% if (user.bookmark[i].data.resp.type){ %>         
+                                          <% if (user.bookmark[i].data.resp.type === "nbfcs"){ %>
+                                            <p>NBFC Bank</p>
+                                          <%} else {%>
+                                            <p class="text-capitalize"><%=user.bookmark[i].data.resp.type %> Bank</p>
+                                          <%}%>
+                                        <%}%>
+                                      </div>
+                                    </div>
+                                  </div>    
+                                </div> 
+                                <div class="lc-content-dt">
+                                  <div class="row align-items-center">
+                                    <div class="col-8">
+                                      <div class="text-left">
+                                        <p>Approved Projects</p>
+                                      </div>
+                                    </div>
+                                    <div class="col-4">
+                                      <div class="text-right">
+                                        <h6>
+                                          <% if (user.bookmark[i].data.resp.total_projects){ %>
+                                            <%=user.bookmark[i].data.resp.total_projects %>
+                                          <%} else {%>
+                                          - 
+                                          <%}%>
+                                        </h6>
+                                      </div>
+                                    </div>
+                                  </div>    
+                                </div> 
+                              </div>
+                            </div>
+                         </div>
+                        </li>
+                        <%} else { %>
+                          <% if ((i === user.bookmark.length - 1 || user.bookmark.find((currentBookmark)=>{if(currentBookmark.data){currentBookmark.data.resp.is_live !== "2"}})) && user.bookmark.filter((currentBookmark)=>currentBookmark.type === "banks").length === 0) {%>
+                          <div style="min-height: 20vh;" class="col-12 d-flex justify-content-center align-items-center">
+                            <h1 class="text-muted text-center">No Bookmarks </h1>
+                          </div>
+                          <% }%>
+                      <%}%>
+                    <%}%>
+                  </ul>
+                <% } else{ %>
+                <% } %>
+              </div>
+            </div>
+            <% if (user.bookmark.length === 0) {%>
+                <div style="min-height: 20vh;" class="col-12 d-flex justify-content-center align-items-center">
+                  <h1 class="text-muted text-center">No Bookmarks </h1>
+                </div>
+              <% }%>
+          </div>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+          <div class="profile-section p2" id="submit-container" style="display: none">
+          <!-- <form action="" id="sellyourpropertyform"> -->
+            <div class="mt-2 w-100">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="email"><strong>Email : </strong></label>
+                    <%if (user.email && user.email!=="" ) { %>
+                    <input type="email" class="form-control" value="<%=user.email%>" id="property_email" required>
+                    <%}else{%>
+                    <input type="email" class="form-control" placeholder="Enter Your Email Id" id="property_email" autocomplete="off">
+                    <% } %>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <label for="username"><strong>Contact : </strong></label>
+                    <%if (user.username) { %>
+                      <input type="text" class="form-control" value="<%=user.username%>" id="property_username" required>
+                    <%} else{ %>
+                      <input type="text" class="form-control" placeholder="Enter Phone No." id="property_username" required autocomplete="off">
+                      <% } %>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group" id="project-search-submit-property">
+                    <label for="property_name"><strong>Project / Society Name : </strong></label>
+                    <input type="text" class="form-control property_name typeahead" placeholder="Property Name" id="property_name" autocomplete="off">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="property_type"><strong>Property Type : </strong></label>
+                    <select name="property_type" class="custom-select" id="property_type">
+                      <option selected value="">-- Select a property type --</option>
+                      <option value="Residential Plots">Residential Plots</option>
+                      <option value="Villas">Villas</option>
+                      <option value="Apartments">Apartments</option>
+                      <option value="Floors">Floors</option>
+                      <option value="Commercial Land">Commercial Land</option>
+                      <option value="Commercial Office">Commercial Office</option>
+                      <option value="Retail Shop">Retail Shop</option>
+                      <option value="Serviced Apartments">Serviced Apartments</option>
+                      <option value="Industrial Land">Industrial Land</option>
+                      <option value="Penthouse">Penthouse</option>
+                      <option value="Duplex">Duplex</option>
+                      <option value="Farm house">Farm house</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group" id="builder-search">
+                    <label for="builder"><strong>Builder's Name : </strong></label> <br>
+                    <input type="text" class="form-control builder-search-submit-property typeahead" placeholder="Builder's Name" id="builder" autocomplete="off">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group" id="subcity-search">
+                    <label for="locality"><strong>Locality : </strong></label> <br>
+                    <input type="text" class="form-control builder-search-submit-property typeahead" placeholder="Locality" id="locality" autocomplete="off">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group" id="city-search">
+                    <label for="city"><strong>City : </strong></label> <br>
+                    <input type="text" class="form-control builder-search-submit-property typeahead" placeholder="City" id="city" autocomplete="off">
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row">
+                  <div class="col-sm-7">
+                    <div class="form-group">
+                      <label for="district"><strong>District : </strong></label>
+                      <input type="text" class="form-control" placeholder="District" id="district">
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                    <div class="form-group mb-3">
+                      <label for="pincode"><strong>Pincode : </strong></label>
+                      <input type="number" class="form-control" placeholder="Pincode" id="pincode">
+                  </div>
+              </div>
+              </div> -->
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="price">
+                      <strong>Price :</b>
+                      </strong>
+                    </label>
+                    <input type="number" min="1" step="1" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" class="form-control" placeholder="Price" id="price" autocomplete="off">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <label for="size"><strong>Size (sq.ft.) : </strong></label>
+                    <input type="number" min="1" step="1" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" class="form-control" placeholder="Size" id="size" autocomplete="off">
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group" id="upload-property-images">
+                    <label for="submitPropertiesImages"><strong>Upload Property Images :</strong></label>
+                    <input accept="image/*" type="file" id="submitPropertiesImages" class="form-control" name="submitPropertiesImages" multiple style="border:1px solid #ced4da;">
+                  </div>
+                </div>
+              </div>
+              <!-- <form>
+                <div class="row"> -->
+                  
+                  <!-- <div class="col-sm-6">
+                    <div class="form-group" id="aadhar-card">
+                      <label for="submitAadharCard"><strong>Upload Aadhar Card :</strong></label>
+                      <input type="file" id="submitAadharCard" classsName="form-control" name="submitAadharCard" multiple required>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group" id="pan-card">
+                      <label for="submitPanCard"><strong>Upload PAN Card :</strong></label>
+                      <input type="file" id="submitPanCard" classsName="form-control" name="submitPanCard" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group" id="property-records">
+                      <label for="submitPropertyRecords"><strong>Upload Property Records (such as Utiltiy Bills) :</strong></label>
+                      <input type="file" id="submitPropertyRecords" classsName="form-control" name="submitPropertyRecords" multiple required>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group" id="bank-account-info">
+                      <label for="submitBankAccountInfo"><strong>Upload Bank Account info (Cancelled Cheque/Passbook) :</strong></label>
+                      <input type="file" id="submitBankAccountInfo" classsName="form-control" name="submitBankAccountInfo" required>
+                    </div>
+                  </div>
+                </div> -->
+              <!-- </form>
+              <div> -->
+                <div class="d-flex justify-content-start align-items-center mb-3">
+                  <input style="width: fit-content; margin-bottom: 0px !important;" type="checkbox" id="newsletter-check-sp-u" checked>
+                  <label class="ml-2 mb-0" for="newsletter-check-sp-u"> Subscribe to AssetZilla Newsletter </label>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-block profile-main-btn" onclick="submitProperty()">Start Selling</button>
+                </div>
+              </div>
+            <!-- </form>  -->
+            
+          </div>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+          <div class="profile-section p2" id="view-container" style="display: none">
+            <div class="apart-table table-responsive pt-0">
+              <% if (user.submitted_property.length>0) { %>
+                <table class="table" id="mytable">
+                  <thead>
+                    <tr>
+                    <th>Property Name</th>
+                    <th>CaseID</th>
+                    <th>Link</th>
+                    <th>Type</th>
+                    <th>Builder</th>
+                    <th>Locality</th>
+                    <th>City</th>
+                    
+                    <th>Price</th>
+                    <th>Size</th>
+                    <th>Status</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
+                    
+                  </tr>
+                </thead>
+                <!-- <%=JSON.stringify(user.submitted_property)%> -->
+                <tbody>
+                  <% for(var i=0; i < user.submitted_property.length; i++) { %>
+                  <tr>
+                    
+                    <td>
+                      <%=user.submitted_property[i]['property_name']%>
+                    </td>
+                    
+                    <td class="caseIDCell">
+                      <%=user.submitted_property[i]['case_id_display']%>
+                    </td>
+                    <%if (user.submitted_property[i]['isApproved']) { %>
+                      <td onclick=getLink("<%=user.submitted_property[i]['case_id_display']%>")>
+                        <%if (user.submitted_property[i]['case_id_display']) { %>
+                      <a style="cursor: pointer;">Link</a>
+                      <%}%>
+                    </td>
+                    <%} else {%>
+                    <td></td>
+                     <%}%>
+                    <td>
+                      <%=user.submitted_property[i]['property_type']%>
+                    </td>
+                    <td>
+                      <%=user.submitted_property[i]['builder']%>
+                    </td>
+                    <td>
+                      <%=user.submitted_property[i]['locality']%>
+                    </td>
+                    <td>
+                      <%=user.submitted_property[i]['city']%>
+                    </td>
+
+                    <td>
+                      <%=user.submitted_property[i]['price']%>
+                    </td>
+                    <td>
+                      <%=user.submitted_property[i]['size']%>
+                    </td>
+                    <%if (user.submitted_property[i]['isApproved']) { %>
+                    <td>Approved</td>
+                    <%} else {%>
+                    <td>
+                      <%=user.submitted_property[i]['status']%>
+                    </td>
+                    <%}%>
+                      <% if((user.submitted_property[i].status!=="Archieved" ) &&
+                      (user.submitted_property[i].status!=="Under Review"
+                      )||(user.submitted_property[i].status=="" )){ %>
+
+                    <td><button class="btn btn-danger" onclick=getCaseId("<%=user.submitted_property[i]['case_id_display']%>")>
+                        <i class="fa fa-trash"></i> </button></td>
+
+
+                    <td>
+                      <button class="btn btn-danger" onclick=editProperty("<%=user.submitted_property[i]['case_id_display']%>")>
+                        <i class="fa fa-pencil"></i> </button>
+                    </td>
+                    <% } else{ %>
+                    <td></td>
+                    <td></td>
+                    <% } %>
+
+
+                  </tr>
+                  <%}%>
+                          </tbody>
+                        </table>
+                        <% } else { %>
+                  <div class="d-flex justify-content-center align-items-center" style="min-height: 30vh;">
+                    <h2 class="text-muted">You've not posted any properties for sale on AssetZilla</h2>
+                  </div>
+                  <% } %>
+                  <div class="modal fade" id="SCDEditPropertyModal" tabindex="-1" role="dialog" aria-labelledby="SCDEditPropertyModallTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg auth-modal-mod" role="document">
+                      <div class="modal-content ">
+                        <button class="btn auth-modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="modal-body p-0">
+                          <div class="row">
+                            <div class="col-lg-12 col-sm-12 p-0">
+                              <div class="fdp-modal-left-content right-auth-md-content">
+                                <div id="ScheduleVisit">
+                                  <h2>Edit Images & Price</h2>
+
+                                  <div class="edit_imge_mod">
+                                    <form id="userPropertyEdit">
+                                      <label for="price">Price:</label>
+                                      <input type="number" id="priceInput" classsName="form-control" name="priceInput">
+                                      <input type="file" id="propertiesImages" classsName="form-control" name="propertiesImages" multiple accept="image/png, image/jpeg">
+                                      <div class="row" id="edit-property-image-container">
+                                      </div>
+                                      <div class="upld_btn">
+                                        <button type="submit" class="btn btn-upload">Upload</button>
+                                      </div>
+
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="CancelOrDeleteModal" tabindex="-1" role="dialog" aria-labelledby="CancelOrDeleteModallTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg auth-modal-mod" role="document">
+                      <div class="modal-content ">
+                        <button class="btn auth-modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="modal-body p-0">
+                          <div class="row">
+                            <div class="col-lg-12 col-sm-12 p-0">
+                              <div class="fdp-modal-left-content right-auth-md-content">
+                                <div id="ScheduleVisit">
+                                  <h2>Do you really want to delete this property?</h2>
+
+                                  <button id="myCheck" onClick=reply_click(this.id) class="btn btn-danger">Delete</button>
+                                  <button onclick=close_click() class="btn btn-primary">Cancel</button>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="EditPropertyOTPVerficationModal" tabindex="-1" role="dialog" aria-labelledby="EditPropertyOTPVerficationModalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg auth-modal-mod" role="document">
+                      <div class="modal-content ">
+                        <button class="btn auth-modal-close btn-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="modal-body p-0">
+                          <div class="row">
+                            <div class="col-lg-12 col-sm-12 p-0 label-text">
+                              <div class="fdp-modal-left-content right-auth-md-content">
+                                <div id="ScheduleVisit">
+                                  <h2>OTP Verification</h2>
+                                  <br />
+
+                                  <form data-autosubmit="false" autocomplete="off" id="editPropertyOtpForm">
+                                  <!-- <form class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off" id="editPropertyOtpForm"> -->
+                                    <div class="otp-feilds">
+                                      <ul>
+                                        <li> <input type="text" oninput="handleOnInput(event, this)" class="form-control d-none d-md-block" id="digit2-1" name="digit2-1" data-next="digit2-2"></li>
+                                        <li> <input type="text" oninput="handleOnInput(event, this)" class="form-control d-none d-md-block" id="digit2-2" name="digit2-2" data-next="digit2-3" data-previous="digit2-1"></li>
+                                        <li> <input type="text" oninput="handleOnInput(event, this)" class="form-control d-none d-md-block" id="digit2-3" name="digit2-3" data-next="digit2-4" data-previous="digit2-2"></li>
+                                        <li> <input type="text" oninput="handleOnInput(event, this)" class="form-control d-none d-md-block" id="digit2-4" name="digit2-4" data-next="digit2-5" data-previous="digit2-3"></li>
+                                      </ul>
+                                      <input type="number" max="9999" placeholder="Enter 4 Digit OTP" class="form-control otpInput1234 d-block d-md-none" id="otpInput2" name="otpInput2">
+                                    </div>
+                                    <div>
+                                      <button type="button" class="btn auth-modal-btn" id="send-otp-edit-property">Verify & Proceed</button>
+                                    </div>
+                                  </form>
+                                  <p>Didn’t recieve the OTP ? <a href="javascript:;" onclick="resendOtpForEditProperty()">Resend</a></p>
+
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+            </div>
+
+
+          </div>
+<!-- ============================================================================================================================================================= -->
+          <div class="profile-section p2" id="view-history-container" style="display: none;">
+            <% console.log(user.viewHistory) %>
+            <% console.log("--------->",Object.keys(user.viewHistory)) %>
+            <% if (user.viewHistory && user.viewHistory[0] !== null && Object.keys(user.viewHistory).length > 0) {%>
+              <% for(const date of Object.keys(user.viewHistory)) {%>
+                <h4 class="mt-4"><%=date%></h4>
+                <div class="row justify-content-start ml-0" style="list-style: none;">
+                  <%console.log(user.viewHistory[date])%>
+                  <% if (user.viewHistory[date] && user.viewHistory[date].length > 0) {%>
+                    <% for(const history of user.viewHistory[date]) {%>
+                      <% console.log(history) %>
+                      <% if (history.doc_type === "property") {%>
+                        <div class="view-history-card col-6 col-md-4 col-lg-2 rounded border m-2 d-flex flex-column p-0">
+                          <div class="img-div">
+                            <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=history.images.Projects[0]%>" class="w-100 h-100" style="object-fit: cover;" alt="">
+                          </div>
+                          <div class="content p-2">
+                            <a href="<%= history.url %>"> 
+                              <%=history.name%> 
+                            </a>
+                            <% if (history.price && history.price.price) {%>
+                              <p class="">Price: ₹<%=changeNumberFormat(history.price.price)%></p>
+                            <%}%>
+                          </div>
+                        </div>
+                      <%} else if (history.doc_type === "project") {%>
+                        <div class="view-history-card col-6 col-md-4 col-lg-2 rounded border m-2 d-flex flex-column p-0">
+                          <div class="img-div">
+                            <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=history.images.Projects[0]%>" class="w-100 h-100" style="object-fit: cover;" alt="">
+                          </div>
+                          <div class="content p-2">
+                            <a href="<%= history.url %>"> 
+                              <%=history.name%> 
+                            </a>
+                            <% if (history.price && history.price.min) {%>
+                              <p class="">Starting price: ₹<%=changeNumberFormat(history.price.min)%></p>
+                            <%}%>
+                          </div>
+                        </div>
+                      <%} else if (history.doc_type === "builder") {%>
+                        <div class="view-history-card col-6 col-md-4 col-lg-2 rounded border m-2 d-flex flex-column p-0">
+                          <div class="img-div">
+                            <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/builder/<%=history.logo%>" class="w-100 h-100" style="object-fit: contain;" alt="">
+                          </div>
+                          <div class="content p-2">
+                            <a href="<%= history.url %>"> 
+                              <%=history.name%> 
+                            </a>
+                          </div>
+                        </div>
+                      <%} else if (history.doc_type === "authority") {%>
+                        <div class="view-history-card col-6 col-md-4 col-lg-2 rounded border m-2 d-flex flex-column p-0">
+                          <div class="img-div">
+                            <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=history.logo%>" class="w-100 h-100" style="object-fit: contain;" alt="">
+                          </div>
+                          <div class="content p-2">
+                            <a href="<%= history.url %>"> 
+                              <%=history.name%> 
+                            </a>
+                          </div>
+                        </div>
+                      <%} else if (history.doc_type === "bank") {%>
+                        <div class="view-history-card col-6 col-md-4 col-lg-2 rounded border m-2 d-flex flex-column p-0">
+                          <div class="img-div">
+                            <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/bank/<%=history.logo%>" class="w-100 h-100" style="object-fit: cover;" alt="">
+                          </div>
+                          <div class="content p-2">
+                            <a href="<%= history.url %>"> 
+                              <%=history.name%> 
+                            </a>
+                          </div>
+                        </div>
+                      <%} else if (history.doc_type === "location") {%>
+                        <div class="view-history-card col-6 col-md-4 col-lg-2 rounded border m-2 d-flex flex-column p-0">
+                          <div class="img-div">
+                            <% if (history.banner_image[0] === "Districts"){%>
+                              <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/district/<%=history.banner_image[1]%>" class="w-100 h-100" style="object-fit: cover;" alt="">
+                            <%} else if (history.banner_image[0] === "Cities") {%>
+                              <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/city/<%=history.banner_image[1]%>" class="w-100 h-100" style="object-fit: cover;" alt="">
+                            <%} else if (history.banner_image[0] === "Subcities") {%>
+                                <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/subcity/<%=history.banner_image[1]%>" class="w-100 h-100" style="object-fit: cover;" alt="">
+                            <%} else if (history.banner_image[0] === "States") {%>
+                              <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/state/<%=history.banner_image[1]%>" class="w-100 h-100" style="object-fit: cover;" alt="">
+                            <%}%>
+                          </div>
+                          <div class="content p-2">
+                            <a href="<%= history.url %>"> 
+                              <%=history.name%> 
+                            </a>
+                          </div>
+                        </div>
+                      <%} else if (history.doc_type === "news") {%>
+                        <div class="view-history-card col-6 col-md-4 col-lg-2 rounded border m-2 d-flex flex-column p-0">
+                          <div class="img-div">
+                            <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/news/<%=history.news_banner%>" class="w-100 h-100" style="object-fit: cover;" alt="">
+                          </div>
+                          <div class="content p-2">
+                            <a href="<%= history.url %>"> 
+                              <%=history.heading%> 
+                            </a>
+                          </div>
+                        </div>
+                      <%} else if (history.name) {%>
+                        <div class="col-6 col-md-4 col-lg-2 rounded border p-2 m-1">
+                          <a href="<%= history.url %>"> 
+                            <%=history.name%> 
+                          </a>
+                        </div>
+                      <%} else if(history.heading) { %>
+                        <div class="col-6 col-md-4 col-lg-2 rounded border p-2 m-1">
+                          <a href="<%= history.url %>"> 
+                            <%=history.heading%> 
+                          </a>
+                        </div>
+                      <%}%>
+                    <%}%>
+                  <%}%>
+                </div>
+                <% if (true) {%>
+                  <hr>
+                <%}%>
+              <% } %>
+            <%} else {%>
+              <h1 class="text-muted text-center">No View History</h1>
+            <% } %>
+          </div>
+<!-- ============================================================================================================================================================== -->
+          <div class="profile-section p2" id="search-history-container" style="display: none;">
+            <% console.log("<--------->",Object.keys(user.searchHistory)) %>
+            <% if (user.searchHistory && user.searchHistory[0] !== null && Object.keys(user.searchHistory).length > 0) {%>
+              <% for(const date of Object.keys(user.searchHistory)) {%>
+                <div class="border py-2 my-3 rounded" style="box-shadow: 0px 4px 20px 12px rgb(0 0 0 / 3%)">
+                  <h4 style="padding-left: 28px !important;" class="border-bottom p-2"><%=date%></h4>
+                  <ul class="mb-0">
+                    <% console.log("p-p-p-p-p-p-p-p-p-p-p-p-p-p-p-p-p-p-p",date, user.searchHistory[date]) %>
+                    <% if (user.searchHistory[date]) {%>
+                      <% for(const history of user.searchHistory[date]) {%>
+                        <li class="p-1 d-flex align-items-center">
+                          <img class="px-2 mx-1" src="assets/images/recent.svg" alt="">
+                          <a href="<%= history.url %>">
+                            <%= history.name || history.url%>
+                          </a>
+                        </li>
+                      <%}%>
+                    <% } %>
+                  </ul>
+              </div>
+              <% } %>            
+            <%} else {%>
+              <h1 class="text-muted text-center">No Search History</h1>
+            <% } %>
+          </div>
+<!-- ============================================================================================================================================================= -->
+          <div class="profile-section p2" id="recent-actions-container" style="display: none;">
+          <div class="d-flex justify-content-start align-items-start w-100" style="min-height: 10vh;">
+            
+            <div style="width:100%; background: #FFFFFF; border: 1px solid #F2F7E9; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 3px;">
+              <div class="py-4 px-2 w-100">
+                <ul id="recent-actions-tabs-section" class="d-flex px-0 mb-0" style="list-style:none; overflow: auto;">
+                  <li class="pl-0" style="cursor: pointer; color:black; font-weight:600;" id="booking-inquiries-btn" onclick="change_recent_actions_section('booking-inquiries')">Booking Inquiries</li>
+                  <li class="pl-4" style="cursor: pointer; color:gray" id="schedules-btn" onclick="change_recent_actions_section('schedules')">Schedules</li>
+                  <li class="pl-4" style="cursor: pointer; color:gray" id="leads-btn" onclick="change_recent_actions_section('leads')">Bank Loans</li>
+                  <li class="pl-4" style="cursor: pointer; color:gray" id="consultations-btn" onclick="change_recent_actions_section('consultations')">Consultations</li>
+                  <li class="pl-4" style="cursor: pointer; color:gray" id="interested-buyers-btn" onclick="change_recent_actions_section('interested-buyers')">Interested in Buying</li>
+                </ul>
+              </div>
+              <div style="overflow: auto;">
+                <div class="recent-actions-section w-100" id="booking-inquiries-container">
+                  <%if(user.leadsData.bookingInquiries && user.leadsData.bookingInquiries.length>0) {%>
+                    <table class="w-100">
+                      <thead  style="background-color: #074286; color: white;">
+                        <th class="p-2">Property</th>
+                        <th class="p-2">Created</th>
+                      </thead>
+                      <tbody>
+                        <% for(ld of user.leadsData.bookingInquiries) {%>
+                        <tr>
+                          <td class="p-2"><a href="<%=ld.property%>" target="_blank">Link</a></td>
+                          <td class="p-2"><%=ld.created%></td>
+                        </tr>
+                        <%}%>
+                      </tbody>
+                    </table>
+                  <%} else {%>
+                    <h5 class="px-2 text-muted d-flex align-items-center justify-content-start">No Data Availble</h5>
+                  <% } %> 
+                </div>
+                <div class="recent-actions-section w-100" id="schedules-container" style="display: none;">
+                  <%if(user.leadsData.schedules && user.leadsData.schedules.length>0) {%>
+                    <table class="w-100">
+                      <thead  style="background-color: #074286; color: white;">
+                        <th class="p-2">Property/Project</th>
+                        <th class="p-2">Booked On</th>
+                        <th class="p-2">Appointment Date/Time</th>
+                        <th class="p-2">Actions</th>
+                      </thead>
+                      <tbody>
+                        <% for(ld of user.leadsData.schedules) {%>
+                        <tr>
+                          <tr>
+                            <td class="p-2"><%=ld.project%></td>
+                            <td class="p-2"><%=ld.createdAt%></td>
+                            <td class="p-2"><%=ld.date + " " + ld.timeZone%></td>
+                            <td class="p-2" style="cursor: pointer;"><a data-toggle="modal" data-target="#<%=ld._id%>">Show History</a></td>
+                          </tr>
+                        </tr>
+                        
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="<%=ld._id%>" tabindex="-1" role="dialog" aria-labelledby="history" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-body">
+                                <div class="timeline-container">
+                                  <div class="timeline-wrapper">
+                                    <h1 class="timeline-h1"> Rescheduling History</h1>
+                                    <% if (ld.history && ld.history.length > 0) {%>
+                                      <ul class="timeline-sessions timeline-ul">
+                                        <% for(const hist of ld.history) {%>
+                                          <% console.log("--------------------", hist) %>
+                                          <% if (hist.show) {%>
+                                            <li  class="timeline-li">
+                                              <div class="timeline-time">On <%=hist.updateDate%></div>
+                                              <p class="timeline-p">You scheduled your appointment to be on <%=hist.newAppointmentDate + " " + hist.newTimeZone%></p>
+                                            </li>
+                                          <% } %>
+                                        <%}%>
+                                      </ul>
+                                    <%} else {%>
+                                      <h5 class="text-muted">No History Available</h5>
+                                    <% } %>  
+                                  </div>
+                                </div> 
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <%}%>
+                      </tbody>
+                    </table>
+                  <%} else {%>
+                    <h5 class="px-2 text-muted d-flex align-items-center justify-content-start">No Data Availble</h5>
+                  <% } %>  
+                </div>
+                <div class="recent-actions-section w-100" id="leads-container" style="display: none;">
+                  <%if(user.leadsData.leadsBuyers && user.leadsData.leadsBuyers.length>0) {%>
+                    <table class="w-100">
+                      <thead  style="background-color: #074286; color: white;">
+                        <th class="p-2">Name </th>
+                        <th class="p-2">Email </th>
+                        <th class="p-2">Inquiry About</th>
+                        <th class="p-2">Bank</th>
+                        <th class="p-2">Date/time</th>
+                      </thead>
+                      <tbody>
+                        <% for(ld of user.leadsData.leadsBuyers) {%>
+                        <tr>
+                          <tr>
+                            <td class="p-2"><%=ld.user%></td>
+                            <td class="p-2"><%=ld.email%></td>
+                            <td class="p-2"><%=ld.project%></td>
+                            <td class="p-2"><%=ld.bank%></td>
+                            <td class="p-2"><%=ld.createdAt%></td>
+                          </tr>
+                        </tr>
+                        <%}%>
+                      </tbody>
+                    </table>
+                  <%} else {%>
+                    <h5 class="px-2 text-muted d-flex align-items-center justify-content-start">No Data Availble</h5>
+                  <% } %> 
+                </div>
+                <div class="recent-actions-section w-100" id="consultations-container" style="display: none;">
+                  <%if(user.leadsData.consultation && user.leadsData.consultation.length>0) {%>
+                    <table class="w-100">
+                      <thead  style="background-color: #074286; color: white;">
+                        <th class="p-2">Type</th>
+                        <th class="p-2">Looking for</th>
+                        <th class="p-2">Location</th>
+                        <th class="p-2">Date</th>
+                      </thead>
+                      <tbody>
+                        <% for(ld of user.leadsData.consultation) {%>
+                        <tr>
+                          <tr>
+                            <td class="p-2"><%=ld.type_of_user%></td>
+                            <td class="p-2"><%=ld.lookingFor%></td>
+                            <td class="p-2"><%=ld.city%></td>
+                            <td class="p-2"><%=ld.created%></td>
+                          </tr>
+                        </tr>
+                        <%}%>
+                      </tbody>
+                    </table>
+                  <%} else {%>
+                    <h5 class="px-2 text-muted d-flex align-items-center justify-content-start">No Data Availble</h5>
+                  <% } %> 
+                </div>
+                <div class="recent-actions-section w-100" id="interested-buyers-container" style="display: none;">
+                  <%if(user.leadsData.interestedBuyers && user.leadsData.interestedBuyers.length>0) {%>
+                    <table class="w-100">
+                      <thead  style="background-color: #074286; color: white;">
+                        <th class="p-2">Inquiry About</th>
+                        <th class="p-2">Date</th>
+                      </thead>
+                      <tbody>
+                        <% for(ld of user.leadsData.interestedBuyers) {%>
+                        <tr>
+                          <tr>
+                            <% if(ld.url) {%>
+                              <a href="<%=ld.url%>">
+                                <td class="p-2"><%=ld.name%></td>
+                              </a>
+                            <% } else {%>
+                              <td class="p-2"><%=ld.type_of_user%></td>
+                              <%}%>
+                            <td class="p-2"><%=ld.created%></td>
+                          </tr>
+                        </tr>
+                        <%}%>
+                      </tbody>
+                    </table>
+                  <%} else {%>
+                    <h5 class="px-2 text-muted d-flex align-items-center justify-content-start">No Data Availble</h5>
+                  <% } %> 
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Booking Modal -->
+  <div class="modal fade" id="booking-modal" tabindex="-1" role="dialog" aria-labelledby="BookingModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg auth-modal-mod" role="document">
+      <div class="modal-content ">
+        <button class="btn auth-modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-body p-0">
+          <div class="row">
+            <div class="col-lg-6 col-sm-6 p-0">
+              <div class="fdp-modal-left-content">
+                <div>
+                  <h2>How it works</h2>
+                </div>
+                <div class="mt-4">
+                  <div class="fdp-highlight-content justify-content-start">
+                    <div class="fdp-art-img-">
+                      <img src="/images/booking_at_1.webp" alt="Book_at_1 image" width="100">
+                    </div>
+                    <div class="">
+                      <!-- <h3>Booking @ 1%</h3> -->
+                      <h3>Booking @ 1%</h3>
+                    </div>
+                  </div>
+                  <div class="fdp-highlight-content justify-content-start">
+                    <div class="fdp-art-img-">
+                      <img src="/images/sale_agreement_15.webp" alt="sale_agreement_15 image" width="100">
+                    </div>
+                    <div class="">
+                      <!-- <h3>Sale agreement within 15 days</h3> -->
+                      <h3>Sale agreement within 15 days</h3>
+                    </div>
+                  </div>
+                  <div class="fdp-highlight-content justify-content-start">
+                    <div class="fdp-art-img-">
+                      <img src="/images/ownership_45_60.webp" alt="ownership_45_60 image" width="100">
+                    </div>
+                    <div class="">
+                      <!-- <h3>Full payment and ownership transfer in 45-60 days</h3> -->
+                      <h3>Full payment and ownership transfer in 45-60 days</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+            <div class="col-lg-6 col-sm-6 p-0">
+              <div class="right-auth-md-content pl-0">
+                <div class="w-100">
+                  <!-- <h2 class="text-center pt-0">You can book this property in ₹<span class="booking-amount-span"></span></h2> -->
+                  <h2 class="text-center pt-0" style="font-size: 18px !important;">Our team will contact you shortly to process the booking amount and the next steps.</h2>
+                  <form action="api/booking_property/bookthisproperty" id="property-booking-form" class="row justify-content-center m-2" method="post">
+                    <input required placeholder="Your Name" type="text" class="form-control mx-2 my-3" id="bookingName"  name="bookingName">
+                    <input required placeholder="Email" type="email" class="form-control mx-2 my-3" id="bookingEmail" name="bookingEmail">
+                    <div class="form-group row justify-content-between mx-2 my-3" style="width:100%">
+                      <select name="countryCode" class="form-control col-3" id="countryCode" required>
+                        <option value="+91" selected>+91</option>
+                      </select>
+                      <input required placeholder="Phone" type="text" class="form-control col-8" id="bookingPhone" name="bookingPhone"  onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57">
+                    </div>
+                    <input type="hidden" id="bookingProperty" name="bookingProperty">
+                    <div class="d-flex justify-content-start align-items-center mb-3 w-100 px-2">
+                      <input style="width: fit-content;" class="mb-0" type="checkbox" name="newsletter" id="newsletter-check-bp" checked>
+                      <label class="ml-2 mb-0" for="newsletter-check-bp"> Subscribe to AssetZilla Newsletter </label>
+                    </div>
+                    <button type="submit" class="btn w-100 mx-2 my-2 text-white" style="background-color: #467bba;">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  
+  </div>
+  <br><br>
+  <%- include ./partials/footer.ejs%>
+</body>
+
+<script>
+  let hash = window.location.hash;
+  // console.log("hash hash hash => => => =>", hash);
+  // console.log("hash hash hash hash hash hash hash => => => ", window.location);
+  if (hash === "#sellyourproperty") {
+    $(".profile-section")
+      .css("display", "none");
+    $("#submit-container").fadeIn(500)
+      .css("display", "block");
+    
+    //Switch active class
+    $("#profile-tabs-section li")
+      .removeClass("active");
+    $("#submit-btn")
+      .addClass("active");
+    // window.location.replace(window.location.origin+"/profile")
+    
+  } else if (hash === "#view-btn") {
+
+    $(".profile-section")
+      .css("display", "none");
+    $("#view-container")
+      .css("display", "flex");
+
+    //Switch active class
+    $("#profile-tabs-section li")
+      .removeClass("active");
+    $("#view-btn")
+      .addClass("active");
+    // window.location.replace(window.location.origin+"/profile")
+  }
+</script>
+
+<script>
+  var x;
+
+  function getCaseId(caseId) {
+    x = caseId
+
+    $("#CancelOrDeleteModal")
+      .modal()
+  }
+
+  function reply_click() {
+    $.post('/api/customer/delete_submitted_property', {
+      case_id: x
+    }, function(data) {
+      // console.log('data is', data);
+      if (data.success) {
+        customAlert("Property Deleted Succesfully")
+        $("#CancelOrDeleteModal")
+          .modal("hide")
+        let hash = window.location.hash;
+        if (hash === "#view-btn") {
+          window.location.reload(window.location.origin + "/profile#view-btn")
+        } else {
+          //window.location.replace(window.location.origin+"/profile#view-btn"); 
+          window.location.href = window.location.origin + "/profile#view-btn";
+          window.location.reload(window.location.origin + "/profile#view-btn")
+        }
+
+
+      } else {
+        window.open("/page-not-found", '_blank');
+      }
+    })
+  }
+
+  function close_click() {
+    $("#CancelOrDeleteModal")
+      .modal("hide")
+  }
+</script>
+
+<script>
+  function change_profile_section(idx) {
+    $(".profile-section")
+      .css("display", "none");
+    if (idx !== "profile"){
+      $("#" + idx + "-container").fadeIn(500)
+      .css("display", "block");
+    }else {
+      $("#" + idx + "-container").fadeIn()
+      .css("display", "flex");
+    }
+    //Switch active class
+    $("#profile-tabs-section li")
+      .removeClass("active");
+    $("#" + idx + "-btn")
+      .addClass("active");
+
+  }
+
+  function change_bookmarks_section(idx) {
+    $(".bookmarks-section")
+      .css("display", "none");
+    $("#" + idx + "-container").fadeIn()
+      .css("display", "block");
+
+
+    //Switch active class
+    $("#bookmarks-tabs-section li")
+      .removeClass("active");
+    $("#" + idx + "-btn")
+      .addClass("active");
+
+  }
+
+  function change_recent_actions_section(idx) {
+    $(".recent-actions-section")
+      .css("display", "none");
+    $("#" + idx + "-container").fadeIn()
+      .css("display", "block");
+
+
+    //Switch active class
+    $("#recent-actions-tabs-section li")
+      .css("color","gray");
+    $("#recent-actions-tabs-section li")
+      .css("font-weight","400");
+    $("#" + idx + "-btn")
+      .css('color','black');
+    $("#" + idx + "-btn")
+    .css('font-weight','600')
+  }
+
+  function editProfile(params) {
+    $(".edit-profile-section")
+      .css("display", "none");
+    $(".edit-profile-input-section")
+      .css("display", "block");
+
+  }
+
+  function cancelEditProfile() {
+    $(".edit-profile-section")
+      .css("display", "block");
+    $("button.edit-profile-section")
+      .css("display", "inline-block");
+    $(".edit-profile-input-section")
+      .css("display", "none");
+  }
+
+  function submitProfileChanges() {
+    let email = $("#user_email_input")
+      .val();
+    let name = $("#user_name_input")
+      .val();
+    $.post('/api/customer/edit', {
+      email: email
+      , name: name
+    }, function(data) {
+      if (data.success) {
+        location.reload();
+      } else {
+        customAlert(data.message);
+      }
+    })
+  }
+
+  function submitProperty() {
+    var fd = new FormData();
+
+    let fileInput1 = document.getElementById("submitPropertiesImages");
+    // let fileInput2 = document.getElementById("submitAadharCard");
+    // let fileInput3 = document.getElementById("submitPanCard");
+    // let fileInput4 = document.getElementById("submitPropertyRecords");
+    // let fileInput5 = document.getElementById("submitBankAccountInfo");
+    let username = $("#property_username").val();
+    let email = $("#property_email").val();
+    let property_name = $("#property_name").val();
+    let property_type = $("#property_type").val();
+    let builder = $("#builder").val();
+    let locality = $("#locality").val();
+    let city = $("#city").val();
+    let nl = document.getElementById('newsletter-check-sp-u')
+    // let district = $("#district").val();
+    // let pincode = $("#pincode").val();
+    let price = $("#price").val();
+    let size = $("#size").val();
+    if (email == "") {
+      customAlert('Please enter Email');
+      return;
+    }
+    
+    var atposition = email.indexOf("@");
+    var dotposition = email.lastIndexOf(".");
+    if (atposition < 1 || dotposition < atposition + 2 || dotposition + 2 >= email.length) {
+      customAlert("Please enter a valid e-mail address");
+      return;
+    }
+    // if (property_name == "") {
+    //   customAlert('Please choose property name');
+    //   return;
+    // }
+    // if (property_type == "") {
+    //   customAlert('Please choose property type');
+    //   return;
+    // }
+    // if (builder == "") {
+    //   customAlert('Please enter builder');
+    //   return;
+    // }
+    // if (locality == "") {
+    //   customAlert('Please choose locality');
+    //   return;
+    // }
+    // if (city == "") {
+    //   customAlert('Please enter City');
+    //   return;
+    // }
+    // if (price == "") {
+    //   customAlert('Please enter price');
+    //   return;
+    // }
+    // if (size == "") {
+    //   customAlert('Please enter size');
+    //   return;
+    // }
+    // if (email){
+    //   const regExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    //   const match = email.match(regExp);
+    //   console.log(match)
+    //   if (!match){
+    //     customAlert("Invalid Email");
+    //     vm.loader = false;
+    //     return;
+    //   }else{
+    //     console.log("valid email");
+    //   }
+    // }
+
+    if (username == "") {
+      customAlert('Please enter Phone No');
+      return;
+    }else{
+      const regExp = /((\+*)((0[ -]*)*|((91 )*))((\d{12})+|(\d{10})+))|\d{5}([- ]*)\d{6}/g
+      const match = username.match(regExp);
+      if (!match){
+        customAlert("Invalid Contact");
+        vm.loader = false;
+        return;
+      }
+    }
+    for (var i = 0; i < fileInput1.files.length; ++i) {
+      let image = fileInput1.files.item(i)
+      // console.log("Image", image)
+      fd.append("file", image);
+      // if (image.type === 'image/jpeg' || image.type === 'image/png') {
+      //   fd.append("file", image);
+      // } else {
+      //   customAlert('Please upload only .jpeg or .webp files for Property Images')
+      //   return;
+      // }
+    }
+    // for (var i = 0; i < fileInput2.files.length; ++i) {
+    //   let image = fileInput2.files.item(i)
+    //   // console.log("Image", image)
+    //   if (image.type === 'image/jpeg' || image.type === 'image/png') {
+    //     fd.append("file", image);
+    //   } else {
+    //     customAlert('Please upload only .jpeg or .png files for Aadhar Card')
+    //     return;
+    //   }
+    // }
+    // for (var i = 0; i < fileInput3.files.length; ++i) {
+    //   let image = fileInput3.files.item(i)
+    //   // console.log("Image", image)
+    //   if (image.type === 'image/jpeg' || image.type === 'image/png') {
+    //     fd.append("file", image);
+    //   } else {
+    //     customAlert('Please upload only .jpeg or .png files for PAN Card')
+    //     return;
+    //   }
+    // }
+    // for (var i = 0; i < fileInput4.files.length; ++i) {
+    //   let image = fileInput4.files.item(i)
+    //   // console.log("Image", image)
+    //   if (image.type === 'image/jpeg' || image.type === 'image/png') {
+    //     fd.append("file", image);
+    //   } else {
+    //     customAlert('Please upload only .jpeg or .png files for Bank Account Info')
+    //     return;
+    //   }
+    // }
+    // for (var i = 0; i < fileInput5.files.length; ++i) {
+    //   let image = fileInput5.files.item(i)
+    //   // console.log("Image", image)
+    //   if (image.type === 'image/jpeg' || image.type === 'image/png') {
+    //     fd.append("file", image);
+    //   } else {
+    //     customAlert('Please upload only .jpeg or .png files for Bank Account Info')
+    //     return;
+    //   }
+    // }
+    // console.log("5656", fd)
+    let propertyData;
+    $("#web-loader")
+      .show()
+    $.ajax({
+      url: "/api/property/multer"
+      , type: "post"
+      , data: fd
+      , processData: false
+      , contentType: false
+      , cache: false
+      , success: function(res, status, xhr) {
+        console.log("res", res)
+        if (res.success) {
+          let x = JSON.parse(JSON.stringify(res))
+          propertyData = {
+            username: username
+            , email: email
+            , property_name: property_name
+            , property_type: property_type
+            , builder: builder
+            , locality: locality
+            , city: city
+            , price: price
+            , size: size
+            , property_images: x.results
+            , newsletter: nl.checked
+          };
+          console.log("52525", propertyData)
+          $.ajax({
+            url: "/api/customer/submit"
+            , type: "post"
+            , data: JSON.stringify(propertyData)
+            , contentType: "application/json"
+            , dataType: 'json'
+            , success: function(res) {
+              if (res.success) {
+                window.location.replace(res.redirect_url+"?backTo="+window.location.pathname);
+                //$("#web-loader")
+                //  .hide()
+                //customAlert("Your property has been submitted; AssetZilla team will review the information.")
+                //// location.reload();
+                //// $('#sellyourpropertyform').trigger("reset")
+                //$("#property_name").val('');
+                //$("#property_type").val('');
+                //$("#builder").val('');
+                //$("#locality").val('');
+                //$("#city").val('');
+                ////$("#district").val('');
+                ////$("#pincode").val('');
+                //$("#price").val('');
+                //$("#size").val('');
+              } else {
+                customAlert(res.message)
+              }
+            }
+            , error: function(errorThrown) {
+              // $("#web-loader").hide()
+              console.log(errorThrown);
+            }
+          });
+
+        }
+      }
+      , error: function(errorThrown) {
+        console.log(errorThrown);
+      }
+    })
+
+
+
+
+  }
+
+  function change_user_password() {
+    let password = $("#user_password")
+      .val();
+    let password_re = $("#user_password_again")
+      .val();
+    let passvalid = new RegExp("^(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$")
+    if (!(passvalid.test(password))) {
+      customAlert("Invalid Password");
+      return
+    }
+    if (password != password_re) {
+      customAlert("Passwords do not match");
+      return
+    }
+    $.post('/api/customer/change_password', {
+      password: password
+    }, function(data) {
+      if (data.success) {
+        customAlert(data.message)
+      } else {
+        customAlert(data.message);
+      }
+    })
+  }
+</script>
+
+<script>
+  $('#myTab a')
+    .on('click', function(e) {
+      e.preventDefault()
+      $(this)
+        .tab('show')
+    })
+</script>
+
+<script>
+  function getLink(caseId) {
+    // console.log('case id is', caseId)
+    $.post('/api/customer/getLink', {
+      caseId: caseId
+    }, function(data) {
+      console.log('data is', data);
+      if (data.success) {
+        // var fullUrl = "www.assetzilla.com" + data.url
+        // console.log('fullurl', fullUrl)
+        window.open(data.url, '_blank');
+      } else {
+        window.open("/page-not-found", '_blank');
+      }
+    })
+  }
+</script>
+
+<script>
+  // PROJECT FILTER
+  let project_typeahead = $('#project-search-submit-property .typeahead')
+    .typeahead({
+      hint: false
+      , highlight: true
+      , minLength: 1
+    , }, {
+      name: 'project-search-submit-property'
+      , display: 'name'
+      , source: function(query, syncResults, asyncResults) {
+        if (query.length > 0) {
+          // console.log("quely", query)
+          $.post('/api/project/typeahead', {
+            data: query
+          }, function(data) {
+            asyncResults(data.results);
+          });
+        }
+      }
+      , templates: {
+        suggestion: function(data) {
+          result = '<div>' + data.name
+          result += '<p class="entity__type_suggestions"></p>'
+          result += '</div>'
+          return result
+        }
+      }
+    });
+</script>
+<script>
+  // BUILDER FILTER
+  let builder_typeahead = $('#builder-search .typeahead')
+    .typeahead({
+      hint: false
+      , highlight: true
+      , minLength: 1
+    , }, {
+      name: 'builder-search'
+      , display: 'name'
+      , source: function(query, syncResults, asyncResults) {
+        if (query.length > 0) {
+          // console.log("quely", query)
+          $.post('/api/builder/typeahead', {
+            data: query
+          }, function(data) {
+            asyncResults(data.results);
+          });
+        }
+      }
+      , templates: {
+        suggestion: function(data) {
+          result = '<div>' + data.name
+          result += '<p class="entity__type_suggestions"></p>'
+          result += '</div>'
+          return result
+        }
+      }
+    });
+</script>
+
+<script>
+  // CITY FILTER
+  let city_typeahead = $('#city-search .typeahead')
+    .typeahead({
+      hint: false
+      , highlight: true
+      , minLength: 1
+    , }, {
+      name: 'city-search'
+      , display: 'name'
+      , source: function(query, syncResults, asyncResults) {
+        if (query.length > 0) {
+          // console.log("quely", query)
+          $.post('/api/city/typeahead', {
+            data: query
+          }, function(data) {
+            asyncResults(data.results);
+          });
+        }
+      }
+      , templates: {
+        suggestion: function(data) {
+          result = '<div>' + data.name
+          result += '<p class="entity__type_suggestions"></p>'
+          result += '</div>'
+          return result
+        }
+      }
+    });
+</script>
+
+<script>
+  // SUBCITY FILTER
+  let subcity_typeahead = $('#subcity-search .typeahead')
+    .typeahead({
+      hint: false
+      , highlight: true
+      , minLength: 1
+    , }, {
+      name: 'subcity-search'
+      , display: 'name'
+      , source: function(query, syncResults, asyncResults) {
+        if (query.length > 0) {
+          // console.log("quely", query)
+          $.post('/api/subcity/typeahead', {
+            data: query
+          }, function(data) {
+            asyncResults(data.results);
+          });
+        }
+      }
+      , templates: {
+        suggestion: function(data) {
+          result = '<div>' + data.name
+          result += '<p class="entity__type_suggestions"></p>'
+          result += '</div>'
+          return result
+        }
+      }
+    });
+</script>
+<!-- <script>
+                     
+
+                        $('#mytable tr').each(function() {
+                         var customerId = $(this).find(".caseIDCell").html(); 
+                         console.log("customerId",customerId)
+                         $.post('/api/customer/getPropertyDetailsAddedByAdmin', { case_id: customerId })function (data) {
+                            console.log('data is', data);
+                                if (data.success) {
+                                    console.log("Property")
+                                    // <td><button class="btn btn-danger"> <i class="fa fa-pencil"></i> </button></td>  
+                                }
+                                else {
+
+                                    console.log("nothing found")
+                                  
+                                }                            
+                            }) 
+                        });
+                    </script> -->
+
+<script>
+  var projectImages = [];
+  var deletedIndex = [];
+  var propertyData;
+  var recievedCaseId;
+  var contactno;
+
+  function deletePropertyImage(index) {
+    deletedIndex.push(index);
+    $(`#property-image-${index}`)
+      .remove();
+  }
+
+  function editProperty(caseId) {
+    recievedCaseId = caseId;
+    $.post('/api/customer/getPropertyDetailsAddedByAdmin', {
+      case_id: caseId
+    }, function(data) {
+      propertyData = data.data;
+      var propertyDetails = data.data;
+      if (propertyDetails.price && propertyDetails.price.price) {
+        $("#priceInput")
+          .val(propertyDetails.price.price)
+      }
+      if (propertyDetails.images && propertyDetails.images.Properties && propertyDetails.images.Properties.length > 0) {
+        let html = ""
+        propertyDetails.images.Properties.forEach(function(image, index) {
+          projectImages.push(image)
+          html += `<div class="col-4" id="property-image-${index}"> 
+                                                <div class="img-edt-cls">
+                                                    <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/property/image/${image}">
+                                                    <button type="button" class="btn btn-times" onclick="deletePropertyImage(${index})"> <i class="fa fa-times"></i> </button> 
+                                                </div>
+                                            </div>`
+        });
+        $("#edit-property-image-container")
+          .html(html)
+      }
+      $("#SCDEditPropertyModal")
+        .modal();
+    })
+  }
+
+
+  function resendOtpForEditProperty() {
+    if (contactno !== undefined || contactno !== "") {
+      $.post('/api/customer/sendEditYourPropertyOtp', {
+        mobile: contactno
+      }, function(data) {
+        if (data.success) {
+          // console.log("OTP sent")
+        } else {
+          customAlert("Something went wrong")
+        }
+      });
+    } else{
+      // console.log("no contact no.")
+    }
+
+  }
+
+  $("#property-booking-form")
+    .submit(function(e) {
+
+      e.preventDefault(); // avoid to execute the actual submit of the form.
+
+      var form = $(this);
+      var actionUrl = form.attr('action');
+
+      let ph = {number:$('#book-prop-phone-code').val()+$('#bookingPhone').val()}
+      console.log(ph);
+
+      $.post("/api/validatePhoneNumber", ph, function (data) {
+        console.log(data)
+        if (data.valid) {
+          //change the phone number to the number sent from api
+          $('#bookingPhone').val(data.valid);
+          $.ajax({
+            type: "POST"
+            , url: actionUrl
+            , data: form.serialize(), // serializes the form's elements.
+            success: function(data) {
+              //$('#booking-modal').modal('toggle');
+              //$('#property-booking-form').trigger("reset"); // show response from the php script.
+              //customAlert(data.message, data.title);
+              window.location.replace(data.redirect_url+"?backTo="+window.location.pathname);
+              // console.log(data)
+            }
+          });
+        } else {
+          customAlert("Your phone number is invalid");
+          console.log("in valid")
+          return;
+        }
+      });
+
+      
+
+    });
+
+    $("#userPropertyEdit").submit(function (event) {
+  event.preventDefault();
+  let price = $("#priceInput").val();
+  // console.log("+++++hhh", price)
+
+  if (!price) {
+    customAlert("Please enter cost");
+    return;
+  } else {
+    // $.post(
+    //   "/api/customer/getPropertyDetailsAddedByAdmin",
+    //   {
+    //     case_id: recievedCaseId,
+    //   },
+    //   function (data) {
+    //     var allDetails = data.data;
+    //     if (parseInt(allDetails.price.price) === parseInt(price)) {
+    //       price = $("#priceInput").val();
+    //     } else {
+    //       $.post(
+    //         "/api/customer/getMobileNoForEditProperty",
+    //         {
+    //           case_id: recievedCaseId,
+    //         },
+    //         function (data) {
+    //           contactno = data.data;
+    //           $.post(
+    //             "/api/customer/sendEditYourPropertyOtp",
+    //             {
+    //               mobile: contactno,
+    //             },
+    //             function (doc) {
+    //               if (doc.success) {
+    //                 // console.log("OTP sent", contactno)
+
+    //                 $("#EditPropertyOTPVerficationModal").modal();
+    //                 document.getElementById("send-otp-edit-property").onclick =
+    //                   function () {
+    //                     if (contactno !== undefined || contactno !== "") {
+    //                       let otp = "";
+    //                       if (window.innerWidth >= 576) {
+    //                         let d1 = $("#digit2-1").val();
+
+    //                         let d2 = $("#digit2-2").val();
+    //                         let d3 = $("#digit2-3").val();
+    //                         let d4 = $("#digit2-4").val();
+    //                         otp = d1 + d2 + d3 + d4;
+    //                       } else {
+    //                         otp = $("#otpInput2").val();
+    //                       }
+
+    //                       // console.log("2323", otp)
+    //                       if (otp.length !== 4) {
+    //                         customAlert("Invalid OTP.");
+    //                       } else {
+    //                         $.post(
+    //                           "/api/customer/editYourPropertyOtpValidate",
+    //                           {
+    //                             mobile: contactno,
+    //                             otp: otp,
+    //                           },
+    //                           function (data) {
+    //                             if (data.success) {
+    //                               // console.log("+++++++++++You got here+++++++++++++++++++")
+    //                               price = $("#priceInput").val();
+
+    //                               $("#editPropertyOtpForm")[0].reset();
+    //                               $("#EditPropertyOTPVerficationModal").modal(
+    //                                 "hide"
+    //                               );
+    //                             } else {
+    //                               customAlert("Invalid OTP");
+    //                             }
+    //                           }
+    //                         );
+    //                       }
+    //                     } else {
+    //                       price = allDetails.price.price;
+    //                       // console.log("no contact no.")
+    //                     }
+    //                   };
+    //               } else {
+    //                 price = allDetails.price.price;
+    //                 customAlert("Something went wrong");
+    //               }
+    //             }
+    //           );
+    //         }
+    //       );
+    //     }
+    //   }
+    // );
+
+    // console.log("5656", price)
+
+    var fd = new FormData();
+    let fileInput = document.getElementById("propertiesImages");
+    for (var i = 0; i < fileInput.files.length; ++i) {
+      let image = fileInput.files.item(i);
+      // console.log("Image", image)
+      if (image.type === "image/jpeg" || image.type === "image/png") {
+        fd.append("file", image);
+      } else {
+        customAlert("Please upload only image files");
+        return;
+      }
+    }
+    // console.log("fd", fd)
+    $("#web-loader").show();
+    $.ajax({
+      url: "/api/property/multer",
+      type: "post",
+      data: fd,
+      processData: false,
+      contentType: false,
+      cache: false,
+      success: function (res, status, xhr) {
+        // console.log("res", res)
+        if (res.success) {
+          let newArrayToSend = [];
+          projectImages.forEach((ele, index) => {
+            if (deletedIndex.indexOf(index) == -1) {
+              newArrayToSend.push(ele);
+            }
+          });
+          if (res.results && res.results.length > 0) {
+            res.results.forEach((ele) => newArrayToSend.push(ele));
+          }
+          if (propertyData.price && propertyData.price.price) {
+            propertyData.price.price = parseInt(price);
+          } else if (propertyData.price.price == null) {
+            propertyData.price.price = parseInt(price);
+          }
+          if (propertyData.images) {
+            propertyData.images.Properties = newArrayToSend;
+          }
+          // console.log("5252", propertyData)
+          $.ajax({
+            url: "/api/property/edit",
+            type: "post",
+            data: JSON.stringify(propertyData),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (res) {
+              $("#web-loader").hide();
+              $("#userPropertyEdit").trigger("reset");
+              $("#SCDEditPropertyModal").modal("hide");
+              projectImages = [];
+              deletedIndex = [];
+              propertyData = null;
+              // console.log("Property has been updated successfully.");
+              customAlert(res.message)
+            },
+            error: function (errorThrown) {
+              $("#web-loader").hide();
+              $("#userPropertyEdit").trigger("reset");
+              $("#SCDEditPropertyModal").modal("hide");
+              console.log(errorThrown);
+              customAlert("There was some error on the server, please try after some time.")
+            },
+          });
+        }
+      },
+      error: function (errorThrown) {
+        $("#web-loader").hide();
+        $("#userPropertyEdit").trigger("reset");
+        $("#SCDEditPropertyModal").modal("hide");
+        console.log(errorThrown);
+        customAlert("Some error occured while contacting the server, please try again later.")
+      },
+    });
+  }
+});
+
+</script>
+<script>
+  function changeNumberFormat(number, decimals, recursiveCall) {
+    const decimalPoints = decimals || 2;
+    const noOfLakhs = number / 100000;
+    const noOfThousand = number / 1000;
+    //const noOfCrores = number / 10000000;
+    const noOfArabs = number / 1000000000;
+    let displayStr;
+    let isPlural;
+    //console.log("number", typeof noOfArabs)
+
+    function roundOf(integer) {
+        return +integer.toLocaleString(undefined, {
+            minimumFractionDigits: decimalPoints,
+            maximumFractionDigits: decimalPoints,
+        });
+    }
+    if (noOfThousand >= 1 && noOfThousand <= 99) {
+        const lakhs = roundOf(noOfThousand);
+        isPlural = lakhs > 1 && !recursiveCall;
+
+        displayStr = `${lakhs} Thousand`;
+    }
+    else if (noOfLakhs >= 1 && noOfLakhs <= 99) {
+        const lakhs = roundOf(noOfLakhs);
+        isPlural = lakhs > 1 && !recursiveCall;
+
+        displayStr = `${lakhs} Lac`;
+    } else if (noOfLakhs >= 100) {
+        const crores = roundOf(noOfLakhs / 100);
+        const crorePrefix = crores >= 100000 ? changeNumberFormat(crores, decimals, true) : crores;
+        isPlural = crores > 1 && !recursiveCall;
+
+        displayStr = `${crorePrefix} Cr`;
+    } else if (noOfArabs >= 1 && noOfArabs <= 99) {
+        
+        const arabs = roundOf(noOfArabs);
+        isPlural = arabs > 1 && !recursiveCall;
+        
+        displayStr = `${arabs} Arab`;
+    }
+    else if (noOfArabs >= 100) {
+        const kharabs = roundOf(noOfArabs / 100);
+        const kharabPrefix = crores >= 10000000 ? changeNumberFormat(kharabs, decimals, true) : kharabs;
+        isPlural = kharabs > 1 && !recursiveCall;
+
+        displayStr = `${kharabPrefix} Kharab`;
+    }
+    else {
+        displayStr = roundOf(+number);
+    }
+    //console.log("displayStr", displayStr)
+    if (displayStr === "NaN Cr") {
+        displayStr = number;
+        return displayStr;
+
+    } else {
+
+        return displayStr;
+    }
+
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+</script>
+
+<script>
+  function showBox(idx, i, cSkip, amount, bookingPropertyUrl) {
+    // console.log("idx", i, cSkip)
+    // var i = infiniteCounter + i;
+    // console.log('id is', idx, "and", i);
+    // console.log('****', '#' + i + '_profile-bookmark-' + idx);
+    // console.log(bookingPropertyUrl)
+    $('.booking-amount-span').html((amount/100).toLocaleString('en-IN'))
+    $('#bookingProperty').val(bookingPropertyUrl)
+    $('#' + i + '_profile-bookmark-btns-' + idx)
+      .css({
+        'display': 'block'
+        , '-webkit-animation': 'slide-down .3s ease-out'
+        , '-moz-animation': 'slide-down .3s ease-out'
+      });
+    $('#' + cSkip + '_profile-bookmark-' + idx)
+      .css({
+        'margin-bottom': '0px'
+      });
+  }
+
+  function hideBox(idx, i, cSkip) {
+    // var i = infiniteCounter + i;
+    // console.log('id is', idx);
+    $('#' + i + '_profile-bookmark-btns-' + idx)
+      .css({
+        '-webkit-animation': 'slide-up .3s ease-in'
+        , '-moz-animation': 'slide-up .3s ease-in'
+        , 'display': 'none'
+        , 'margin-bottom': '1rem'
+      });
+    $('#' + cSkip + '_profile-bookmark-' + idx)
+      .css({
+        'margin-bottom': '30px'
+      });
+    // window.markers[i].setAnimation(null);
+  }
+  $('#pageFilters')
+    .on('shown.bs.collapse', function() {
+
+      if ($("#location-filter-container-list")
+        .height() < 175) {
+        $("#location-filter-see-more")
+          .addClass("d-none");
+      }
+
+      if ($("#builder-filter-container-list")
+        .height() < 175) {
+        $("#builder-filter-see-more")
+          .addClass("d-none");
+      }
+
+      if ($("#authority-filter-container-list")
+        .height() < 175) {
+        $("#authority-filter-see-more")
+          .addClass("d-none");
+      }
+
+      if ($("#bank-filter-container-list")
+        .height() < 175) {
+        $("#bank-filter-see-more")
+          .addClass("d-none");
+      }
+    })
+</script>
+
+</html>

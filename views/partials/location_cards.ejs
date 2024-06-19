@@ -1,0 +1,66 @@
+<% for(var i=0; i < results.length; i++) { %>
+<div class="col-md-4">
+    <div class="card mb-3 listing-card" onclick=go_to_page("<%=results[i].url %>")>
+        <div class="row no-gutters shadow">
+            <div class="col-md-12">
+                <img src="<%=results[i].banner_image %>" class="card-img" alt=""> 
+
+                <div class="card-body">
+
+                    <div class="d-flex bd-highlight">
+                        <div class="p-2 w-100 bd-highlight">
+                            <h5 class="card-title"><%=results[i].name %> (<%=results[i].location_type %>)</h5>
+                            <% if (results[i].total_projects ){ %>
+                            <strong>total projects</strong>&nbsp; <%=results[i].total_projects %>
+                            <%}%>
+                            <% if (results[i].price && results[i].price.min ){ %>
+                                <div>
+                                    <strong>Properties starting from: </strong> <%=results[i].price.min.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %>
+                            </div>
+                                <%}%>
+                            <!-- <small class="light-grey-clr">
+                                
+                            </small> -->
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <% if (results[i].capital_income){ %>
+                                <th scope="col">Per Capita Income</th>
+                                <%}%>
+                                    <% if (results[i].gdp){ %>
+                                <th scope="col">GDP</th>
+                                <%}%>
+                                    <% if (results[i].population){ %>
+                                <th scope="col">Population</th>
+                                <%}%>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <% if (results[i].capital_income){ %>
+                                <td>
+                                    <%=results[i].capital_income %> (Rs)
+                                </td>
+                                <%}%>
+                                        <% if (results[i].gdp){ %>
+                                <td>
+                                    <%=results[i].gdp %> (Crore Rs)
+                                </td>
+                                <%}%>
+                                        <% if (results[i].population){ %>
+                                <td>
+                                    <%=results[i].population %> (Lakhs)
+                                </td>
+                                <%}%>
+                                    </tr>
+                                </tbody>
+                            </table>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<% } %>

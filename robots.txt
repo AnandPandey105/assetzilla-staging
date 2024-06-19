@@ -1,0 +1,5 @@
+# robots.txt for assetzilla.com
+User-agent: *
+Allow: /
+
+Sitemap: https://assetzilla.com/sitemap.xml

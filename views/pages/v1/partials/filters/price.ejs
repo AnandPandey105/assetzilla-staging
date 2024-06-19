@@ -1,0 +1,60 @@
+
+<div>
+    <h5>Price</h5>
+    <ul>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                    id="<% if (parentId){ %><%= parentId %>-<%}%>price-0-to-25-lacs"
+                    onchange="handleFilters('price','0 to 25 lacs')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>price-0-to-25-lacs">
+                    0 to 25 lacs <span id="<% if (parentId){ %><%= parentId %>-<%}%>zeroToTwentyFiveCount"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                    id="<% if (parentId){ %><%= parentId %>-<%}%>price-25-lacs-to-50-lacs"
+                    onchange="handleFilters('price','25 lacs to 50 lacs')">
+                <label class="custom-control-label"
+                    for="<% if (parentId){ %><%= parentId %>-<%}%>price-25-lacs-to-50-lacs">
+                    25 lacs to 50 lacs <span
+                        id="<% if (parentId){ %><%= parentId %>-<%}%>twentyFiveToFiftyCount"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                    id="<% if (parentId){ %><%= parentId %>-<%}%>price-50-lacs-to-1-cr"
+                    onchange="handleFilters('price','50 lacs to 1 cr')">
+                <label class="custom-control-label"
+                    for="<% if (parentId){ %><%= parentId %>-<%}%>price-50-lacs-to-1-cr">
+                    50 lacs to 1 cr <span id="<% if (parentId){ %><%= parentId %>-<%}%>fiftyToOneCount"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                    id="<% if (parentId){ %><%= parentId %>-<%}%>price-1-cr-to-5-cr"
+                    onchange="handleFilters('price','1 cr to 5 cr')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>price-1-cr-to-5-cr">
+                    1 cr to 5 cr<span id="<% if (parentId){ %><%= parentId %>-<%}%>oneToFiveCount"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                    id="<% if (parentId){ %><%= parentId %>-<%}%>price-5-cr-and-above"
+                    onchange="handleFilters('price','5 cr and above')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>price-5-cr-and-above">
+                    5 cr and above<span id="<% if (parentId){ %><%= parentId %>-<%}%>fiveToAboveCount"></span>
+                </label>
+            </div>
+        </li>
+
+    </ul>
+</div>

@@ -1,0 +1,8 @@
+<% for(var i=0; i < district.length; i++) { %>
+    <li class="popup" id="li-<%=district[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="<%=district[i].nameAsURL %>"  onchange="handleFilters('district','<%=district[i].district %>')"  autocomplete="off">
+            <label class="custom-control-label" for="<%=district[i].nameAsURL %>"><%=district[i].district%> (<%=district[i].count %>)</label>
+        </div>
+    </li>
+<% } %> 

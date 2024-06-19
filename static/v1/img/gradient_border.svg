@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="207px" height="3px" viewBox="0 0 207 3" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>gradient_border</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="49.9894641%" x2="101.999998%" y2="50.0107466%" id="linearGradient-1">
+            <stop stop-color="#3CDBFF" offset="0%"></stop>
+            <stop stop-color="#7169FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Popular_project_inner" transform="translate(-100.000000, -1376.000000)" fill="url(#linearGradient-1)">
+            <g id="Group-11" transform="translate(100.000000, 1339.000000)">
+                <rect id="gradient_border" transform="translate(103.333333, 38.500000) scale(1, -1) translate(-103.333333, -38.500000) " x="0" y="37" width="206.666667" height="3"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

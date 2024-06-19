@@ -1,0 +1,156 @@
+<div class="common-wrapper">
+  <div class="topbg-div ">
+    <div class="container">
+      <div class="topsearch p-0 d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center">
+        <div class="topsearch-left">
+          <h3>All <%= screenName %>
+          </h3>
+          <h6>
+            <% if (results.search_phrase){ %>
+            <%= results.count %> results found for "<%= results.search_phrase %>"</span>
+            <% }else{ %>
+            <%= results.count %> results found</span>
+            <% } %>
+          </h6>
+        </div>
+        <div class="topsearch-right mt-3 mt-md-0">
+
+          <!-- <div class="scd-buttons-wrp">
+                  <ul>
+                     <li> <button class="btn compare d-none" onclick="showCompareResult()" type="button">Compare options</button> </li>
+                     <li> <button class="btn compare d-none new-btn" data-toggle="modal"
+                        data-target="#SCD2VisitModal" type="button">                         
+                              Schedule Visit
+                           </button> </li>
+                  </ul>
+               </div> -->
+
+          <div class="group_search top_bar_search" id="type-ahead-search">
+            <input type="text" class="form-control typeahead" placeholder="Search for cities, builders, project name" value="<% if (results.search_phrase){ %><%= results.search_phrase %><% } %>">
+            <!-- <div class="dropdown">
+                      <button 
+                        class="btn btn-secondary dropdown-toggle" 
+                        type="button" 
+                        role="button"
+                        data-toggle="dropdown" 
+                        aria-haspopup="true" 
+                        aria-expanded="false"
+                        id="search_category_select"
+                    >
+                        <% if (locals.search_entity){ %>
+                        All <%= search_entity %>
+                        <% }else{ %>
+                        All Categories
+                        <% } %>
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="search_category_dropdown">
+                        <a class="dropdown-item" href="#">All Categories</a>
+                        <a class="dropdown-item" href="#">All Properties</a>
+                        <a class="dropdown-item" href="#">All Projects</a>
+                        <a class="dropdown-item" href="#">All Builders</a>
+                        <a class="dropdown-item" href="#">All Locations</a>
+                        <a class="dropdown-item" href="#">All Authorities</a>
+                        <a class="dropdown-item" href="#">All Banks</a>
+                      </div>
+                   </div> -->
+            <a href="javascript:void(0)" class="btn searchicon" onclick=search_fields_v1()><i class="fa fa-search" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="SCD2VisitModal" tabindex="-1" role="dialog" aria-labelledby="SCD2VisitModallTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg auth-modal-mod scd-visit-modal" role="document">
+    <div class="modal-content ">
+      <button class="btn auth-modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body p-0">
+        <div class="row">
+          <div class="col-lg-12 col-sm-12 p-0">
+            <div class="fdp-modal-left-content right-auth-md-content">
+              <div id="ScheduleVisit">
+                <h2>Schedule Appointment</h2>
+                <form id="schedule-visit-form">
+                  <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Full Name" id="schedule-name">
+                  </div>
+                  <div class="form-group row justify-content-between position-relative w-100 mx-0">
+                    <div onclick="showPhoneCodeOptions('schedule-phone-code', 'schedule-phone-code-name', 'schedule-phone-code-list', 'schedule-phone-code-search')" class="position-relative form-control col-3 p-0 ps-1 d-flex justify-content-around align-items-center" style="height: fit-content; background-color: #d9d9df;">
+                      <input type="text" class="w-100 mb-0 bg-white border-0 text-center" name="countryCode"  id="schedule-phone-code" value="+91" disabled required style="margin-bottom: 0px !important; background-color: #d9d9df !important;">
+                      <input id="schedule-phone-code-search" type="text" placeholder="India" class="phone-code-search w-100 p-2 mb-0 bg-white border-0 text-center" style="display: none;">
+                      <input type="text" class="w-100 d-none" name="countryName"  id="schedule-phone-code-name" value="India" disabled required>
+                      <svg class="m-1" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 20 20" stroke-linecap="round" stroke-linejoin="round" height="18" width="18" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div id="schedule-phone-code-list" class="phone-code-list position-absolute bottom-0" style="display: none;">
+                      <div class="w-100 p-2">
+                      </div>
+                      <table class="p-2"></table>
+                    </div>
+                    <input class="form-control col-8" type="text" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" placeholder="Phone Number" id="schedule-phone" required>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="email" placeholder="Email" id="schedule-email">
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 pr-lg-2 pr-sm-2">
+                      <div class="form-group">
+                        <div class="input-type-date-icon">
+                          <input class="form-control" type="date" id="schedule-date" placeholder="DD-MM-YYYY">
+                          <div class="artifical-input-feild">
+                            <p id="calender-value">YYYY-MM-DD</p>
+                            <img src="/v1/img/cal-icon.webp" class="img img-fluid" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6 pl-lg-2 pl-sm-2">
+                      <div class="form-group">
+                        <select class="form-control" type="text" placeholder="date" id="schedule-time">
+                          <option value="0" selected> Time</option>
+                          <option value="First Half (8AM to 12PM)"> First Half (8AM to 12PM)</option>
+                          <option value="Second Half (12PM to 4PM)"> Second Half (12PM to 4PM)</option>
+                          <option value="Third Half (4PM to 8PM)"> Third Half (4PM to 8PM)</option>
+                        </select>
+                      </div>
+                    </div>                    
+                  </div>
+                  <div class="d-flex justify-content-start align-items-center mb-3">
+                    <input style="width: fit-content;" class="mb-0" type="checkbox" id="newsletter-check-sv" checked>
+                    <label class="ml-2 mb-0" for="newsletter-check-sv"> Subscribe to AssetZilla Newsletter </label>
+                  </div>
+                  <div>
+                    <button type="submit" class="btn auth-modal-btn">Confirm</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    var dtToday = new Date();
+    dtToday.setDate(dtToday.getDate() + 1);
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if (month < 10)
+      month = '0' + month.toString();
+    if (day < 10)
+      day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
+    //alert(maxDate);
+    $('#schedule-date')
+      .attr('min', maxDate);
+  });
+</script>

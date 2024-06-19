@@ -1,0 +1,15 @@
+<%if(locals.user){%>
+    <img src="/v1/img/bookmark_green.webp" class="img img-fluid cursor-pointor" id="set_bookmark" onclick="set_bookmark()"
+    <% if(is_bookmarked) {%>
+    style="display: none"
+    <%}%>
+    />
+    <img src="/v1/img/bookmarked_green.webp" class="img img-fluid cursor-pointor bookmarked" id="unset_bookmark" onclick="unset_bookmark()" 
+    <% if(!is_bookmarked) {%>
+    style="display: none"
+    <%}%>
+    />
+<%}%>
+<%if(!locals.user){%>
+        <i class="fa cursor  fa-bookmark cursor-pointor"  data-toggle="modal" data-target="#loginModal"></i>
+<%}%>

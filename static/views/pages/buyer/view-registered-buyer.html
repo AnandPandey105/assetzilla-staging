@@ -1,0 +1,1121 @@
+<style>
+  .selected-tab {
+    background-color: #5cb85c;
+    color: white;
+    border-radius: 10px;
+  }
+
+  .selected-tab-leads {
+    color: #212168;
+    font-weight: 600;
+  }
+
+  .bg-white {
+    background-color: white;
+  }
+
+  /* .view-buyer li {
+    /* width: 15%;
+  } */
+
+  .user-info tr td {
+    padding: 5px;
+  }
+
+  .bold {
+    font-weight: 600;
+  }
+
+  .link {
+    text-decoration: underline;
+    color: blue;
+  }
+</style>
+<div class="m-3 bg-white">
+  <h3 class="p-3">
+    {{buyer.name}} -
+    <span ng-show="buyer.username !== '0000000000'"
+      >({{buyer.country.code}})</span
+    >
+    {{buyer.username}}
+  </h3>
+  <table class="p-3 m-3 user-info">
+    <tr>
+      <td class="bold">Email</td>
+      <td>{{buyer.email}}</td>
+    </tr>
+    <!-- <tr>
+      <td class="bold">Last Login</td>
+      <td>{{buyer.lastLogin | date : 'dd MMMM yyyy hh:mm a'}}</td>
+    </tr> -->
+    <tr>
+      <td class="bold">Last Activity</td>
+      <td>{{buyer.lastActivity | date : 'dd MMMM yyyy hh:mm a'}}</td>
+    </tr>
+    <tr>
+      <td class="bold">Account Created</td>
+      <td>{{buyer.createdAt | date : 'dd MMMM yyyy hh:mm a'}}</td>
+    </tr>
+  </table>
+</div>
+<div class="m-3 bg-white">
+  <div class="p-3">
+    <ul
+      class="view-buyer d-flex flex-row justify-content-start p-0 mb-3"
+      style="list-style: none"
+    >
+      <li
+        class="py-2 px-3"
+        ng-class="selectedTab === 'bookmarks'?'selected-tab':''"
+        ng-click="selectedTab = 'bookmarks'"
+      >
+        <span class="cursor-pointer">Bookmarks</span>
+      </li>
+      <li
+        class="py-2 px-3"
+        ng-class="selectedTab === 'submitted-property'?'selected-tab':''"
+        ng-click="selectedTab = 'submitted-property'"
+      >
+        <span class="cursor-pointer">Submitted Properties</span>
+      </li>
+      <li
+        class="py-2 px-3"
+        ng-class="selectedTab === 'search-history'?'selected-tab':''"
+        ng-click="selectedTab = 'search-history'"
+      >
+        <span class="cursor-pointer">Search History</span>
+      </li>
+      <li
+        class="py-2 px-3"
+        ng-class="selectedTab === 'view-history'?'selected-tab':''"
+        ng-click="selectedTab = 'view-history'"
+      >
+        <span class="cursor-pointer">View History</span>
+      </li>
+      <li
+        class="py-2 px-3"
+        ng-class="selectedTab === 'leads-data'?'selected-tab':''"
+        ng-click="selectedTab = 'leads-data'"
+      >
+        <span class="cursor-pointer">Recent leads actions</span>
+      </li>
+    </ul>
+
+    <hr />
+
+    <!-- Bookmarks  -->
+    <div ng-show="selectedTab === 'bookmarks'" class="bookmarks-container">
+      <ul
+        class="nav nav-pills mb-3"
+        id="pills-tab-{{buyer.username}}"
+        role="tablist"
+        tabindex="0"
+      >
+        <li
+          class="py-2 px-3 cursor-pointer"
+          data-ng-click="bmfilter='properties'"
+          ng-class="bmfilter === 'properties'?'selected-tab-leads':'text-muted'"
+        >
+          Properties
+        </li>
+        <li
+          class="py-2 px-3 cursor-pointer"
+          data-ng-click="bmfilter='projects'"
+          ng-class="bmfilter === 'projects'?'selected-tab-leads':'text-muted'"
+        >
+          Projects
+        </li>
+        <li
+          class="py-2 px-3 cursor-pointer"
+          data-ng-click="bmfilter='builders'"
+          ng-class="bmfilter === 'builders'?'selected-tab-leads':'text-muted'"
+        >
+          Builders
+        </li>
+        <li
+          class="py-2 px-3 cursor-pointer"
+          data-ng-click="bmfilter='authorities'"
+          ng-class="bmfilter === 'authorities'?'selected-tab-leads':'text-muted'"
+        >
+          Authorities
+        </li>
+        <li
+          class="py-2 px-3 cursor-pointer"
+          data-ng-click="bmfilter='locations'"
+          ng-class="bmfilter === 'locations'?'selected-tab-leads':'text-muted'"
+        >
+          Locations
+        </li>
+        <li
+          class="py-2 px-3 cursor-pointer"
+          data-ng-click="bmfilter='banks'"
+          ng-class="bmfilter === 'banks'?'selected-tab-leads':'text-muted'"
+        >
+          Banks
+        </li>
+      </ul>
+
+      <div class="table-responsive" data-ng-if="bookmark.length>0">
+        <!-- <ul class="list-group" data-ng-repeat="bookmark in bookmark | filter:{type:bmfilter} track by $index">
+                                        <li class="list-group-item" data-ng-if="bookmark.url">
+                                            <a ng-href="{{bookmark.url}}" target="_blank">{{(bookmark.data.resp.name) ? bookmark.data.resp.name : bookmark.url}}</a>
+                                        </li>
+                                    </ul> -->
+        <table class="table table-hover table-bordered table-striped">
+          <thead class="thead-light" data-ng-if="bmfilter === 'properties'">
+            <tr>
+              <th>Link</th>
+              <th>Name</th>
+              <th>Project</th>
+              <th>Builder</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <thead class="thead-light" data-ng-if="bmfilter === 'projects'">
+            <tr>
+              <th>Link</th>
+              <th>Name</th>
+              <th>Builder</th>
+              <th>Starting Price</th>
+            </tr>
+          </thead>
+          <thead class="thead-light" data-ng-if="bmfilter === 'builders'">
+            <tr>
+              <th>Link</th>
+              <th>Name</th>
+              <th>Starting Price</th>
+            </tr>
+          </thead>
+          <thead class="thead-light" data-ng-if="bmfilter === 'authorities'">
+            <tr>
+              <th>Link</th>
+              <th>Name</th>
+              <th>Starting Price</th>
+            </tr>
+          </thead>
+          <thead class="thead-light" data-ng-if="bmfilter === 'locations'">
+            <tr>
+              <th>Link</th>
+              <th>Name</th>
+              <th>Starting Price</th>
+            </tr>
+          </thead>
+          <thead class="thead-light" data-ng-if="bmfilter === 'banks'">
+            <tr>
+              <th>Link</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              data-ng-repeat="bm in bookmark | filter:{type:bmfilter} track by $index"
+            >
+              <td>
+                <a
+                  ng-href="{{bm.url}}"
+                  target="_blank"
+                  target="_blank"
+                  style="color: blue"
+                  >Link</a
+                >
+              </td>
+              <td>{{bm.data.resp.name}}</td>
+              <td data-ng-if="bmfilter === 'properties'">
+                {{bm.data.resp.project}}
+              </td>
+              <td
+                data-ng-if="bmfilter === 'properties' || bmfilter === 'projects'"
+              >
+                {{bm.data.resp.builder}}
+              </td>
+              <td data-ng-if="bmfilter === 'properties'">
+                {{bm.data.resp.price.price.toLocaleString("en-IN")}}
+              </td>
+              <td data-ng-if="bmfilter !== 'properties'">
+                {{bm.data.resp.price.min.toLocaleString("en-IN")}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-responsive" data-ng-if="bookmark.length==0">
+        <p>-- No Property Bookmarked yet --</p>
+      </div>
+    </div>
+
+    <!-- Submitted Properties -->
+    <div
+      ng-show="selectedTab === 'submitted-property'"
+      class="submitted-property-container"
+    >
+      <div class="table-responsive" data-ng-if="submitted_property.length>0">
+        <!-- <table class="table table-hover table-bordered table-striped">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Property Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone No</th>
+              <th scope="col">Builder</th>
+              <th scope="col">User Submitted<br>City</th>
+              <th scope="col">City</th>
+              <th scope="col">Case Id</th>
+              <th scope="col">Price</th>
+              <th scope="col">Size</th>
+              <th scope="col">Latest<br>Status</th>
+              <th scope="col">Latest<br>Sub Status</th>
+              <th scope="col">Submitted On</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="property in submitted_property track by $index">
+              <td class="w-125">{{property.property_name}}</td>
+              <td class="w-125">{{property.email}}</td>
+              <td class="w-125">({{property.country.code}})&nbsp;{{property.username}}</td>
+              <td class="w-125">{{property.builder}}</td>
+              <td class="w-125">{{property.userSubmittedCity ? property.userSubmittedCity : property.city}}</td>
+              <td class="w-125">
+                  <div class="row justify-content-start align-items-center"
+                      ng-hide="edit">
+                      <p class="col-8 mb-0">{{property.city}}</p>
+                  </div>
+              </td>
+              <td class="w-125" id="doc">{{property.case_id_display}}</td>
+              <td class="w-80">{{property.price}}</td>
+              <td class="w-80">{{property.size}}</td>
+              <td class="w-80">{{property.latestStatus}}</td>
+              <td class="w-80">{{property.latestSubStatus}}</td>
+              <td class="w-125">{{property.submittedOn| date :'dd MMM yy, hh:mm a'}}</td>
+              <td class="w-125">
+                  <a href="/admin-panel#/app/property/add?case_id={{property.case_id_display}}"
+                      ng-if="property.status === 'Under Review' || !property.status"
+                      class="btn btn-success">Property +</a>
+                  <a ng-click="getUrl(property.case_id_display);"
+                      ng-if="property.status === 'Waiting For Approval'"
+                      class="btn btn-success">Link</a>
+                  <a ng-click="getUrl(property.case_id_display);"
+                      ng-if="property.isApproved && property.status !== 'Archieved'"
+                      style="color:white;" class="btn btn-success">Link</a>
+                  <a ng-if="property.status == 'Archieved'" style="color:white;"
+                      class="btn btn-info">Archieved</a>
+                  <p class="mb-0 cursor-pointer" ng-click="showHistoryModal(property)">History</p>
+              </td>
+            </tr>
+          </tbody>
+        </table> -->
+        <table class="table table-striped table-responsive">
+          <thead>
+            <tr class="text-nowrap">
+              <th scope="col">Property Name</th>
+              <th scope="col">Email<br />Phone No</th>
+              <th scope="col">Builder</th>
+              <th scope="col">User Submitted<br />City</th>
+              <th scope="col">City</th>
+              <th scope="col">Case Id</th>
+              <th scope="col">Price</th>
+              <th scope="col">Size</th>
+              <th scope="col">Latest<br />Status</th>
+              <th scope="col">Latest<br />Sub Status</th>
+              <th scope="col">Property<br />Status</th>
+              <!-- <th scope="col">Submitted On</th> -->
+              <th scope="col">Actions</th>
+              <th scope="col">Last Modified</th>
+              <th scope="col">Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              ng-repeat="user in buyer.leadsData.submittedProperties track by $index"
+            >
+              <td>{{user.property_name}}</td>
+              <td>
+                {{user.email}}<br />({{user.country.code}})&nbsp;{{user.username}}
+              </td>
+              <td>{{user.builder}}</td>
+              <td>
+                {{user.userSubmittedCity ? user.userSubmittedCity : user.city}}
+              </td>
+              <td>{{user.city}}</td>
+              <td id="doc">{{user.case_id_display}}</td>
+              <td>{{user.price}}</td>
+              <td>{{user.size}}</td>
+              <td>{{user.latestStatus}}</td>
+              <td>{{user.latestSubStatus}}</td>
+              <td>{{user.status}}</td>
+              <!-- <td>{{user.submittedOn| date :'dd MMM yy, hh:mm a'}}</td> -->
+              <td class="w-125 d-flex">
+                <a
+                  href="/admin-panel#/app/property/add?case_id={{user.case_id_display}}"
+                  ng-if="user.status === 'Under Review' || !user.status"
+                  class="btn btn-sm btn-success"
+                  >Property +</a
+                >
+                <a
+                  ng-click="getUrl(user.case_id_display);"
+                  ng-if="user.status === 'Waiting For Approval'"
+                  class="btn btn-sm btn-success"
+                  >Link</a
+                >
+                <a
+                  ng-click="getUrl(user.case_id_display);"
+                  ng-if="user.isApproved && user.status !== 'Archieved'"
+                  style="color: white"
+                  class="btn btn-sm btn-success"
+                  >Link</a
+                >
+                <a
+                  ng-if="user.status == 'Archieved'"
+                  style="color: white"
+                  class="btn btn-sm btn-info"
+                  >Archieved</a
+                >
+                <p
+                  class="btn btn-sm btn-secondary mb-0 ml-2 cursor-pointer"
+                  ng-click="showHistoryModal(user, true)"
+                >
+                  History
+                </p>
+              </td>
+              <td>{{user.updated | date :'dd MMMM yy, hh:mm a'}}</td>
+              <td>{{user.created | date :'dd MMMM yy, hh:mm a'}}</td>
+            </tr>
+            <tr></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-ng-if="buyer.leadsData.submittedProperties.length===0">
+        <p>-- No Property Submitted yet --</p>
+      </div>
+    </div>
+
+    <!-- User Search history -->
+    <div
+      ng-show="selectedTab === 'search-history'"
+      class="search-history-container"
+    >
+      <div ng-show="searchHistory">
+        <div ng-show="userSearchHistory">
+          <div>
+            <div class="row justify-content-end align-items-center">
+              <div class="input-group col-4 offset-8 align-items-center">
+                  <p class="mb-0 pr-2">Show</p>
+                  <select class="custom-select" ng-model="search_history_filter" ng-change="filterSearchHistory(search_history_filter)">
+                      <option value="All">All</option>
+                      <option value="Search Result">Search Result</option>
+                      <option value="Property">Property</option>
+                      <option value="Project">Project</option>
+                      <option value="Builder">Builder</option>
+                      <option value="Authority">Authority</option>
+                      <option value="Location">Location</option>
+                      <option value="Bank">Bank</option>
+                      <option value="News">News</option>
+                      <option value="Sell your property">Sell your property</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+          <div data-ng-repeat="date in userSearchHistory">
+            <h6>{{date}}</h6>
+            <ul>
+              <li ng-repeat="history in search_history_filtered_data[date]">
+                <a
+                  data-ng-show="history.url"
+                  target="_blank"
+                  href="{{history.url}}"
+                >
+                  <span class="{{history.doc_type === 'search results' ? 'result' + ' type-indicator' : history.doc_type + ' type-indicator'}}"
+                    >{{history.doc_type + ": "}}</span
+                  >
+                  {{history.name}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div ng-hide="userSearchHistory">
+        <p>No history stored</p>
+      </div>
+    </div>
+
+    <!-- User View history -->
+    <div
+      ng-show="selectedTab === 'view-history'"
+      class="view-history-container"
+    >
+      <div ng-show="viewHistory">
+        <div ng-show="userViewHistory">
+          <div>
+            <div class="row justify-content-end align-items-center">
+              <div class="input-group col-4 offset-8 align-items-center">
+                  <p class="mb-0 pr-2">Show</p>
+                  <select class="custom-select" ng-model="view_history_filter" ng-change="filterViewHistory(view_history_filter)">
+                      <option value="All">All</option>
+                      <option value="Property">Property</option>
+                      <option value="Project">Project</option>
+                      <option value="Builder">Builder</option>
+                      <option value="Authority">Authority</option>
+                      <option value="Location:subcity">Subcity</option>
+                      <option value="Location:city">City</option>
+                      <option value="Location:district">District</option>
+                      <option value="Location:state">State</option>
+                      <option value="Bank">Bank</option>
+                      <option value="News">News</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+          <div data-ng-repeat="date in userViewHistory">
+            <h6>{{date}}</h6>
+            <ul>
+              <li ng-repeat="history in view_history_filtered_data[date]">
+                <a
+                  data-ng-show="history.name"
+                  target="_blank"
+                  href="{{history.url}}"
+                  ><span class="{{(history.location_type || history.doc_type) + ' type-indicator'}}"
+                    >{{(history.location_type || history.doc_type) + ": "}}</span
+                  >{{history.name}}</a
+                >
+                <a
+                  data-ng-show="history.heading"
+                  target="_blank"
+                  href="{{history.url}}"
+                  ><span class="{{history.doc_type === 'search results' ? 'result' + ' type-indicator' : history.doc_type + ' type-indicator'}}"
+                    >{{history.doc_type + ": "}}</span
+                  >{{history.heading}}</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div ng-hide="viewHistory">
+        <p>No history stored</p>
+      </div>
+    </div>
+
+    <!-- Recent Leads Actions  -->
+    <div ng-show="selectedTab === 'leads-data'" class="bookmarks-container">
+      <ul
+        class="nav nav-pills mb-3"
+        id="pills-tab-{{buyer.username}}"
+        role="tablist"
+        tabindex="0"
+      >
+        <li
+          class="py-2 px-3"
+          ng-class="recentLeadsTab === 'booking-inquiries'?'selected-tab-leads':'text-muted'"
+          ng-click="recentLeadsTab = 'booking-inquiries'"
+        >
+          <span class="cursor-pointer">Booking Inquiries</span>
+        </li>
+        <li
+          class="py-2 px-3"
+          ng-class="recentLeadsTab === 'schedules'?'selected-tab-leads':'text-muted'"
+          ng-click="recentLeadsTab = 'schedules'"
+        >
+          <span class="cursor-pointer">Schedules</span>
+        </li>
+        <li
+          class="py-2 px-3"
+          ng-class="recentLeadsTab === 'leads-buyers'?'selected-tab-leads':'text-muted'"
+          ng-click="recentLeadsTab = 'leads-buyers'"
+        >
+          <span class="cursor-pointer">Bank Loan Leads</span>
+        </li>
+        <li
+          class="py-2 px-3"
+          ng-class="recentLeadsTab === 'consultations'?'selected-tab-leads':'text-muted'"
+          ng-click="recentLeadsTab = 'consultations'"
+        >
+          <span class="cursor-pointer">Consultations</span>
+        </li>
+        <li
+          class="py-2 px-3"
+          ng-class="recentLeadsTab === 'interested-buyers'?'selected-tab-leads':'text-muted'"
+          ng-click="recentLeadsTab = 'interested-buyers'"
+        >
+          <span class="cursor-pointer">Interested in Buying</span>
+        </li>
+      </ul>
+
+      <div
+        ng-show="recentLeadsTab === 'booking-inquiries'"
+        class="booking-inquiries-container"
+      >
+        <div
+          data-ng-show="buyer.leadsData && buyer.leadsData.bookingInquiries.length>0"
+        >
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-nowrap">
+                <th scope="col">Name</th>
+                <th scope="col">Property</th>
+                <th scope="col">Number</th>
+                <th scope="col">Created</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                ng-repeat="user in buyer.leadsData.bookingInquiries track by $index"
+              >
+                <td>{{user.name}}</td>
+                <td>
+                  <a
+                    href="{{user.property}}"
+                    target="_blank"
+                    style="color: blue; text-decoration: underline"
+                    >{{user.property_name || user.property}}</a
+                  >
+                </td>
+                <td>({{user.country.code}})&nbsp;{{user.number}}</td>
+                <td>{{user.created | date :'dd MMMM yy, hh:mm a'}}</td>
+                <td>
+                  {{user.latestStatus?user.latestStatus:user.history[0] &&
+                  user.history[0].status !== '' ? user.history[0].status : ""}}
+                </td>
+                <td>
+                  <!-- <p class="mb-0 cursor-pointer" ng-click="showNotesModal(user)">Add notes</p> -->
+                  <p
+                    class="mb-0 cursor-pointer"
+                    ng-click="showHistoryModal(user)"
+                  >
+                    History
+                  </p>
+                </td>
+              </tr>
+              <tr></tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          data-ng-hide="buyer.leadsData && buyer.leadsData.bookingInquiries.length>0"
+        >
+          --No Inquiries from this customer yet--
+        </div>
+      </div>
+
+      <div ng-show="recentLeadsTab === 'schedules'" class="schedules-container">
+        <div
+          data-ng-show="buyer.leadsData && buyer.leadsData.schedules.length>0"
+        >
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-nowrap">
+                <th scope="col">Name</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Email</th>
+                <th scope="col">Appointment Date</th>
+                <th scope="col">Booked On</th>
+                <th scope="col">Project/Property</th>
+                <th scope="col">City</th>
+                <th scope="col">Other <br />Interested Projects</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="user in buyer.leadsData.schedules track by $index">
+                <td>{{user.name}}</td>
+                <td>({{user.country.code}})&nbsp;{{user.phone}}</td>
+                <td>{{user.email}}</td>
+                <td class="d-flex justify-content-between align-items-center">
+                  <p>
+                    {{(user.date | date :'dd MMMM yyyy')}}
+                    <span>{{(user.timeZone)}}</span>
+                  </p>
+                </td>
+                <td>{{user.createdAt | date : 'dd MMMM yyyy'}}</td>
+                <td>{{user.project.join(', ')}}</td>
+                <td>{{user.city.join(', ')}}</td>
+                <td>{{user.interestedInOtherProjects}}</td>
+                <td>{{user.latestStatus}}</td>
+                <td>
+                  <div class="d-flex flex-row">
+                    <!-- <div class="p-1" ng-click="showRescheduleModal(user)">
+                    <!-- <img src="/assets/images/reschedule.png" alt="" width="26" height="26" class="cursor-pointer" style="filter: invert();"/>
+                    <p class="cursor-pointer mt-0">Reschedule</p>
+                  </div> -->
+                    <div class="p-1" ng-click="showScheduleHistoryModal(user)">
+                      <!-- <img src="/assets/images/schedule_history.png" alt="" width="26" height="26" class="cursor-pointer" style="filter: invert();"/> -->
+                      <p class="cursor-pointer mt-0 mb-0">History</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr></tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          data-ng-hide="buyer.leadsData && buyer.leadsData.schedules.length>0"
+        >
+          --No Visit scheduled from this customer yet--
+        </div>
+      </div>
+
+      <div
+        ng-show="recentLeadsTab === 'leads-buyers'"
+        class="leads-buyers-container"
+      >
+        <div
+          data-ng-show="buyer.leadsData && buyer.leadsData.leadsBuyers.length>0"
+        >
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-nowrap">
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Number</th>
+                <th scope="col">Inquiry About</th>
+                <th scope="col">City</th>
+                <th scope="col">Bank</th>
+                <th scope="col">Date/time</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                ng-repeat="user in buyer.leadsData.leadsBuyers track by $index"
+              >
+                <td>{{user.user}}</td>
+                <td>{{user.email}}</td>
+                <td>({{user.country.code}})&nbsp;{{user.phone}}</td>
+                <td>{{user.project}}</td>
+                <td>{{user.city}}</td>
+                <td>{{user.bank}}</td>
+                <td>
+                  {{(user.updated || user.updatedAt) | date :'dd MMMM yy, hh:mm
+                  a'}}
+                </td>
+                <td>{{user.latestStatus}}</td>
+                <td>
+                  <!-- <p class="mb-0 cursor-pointer" ng-click="showNotesModal(user, 'loanProject')">Add notes</p> -->
+                  <p
+                    class="mb-0 cursor-pointer"
+                    ng-click="showHistoryModal(user)"
+                  >
+                    History
+                  </p>
+                </td>
+              </tr>
+              <tr></tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          data-ng-hide="buyer.leadsData && buyer.leadsData.leadsBuyers.length>0"
+        >
+          --No loan enquiries from this customer yet--
+        </div>
+      </div>
+
+      <div
+        ng-show="recentLeadsTab === 'consultations'"
+        class="consultations-container"
+      >
+        <div
+          data-ng-show="buyer.leadsData && buyer.leadsData.consultation.length>0"
+        >
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-nowrap">
+                <th scope="col">Name</th>
+                <th scope="col">Inquiry About</th>
+                <th scope="col">Location</th>
+                <th scope="col">Number</th>
+                <th scope="col">User Type</th>
+                <th scope="col">Date/time</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                ng-repeat="user in buyer.leadsData.consultation track by $index"
+              >
+                <td>{{user.name}}</td>
+                <td>{{user.lookingFor}}</td>
+                <td>{{user.city}}</td>
+                <td>({{user.country.code}})&nbsp;{{user.phone}}</td>
+                <td>{{user.type_of_user}}</td>
+                <td>{{user.created | date :'dd MMMM yy, hh:mm a'}}</td>
+                <td>{{user.latestStatus}}</td>
+                <td>
+                  <!-- <p class="mb-0 cursor-pointer" ng-click="showNotesModal(user)">Add notes</p> -->
+                  <p
+                    class="mb-0 cursor-pointer"
+                    ng-click="showHistoryModal(user)"
+                  >
+                    History
+                  </p>
+                </td>
+              </tr>
+              <tr></tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          data-ng-hide="buyer.leadsData && buyer.leadsData.consultation.length>0"
+        >
+          --No Consultations from this customer yet--
+        </div>
+      </div>
+
+      <div
+        ng-show="recentLeadsTab === 'interested-buyers'"
+        class="interested-buyers-container"
+      >
+        <div
+          data-ng-show="buyer.leadsData && buyer.leadsData.interestedBuyers.length>0"
+        >
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-nowrap">
+                <th scope="col">Inquiry About</th>
+                <th scope="col">Number</th>
+                <th scope="col">City</th>
+                <th scope="col">Created</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                ng-repeat="user in buyer.leadsData.interestedBuyers track by $index"
+              >
+                <td>
+                  <a
+                    ng-class="user.url?'link':''"
+                    ng-if="user.url"
+                    href="{{user.url_with_project}}"
+                    target="_blank"
+                    >{{user.name || user.inquiry_about}}</a
+                  >
+                  <span
+                    ng-if="user.url"
+                    style="text-decoration: none; color: black"
+                    >({{user.propertiesAvailable}}&nbsp;Properties)</span
+                  >
+                  <span ng-if="!user.url"
+                    >{{user.name || user.inquiry_about}}</span
+                  >
+                </td>
+                <td>({{user.country.code}})&nbsp;{{user.number}}</td>
+                <td>{{user.city}}</td>
+                <td>{{user.created | date :'dd MMMM yy, hh:mm a'}}</td>
+                <td>{{user.latestStatus}}</td>
+                <td>
+                  <!-- <p class="mb-0 cursor-pointer" ng-click="showNotesModal(user)">Add notes</p> -->
+                  <p
+                    class="mb-0 cursor-pointer"
+                    ng-click="showHistoryModal(user)"
+                  >
+                    History
+                  </p>
+                </td>
+              </tr>
+              <tr></tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          data-ng-hide="buyer.leadsData && buyer.leadsData.interestedBuyers.length>0"
+        >
+          --User has not shown their interest in any of the properties--
+        </div>
+      </div>
+    </div>
+
+    <!-- show history Modal -->
+    <div
+      class="modal fade"
+      id="showHistoryModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="showModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg custom-modal-width" role="document">
+        <div class="modal-content">
+          <div class="modal-header align-items-start">
+            <div>
+              <h5 class="modal-title" id="showLeadsBuyerHistoryModalLabel">
+                History
+              </h5>
+              <table ng-hide="from_user_submitted_property">
+                <tr>
+                  <td colspan="2">
+                    <!-- <strong> Name:</strong> -->
+                    <h6 class="mb-0 mt-4">{{userHistoryData.name}}</h6>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Email:</strong>
+                  </td>
+                  <td>{{userHistoryData.email}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Phone:</strong>
+                  </td>
+                  <td>
+                    ({{userHistoryData.country.code}})&nbsp;{{userHistoryData.number}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Inquiry About:</strong>
+                  </td>
+                  <td>
+                    <a
+                    ng-class="userHistoryData.url_with_project?'link':''"
+                    ng-if="userHistoryData.url_with_project"
+                    href="{{userHistoryData.url_with_project}}"
+                    target="_blank">
+                      {{userHistoryData.name || userHistoryData.inquiry_about}}
+                    </a>
+                    <span ng-if="userHistoryData.url" style="text-decoration: none; color: black">
+                      ({{userHistoryData.propertiesAvailable}}&nbsp;Properties)
+                    </span>
+                  <span ng-if="!userHistoryData.url">{{userHistoryData.name || userHistoryData.inquiry_about}}</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>is&nbsp;Subscribed?:</strong>
+                  </td>
+                  <td class="px-2">{{userHistoryData.isSubscribed}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>City:</strong>
+                  </td>
+                  <td>{{userHistoryData.city}}</td>
+                </tr>
+              </table>
+              <table ng-show="from_user_submitted_property">
+                <tr>
+                  <td colspan="2">
+                    <!-- <strong> Name:</strong> -->
+                    <h6 class="mb-0 mt-4">{{userHistoryData.user.name}}({{userHistoryData.user.country.code}})&nbsp;{{userHistoryData.user.username}}</h6>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Property&nbsp;Name:</strong>
+                  </td>
+                  <td>
+                    {{userHistoryData.property_name}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Submitted Email & Phone No.:</strong>
+                  </td>
+                  <td class="px-2">
+                    {{userHistoryData.email}}&nbsp;&&nbsp;({{userHistoryData.country.code}})&nbsp;{{userHistoryData.username}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Builder:</strong>
+                  </td>
+                  <td>
+                    {{userHistoryData.builder}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>User&nbsp;Submitted&nbsp;City:</strong>
+                  </td>
+                  <td>
+                    {{userHistoryData.userSubmittedCity ? userHistoryData.userSubmittedCity : userHistoryData.city}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>City:</strong>
+                  </td>
+                  <td>
+                    {{userHistoryData.city}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Price:</strong>
+                  </td>
+                  <td>
+                    {{userHistoryData.price}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Size:</strong>
+                  </td>
+                  <td>
+                    {{userHistoryData.size}} (sq.ft.)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Property&nbsp;Status:</strong>
+                  </td>
+                  <td>
+                    {{userHistoryData.status}}
+                  </td>
+                </tr>
+              </table>  
+            </div>
+            <button
+              type="button"
+              ng-click="blankFormFn()"
+              id="closeCreateEditModal"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div data-ng-show="userHistory.length > 0" class="table-responsive-history">
+              <table class="table history-table">
+                <thead class="history-modal-table-head">
+                  <tr class="text-nowrap">
+                    <th scope="col">Status</th>
+                    <th scope="col">Sub Status</th>
+                    <th scope="col" class="notes">Notes</th>
+                    <th scope="col">Whatsapp Number</th>
+                    <th scope="col">Updated On</th>
+                    <th scope="col">Updated By</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    data-ng-show="userHistory.length > 0"
+                    ng-repeat="history in userHistory track by $index"
+                  >
+                    <td>{{history.status || "-"}}</td>
+                    <td>{{history.subStatus || "-"}}</td>
+                    <td class="notes">{{history.notes}}</td>
+                    <td>({{history.country.code}}) {{history.whatsappNumber}}</td>
+                    <td>{{history.updated | date: "MMM dd yyyy hh:mm a"}}</td>
+                    <td>{{history.updatedBy}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div data-ng-show="userHistory.length === 0">
+              <h4 class="text-muted">No History</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reschedule History-->
+    <div
+      class="modal fade"
+      id="scheduleHistoryModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="scheduleHistoryModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg custom-modal-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header align-items-start">
+                <div>
+                <h5 class="modal-title" id="scheduleHistoryModalLabel">Rescheduling History</h5>
+                <table>
+                    <tr>
+                      <td colspan="2">
+                        <!-- <strong> Name:</strong> -->
+                        <h6 class="mb-0 mt-4">{{scheduleHistoryData.name}}</h6>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Email:</strong>
+                      </td>
+                      <td class="pl-2">
+                        {{scheduleHistoryData.email}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Phone:</strong>
+                      </td>
+                      <td class="pl-2">
+                        ({{scheduleHistoryData.country.code}})&nbsp;{{scheduleHistoryData.phone}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Project/Property:</strong>
+                      </td>
+                      <td class="pl-2">
+                        <a target="_blank" data-ng-repeat="proj in scheduleHistoryData.project track by $index" ng-href={{scheduleHistoryData.url[$index]}} ng-class="scheduleHistoryData.url?'has-link':''">{{proj}}<span style="color: black !important; text-decoration: none !important;">
+                      </td>
+                    </tr>
+                    <tr>
+                        <td>
+                          <strong>Other Interested Projects:</strong>
+                        </td>
+                        <td class="pl-2">
+                          {{scheduleHistoryData.interestedInOtherProjects}}
+                        </td>
+                      </tr>
+                </table>   
+                </div>
+                <button type="button" ng-click="blankFormFn()" id="closescheduleHistoryModalLabel" class="close"
+                    data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div data-ng-show="scheduleHistory.length > 0" class="table-responsive-history">
+                    <table class="table history-table">
+                        <thead class="history-modal-table-head">
+                            <tr class="text-nowrap">
+                            <th scope="col">Status</th>
+                            <th scope="col">Sub Status</th>
+                            <th scope="col" class="notes">Notes</th>
+                            <th scope="col" class="fs-12">Appointment<br/>Date:</th>
+                            <th scope="col" class="fs-12">Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>                            
+                            <th scope="col" class="fs-12">Whatsapp<br/>Number</th>
+                            <th scope="col">Updated On</th>
+                            <th scope="col">Updated By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                data-ng-show="scheduleHistory.length > 0" class="scedhule-history"
+                                ng-repeat="history in scheduleHistory track by $index"
+                            >
+                                <td>{{history.status}}</td>
+                                <td>{{history.subStatus}}</td>
+                                <td>{{history.notes}}</td>
+                                <td class="fs-12">{{history.newAppointmentDate | date : 'dd MMMM yyyy'}}</td>
+                                <td class="fs-12">{{history.newTimeZone}}</td>
+                                <td class="fs-12">({{history.country.code}}) {{history.whatsappNumber}}</td>
+                                <td>{{history.updateDate | date : 'dd MMMM yyyy hh:mm a'}}</td>
+                                <td>{{history.updateUser}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div data-ng-show="!scheduleHistory || scheduleHistory.length === 0">
+                    <h4 class="text-muted">No History</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>

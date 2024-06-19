@@ -1,0 +1,23 @@
+<div class="center-block w-xxl w-auto-xs p-y-md">
+  <div class="navbar">
+    <div class="pull-center">
+      <div ui-include="'../views/blocks/navbar.brand.html'"></div>
+    </div>
+  </div>
+  <div class="p-a-md box-color r box-shadow-z1 text-color m-a">
+    <div class="m-b text-sm">
+      Sign in with your {{app.name}} Account
+    </div>
+    <form name="form" ng-submit=login()>
+      <div class="md-form-group float-label">
+        <input type="email" class="md-input" ng-model="user.email" required>
+        <label>Email</label>
+      </div>
+      <div class="md-form-group float-label">
+        <input type="password" class="md-input" ng-model="user.password" required>
+        <label>Password</label>
+      </div>   
+      <button type="submit" class="btn custom btn-block p-x-md">Sign in</button>
+    </form>
+  </div>
+</div>

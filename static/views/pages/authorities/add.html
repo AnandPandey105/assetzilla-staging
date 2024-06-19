@@ -1,0 +1,239 @@
+<div ng-class="{true:'blurry', false:'non-blurry'}[loader]">
+  <div class="container-fluid p-5">
+    <div class="box">
+      <div class="box-body">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="name">
+                <strong>Authority Name<span style="color: red"> *</span></strong>
+              </label>
+              <input type="text" class="form-control" id="name" placeholder="authority name" ng-model="data.name">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>
+                <strong>Logo<span style="color: red"> *(upload only png or jpeg)</span></strong>
+              </label>
+              <input type="file" class="form-control" file-model="data.logo" accept="image/x-png,image/jpeg">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <strong>Video Link</strong>
+              <input required type="text" class="form-control" placeholder="Video Link" ng-model="data.video_url">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="description">
+                <strong>Description</strong>
+              </label>
+              <summernote on-paste="onPasting(evt)" id="description" on-image-upload="imageUpload(files, 'description')" height="100" style="border: 1px solid #aaa; background: red;" ng-model="data.description"></summernote>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="email">
+                <strong>Email</strong>
+              </label>
+              <input type="text" class="form-control" id="email" placeholder="email address" ng-model="data.email">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="number">
+                <strong>Contact Number</strong>
+              </label>
+              <input type="text" class="form-control" id="number" placeholder="Seperate multiple numbers by ','"
+                ng-model="data.phone">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="website">
+                <strong>Website<span style="color: red"> *</span></strong>
+              </label>
+              <input type="text" class="form-control" id="website" placeholder="website url" ng-model="data.website">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="address">
+                <strong>Address Line 1</strong>
+              </label>
+              <textarea type="text" class="form-control" id="address" placeholder="address" ng-model="data.address"
+                rows="1"></textarea>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="pincode">
+                <strong>Pincode</strong>
+              </label>
+              <input type="number" class="form-control" id="pincode" placeholder="pincode" ng-model="data.pincode">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="state">
+                <strong>State<span style="color: red"> *</span></strong>
+              </label>
+              <div>
+                <input type="text" ng-model="data.state" id="state" placeholder="Select a State"
+                  uib-typeahead="address for address in getStates($viewValue)" class="form-control"
+                  typeahead-editable="typeaheadEditable">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" ng-show="data.state">
+            <div class="form-group">
+              <label for="district">
+                <strong>District</strong>
+              </label>
+              <div>
+                <input type="text" id="district" ng-model="data.district" placeholder="Select a District"
+                  uib-typeahead="address for address in getDistricts($viewValue)" class="form-control"
+                  typeahead-editable="typeaheadEditable">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="founded_year">
+                <strong>Founded Year</strong>
+              </label>
+              <input type="text" class="form-control" id="founded_year" placeholder="founded_year"
+                ng-model="data.founded_year">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="major_developments">
+                <strong>Major Developments</strong>
+              </label>
+              <summernote on-paste="onPasting(evt)" id="major_developments" on-image-upload="imageUpload(files, 'major_developments')" height="100" style="border: 1px solid #aaa" ng-model="data.major_developments"></summernote>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="master_plan_with_years">
+                <strong>Master Plan With Years</strong>
+              </label>
+              <summernote on-paste="onPasting(evt)" id="master_plan_with_years" on-image-upload="imageUpload(files, 'master_plan_with_years')" height="100" style="border: 1px solid #aaa" ng-model="data.master_plan_with_years">
+              </summernote>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>
+                <strong>Images<span style="color: red"> (upload only png or jpeg)</span></strong>
+              </label>
+              <input type="file" class="form-control" file-model="data.master_plan_with_years_image[0]"
+                accept="image/x-png,image/jpeg">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="area_covered">
+                <strong>Area Covered</strong>
+              </label>
+              <summernote on-paste="onPasting(evt)" id="area_covered" on-image-upload="imageUpload(files, 'area_covered')" height="100" style="border: 1px solid #aaa" ng-model="data.area_covered"></summernote>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>
+                <strong>Images<span style="color: red"> (upload only png or jpeg)</span></strong>
+              </label>
+              <input type="file" class="form-control" file-model="data.area_covered_image[0]"
+                accept="image/x-png,image/jpeg">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="metro_routes">
+                <strong>Metro Routes</strong>
+              </label>
+              <summernote on-paste="onPasting(evt)" id="metro_routes" on-image-upload="imageUpload(files, 'metro_routes')" height="100" style="border: 1px solid #aaa" ng-model="data.metro_routes"></summernote>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>
+                <strong>Images<span style="color: red"> (upload only png or jpeg)</span></strong>
+              </label>
+              <input type="file" class="form-control" file-model="data.metro_routes_image[0]"
+                accept="image/x-png,image/jpeg">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="major_initiatives">
+                <strong>Major Initiatives</strong>
+              </label>
+              <summernote on-paste="onPasting(evt)" id="major_initiatives" on-image-upload="imageUpload(files, 'major_initiatives')" height="100" style="border: 1px solid #aaa" ng-model="data.major_initiatives"></summernote>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="text-center p-5">
+              <button type="submit" class="btn btn-block success" data-ng-click="add()" ng-disabled="loader">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="float-right">
+          <p>Fields marked as <span style="color: red">*</span> are mandatory.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- loader -->
+<div class="container" ng-show="loader" style="position: fixed;top:15em">
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="loader-box"><img src="images/loading.gif"></div>
+    </div>
+  </div>
+</div>
+<!-- End : loader -->

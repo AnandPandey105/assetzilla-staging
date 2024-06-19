@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"realestate.cities_cron"}],"uuid":"ff7f983f830149c28a6767e13af6a014","collectionName":"cities_cron"}

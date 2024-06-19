@@ -1,0 +1,250 @@
+<ul class="nav" ui-nav>
+    <li class="nav-header hidden-folded">
+        <small style="color: white">Main</small>
+    </li>
+
+    <li>
+        <a ng-show="isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">
+            <span class="nav-caret">
+                <i class="fa fa-caret-down"></i>
+            </span>
+            <span class="nav-icon">
+                <i class="fa fa-home" style="color: white"></i>
+            </span>
+            <span class="nav-text">Entities</span>
+        </a>
+        <ul class="nav-sub">
+            <li ui-sref-active="active">
+                <a ui-sref="app.view-property">
+                    <span class="nav-text">Property</span>
+                </a>
+            </li>
+
+            <li>
+                <a ui-sref="app.view-project">
+                    <span class="nav-text">Project</span>
+                </a>
+            </li>
+
+            <li>
+                <a ui-sref="app.view-builder">
+                    <span class="nav-text">Builder</span>
+                </a>
+            </li>
+
+            <li>
+                <a ui-sref="app.view-authority">
+                    <span class="nav-text">Authority</span>
+                </a>
+            </li>
+            <!-- <li>
+                <a ui-sref="app.userSubmittedProperties">
+                    <span class="nav-text">User Submitted Properties</span>
+                    <small action="/" class="count-red" id="properties-count">{{ data2 }}</small>
+                </a>
+            </li> -->
+        </ul>
+    </li>
+
+    <li>
+        <a ng-show="isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">
+            <span class="nav-caret">
+                <i class="fa fa-caret-down"></i>
+            </span>
+            <span class="nav-icon">
+                <i class="fa  fa-location-arrow" style="color: white"></i>
+            </span>
+            <span class="nav-text">Locations</span>
+        </a>
+        <ul class="nav-sub">
+            <li ui-sref="app.view-subcity">
+                <a>
+                    <span class="nav-text">Subcity</span>
+                </a>
+            </li>
+
+            <li>
+                <a ui-sref="app.view-city">
+                    <span class="nav-text">City</span>
+                </a>
+            </li>
+
+            <li>
+                <a ui-sref="app.view-district">
+                    <span class="nav-text">District</span>
+                </a>
+            </li>
+
+            <li>
+                <a ui-sref="app.view-state">
+                    <span class="nav-text">State</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!-- <li>
+        <a ui-sref="app.view-graph" ng-show="isAuthorised(['Super Admin','Moderator'])">
+          <span class="nav-icon">
+            <i class="fa fa-bar-chart" style="color: white"></i>
+          </span>
+          <span class="nav-text">Graphs</span>
+        </a>
+      </li> -->
+
+    <li>
+        <a ui-sref="app.view-article" ng-show="isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">
+            <span class="nav-icon">
+                <i class="fa  fa-newspaper-o" style="color: white"></i>
+            </span>
+            <span class="nav-text">Articles</span>
+        </a>
+    </li>
+
+    <li>
+        <a ui-sref="app.view-bank" ng-show="isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">
+            <span class="nav-icon">
+                <i class="fa fa-bank" style="color: white"></i>
+            </span>
+            <span class="nav-text">Bank</span>
+        </a>
+    </li>
+
+    <!-- <li>
+        <a ui-sref="app.mailer" ng-show="isAuthorised(['Super Admin','Sales Marketing'])">
+          <span class="nav-icon">
+            <i class="fa fa-envelope" style="color: white"></i>
+          </span>
+          <span class="nav-text">Mailers</span>
+        </a>
+      </li> -->
+
+    <li class="active" ng-show="isAuthorised(['Super Admin','Sales Marketing', 'Deo'])">
+        <a ng-show="isAuthorised(['Super Admin','Sales Marketing', 'Deo'])">
+            <span class="nav-caret">
+                <i class="fa fa-caret-down"></i>
+            </span>
+            <span class="nav-icon">
+                <i class="fa fa-user" style="color: white"></i>
+            </span>
+            <span class="nav-text">CRM</span>
+        </a>
+        <ul class="nav-sub">
+            <li ui-sref-active="active" ng-show="isAuthorised(['Super Admin','Sales Marketing'])">
+                <a ui-sref="app.booking_property">
+                    <span class="nav-text">Booking Inquiries</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-show="isAuthorised(['Super Admin','Sales Marketing'])">
+                <a ui-sref="app.schedule">
+                    <span class="nav-text">Scheduled Visits</span>
+                    <small action="/" class="count-red" id="appointment-count">{{ data2 }}</small>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-show="isAuthorised(['Super Admin','Sales Marketing'])">
+                <a ui-sref="app.leads-buyer">
+                    <span class="nav-text">Bank Loan Leads</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-show="isAuthorised(['Super Admin','Sales Marketing'])">
+                <a ui-sref="app.consultation">
+                    <span class="nav-text">Consultation</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.interested_buyer">
+                    <span class="nav-text">Interested Buyers</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-show="isAuthorised(['Super Admin','Sales Marketing'])">
+                <a ui-sref="app.newsletter">
+                    <span class="nav-text">Newsletter</span>
+                </a>
+            </li>
+
+            <!-- <li ui-sref-active="active">
+                <a ui-sref="app.registered-buyer">
+                    <span class="nav-text">Registered</span>
+                </a>
+            </li> -->
+        </ul>
+    </li>
+
+    <li>
+        <a ui-sref="app.userSubmittedProperties_" ng-show="isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">
+            <span class="nav-icon">
+                <i class="fa fa-building" style="color: white"></i>
+              </span>
+            <span class="nav-text">User Submitted Properties</span>
+            <small action="/" class="count-red" id="properties-count">{{ data2 }}</small>
+        </a>
+    </li>
+
+    <li>
+      <a ui-sref="app.registered-buyer" ng-show="isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">
+        <span class="nav-icon">
+          <i class="fa fa-users" style="color: white"></i>
+        </span>
+        <span class="nav-text">Registered Users</span>
+      </a>
+    </li>
+  
+</li>
+
+<li class="nav-header hidden-folded" ng-show="isAuthorised(['Super Admin'])">
+    <small style="color: white">Settings</small>
+</li>
+<li ng-class="{active:$state.includes('app.layout')}">
+    <li ui-sref-active="active">
+        <a ui-sref="app.user" ng-show="isAuthorised(['Super Admin'])">
+            <span class="nav-icon">
+                <i class="fa fa-users" style="color: white"></i>
+            </span>
+            <span class="nav-text">User</span>
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="app.emi" ng-show="isAuthorised(['Super Admin'])">
+            <span class="nav-icon">
+                <i class="fa fa-users" style="color: white"></i>
+            </span>
+            <span class="nav-text">EMI</span>
+        </a>
+    </li>
+</li></ul><!-- JS code to fetch notif count --><script>
+// const lastVisit = getCookie('lastVisitTime');
+
+
+$(document).ready(function () {
+    $.ajax({
+        url: '/api/schedule/unseen-schedules',
+        method: 'GET',
+        success: function (data) {
+            if (data.success) { // assign the count to a variable
+                var unSeenAppointments = data.unseenCount;
+
+                // put the count in the notifCount element
+                $('#appointment-count').html(unSeenAppointments);
+            }
+
+        }
+    });
+});</script><script>
+// const lastVisit = getCookie('lastVisitTime');
+
+
+$(document).ready(function () {
+    $.ajax({
+        url: '/api/property/unseen-schedules',
+        method: 'GET',
+        success: function (data) {
+            if (data.success) { // assign the count to a variable
+                var unSeenAppointments = data.unseenCount;
+
+                // put the count in the notifCount element
+                $('#properties-count').html(unSeenAppointments);
+            }
+
+        }
+    });
+});</script>

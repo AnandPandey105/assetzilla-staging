@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Top Real Estate Builders | Property Agents | Assetzilla</title>
+  <meta name="title" content="Top Real Estate Builders | Property Agents | Assetzilla">
+  <meta name="description" content="Assetzilla compiled a list of top real estate builders & agent. Get Best Deals, contact numbers, reviews. Call top Builders & get multiple quotes in minutes.">
+</head>
+<%- include ./partials/header.ejs%>
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <%- include ./partials/top_search_directory_pages.ejs%>
+  <div class="view-change-header">
+    <div style="clear: both;"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="main_box_list">
+            <div class="sort">
+              <div class="hide-sort" style="display: inline-block; visibility: visible;">
+                <div>
+                  <select id="sort-filter" class="form-control">
+                    <option id="sort-default" value="projects_desc" selected>Projects Count ↓</option>
+                    <option id="sort-readytomovedesc" value="readytomovedesc">Ready to Move ↓</option>
+                    <option id="sort-priceasc" value="priceasc">Price ↑</option>
+
+                    <option id="sort-pricedesc" value="pricedesc">Price ↓</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="filter d-flex">
+              <div class="scd-buttons-wrp">
+                <ul>
+                  <li>
+                    <button class="btn compare d-none" onclick="showCompareResult()" type="button">Compare options
+                    </button>
+                  </li>
+                </ul>
+              </div>
+              <div class="project-filter filter-hide-dv">
+                <div class="">
+                  <ul>
+                    <li>
+                      <div class="quick-filter-drp">
+                        <div class="dropdown">
+                          <button class="btn qf-head-btn" type="button" id="type-quick-count" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <b> Property Type</b> <span></span> <i class="fa fa-angle-down"></i>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <div>
+                              <%- include('./partials/filters/property_type.ejs', {parentId: "quick"}); %>
+                              <div class="qucik-filter-save">
+                                <button type="button" class="btn" onclick="generateUrl('<%=results.view %>')">Apply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="quick-filter-drp">
+                        <div class="dropdown">
+                          <button class="btn qf-head-btn" type="button" id="presence-quick-count" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <b> Local presence</b> <span></span> <i class="fa fa-angle-down"></i>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <div>
+                              <%- include('./partials/filters/presence.ejs', {parentId: "quick"}); %>
+                              <div class="qucik-filter-save">
+                                <button type="button" class="btn" onclick="generateUrl('<%=results.view %>')">Apply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="quick-filter-drp">
+                        <div class="dropdown">
+                          <button class="btn qf-head-btn" type="button" id="status-quick-count" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <b> Project Status</b> <span></span> <i class="fa fa-angle-down"></i>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <div>
+                              <%- include('./partials/filters/status.ejs', {parentId: "quick"}); %>
+                              <div class="qucik-filter-save">
+                                <button type="button" class="btn" onclick="generateUrl('<%=results.view %>')">Apply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="filter_list">
+                <a href="#" data-toggle="modal" data-target="#filterModal"><button><i class="fa fa-filter"></i> &nbsp;Show filters</button></a>
+                <ul class="nav nav-pills list_part " id="pills-tab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="pills-list-tab" data-toggle="pill" href="#pills-list" role="tab" aria-controls="pills-list" aria-selected="false"><img src="/v1/img/folder.webp" alt=""></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-grid-tab" data-toggle="pill" href="#pills-grid" role="tab" aria-controls="pills-grid" aria-selected="false"><img src="/v1/img/gird.webp" alt=""></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="custm-tooltip-outer d-none">
+                <div class="custm-tooltip cursor-pointor" onclick="showCompareResult()">
+                  <div class="custm-tooltip-wrp">
+                    <p>Compare options</p>
+                  </div>
+                  <div class="trng-down"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class=" common-wrapper">
+    <% if (results.results.length<=0) { %>
+    <div class="container" id="no-result-div">
+      <div class="row">
+        <div class="col-8 offset-2 text-center">
+          <form>
+            <div class="form-column align-items-end justify-content-center">
+              <!-- <div class="col-8 offset-2">
+                <label class="" for="inlineFormInput">Show your interest for this<br>project by sharing your email with us</label>
+                <input type="email" class="form-control mb-2 w-100" id="inlineFormInput" placeholder="email">
+              </div> -->
+              <!-- <div class="col-4 offset-4">
+                <button type="submit" style="background-color: #071f4c; color: white;" class="btn mb-2 w-100">Submit</button>
+              </div> -->
+            </div>
+          </form>
+          <div><img class="w-100" src="/images/no-result-found.gif"></div>
+        </div>
+        <%} else {%>
+        <!-- <div class="container" id="loader-div">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <div><img class="w-100" src="/images/entity_loader.gif"></div>
+                                </div>
+                            </div>
+                        </div> -->
+        <div class="loader-image-wrapper d-flex flex-column justify-content-center align-items-center" style=" min-height: 65vh; min-width:100vw;">
+          <img id="loadingImg" src="/images/loaderImage.svg" style="max-width: 100px;" />
+        </div>
+        <div class="tab-content small-logo-listing-page" id="pills-tabContent">
+          <div class="tab-pane active show fade" id="pills-list" role="tabpanel" aria-labelledby="pills-list-tab">
+            <div class="appartment-grid-view">
+              <div class="container">
+                <div class="row" id="card-view-wrapper">
+                  <% for(var i=0; i < results.results.length; i++) { %>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                      <div class="appartement-grid-box builder-box bank-app-grid-box">
+                        <div class="appartment-checkbox lc-grid-checkbox-new">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=results.results[i].id%>" name="example-<%=results.results[i].id%>" onchange="add_to_compare('<%=JSON.stringify(results.results[i])%>')">
+                            <label class="custom-control-label" for="example-<%=results.results[i].id%>">
+                            </label>
+                          </div>
+                        </div>
+                        <div class="app-grid-img cursor-pointor" onclick="go_to_page('<%=results.results[i].url %>')">
+                          <img class="img img-fluid" data-src=" <%=results.results[i].logo %> " alt="">
+                        </div>
+                        <div class="app-grid-content pt-0">
+                          <div>
+                            <h2>
+                              <%- include('./partials/bookmark-list', {url: results.results[i].url, is_bookmarked: results.results[i].is_bookmarked, id: i + "_builder-" + results.results[i].id, name:results.results[i].name, builder:results.results[i].website}); %>
+                              <b onclick=go_to_page('<%=results.results[i].url %>')><%=results.results[i].name %></b>
+                            </h2>
+                          </div>
+                          <div class="located_area justify-content-center">
+                            <div class="loc-left ">
+                              <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                              <p class="builder-location-font"><% if (results.results[i].subcity){ %><%=results.results[i].subcity %>,<%}%><% if (results.results[i].city){ %><%=results.results[i].city %> <%}%></p>
+                                                                  </div>
+                                                              </div>
+
+                                                              <div class="lc-content-dt">
+
+                                                                  <!-- <div class="row align-items-center">
+                                                                      <div class="col-6">
+                                                                          <div class="text-left">
+                                                                              <p>Total Projects</p>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-6">
+                                                                          <div class="text-right">
+                                                                              <h6>
+                                                                                  <% if (results.results[i].total_projects){ %>
+                                <%=results.results[i].total_projects %>
+                                <%} else {%>
+                                -
+                                <%}%>  
+                                                                              </h6>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div> -->
+                                                                  <% if ((results.results[i].total_projects) || (results.results[i].price && results.results[i].price.min)) { %>
+                              <div class="row align-items-center">
+                                <div class="col-12">
+                                  <div class="text-center border-bottom">
+                                    <p>
+                                      <% if (results.results[i].total_projects){ %>
+                                      <%=results.results[i].total_projects %> Projects
+                                      <%}%>
+                                                                                  <% if (results.results[i].price && results.results[i].price.min){ %>
+
+                                      Starting ₹<%=changeNumberFormat(results.results[i].price.min) %>
+                                      <%}%>
+                                                                              </p>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <%}%>
+
+                                    <div class="row">
+                                      <div class="col-4">
+                                        <div class="text-center">
+                                          <p>Under Const.</p>
+                                          <h6>
+                                            <% if (results.results[i].project_status_count && results.results[i].project_status_count.UnderConstruction ){ %>
+                                            <%=results.results[i].project_status_count.UnderConstruction %>
+                                            <%} else {%>
+                                            -
+                                            <%}%>
+                                                                              </h6>
+                                                                          </div>
+                                                                      </div>
+                                                                    <div class="col-4">
+                                                                    <div class="text-center">
+                                                                      <p>Pre Launch</p>
+                                                                      <h6>
+                                                                          <% if (results.results[i].project_status_count && results.results[i].project_status_count.PreLaunch){ %>
+                                            <%=results.results[i].project_status_count.PreLaunch %>
+                                            <%} else {%>
+                                            -
+                                            <%}%>
+                                                                      </h6>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-4">
+                                                                      <div class="text-center">
+                                                                          <p>Ready To Move </p>
+                                                                          <h6>
+                                                                              <% if (results.results[i].project_status_count  && results.results[i].project_status_count.ReadyToMove){ %>
+                                            <%=results.results[i].project_status_count.ReadyToMove %>
+                                            <%} else {%>
+                                            -
+                                            <%}%>
+                                                                          </h6>
+                                                                      </div>
+                                                                    </div>
+                                                                    <!-- <div class="col-4">
+                                                                    <div  class="text-center">
+                                                                      <p>Properties starting </p>
+                                                                      <h6>
+                                                                          <% if (results.results[i].price && results.results[i].price.min){ %>
+                                            <%=changeNumberFormat(results.results[i].price.min) %>
+                                            <%} else {%>
+                                            -
+                                            <%}%>
+                                                                      </h6>
+                                                                    </div>
+                                                                    </div> -->
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                    </div>
+                  <% } %>
+                  <% if (results.count > 12) {%>
+                  <% if (! locals.user) {%>
+                    <div class="col-12 no-login-msg-div">
+                      <h3 class="no-login-msg w-100">
+                        <span>
+                          <p class="btn blue-text w-100" href="#" data-toggle="modal" data-target="#loginModal" id="loginButtonModalClick">
+                            See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+                          </p>
+                        </span>
+                      </h3>
+                    </div>
+                  <% } else {%>
+                    <div class="col-12 no-login-msg-div">
+                      <h3 class="no-login-msg see_more_results w-100">
+                        <span>
+                          <p class="btn blue-text w-100" onclick="see_more_results()">
+                            See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+                          </p>
+                        </span>
+                      </h3>
+                    </div>
+                  <% } %>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="pills-grid" role="tabpanel" aria-labelledby="pills-grid-tab">
+          <div class="appartment-table-view">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="top-head-serach-sort">
+                    <div class="row">
+                      <div class="col-lg-4 col-sm-6">
+                        <div class="position-relative">
+                          <input type="text" class="form-control" placeholder="Search here" id="tab-search">
+                          <button class="btn btn-serach-sort" type="button">Search</button>
+                        </div>
+                      </div>
+                      <div class="col-lg-8 col-sm-6">
+                        <div class="position-relative">
+                          <!-- <div class="show-entry-sort">
+                            <div class="">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <label class="input-group-text">Show
+                                    entries</label>
+                                </div>
+                                <select class="custom-select" id="no_of_entries">
+                                  <option value="10" selected="">10</option>
+                                  <option value="50">50</option>
+                                  <option value="100">100</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="apart-table table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th style="width: 200px;" scope="col" class="text-left">
+                            <p>
+                              Name
+                              <button class="btn btn-sm ml-1 sort-button name" onclick="changeSortOrder('name')">↑</button>
+                              <button class="btn btn-sm ml-1 sort-button namereverse" onclick="changeSortOrder('namereverse')">↓</button>
+                            </p>
+                          </th>
+                          <th scope="col" class="">
+                            <p>Headquarters</p>
+                          </th>
+                          <th scope="col" class="">
+                            <p>No. of cities
+                            </p>
+                          </th>
+                          <th scope="col" class="">
+                            <p>No. of projects
+                              <button class="btn btn-sm ml-1 sort-button projects_asc" onclick="changeSortOrder('projects_asc')">↑</button>
+                              <button class="btn btn-sm ml-1 sort-button projects_desc" onclick="changeSortOrder('projects_desc')">↓</button>
+                            </p>
+                          </th>
+                          <th scope="col" class="">
+                            <p>No. of ready projects
+                              <button class="btn btn-sm ml-1 sort-button readytomoveasc" onclick="changeSortOrder('readytomoveasc')">↑</button>
+                              <button class="btn btn-sm ml-1 sort-button readytomovedesc" onclick="changeSortOrder('readytomovedesc')">↓</button>
+                            </p>
+                          </th>
+                          <th scope="col" class="">
+                            <p>Starting Price
+                              <button class="btn btn-sm ml-1 sort-button priceasc" onclick="changeSortOrder('priceasc')">↑</button>
+                              <button class="btn btn-sm ml-1 sort-button pricedesc" onclick="changeSortOrder('pricedesc')">↓</button>
+                            </p>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="data-table">
+                      </tbody>
+                    </table>
+                    <p id="you-can-compare-message" class="text-center" style="color: #347bbf;">You can compare only first 10 options based on your Filter and sorting criteria</p>
+                    <!-- <ul id="pagination-demo" class="pagination-md pull-right"></ul> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <!-- Filter Modal -->
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered  modal-lg modal-customization" role="document">
+        <div class="modal-content ">
+          <div class="modal-header py-3">
+            <div class="modal-head w-100">
+              <div class="modal-head-left">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h2>Filters</h2>
+              </div>
+              <div>
+                <button type="button" class="btn clear-all-filter" data-dismiss="modal" onclick="go_to_page('/builders', true)">Clear All</button>
+                <button data-dismiss="modal" type="button" class="btn apply-filter" onclick="generateUrl('<%=results.view %>')">Apply
+                  Filters</button>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-body ">
+            <div class="filters-wrapper">
+              <div class="filter-row">
+                <div class="row">
+                  <div class="col-lg-3 col-sm-6">
+                    <%- include('./partials/filters/property_type.ejs', {parentId: ""}); %>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                    <%- include('./partials/filters/presence.ejs', {parentId: ""}); %>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                    <%- include('./partials/filters/status.ejs', {parentId: ""}); %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include ./partials/footer.ejs%>
+    <script>
+      // $(".footer_section")
+      //   .addClass("d-none")
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js" integrity="sha256-swvs/72H2JZrIbyDdMskQv2t0bpTO5tgJOWVMBgZq6U=" crossorigin="anonymous"></script>
+    <script src="/v1/js/number_formatter.js"> </script>
+    <script src="/v1/js/filters_data.js"> </script>
+    <!-- initial load and on scroll pagiination -->
+    <script>
+      $('#pills-grid-tab').on("click", function(){
+        if (addToCompareSelected){
+          $('#you-can-compare-message').hide();
+        } else{
+          $('#you-can-compare-message').show();
+        }
+      })
+    </script>
+    <script>
+      let domLoaded = false;
+      //  Show Hide loader Div script 
+      document.onreadystatechange = function() {
+        // document.getElementById('loader-div').style.display = 'block';
+        // document.getElementById('pills-tabContent').style.display = 'none';
+        if (document.readyState == "complete") {
+          // document.getElementById('loader-div').style.display = 'none';
+          // document.getElementById('pills-tabContent').style.display = 'block';
+          if ('<%- results.view%>' != "") {
+            var currentView = '<%- results.view %>'
+          } else {
+            var currentView = 'partial'
+          }
+          handle_view_change_v1(currentView);
+          domLoaded = true;
+        }
+      };
+    </script>
+    <% if (locals.user) {%>
+    <script>
+
+      // On Scroll Pagination Script
+      let see_more = 0;
+      let hold = false;
+      let skip = 1;
+      let limit = 12;
+      function see_more_results(){    
+          if (see_more < 1 || '<%=locals.user.role%>' === "Super Admin") {
+            $('.no-login-msg-div').slideUp(600);
+            see_more += 1;
+            if (hold == false && domLoaded) {
+              hold = true;
+              $.post('/api/builder/infinite', {
+                skip: skip
+                , limit: limit
+                , query: JSON.stringify(filter_state)
+              }, function(data) {
+                if (data.length > 1) {
+                  $("#card-view-wrapper")
+                    .append(data);
+                  hold = false
+                  skip += 1
+                  window.scrollTo({top:(document.querySelector('#card-view-wrapper').scrollHeight/skip)*(skip-1), left:0, behavior:"smooth"});
+                }
+              });
+            }
+          } else{
+        use_filters();
+      }
+        }
+    function use_filters(){
+      // create a new div element
+      $('.no-login-msg-div').slideUp();
+      const useFilterDiv = document.createElement("div");
+      useFilterDiv.setAttribute("class", "col-12 use_filters");
+
+      const bankAppGridBoxDiv = document.createElement("div");
+      bankAppGridBoxDiv.setAttribute("class", "bank-app-grid-box");
+
+      //create a text message
+      const useFilterMessage = document.createElement("p");
+      useFilterMessage.innerText = "Please use filters and sorting effectively to shortlist your options";
+      useFilterMessage.setAttribute("class", "text-center");
+      bankAppGridBoxDiv.appendChild(useFilterMessage);
+      useFilterDiv.appendChild(bankAppGridBoxDiv);
+
+      // add the newly created element and its content into the DOM
+      $("#card-view-wrapper").append(useFilterDiv).slideDown();
+      // window.scrollTo({top:document.querySelector('#card-view-wrapper').scrollHeight/2 + 150, left:0, behavior:"smooth"});
+    }
+    </script>
+    <% } %>
+    <!-- Table Views -->
+    <script>
+      let page_limit = 10;
+      let total_records = <%= results.count %>;
+      let totalPages = <%= results.count %> / page_limit;
+      let current_page = 1;
+      var $tbs_pagination = $('#pagination-demo');
+      // 
+      $("#tab-search")
+        .on('keyup', function() {
+
+          if (addToCompareSelected && entityToCompare) {
+            var valueToMatch = this.value;
+            valueToMatch = valueToMatch.toLowerCase();
+            table_rows = JSON.parse(JSON.stringify(entityToCompare));
+            table_rows = table_rows.filter(function(ele) {
+              return ele.name.toLowerCase()
+                .indexOf(valueToMatch) > -1
+            })
+            create_table_body();
+          } else {
+            filter_state.q = [this.value]
+            $.post('/api/builder/table-pagination', {
+              skip: current_page - 1
+              , limit: page_limit
+              , query: JSON.stringify(filter_state)
+            }, function(data) {
+              total_records = data.total;
+              totalPages = total_records / page_limit;
+              $tbs_pagination.twbsPagination('destroy');
+              table_rows = (data.results)
+              create_pagination();
+              current_page = 1;
+              create_table_body();
+            });
+          }
+        })
+
+      $("#no_of_entries")
+        .on('change', function() {
+          if (addToCompareSelected && entityToCompare) {
+            //TODo nothing
+          } else {
+            page_limit = this.value
+            totalPages = total_records / this.value;
+            $tbs_pagination.twbsPagination('destroy');
+            create_pagination();
+            current_page = 1;
+            pagination()
+          }
+        });
+
+      function changeSortOrder(sort_field) {
+        if (addToCompareSelected && entityToCompare) {
+          table_rows = JSON.parse(JSON.stringify(entityToCompare));
+          if (sort_field === "name") {
+            table_rows.sort((a, b) => {
+              if (a.name < b.name) {
+                return -1;
+              }
+              if (a.name > b.name) {
+                return 1;
+              }
+              return 0;
+            })
+          } else if (sort_field === "namereverse") {
+            table_rows.sort((a, b) => {
+              if (a.name > b.name) {
+                return -1;
+              }
+              if (a.name < b.name) {
+                return 1;
+              }
+              return 0;
+            })
+          } else if (sort_field === "projects_asc") {
+            table_rows.sort((a, b) => {
+              if (a.total_projects && b.total_projects) {
+                return a.total_projects - b.total_projects
+              }
+              return 0;
+            })
+          } else if (sort_field === "projects_desc") {
+            table_rows.sort((a, b) => {
+              if (a.total_projects && b.total_projects) {
+                return b.total_projects - a.total_projects
+              }
+              return 0;
+            })
+          } else if (sort_field === "readytomoveasc") {
+            table_rows.sort((a, b) => {
+              if (a.project_status_count && a.project_status_count.ReadyToMove && b.project_status_count && b.project_status_count.ReadyToMove) {
+                return a.project_status_count.ReadyToMove - b.project_status_count.ReadyToMove
+              }
+              return 0;
+            })
+          } else if (sort_field === "readytomovedesc") {
+            table_rows.sort((a, b) => {
+              if (a.project_status_count && a.project_status_count.ReadyToMove && b.project_status_count && b.project_status_count.ReadyToMove) {
+                return b.project_status_count.ReadyToMove - a.project_status_count.ReadyToMove
+              }
+              return 0;
+            })
+          } else if (sort_field === "priceasc") {
+            table_rows.sort((a, b) => {
+              if (a.price && a.price.min && b.price && b.price.min) {
+                return a.price.min - b.price.min
+              }
+              return 0;
+            })
+          } else if (sort_field === "pricedesc") {
+            table_rows.sort((a, b) => {
+              if (a.price && a.price.min && b.price && b.price.min) {
+                return b.price.min - a.price.min
+              }
+              return 0;
+            })
+          }
+          create_table_body();
+        } else {
+          current_page = 1;
+          filter_state.sort = [sort_field];
+          $("table th button")
+            .addClass("sort-button");
+          $("." + sort_field)
+            .removeClass("sort-button")
+          $.post('/api/builder/table-pagination', {
+            skip: current_page - 1
+            , limit: page_limit
+            , query: JSON.stringify(filter_state)
+          }, function(data) {
+            total_records = data.total;
+            totalPages = total_records / page_limit;
+            $tbs_pagination.twbsPagination('destroy');
+            table_rows = (data.results)
+            create_pagination();
+            current_page = 1;
+            create_table_body();
+          });
+        }
+      }
+
+      let pagination = function() {
+        $.post('/api/builder/table-pagination', {
+          skip: current_page - 1
+          , limit: page_limit
+          , query: JSON.stringify(filter_state)
+        }, function(data) {
+          table_rows = (data.results)
+          create_table_body();
+        });
+      }
+
+      let table_rows = [];
+      let table_data = <%-JSON.stringify( results.table_data) %>
+
+      for (var i = 0; i < table_data.length; i++) {
+        table_rows.push({
+          name: table_data[i].name
+          , total_projects: table_data[i].total_projects
+          , url: table_data[i].url
+          , subcity: table_data[i].subcity
+          , city: table_data[i].city
+          , state: table_data[i].state
+          , local_presence: table_data[i].local_presence
+          , project_status_count: table_data[i].project_status_count
+          , price: table_data[i].price
+
+        })
+      }
+
+function create_table_body() {
+  html_string = ""
+  let idx = 1
+  table_rows.forEach(element => {
+  html_string += `<tr>
+  <td><a href='${element.url}' target='_blank'>${element.name}</td>
+  <td>${element.substate ? element.subcity + " ,": ""} ${element.city ? element.city + " ,": "" } ${element.state ? element.state: ""}</td>
+  <td>${element.local_presence ? element.local_presence.length : "-"}</td>
+  <td>${element.total_projects ? element.total_projects : "-"}</td>
+  <td>${element.project_status_count && element.project_status_count.ReadyToMove ? element.project_status_count.ReadyToMove: "-"}</td>
+  <td>${element.price && element.price.min ? changeNumberFormat(element.price.min) : "-"}</td>
+  </tr>`
+  // <td>" + ((current_page - 1) * page_limit + idx) + "</td>
+  idx += 1;
+
+  });
+  document.getElementById("data-table").innerHTML = html_string;
+}
+create_table_body();
+function create_pagination() {
+    $tbs_pagination.twbsPagination({
+    totalPages: totalPages + 1,
+    visiblePages: 5,
+    onPageClick: function (event, page) {
+      current_page = page;
+      pagination();
+    }
+  });
+}
+create_pagination();
+    </script>
+    <script>
+      // Location Filter
+      initLocationTypeAhead();
+
+      // PROJECT FILTER
+      initProjectTypeAhead();
+
+      // Authority FILTER
+      initAuthorityTypeAhead();
+
+      // BUILDER FILTER
+      initBuilderTypeAhead();
+
+      //Back Filter
+      initBankTypeAhead();
+
+      //Location Filter Quick
+      initLocationTypeAheadQuick();
+    </script>
+
+    <!-- filters screen data dynamic -->
+    <script>
+      fetchPropertyTypeData();
+      fetchProjectStatus();
+      fetchLocalPresenceCount();
+      set_filter_after_api_call(["project"])
+    </script>
+    <!-- Keep Filter Header Stickey -->
+    <script>
+      $(window)
+        .scroll(function() {
+          var scroll = $(window)
+            .scrollTop();
+          if (scroll >= 150) {
+            $(".view-change-header")
+              .addClass("sticky-top");
+          } else {
+            $(".view-change-header")
+              .removeClass("sticky-top");
+          }
+        });
+    </script>
+  <% if (!locals.user) {%>
+    <script>
+      let storedViewH = JSON.parse(window.localStorage.getItem('userSrchH'));
+      if (storedViewH){
+        storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+      } else{
+        storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+      }
+      window.localStorage.setItem('userSrchH', JSON.stringify(storedViewH))
+    </script>
+  <% } %>
+    <!-- Location Search -->
+    <!-- <script>
+    let location_typeahead = $('#location-search .typeahead').typeahead({
+    hint: false,
+    highlight: true,
+    minLength: 1,
+    },
+    {
+    name: 'location-search',
+    display: 'name',
+    source: function (query, syncResults, asyncResults) {
+    if (query.length > 0) {
+        $.post('/api/city/typeahead', { data: query }, function (data) {
+            asyncResults(data.results);
+        });
+    }
+    },
+    templates: {
+    suggestion: function (data) {
+        result = '<div>' + data.name
+        result += '<p class="entity__type_suggestions">' + data.location_type + '</p>'
+        result += '</div>'
+        return result
+    }
+    }
+
+
+    });
+
+    $('#location-search').bind('typeahead:selected', function (obj, datum, name) {
+    if (!('presence' in filter_state)) {
+    filter_state['presence'] = [];
+    }
+    if (filter_state['presence'].indexOf(datum.name) == -1) {
+    filter_state['presence'].push(datum.name);
+    }
+    let idx = ("presence-" + datum.name.split(" ").join("-"));
+    idx = idx.toLowerCase();
+    let ele = document.getElementById(idx)
+    if (ele === undefined || ele === null) {
+    // check_and_create_filter("presence", datum.name) 
+    set_filter_after_api_call(["presence"])
+    }
+    else {
+    ele.checked = true;
+    } 
+    location_typeahead.typeahead('val', '');
+    });
+    set_filter_after_api_call(["presence"]);
+    </script> -->
+
+  <script>  
+    function ReLoadImages(){
+        $('img[data-src]').each( function(){
+            $( this ).attr( 'src', $( this ).attr( 'data-src' ) );
+            }
+        );
+    }
+    
+    document.addEventListener('readystatechange', event => {
+        if (event.target.readyState === "complete") {  
+          ReLoadImages();
+        }
+    });
+  </script>
+</body>
+
+</html>

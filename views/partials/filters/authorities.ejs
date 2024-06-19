@@ -1,0 +1,61 @@
+<strong>Authorities</strong>
+<div class="d-flex flex-column bd-highlight mt-2">
+    <div class="input-group w-80" id="authority-search">
+        <input type="text" class="form-control typeahead radius-none bg-white clr-black directory-search"
+            placeholder="Search Authority..." aria-describedby="basic-addon1">
+    </div>
+</div>
+<div id="authority-filter-container-list">
+</div>
+<div class="flex-column bd-highlight mt-2 d-none" id="authority-filter-see-more">
+    <div class="pretty p-default">
+        <label onclick="showContentAuthority()" class="see-more-filters">Show More</label>
+    </div>
+</div> 
+<div class="flex-column bd-highlight mt-2 d-none" id="authority-filter-see-less">
+    <div class="pretty p-default">
+        <label onclick="hideContentAuthority()" class="see-more-filters">Show Less</label>
+    </div>
+</div>  
+
+<script>
+
+        let holdauthority = false;
+        let skipauthority = 0;
+        let limitauthority = 1000;
+
+    function hideContentAuthority() {
+        $("#authority-filter-container-list").addClass("hide-filters");
+        $("#authority-filter-see-more").removeClass("d-none");
+        $("#authority-filter-see-less").addClass("d-none");
+    }  
+        
+
+    function showContentAuthority() {
+        $("#authority-filter-container-list").removeClass("hide-filters");
+        $("#authority-filter-see-more").addClass("d-none");
+        $("#authority-filter-see-less").removeClass("d-none");
+    } 
+        
+    function getData() {
+        
+        if (holdauthority == false) {
+            holdauthority = true;
+            $.post('/api/getFilterData/authority', { skip: skipauthority, limit: limitauthority , query: JSON.stringify(filter_state_for_project) }, function (data) {
+                if (data.length > 1) {
+                    $("#authority-filter-container-list").append(data);
+                    
+                    set_filter_after_api_call(["authority"])
+                    holdauthority = false
+                    skipauthority += 1
+                } else {
+                    document.getElementById("authority-filter-see-more").style.display = "none";
+
+                }
+            });
+
+        }
+    }
+    getData() 
+    
+</script>

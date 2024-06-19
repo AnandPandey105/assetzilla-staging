@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+   <title>Top Real Estate Builders | Property Agents | Assetzilla</title>
+   <meta name="title" content="Top Real Estate Builders | Property Agents | Assetzilla">
+   <meta name="description" content="Assetzilla compiled a list of top real estate builders & agent. Get Best Deals, contact numbers, reviews. Call top Builders & get multiple quotes in minutes.">
+</head>
+<%- include ./partials/header.ejs%>
+
+   <body>
+      <%- include ./partials/navigation.ejs%>
+      <%- include ./partials/top_search_directory_pages.ejs%>
+      <!-- <div class="container"> -->
+         <div class="result-page-wrp background-texture">
+            <!-- Property -->
+            <% if (results.results.properties.length>0){ %>
+               <div class="result-row-wrp home-popular-listing">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-lg-12">
+                              <div class="main-head popular_head">
+                                 <h1 class="mb-0"><span>Properties</span></h1>
+                                 <% if (locals.query){ %>
+                                    <a href="/properties?q=<%= query %>" class="see_all  btn see_all_sm leading_marketplace-14">See all</a>
+                                 <% }else{ %>
+                                    <a href="/properties" class="see_all  btn see_all_sm leading_marketplace-14">See all</a>
+                                 <% } %>
+                              </div>
+                              <div class="desk-show">
+                                 <% if (results.results.properties.length>2){ %>
+                                    <div class="result-carousel">
+                                       <div class="owl-carousel <%if(locals.query){%>home-owl-carousel-result-property<%}else{%>home-owl-carousel-result<%}%>">
+                                          <% for(var i=0; i < results.results.properties.length; i++) { %>
+                                             <div class="item p-3">
+                                                   <%- include ./partials/results/property-card.ejs%>
+                                             </div>
+                                          <%}%>
+                                       </div>
+                                    </div>
+                                 <% }else{ %>
+                                    <div>
+                                       <div class="row">
+                                          <% for(var i=0; i < results.results.properties.length; i++) { %>
+                                             <div class="col-lg-6 col-sm-6 col-12 py-2">
+                                                   <%- include ./partials/results/property-card.ejs%>
+                                             </div>
+                                                
+                                          <%}%>
+                                       </div>
+                                    </div> 
+                                 <% } %>
+                              </div>
+                              <div class="mob-show">
+                                 <div class="result-carousel--mobile">
+                                    <div class="owl-carousel home-owl-carousel-result">
+                                       <% for(var i=0; i < results.results.properties.length; i++) { %>
+                                          <div class="item p-1">
+                                                <%- include ./partials/results/property-card.ejs%>
+                                          </div>
+                                       <%}%>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>    
+                     </div>
+                  </div>   
+               </div>
+            <% } %>
+
+            <!-- Project -->
+            <% if (results.results.projects.length>0){ %>
+               <div class="result-row-wrp home-popular-listing">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-lg-12">
+                              <div class="main-head popular_head">
+                                 <h1 class="mb-0"><span>Projects</span></h1>
+                                 <% if (locals.query){ %>
+                                    <a href="/projects?q=<%= query %>" class="see_all  btn see_all_sm leading_marketplace-14">See all</a>
+                                 <% }else{ %>
+                                    <a href="/projects" class="see_all  btn see_all_sm leading_marketplace-14">See all</a>
+                                 <% } %>
+                              </div>
+                              <div class="desk-show">
+                                 <% if (results.results.projects.length>2){ %>
+                                    <div class="result-carousel">
+                                       <div class="owl-carousel home-owl-carousel-result-property">
+                                          <% for(var i=0; i < results.results.projects.length; i++) { %>
+                                             <div class="item p-3">
+                                                   <%- include ./partials/results/project-card.ejs%>
+                                             </div>
+                                          <%}%>
+                                       </div>
+                                    </div>
+                                 <% }else{ %>
+                                    <div>
+                                       <div class="row">
+                                          <% for(var i=0; i < results.results.projects.length; i++) { %>
+                                             <div class="col-lg-6 col-sm-6 col-12">
+                                                   <%- include ./partials/results/project-card.ejs%>
+                                             </div>
+                                          <%}%>
+                                       </div>
+                                    </div>
+                                 <% } %>
+                              </div>
+                              <div class="mob-show">
+                                 <div class="result-carousel--mobile">
+                                    <div class="owl-carousel home-owl-carousel-result">
+                                       <% for(var i=0; i < results.results.projects.length; i++) { %>
+                                          <div class="item p-1">
+                                                <%- include ./partials/results/project-card.ejs%>
+                                          </div>
+                                       <%}%>
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            <% } %>
+
+            <!-- LOCATIONS -->
+            <% if (results.results.locations.length>0){ %>
+               <div class="result-row-wrp home-popular-listing">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-lg-12">
+                              <div class="main-head popular_head">
+                                 <h1 class="mb-0"><span>Locations</span></h1>
+                                 <% if (locals.query){ %>
+                                    <a href="/locations?q=<%= query %>" class="see_all  btn see_all_sm leading_marketplace-14">See all</a>
+                                 <% }else{ %>
+                                    <a href="/locations" class="see_all  btn see_all_sm leading_marketplace-14">See all</a>
+                                 <% } %>
+                              </div>
+                              <div class="desk-show">
+                                 <% if (results.results.locations.length>3){ %>
+                                    <div class="result-carousel">
+                                       <div class="owl-carousel home-owl-carousel-result">
+                                          <% for(var i=0; i < results.results.locations.length; i++) { %>
+                                             <div class="item">
+                                                   <%- include ./partials/results/location-card.ejs%>
+                                             </div>
+                                          <%}%>
+                                       </div>
+                                    </div>
+                                 <% }else{ %>
+                                    <div>
+                                       <div class="row">
+                                          <% for(var i=0; i < results.results.locations.length; i++) { %>
+                                             <div class="col-lg-4 col-sm-6 col-12">
+                                                   <%- include ./partials/results/location-card.ejs%>
+                                             </div>
+                                          <%}%>
+                                       </div>
+                                    </div>
+                                    
+                                 <% } %>
+                              </div>
+                              <div class="mob-show">
+                                 <div class="result-carousel--mobile">
+                                    <div class="owl-carousel home-owl-carousel-result">
+                                       <% for(var i=0; i < results.results.locations.length; i++) { %>
+                                          <div class="item p-1">
+                                                <%- include ./partials/results/location-card.ejs%>
+                                          </div>
+                                       <%}%>
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            <% } %>
+
+            <!-- Authorities -->
+            <% if (results.results.authorities.length>0){ %>
+               <div class="result-row-wrp home-popular-listing">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-lg-12">
+                              <div class="main-head popular_head">
+                                 <h1 class="mb-0"><span>Authorities</span></h1>
+                                 <% if (locals.query){ %>
+                                    <a href="/authorities?q=<%= query %>" class="see_all  btn see_all_sm leading_marketplace-14">See all</a>
+                                 <% }else{ %>
+                                    <a href="/authorities" class="see_all  btn see_all_sm leading_marketplace-14">See all</a>
+                                 <% } %>
+                              </div>
+                              <div class="desk-show">
+                                 <% if (results.results.authorities.length>3){ %>
+                                    <div class="result-carousel">
+                                       <div class="owl-carousel home-owl-carousel-result">
+                                          <% for(var i=0; i < results.results.authorities.length; i++) { %>
+                                             <div class="item">
+                                                   <%- include ./partials/results/authoritie-card.ejs%>
+                                             </div>
+                                          <%}%>
+                                       </div>
+                                    </div>
+                                 <% }else{ %>
+                                    <div>
+                                       <div class="row">
+                                          <% for(var i=0; i < results.results.authorities.length; i++) { %>
+                                             <div class="col-lg-4 col-sm-6 col-12">
+                                                   <%- include ./partials/results/authoritie-card.ejs%>
+                                             </div>
+                                          <%}%>
+                                       </div>
+                                    </div>
+                                 <% } %>
+                              </div>
+                              <div class="mob-show">
+                                 <div class="result-carousel--mobile">
+                                    <div class="owl-carousel home-owl-carousel-result">
+                                       <% for(var i=0; i < results.results.authorities.length; i++) { %>
+                                          <div class="item p-1">
+                                                <%- include ./partials/results/authoritie-card.ejs%>
+                                          </div>
+                                       <%}%>
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            <% } %>
+
+            <!-- Builder -->
+            <% if (results.results.builders.length>0){ %>
+               <div class="result-row-wrp home-popular-listing">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-lg-12">
+                              <div class="main-head popular_head">
+                                 <h1 class="mb-0"><span>Builders</span></h1>
+                                 <% if (locals.query){ %>
+                                    <a href="/builders?q=<%= query %>" class="see_all  btn see_all_sm leading_marketplace-14">See all</a>
+                                 <% }else{ %>
+                                    <a href="/builders" class="see_all  btn see_all_sm leading_marketplace-14">See all</a>
+                                 <% } %>
+                              </div>
+                              <div class="desk-show">
+                                 <% if (results.results.builders.length>3){ %>
+                                    <div class="result-carousel">
+                                       <div class="owl-carousel home-owl-carousel-result">
+                                          <% for(var i=0; i < results.results.builders.length; i++) { %>
+                                             <div class="item">
+                                                <%- include ./partials/results/builder-card.ejs%>
+                                             </div>
+                                          <%}%>
+                                       </div>
+                                    </div>
+                                 <% }else{ %>
+                                    <div>
+                                       <div class="row">
+                                          <% for(var i=0; i < results.results.builders.length; i++) { %>
+                                             <div class="col-lg-4 col-sm-6 col-12">
+                                                   <%- include ./partials/results/builder-card.ejs%>
+                                             </div>
+                                          <%}%>
+                                       </div>
+                                    </div>
+                                 <% } %>
+                              </div>
+                              <div class="mob-show">
+                                 <div class="result-carousel--mobile">
+                                    <div class="owl-carousel home-owl-carousel-result">
+                                       <% for(var i=0; i < results.results.builders.length; i++) { %>
+                                          <div class="item p-1">
+                                                <%- include ./partials/results/builder-card.ejs%>
+                                          </div>
+                                       <%}%>
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            <% } %>
+
+            <% if(results.count === 0){ %>
+               <div class="container" id="no-result-div">
+                  <div class="row">
+                     <div class="col-md-8 offset-md-2 col-12 offset-0 text-center">
+                        <div><img width="50%" src="/images/no_results_found.gif"></div>
+                        <h1 class="text-center">No Results Found</h1>
+                        <%console.log(results)%>
+                     </div>
+                     <div class="col-12 offset-0 text-center">
+                        <% if (results.showCities) {%>
+                           <hr>
+                           <div class="main-head popular_head col-12">
+                              <h1 class="mb-0 cityTitle"><span>Search Projects by City</span></h1>
+                              <a href="/locations" class="see_all btn d-none d-lg-block">All&nbsp;Location</a>
+                            </div>
+                           <div class="row col-12" style="padding-top: 20px;">
+                              <% for(let i=0; i < results.cities.results.length; i++) { %>
+                                  <div class="col-6 col-lg-3 px-1 pb-2 px-lg-0">
+                                    <div class="item">
+                                      <div class="home-apartment" onclick="go_to_page('/projects?city=',false,'<%=results.cities.results[i].name%>')">
+                                        <div class="ha-img-cities">
+                                          <img src="<%=results.cities.results[i].banner_image%>" class="img img-fluid-custom">
+                                        </div>
+                                        <div class="ha-content location_info text-center">
+                                          <h2 class="city-name">
+                                            <%=results.cities.results[i].name%>
+                                          </h2>
+                                          <p>
+                                            <% if (results.cities.results[i].total_projects ){ %>
+                                              <span class="city-projects"><%=results.cities.results[i].total_projects %> Projects</span><br/>
+                                            <% }else{ %>
+                                            <% } %>
+                                            <% if (results.cities.results[i].price && results.cities.results[i].price.min ){ %>
+                                              <span class="city-starting">Starting <strong> <%= changeNumberFormat(results.cities.results[i].price.min) %></strong></span>
+                                            <% }else{ %>
+                                            <% } %>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>  
+                              <% } %>
+                            </div> 
+                        <%}%>
+                     </div>
+                  </div>
+               </div>
+            <%}%>
+         </div>
+      <!-- </div> -->
+      <% if (!locals.user) {%>
+         <script>
+            let storedViewH = JSON.parse(window.localStorage.getItem('userSrchH'));
+            if (storedViewH){
+               storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+            } else{
+               storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+            }
+            window.localStorage.setItem('userSrchH', JSON.stringify(storedViewH))
+         </script>
+      <% } %>
+      <%- include ./partials/footer.ejs%>
+   </body>
+</html>

@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"realestate.rework"}],"uuid":"267bfe48767e4c5c82b034c4fd4fe099","collectionName":"rework"}

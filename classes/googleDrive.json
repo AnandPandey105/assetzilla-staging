@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "assetzilla-backups-389610",
+  "private_key_id": "56b50037ac93063829e80886194f62c43cb59867",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCr8EHR2Pm8j78s\nGcIfVF1DM6HJeHtFed3TduOmyh3AZABZy1JhLuJL0+dspoufV+lyVKLEZq8WspCe\nT7LZr+dQ7Tce+hJhYwksMAoS8cVRVeABI3rSdrQ7uKmLgHQxJD+yBWDnxvPSCSQ9\nPoEZ0nvuFVGMVVVUQWGQpBtpNSs7XaBDh1u+hojhfQl/8KQXKNSYYfMw2qWZFi7+\nSGlmpG35shuR5vN1rBX2C0OB5MRJpeNprRKK5ikBPRCGAyqdc+2hpALiSJxVn0DN\nGEULEYfMG5nh7/j/GrkqTQsbs99kREYBO05Jds1lq5v+S7j/nTqc5VNqd7rIBiaE\nJ/G46LltAgMBAAECggEAIc01419YmW1ZE/5sX2RigVehMs5wzZPLvErfLmcFulDu\nkLicFWb2LhoWoRGM2WKbDlL9PMdDHJ82NylL6+fc/dfkwj4/Zs3le75l/JtzQy4y\nv4aOGtojTKpdCoPSU+bgbssH5gkC3gPWEAQ9tSngG0otof0UrV+9IoZgrSo6uYy3\n8E+FhxB2cWK0O6uTt+xf2ihZNsTFHfdW6mqRIWEFnu6sQHAexHBqJFMAdDxihfSg\ndN6yot3+pRzjOWsQxZi82JWGxdnH6bq+MuTVDWhQE7vJPI6XhgOL7fUdTKwUznGL\nQ5yGJQzWYwS6RE+R4+kNil731C6NSShEJEcdsdIOsQKBgQDYr8HJogYa06LRjiqF\nkyut7BBE3VJjR7GRSpm5qZWhk7PukDR9cjn0KP4BEhbIPfVe+9JT1dA6/6H4ofx+\nMkX99Ad82xnukgPkGU45xJ8gG/Co4D0y9SgR2gPYC0KaBAhZh1bdQr4WRbneRK2A\nHCZWx+5z0XQ+yalhPzCHWhhGZwKBgQDLIiDa3LhupzkVZ1OGAaR1JcITcL2ruz/M\nzDY0yVWN2Yx1WYNs8RpB0OxrYh4fmwGJkMMmUO4pE5PGTNAHP9VtoA2N/P+DVRRA\nDrtXc1M4UW6jRRl1RtjI0tkmT+sVALvZneZ5Gg4WGrdg36bXdVQMsfvWPHQTfDmx\n3ajFrCbVCwKBgGQPLQZl+jmzFtF7u6j438etZYnXRa8wsQ9tinUQmVcGdKUqFAMF\nlztnHnvyFXEcI01cLbCm4EQOPYYpjwXbQzTU1gxSxLPE22UeRmAoqm5SWJwzCC+a\nw4kSyomeEYA7cnudIoCDzHFOe1jnD9NDrHSQWE1FIE/KIZwVaNxnvyPrAoGAaJpG\neO24O6L5DkCLDjLCUWEEM6aWxVxDWl6+eyhCWi1w2u0hdHQjpUjEtfdss7HKdOCK\n3axHN/fQ3QipB1KjwTPuRvPFUAf7yZDMgBfu/s1QP9tRZMb6009gaw40bDhYg5OA\nH1R/dHqFe+kvrTvJ8E+m84dl7rLFswYF5uTjikkCgYEAiuqT34JgszHFltM+8h/v\n74YRdILPjlpdYwGs6BFyj/G24E2ljTlYqApGhhSmekYpL1vrdkL1sT/Db2St2laX\ng3GzccfiyaLbEm70Dp2PMXxSHRfDNOp6qnEd8BOxYw7qJ/8bpsJEOo6NdJrBFuA2\nmaU/5WxalzxQk+N0XPlCQ9s=\n-----END PRIVATE KEY-----\n",
+  "client_email": "assetzillabackups@assetzilla-backups-389610.iam.gserviceaccount.com",
+  "client_id": "101337500277681827438",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/assetzillabackups%40assetzilla-backups-389610.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

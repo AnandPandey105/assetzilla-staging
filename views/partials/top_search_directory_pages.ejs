@@ -1,0 +1,90 @@
+<div class="results top-margin ">
+    <div class="container ">
+        <span class="font-weight-bold result-count-top">
+            <% if (results.search_phrase){ %>
+            <%= results.count %> results found for "<%= results.search_phrase %>"</span>
+        <% }else{ %>
+        <%= results.count %> results found</span>
+        <% } %>
+        <span class="mob-search-btn"><i class="fas fa-search" style="color: #FFF !important"
+                onclick="toggleMobSeach()"></i></span>
+        <span id="desk-seach">
+            <div class="sub-nav">
+                <button class="btn radius-none btn-warning clr-white" type="button" id="button-home"
+                    onclick=search_fields()>
+                    <span><i class="fas fa-search" style="color: #FFF !important"></i></span>
+                </button>
+            </div>
+            <div class="sub-nav">
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle radius-none bg-white clr-black left-align" href="#" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="search_category_select">
+                        <% if (locals.search_entity){ %>
+                        All <%= search_entity %>
+                        <% }else{ %>
+                        All Categories
+                        <% } %>
+
+                    </a>
+
+                    <div class="dropdown-menu left-align" aria-labelledby="dropdownMenuLink"
+                        id="search_category_dropdown">
+                        <a class="dropdown-item" href="#">All Categories</a>
+                        <a class="dropdown-item" href="#">All Properties</a>
+                        <a class="dropdown-item" href="#">All Projects</a>
+                        <a class="dropdown-item" href="#">All Builders</a>
+                        <a class="dropdown-item" href="#">All Locations</a>
+                        <a class="dropdown-item" href="#">All Authorities</a>
+                        <a class="dropdown-item" href="#">All Banks</a>
+                    </div>
+                </div>
+            </div>
+            <div class="sub-nav">
+                <div class="input-group mb-3" id="type-ahead-search">
+                    <input type="text" class="form-control typeahead radius-none bg-white clr-black directory-search"
+                        placeholder="Search..." aria-describedby="basic-addon1"
+                        value="<% if (results.search_phrase){ %><%= results.search_phrase %><% } %>">
+                </div>
+            </div>
+        </span>
+
+        <span id="mob-seach">
+            <div class="">
+                    <div class="input-group mb-3" id="type-ahead-search_mob">
+                            <input type="text" class="form-control typeahead radius-none bg-white clr-black directory-search"
+                                placeholder="Search..." aria-describedby="basic-addon1"
+                                value="<% if (results.search_phrase){ %><%= results.search_phrase %><% } %>">
+                        </div>
+            </div>
+            <div class="" style="margin-bottom: 15px;">
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle radius-none bg-white clr-black left-align w-100" href="#" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="search_category_select_mob">
+                        <% if (locals.search_entity){ %>
+                        All <%= search_entity %>
+                        <% }else{ %>
+                        All Categories
+                        <% } %>
+
+                    </a>
+
+                    <div class="dropdown-menu left-align w-100" aria-labelledby="dropdownMenuLink"
+                        id="search_category_dropdown_mob">
+                        <a class="dropdown-item" href="#">All Categories</a>
+                        <a class="dropdown-item" href="#">All Properties</a>
+                        <a class="dropdown-item" href="#">All Projects</a>
+                        <a class="dropdown-item" href="#">All Builders</a>
+                        <a class="dropdown-item" href="#">All Locations</a>
+                        <a class="dropdown-item" href="#">All Authorities</a>
+                        <a class="dropdown-item" href="#">All Banks</a>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <button class="btn radius-none bg-yellow clr-white w-100" type="button" id="button-home" onclick=search_fields()>
+                    Search
+                </button>
+            </div>
+        </span>
+    </div>
+</div>

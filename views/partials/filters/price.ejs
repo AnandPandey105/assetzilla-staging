@@ -1,0 +1,52 @@
+<strong>Price</strong>
+<div class="d-flex flex-column bd-highlight mt-2">
+    <div class="pretty p-default">
+        <input type="checkbox" id="price-0-to-25-lacs" onchange="handleFilters('price','0 to 25 lacs')" />
+        <div class="state">
+            <label> 0 - 25 Lacs<span id="zeroToTwentyFiveCount"></span></label>
+        </div>
+    </div>
+</div>
+<div class="d-flex flex-column bd-highlight mt-2">
+    <div class="pretty p-default">
+        <input type="checkbox" id="price-25-lacs-to-50-lacs" onchange="handleFilters('price','25 lacs to 50 lacs')" />
+        <div class="state">
+            <label>25-50 Lacs<span id="twentyFiveToFiftyCount"></span></label>
+        </div>
+    </div>
+</div>
+<div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="price-50-lacs-to-1-cr" onchange="handleFilters('price','50 lacs to 1 cr')" />
+            <div class="state">
+                <label>50 Lacs - 1 Cr<span id="fiftyToOneCount"></span></label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="pretty p-default">
+                <input type="checkbox" id="price-1-cr-to-5-cr" onchange="handleFilters('price','1 cr to 5 cr')" />
+                <div class="state">
+                    <label>1Cr - 5 Cr<span id="oneToFiveCount"></span></label>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column bd-highlight mt-2">
+                <div class="pretty p-default">
+                    <input type="checkbox" id="price-5-cr-and-above" onchange="handleFilters('price','5 cr and above')" />
+                    <div class="state">
+                        <label>Above 5 Cr<span id="fiveToAboveCount"></span></label>
+                    </div>
+                </div>
+            </div>
+
+<script>
+
+     $.post('/api/getFilterData/price', {query: JSON.stringify(filter_state_for_project)}, function (data) {
+                if(data.success) {
+                        Object.keys(data.data).forEach(function(key) {
+                            document.getElementById(`${key}`).innerHTML = ` (${data.data[key]})` 
+                        })
+                   }
+        })
+</script>

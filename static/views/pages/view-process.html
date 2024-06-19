@@ -1,0 +1,174 @@
+<div class="padding">
+    <div class="row">
+        <div class="col-sm-1">
+            Search:
+        </div>
+        <div class="col-sm-2">
+            <input type="search" class="form-control" placeholder="Seach here..." aria-label="Small"
+                aria-describedby="inputGroup-sizing-sm" ng-model="search" ng-change="clearSearchBox()">
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-success btn-sm" type="submit" ng-click="getAllProcesses(1)">Search</button>
+        </div>
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-2">
+            <span>
+                <i ng-show="showCrossForProcess" class="material-icons md-24 cross"
+                    ng-click="clearDropdown('process')">&#xe14c;</i>
+            </span>
+            <ui-select ng-disabled="disablePart" ng-model="selectedPartForFilter.selected"
+                ng-change="showCrossForFilter('process')" theme="bootstrap">
+                <ui-select-match class="ui-select-match" placeholder="Select parts...">{{$select.selected}}
+                </ui-select-match>
+                <ui-select-choices class="ui-select-choices"
+                    repeat="item in partListForFilter | filter: $select.search track by $index">
+                    <div ng-bind-html="item | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-success btn-sm" type="button" ng-click="getAllProcesses(1)">Apply Filter</button>
+            <!-- <button class="btn btn-danger btn-sm" type="button" ng-click="getAllTickets(1)">Clear
+                            Filter</button> -->
+        </div>
+
+        <!-- <div class="col-sm-1">
+                    <button class="md-btn md-raised m-b-sm w-xs green" data-toggle="modal" data-target="#addNewPartModal">Create
+                        <span class="">
+                            <i class="material-icons md-24" style="cursor: pointer;">&#xe146;</i>
+                        </span>
+                    </button>
+                </div> -->
+    </div>
+
+    <div class="row mt-4" style="margin-top: 5px !important;
+        background: white;
+        padding-top: 10px;
+        border-radius: 10px;">
+        <div class="col-md-12" style="margin: auto;">
+            <!-- notifications -->
+            <div class="alert alert-success" id="SuccessAlertBox"
+                style="position: fixed;top: 23%;right:2px;display: none;">
+                <p data-ng-bind="SucessSaveMessage"></p>
+            </div>
+            <div class="alert alert-danger" id="ErrorAlertBox"
+                style="position: fixed;top: 23%;right:2px;display: none;">
+                <p data-ng-bind="ErrorSaveMessage"></p>
+            </div>
+
+            <h4 class="text-center" style="color: #9E9E9E; margin: 10px 0 20px 0;">List of Repair Schema</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th scope="col">#</th>
+                        <th scope="col" ng-click="changeSort('name')">
+                            Repair Schema
+                            <span class="" ng-show="showAsc">
+                                    <i class="material-icons md-24" style="cursor: pointer;">&#xe5c5;</i>
+                                </span>
+                                <span class="" ng-show="!showAsc">
+                                    <i class="material-icons md-24" style="cursor: pointer;">&#xe5c7;</i>
+                                </span>
+                        </th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Parts</th>
+                        <th scope="col">Stages</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="process in processList track by $index">
+                        <th scope="row">{{((pageIndex-1)*10)+$index+1}}</th>
+                        <td>{{process.name}}</td>
+                        <td>{{process.desc}}</td>
+                        <td>
+                            <ul>
+                                <li ng-repeat="part in process.parts">
+                                    {{part.name}}
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li ng-repeat="stage in process.stages">
+                                    <div>
+                                        Name: {{stage.name}}
+                                    </div>
+                                    <div>
+                                        Desc: {{stage.desc}}
+                                    </div>
+                                    <div>
+                                        Hours: {{stage.hours}}
+                                    </div>
+                                    <div>
+                                        Employee: {{stage.employeeCount}}
+                                    </div>
+                                    <hr>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <span class="mx-2">
+                                <i class="material-icons md-24" ng-click="getProcessToUpdate(process, $index)"
+                                    style="cursor: pointer; color: #4CAF50;">&#xe3c9;</i>
+                            </span>
+                            <span class="mx-2">
+                                <!-- Button trigger modal -->
+                                <i class="material-icons md-24" data-toggle="modal" data-target="#deleteModal"
+                                    ng-click="getProcessToDelete(process, $index)"
+                                    style="cursor: pointer; color: #C62828;">&#xe872;</i>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" data-ng-show="currentArrayIndex != 0"
+                        data-ng-click="previousPaginationArray()">
+                        <a class="page-link" href="" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" data-ng-repeat="i in mainArray[currentArrayIndex] track by $index">
+                        <a class="page-link" href="" data-ng-bind="i" data-ng-click="getAllProcesses(i, sortBy, sortForm)"></a>
+                    </li>
+                    <li class="page-item" data-ng-show="currentArrayIndex != mainArray.length-1"
+                        data-ng-click="nextPaginationArray()">
+                        <a class="page-link" href="" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalTitle">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete the product?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" ng-click="deleteProcess()"
+                            data-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

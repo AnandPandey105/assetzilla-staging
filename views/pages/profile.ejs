@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+<%- include ../partials/head.ejs%>
+
+
+    <body>
+        <%- include ../partials/navigation_bar.ejs%>
+            <div class="top-margin p-4 ">
+                <div class="container mt-4">
+                    <h4><strong>Howdy, <%if (user.name) { %>
+                                <%=user.name%>
+                                    <%}%></strong></h4>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="list-group">
+                            <li class="list-group-item cursor" onclick="change_profile_section('profile')">Profile </li>
+                            <li class="list-group-item cursor" onclick="change_profile_section('bookmark')">Bookmarks
+                            </li>
+                            <li class="list-group-item cursor" onclick="change_profile_section('submit')">Submit
+                                Property</li>
+                            <li class="list-group-item cursor" onclick="change_profile_section('view')">Submitted
+                                Properties</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-section p2" id="profile-container">
+                            <strong>Profile Details</strong>
+                            <button class="btn btn-link edit-profile-section" onclick="editProfile()"><i
+                                    class="fas fa-edit"></i></button>
+                            <div class="mt-2 edit-profile-section">
+
+                                <p>Name: <%if (user.name) { %>
+                                        <%=user.name%>
+                                            <%}%>
+                                </p>
+                                <p>Phone Number: <%if (user.username) { %>
+                                        <%=user.username%>
+                                            <%}%>
+                                </p>
+                                <p>Email: <%if (user.email) { %>
+                                        <%=user.email%>
+                                            <%}%>
+                                </p>
+                            </div>
+                            <div class="mt-2 edit-profile-input-section" style="display: none">
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                                        aria-describedby="basic-addon1" id="user_name_input"
+                                        value="<%if (user.name) { %><%=user.name%> <%}%>">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Email</span>
+                                    </div>
+                                    <input type="email" class="form-control" placeholder="User Email"
+                                        aria-label="User Email" id="user_email_input" aria-describedby="basic-addon1"
+                                        value="<%if (user.email) { %> <%=user.email%> <%}%>">
+
+                                </div>
+                                <div class="text-center">
+
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="cancelEditProfile()">Cancel</button>
+                                    <button class="btn btn-outline-secondary"
+                                        onclick="submitProfileChanges()">Submit</button>
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label>
+                                <input type="password" class="form-control" id="user_password">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd"> Re-Enter Password:</label>
+                                <input type="password" class="form-control" id="user_password_again">
+                            </div>
+                            <button type="button" class="btn btn-outline-secondary"
+                                onclick="change_user_password()">Change Password</button>
+                        </div>
+                        <div class="profile-section p2" id="bookmark-container" style="display: none">
+                            <strong>Bookmarks</strong><br>
+                            <ul class="list-group">
+                                <% for(var i=0; i < user.bookmark.length; i++) { %>
+                                    <li class="list-group-item"><a href="<%=user.bookmark[i]%>" target="_blank">
+                                            <%=user.bookmark[i]%>
+                                        </a></li>
+                                    <%}%>
+                            </ul>
+                        </div>
+                        <div class="profile-section p2" id="submit-container" style="display: none">
+
+                            <div class="mt-2">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="property_name"><strong>Project / Society Name :
+                                                </strong></label>
+                                            <input type="text" class="form-control" placeholder="Property Name"
+                                                id="property_name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="property_type"><strong>Property Type : </strong></label>
+                                            <select name="property_type" class="custom-select" id="property_type">
+                                                <option selected value="">-- Select a property type --</option>
+                                                <option value="Residential Plots">Residential Plots</option>
+                                                <option value="Villas">Villas</option>
+                                                <option value="Apartments">Apartments</option>
+                                                <option value="Floors">Floors</option>
+                                                <option value="Commercial Land">Commercial Land</option>
+                                                <option value="Commercial Office">Commercial Office</option>
+                                                <option value="Retail Shop">Retail Shop</option>
+                                                <option value="Serviced Apartments">Serviced Apartments</option>
+                                                <option value="Industrial Land">Industrial Land</option>
+                                                <option value="Penthouse">Penthouse</option>
+                                                <option value="Duplex">Duplex</option>
+                                                <option value="Farm house">Farm house</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="builder"><strong>Builder's Name : </strong></label>
+                                            <input type="text" class="form-control" placeholder="Builder's Name"
+                                                id="builder">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="locality"><strong>Locality : </strong></label>
+                                            <textarea class="form-control" placeholder="Locality" id="locality"
+                                                rows="1"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="city"><strong>City : </strong></label>
+                                            <input type="text" class="form-control" placeholder="City" id="city">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="row">
+                                <div class="col-sm-7">
+                                    <div class="form-group">
+                                        <label for="district"><strong>District : </strong></label>
+                                        <input type="text" class="form-control" placeholder="District" id="district">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group mb-3">
+                                        <label for="pincode"><strong>Pincode : </strong></label>
+                                        <input type="number" class="form-control" placeholder="Pincode" id="pincode">
+                                    </div>
+                                </div>
+                            </div> -->
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="price"><strong>Price : </strong></label>
+                                            <input type="number" class="form-control" placeholder="Price" id="price">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group mb-3">
+                                            <label for="size"><strong>Size (sq.ft.) : </strong></label>
+                                            <input type="number" class="form-control" placeholder="Size" id="size">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-outline-info btn-block"
+                                        onclick="submitProperty()">Submit</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="profile-section p2" id="view-container" style="display: none">
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Property Name</th>
+                                            <th>Case ID</th>
+                                            <th>Type</th>
+                                            <th>Builder</th>
+                                            <th>Locality</th>
+                                            <th>City</th>
+                                            <th>District</th>
+                                            <th>Pincode</th>
+                                            <th>Price</th>
+                                            <th>Size</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(var i=0; i < user.submitted_property.length; i++) { %>
+                                            <tr>
+                                                <td>
+                                                    <%=user.submitted_property[i]['property_name']%>
+                                                </td>
+                                                <td>
+                                                    <%=user.submitted_property[i]['case_id']%>
+                                                </td>
+                                                <td onclick=getLink("<%=user.submitted_property[i]['case_id']%>")>
+                                                    <%if (user.submitted_property[i]['case_id']) { %>
+                                                        <a style="text-decoration: underline;
+                                                color: blue;
+                                                cursor: pointer;">Link</a>
+                                                        <%}%>
+                                                </td>
+                                                <td>
+                                                    <%=user.submitted_property[i]['property_type']%>
+                                                </td>
+                                                <td>
+                                                    <%=user.submitted_property[i]['builder']%>
+                                                </td>
+                                                <td>
+                                                    <%=user.submitted_property[i]['locality']%>
+                                                </td>
+                                                <td>
+                                                    <%=user.submitted_property[i]['city']%>
+                                                </td>
+                                                <td>
+                                                    <%=user.submitted_property[i]['district']%>
+                                                </td>
+                                                <td>
+                                                    <%=user.submitted_property[i]['pincode']%>
+                                                </td>
+                                                <td>
+                                                    <%=user.submitted_property[i]['price']%>
+                                                </td>
+                                                <td>
+                                                    <%=user.submitted_property[i]['size']%>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+    </body>
+
+    <%- include ../partials/footer.ejs%>
+
+
+        <script>
+            function change_profile_section(idx) {
+                $(".profile-section").css("display", "none");
+                $("#" + idx + "-container").css("display", "block");
+            }
+            function editProfile(params) {
+                $(".edit-profile-section").css("display", "none");
+                $(".edit-profile-input-section").css("display", "block");
+
+            }
+            function cancelEditProfile() {
+                $(".edit-profile-section").css("display", "block");
+                $("button.edit-profile-section").css("display", "inline-block");
+                $(".edit-profile-input-section").css("display", "none");
+            }
+            function submitProfileChanges() {
+                let email = $("#user_email_input").val();
+                let name = $("#user_name_input").val();
+                $.post('/api/customer/edit', { email: email, name: name }, function (data) {
+                    if (data.success) {
+                        location.reload();
+                    }
+                    else {
+                        customAlert(data.message);
+                    }
+                })
+            }
+            async function submitProperty() {
+                let property_name = $("#property_name").val();
+                let property_type = $("#property_type").val();
+                let builder = $("#builder").val();
+                let locality = $("#locality").val();
+                let city = $("#city").val();
+                // let district = $("#district").val();
+                // let pincode = $("#pincode").val();
+                let price = $("#price").val();
+                let size = $("#size").val();
+                let nl = $("#newsletter-check-sp-u");
+                console.log(nl)
+                // if (property_name == "") { customAlert('Please enter Property Name'); return; }
+                // if (locality == "") { customAlert('Please enter Locality'); return; }
+                // if (city == "") { customAlert('Please enter City'); return; }
+                // if (district == "") { customAlert('Please enter District'); return; }
+                // if (pincode == "") { customAlert('Please enter Pincode'); return; }
+                // if (price == "") { customAlert('Please enter Price'); return; }
+                // if (size == "") { customAlert('Please enter Size'); return; }
+                $.post('/api/customer/submit', { property_name: property_name, property_type: property_type, builder: builder, locality: locality, city: city, price: price, size: size, newsletter: nl.checked }, function (data) {
+                    if (data.success) {
+                        location.reload();
+                    }
+                    else {
+                        customAlert(data.message);
+                    }
+                })
+            }
+            function change_user_password() {
+                let password = $("#user_password").val();
+                let password_re = $("#user_password_again").val();
+                let passvalid = new RegExp("^(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$")
+                if (!(passvalid.test(password))) {
+                    customAlert("Invalid Password");
+                    return
+                }
+                if (password != password_re) {
+                    customAlert("Passwords do not match");
+                    return
+                }
+                $.post('/api/customer/change_password', { password: password }, function (data) {
+                    if (data.success) {
+                        customAlert(data.message)
+                    }
+                    else {
+                        customAlert(data.message);
+                    }
+                })
+            }
+        </script>
+
+        <script>
+            $('#myTab a').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+        </script>
+
+        <script>
+            function getLink(caseId) {
+                // console.log('case id is', caseId)
+                $.post('/api/customer/getLink', { caseId: caseId }, function (data) {
+                    // console.log('data is', data);
+                    if (data.success) {
+                        var fullUrl = window.location.origin + data.url
+                        // console.log('fullurl', fullUrl)
+                        window.open(data.url, '_blank');
+                    }
+                    else {
+                        window.open("/page-not-found", '_blank');
+                    }
+                })
+            }
+        </script>
+
+</html>

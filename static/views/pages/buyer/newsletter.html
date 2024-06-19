@@ -1,0 +1,129 @@
+<style>
+    .sort-button{
+        background-color: white;
+    }
+</style>
+<div class="padding">
+    <form class="form-group" ng-submit='getAll(1, sortBy, sortForm)'>
+        <div class="row">
+            <div class="col-sm-1">
+                Search:
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group input-group-sm mb-3">
+                    <input type="search" class="form-control" placeholder="Seach here..." aria-label="Small"
+                        aria-describedby="inputGroup-sizing-sm" ng-model="search" ng-change="clearSearchBox()">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success btn-sm" type="submit">Search</button>
+            </div>
+            <div class="col-sm-2">
+                <label class="form-control-label"><Strong>Filter By isSubscribed :</Strong></label>
+            </div>
+            <div class="col-sm-2">
+                <select class="custom-select" id="is_subscribed" style="width: 100%;" ng-model="isSubscribedFilter"
+                    ng-change="filterByIsSubscribed()">
+                    <option value="" selected>Choose...</option>
+                    <option value="true"> true </option>
+                    <option value="false"> false </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-1">
+                <!-- <a class="btn btn-success btn-sm" href="/api/newsletter/download">Download CSV</a> -->
+            </div>
+        </div>
+    </form>
+
+
+    <div class="row" style="margin-top: 5px !important;
+        background: white;
+        padding-top: 10px;
+        border-radius: 10px;">
+        <div class="col-md-12" style="margin: auto;">
+            <h4 class="text-center" style="color: #9E9E9E; margin: 10px 0 20px 0;">List of Newsletter Subscribers</h4>
+            <div class="mb-3 d-flex flex-row justify-content-center align-items-center" style="width:100%" ng-show="$root.isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">
+                Total Results :
+                <strong>{{totalRecords}}</strong>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th scope="col">#</th>
+                        <th scope="col">
+                            Email
+                            <span>
+                                <button ng-class="(sortBy === 'email' && sortForm === 1) ? 'btn btn-sm':'btn btn-sm sort-button'" ng-click="changeSort('email', 1)">
+                                    &uarr;
+                                </button>
+                                <button ng-class="(sortBy === 'email' && sortForm === -1) ? 'btn btn-sm':'btn btn-sm sort-button'" ng-click="changeSort('email', -1)">
+                                    &darr;
+                                </button>
+                            </span>
+                        </th>
+                        <th scope="col">
+                            is subscribed?
+                        </th>
+                        <th scope="col">
+                            Last Modified
+                            <span>
+                                <button ng-class="(sortBy === 'updated' && sortForm === 1) ? 'btn btn-sm':'btn btn-sm sort-button'" ng-click="changeSort('updated', 1)">
+                                    &uarr;
+                                </button>
+                                <button ng-class="(sortBy === 'updated' && sortForm === -1) ? 'btn btn-sm':'btn btn-sm sort-button'" ng-click="changeSort('updated', -1)">
+                                    &darr;
+                                </button>
+                            </span>
+                        </th>
+                        <th scope="col">
+                            Created
+                            <span>
+                                <button ng-class="(sortBy === 'created' && sortForm === 1) ? 'btn btn-sm':'btn btn-sm sort-button'" ng-click="changeSort('created', 1)">
+                                    &uarr;
+                                </button>
+                                <button ng-class="(sortBy === 'created' && sortForm === -1) ? 'btn btn-sm':'btn btn-sm sort-button'" ng-click="changeSort('created', -1)">
+                                    &darr;
+                                </button>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in usersList track by $index">
+                        <th>{{((pageIndex-1)*10)+$index+1}}</th>
+                        <td>{{user.email}}</td>
+                        <td>{{user.isSubscribed}}</td>
+                        <td>{{user.updated | date : 'dd MMM yyyy hh:mm a' }}</td>
+                        <td>{{user.created | date : 'dd MMM yyyy hh:mm a' }}</td>
+                    </tr>
+                    <tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" data-ng-show="currentArrayIndex != 0"
+                        data-ng-click="previousPaginationArray()">
+                        <a class="page-link" href="" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" data-ng-repeat="i in mainArray[currentArrayIndex] track by $index">
+                        <a ng-if="i === pageIndex" style="color: blue !important; font-weight: bold !important;" class="page-link" href="" data-ng-bind="i" data-ng-click="getAll(i, sortBy, sortForm)"></a>
+                        <a ng-if="i !== pageIndex" class="page-link" href="" data-ng-bind="i" data-ng-click="getAll(i, sortBy, sortForm)"></a>
+                    </li>
+                    <li class="page-item" data-ng-show="currentArrayIndex != mainArray.length-1"
+                        data-ng-click="nextPaginationArray()">
+                        <a class="page-link" href="" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

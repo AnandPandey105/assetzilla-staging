@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assetzilla Whatsapp Login</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img width="25px" src="https://assetzilla-bucket.s3.amazonaws.com/static-res/Pulse-1s-200px.gif"
+            alt="loading_image">
+        Logging you in via WhatApp ...
+    </div>
+    
+    
+    <script>
+        var userLogin = function () {
+
+            let url = "/authwhatsapp"+window.location.search;
+
+            let viewHistory = window.localStorage.getItem('userVwH');
+            let searchHistory = window.localStorage.getItem('userSrchH');
+
+            if (viewHistory || searchHistory) {
+                if (viewHistory)
+                    url = url + "&v=" + viewHistory;
+                if (searchHistory)
+                url = url + "&s=" + searchHistory;
+            }
+            window.localStorage.removeItem('userVwH');
+            window.localStorage.removeItem('userSrchH');
+            setTimeout(()=>{
+                window.open(url,"_self")
+            },2000)
+        };
+        userLogin()
+    </script>
+</body>
+
+</html>

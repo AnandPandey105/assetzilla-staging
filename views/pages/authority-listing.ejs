@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+
+<%- include ../partials/head.ejs%>
+
+<body>
+  <%- include ../partials/navigation_bar.ejs%>
+  <%- include ../partials/top_search_directory_pages.ejs%>
+  <div class="container" style="padding-top: 14px;">
+    <!-- <span class="desk-show">All | Latest | Oldest</span> -->
+    <div class="hide-sort" style="display: inline-block;">
+      <div>
+        <select id="sort-filter" class="form-control">
+          <option id="sort-default" value="total_projectsreverse" selected>Projects Count ↓</option>
+          <option id="sort-priceasc" value="priceasc">Price ↑</option>
+          <!-- <option id="sort-newest" value="name"><i class="fas mr-2 fa-sort-alpha-down"></i>Name ↑</option>
+                    <option id="sort-oldest" value="namereverse"><i class="fas mr-2 fa-sort-alpha-up"></i>Name ↓</option> -->
+
+          <option id="sort-pricedesc" value="pricedesc">Price ↓</option>
+          <option id="sort-readytomovedesc" value="readytomovedesc">Ready to Move ↓</option>
+          <!-- <option id="sort-projectasc" value="projectasc"><i class="fas mr-2 fa-sort-alpha-up"></i>Projects
+                        Count ↑</option>
+                    <option id="sort-projectdesc" value="projectdesc"><i class="fas mr-2 fa-sort-alpha-up"></i>Projects
+                        Count ↓</option> -->
+        </select>
+      </div>
+    </div>
+
+    <div class="sub-hd" id="desk-toggle-btns">
+      <button type="button" class="btn btn-top view-cntrl-btn" id="card-btn" onclick="handle_view_change('card')"><i class="fas fa-list"></i></i></button>
+      <button type="button" class="btn btn-top view-cntrl-btn" id="table-btn" onclick="handle_view_change('table')"><i class="fas fa-table"></i></button>
+
+    </div>
+    <div class="sub-hd hide-sort">
+      <a class="mr-2 filter-size btn filter-margin navy-blue-bg clr-white" data-toggle="collapse" href="#pageFilters" aria-expanded="false" aria-controls="pageFilters" onclick=changeFilterText()>
+        <span><i class="fas fa-filter"></i></span>
+        <span id="filter_text">Show Filters</span>
+      </a>
+    </div>
+  </div>
+  <hr>
+  <div class="collapse" id="pageFilters">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <span class="filters-cross mob-show" data-toggle="collapse" href="#pageFilters" aria-expanded="false" aria-controls="pageFilters" onclick=changeFilterText()><i class="fas fa-times"></i></span>
+        </div>
+      </div>
+      <!-- Config -->
+      <div class="row">
+        <div class="col-md-4 py-3" id="location-filter-container">
+          <!-- <%- include ../partials/filters/locations.ejs%> -->
+          <strong>Districts</strong>
+          <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="input-group w-80" id="location-search">
+              <input type="text" class="form-control typeahead radius-none bg-white clr-black directory-search" placeholder="Search Districts..." aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="pretty p-default">
+              <input type="checkbox" id="district-noida" onchange="handleFilters('district','Noida')" />
+              <div class="state">
+                <label>Noida</label>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="pretty p-default">
+              <input type="checkbox" id="district-new-delhi" onchange="handleFilters('district','New Delhi')" />
+              <div class="state">
+                <label>New Delhi</label>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="pretty p-default">
+              <input type="checkbox" id="district-bangalore" onchange="handleFilters('district','Bangalore')" />
+              <div class="state">
+                <label>Bangalore</label>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-column bd-highlight mt-2">
+            <div class="pretty p-default">
+              <input type="checkbox" id="district-greater-noida" onchange="handleFilters('district','Greater Noida')" />
+              <div class="state">
+                <label>Greater Noida</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="padding: 35px;">
+        <div class="col-12 text-center">
+          <button type="button" class="btn btn-warning clr-white " onclick="generateUrl()">Apply
+            Filters</button>
+          <button type="button" class="btn btn-basic " onclick="go_to_page('/authorities', true)">Clear All</button>
+        </div>
+      </div>
+    </div>
+    <hr>
+  </div>
+  <% if (!results.results.length ||results.results.length == 0 || results.results.length == undefined) { %>
+  <div class="container" id="no-result-div">
+    <div class="row">
+      <div class="col-8 offset-2 text-center">
+        <form>
+          <div class="form-column align-items-end justify-content-center">
+            <!-- <div class="col-8 offset-2">
+              <label class="" for="inlineFormInput">Show your interest for this<br>project by sharing your email with us</label>
+              <input type="email" class="form-control mb-2 w-100" id="inlineFormInput" placeholder="email">
+            </div> -->
+            <!-- <div class="col-4 offset-4">
+              <button type="submit" style="background-color: #071f4c; color: white;" class="btn mb-2 w-100">Submit</button>
+            </div> -->
+          </div>
+        </form>
+        <div><img class="w-100" src="/images/no-result-found.gif"></div>
+      </div>
+      <%} else { %>
+
+      <div class="container" id="loader-div">
+        <div class="row">
+          <div class="col-12 text-center">
+            <div><img class="w-100" src="/images/entity_loader.gif"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-4" id="main-data-div">
+        <div class="row card-view result-section" id="card-view-container">
+          <% for(var i=0; i < results.results.length; i++) { %>
+          <div class="col-md-4">
+            <div class="card mb-3 listing-card" onclick=go_to_page("<%=results.results[i].url %>")>
+              <div class="row no-gutters shadow">
+                <div class="col-md-12">
+
+                  <img src="<%=results.results[i].logo %>" class="card-img" alt="">
+
+                  <div class="card-body">
+
+                    <div class="d-flex bd-highlight">
+                      <div class="p-2 w-100 bd-highlight">
+                        <h5 class="card-title"><%=results.results[i].name %></h5>
+                      </div>
+                    </div>
+
+                    <div class="d-flex d-flex align-content-start flex-wrap bd-highlight mb-3">
+                      <% if (results.results[i].district){ %>
+                      <div class="p-2 bd-highlight">
+                        <i class="fas fa-city"></i>
+                        <%=results.results[i].district %> price
+                      </div>
+                      <%}%>
+                                        <% if (results.results[i].total_projects){ %>
+                      <div class="p-2 bd-highlight">
+                        <i class="fas fa-building mr-2"></i>Total Projects-
+                        <%=results.results[i].total_projects %>
+                      </div>
+                      <%}%>
+                                    
+                                    <% if (results.results[i].project_status_count && results.results[i].project_status_count.ReadyToMove){ %>
+                      <div class="p-2 bd-highlight">
+                        <i class="fas fa-building mr-2"></i>Ready to Move-
+                        <%=results.results[i].project_status_count.ReadyToMove %>
+                      </div>
+                      <%}%>
+
+                                        <% if (results.results[i].project_status_count && results.results[i].project_status_count.UnderConstruction){ %>
+                      <div class="p-2 bd-highlight">
+                        <i class="fas fa-building mr-2"></i>Under Counstruction-
+                        <%=results.results[i].project_status_count.UnderConstruction %>
+                      </div>
+                      <%}%>
+
+                                    <% if (results.results[i].price && results.results[i].price.min){ %>
+                      <div class="p-2 bd-highlight">
+                        <i class="fas fa-building mr-2"></i>Property starting:
+                        (₹) <%=results.results[i].price.min.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %>
+                      </div>
+                      <%}%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+                      <div class="row" id="infinite-scroll" style="margin: 0;"></div>
+                    </div>
+
+                    <!-- TABLE VIEW -->
+                    <div class="row table-view result-section" style="display: none">
+                      <div class="col-6 mb-3">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="search">Search</span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="Search here..." id="tab-search">
+                        </div>
+                      </div>
+                      <div class="col-3 offset-md-3 mb-3">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text">Show entries</label>
+                          </div>
+                          <select class="custom-select" id="no_of_entries">
+                            <option value="10" selected>10</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <!-- <th scope="col" class="text-left">S.No.</th> -->
+                              <th scope="col" class="text-left">Authority Name</th>
+                              <th scope="col" class="text-left">No Of Projects</th>
+                              <th scope="col" class="text-left">District/State</th>
+                            </tr>
+                          </thead>
+                          <tbody id="data-table">
+                          </tbody>
+                        </table>
+                        <ul id="pagination-demo" class="pagination-md pull-right"></ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <% } %>
+
+</body>
+
+
+
+<%- include ../partials/footer.ejs%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js" integrity="sha256-swvs/72H2JZrIbyDdMskQv2t0bpTO5tgJOWVMBgZq6U=" crossorigin="anonymous"></script>
+<script src="/js/map_support.js"> </script>
+<script>
+  document.onreadystatechange = function() {
+    document.getElementById('loader-div')
+      .style.display = 'block';
+    document.getElementById('main-data-div')
+      .style.display = 'none';
+    if (document.readyState == "complete") {
+      document.getElementById('loader-div')
+        .style.display = 'none';
+      document.getElementById('main-data-div')
+        .style.display = 'block';
+      if ('<%- results.view%>' != "") {
+        var currentView = '<%- results.view %>'
+      } else {
+        var currentView = 'card'
+      }
+      handle_view_change(currentView)
+    }
+  };
+</script>
+<script>
+  let hold = false;
+  let skip = 1;
+  let limit = 12;
+  $(window)
+    .scroll(function() {
+      if ($(window)
+        .scrollTop() >= $(document)
+        .height() - $(window)
+        .height() - 500) {
+        if (hold == false) {
+          hold = true;
+          $.post('/api/authority/infinite', {
+            skip: skip
+            , limit: limit
+            , query: JSON.stringify(filter_state)
+          }, function(data) {
+            if (data.length > 1) {
+              $("#infinite-scroll")
+                .append(data);
+              hold = false
+              skip += 1
+            }
+          });
+
+        }
+      }
+    });
+</script>
+
+<!-- Location Code -->
+<script>
+  let location_typeahead = $('#location-search .typeahead')
+    .typeahead({
+      hint: false
+      , highlight: true
+      , minLength: 1
+    , }, {
+      name: 'location-search'
+      , display: 'name'
+      , source: function(query, syncResults, asyncResults) {
+        if (query.length > 0) {
+          $.post('/api/district/typeahead-district', {
+            data: query
+          }, function(data) {
+            asyncResults(data.results);
+          });
+        }
+      }
+      , templates: {
+        suggestion: function(data) {
+          result = '<div>' + data.name
+          result += '<p class="entity__type_suggestions">' + data.location_type + '</p>'
+          result += '</div>'
+          return result
+        }
+      }
+
+
+    });
+
+  $('#location-search')
+    .bind('typeahead:selected', function(obj, datum, name) {
+      if (!(datum.location_type in filter_state)) {
+        filter_state[datum.location_type] = [];
+      }
+      if (filter_state[datum.location_type].indexOf(datum.name) == -1) {
+        filter_state[datum.location_type].push(datum.name);
+      }
+      let idx = (datum.location_type + "-" + datum.name.split(" ")
+        .join("-"));
+      idx = idx.toLowerCase();
+      let ele = document.getElementById(idx)
+      if (ele === undefined || ele === null) {
+        check_and_create_filter(datum.location_type, datum.name)
+      } else {
+        ele.checked = true;
+      }
+      location_typeahead.typeahead('val', '');
+    });
+</script>
+
+<!-- Table Views -->
+<script>
+  let page_limit = 10;
+  let total_records = <%= results.count %>
+  let totalPages = <%= results.count %> / page_limit;
+  let current_page = 1;
+  var $tbs_pagination = $('#pagination-demo');
+  // 
+  $("#tab-search")
+    .on('keyup', function() {
+      filter_state.q = [this.value]
+      $.post('/api/authority/table-pagination', {
+        skip: current_page - 1
+        , limit: page_limit
+        , query: JSON.stringify(filter_state)
+      }, function(data) {
+        total_records = data.total;
+        totalPages = total_records / page_limit;
+        $tbs_pagination.twbsPagination('destroy');
+        table_rows = (data.results)
+        create_pagination();
+        current_page = 1;
+        create_table_body();
+      });
+    })
+
+  $("#no_of_entries")
+    .on('change', function() {
+      page_limit = this.value
+      totalPages = total_records / this.value;
+      $tbs_pagination.twbsPagination('destroy');
+      create_pagination();
+      current_page = 1;
+      pagination()
+    });
+  let pagination = function() {
+    $.post('/api/authority/table-pagination', {
+      skip: current_page - 1
+      , limit: page_limit
+      , query: JSON.stringify(filter_state)
+    }, function(data) {
+      table_rows = (data.results)
+      create_table_body();
+    });
+  }
+
+  let table_rows = [];
+
+  <% for (var i = 0; i < results.table_data.length; i++) { %>
+  table_rows.push({
+    name: '<%=results.table_data[i].name %>'
+    , total_projects: <%=results.table_data[i].total_projects %>
+  })
+  <%}%>
+
+    function create_table_body() {
+        html_string = ""
+        let idx = 1
+        table_rows.forEach(element => {
+
+            html_string += "<tr><td><a href='"+element.url+"' target='_blank'>" + element.name + "</td><td>" + element.total_projects + "</td><td>" + element.district + " / " + element.state + "</td></tr>"
+            idx += 1;
+
+        });
+        document.getElementById("data-table").innerHTML = html_string;
+    }
+    create_table_body();
+    function create_pagination() {
+
+
+        $tbs_pagination.twbsPagination({
+            totalPages: totalPages + 1,
+            visiblePages: 5,
+            onPageClick: function (event, page) {
+                current_page = page;
+                pagination();
+            }
+        });
+
+    }
+    create_pagination();
+</script>
+
+</html>

@@ -1,0 +1,64 @@
+<strong>Locations</strong>
+<div class="d-flex flex-column bd-highlight mt-2">
+    <div class="input-group w-80" id="location-search">
+        <input type="text" class="form-control typeahead radius-none bg-white clr-black directory-search"
+            placeholder="Search Location..." aria-describedby="basic-addon1">
+    </div>
+</div>
+<div id="location-filter-container-list" class="hide-filters">
+</div>
+<div class="flex-column bd-highlight mt-2" id="location-filter-see-more">
+    <div class="pretty p-default">
+        <label onclick="showContent()" class="see-more-filters">Show More</label>
+    </div>
+</div> 
+<div class="flex-column bd-highlight mt-2 d-none" id="location-filter-see-less">
+    <div class="pretty p-default">
+        <label onclick="hideContent()" class="see-more-filters">Show Less</label>
+    </div>
+</div>   
+
+<script>
+        let hold2 = false;
+        let skip2 = 0;
+        let limit2 = 1000;
+
+    function hideContent() {
+        $("#location-filter-container-list").addClass("hide-filters");
+        $("#location-filter-see-more").removeClass("d-none");
+        $("#location-filter-see-less").addClass("d-none");
+    }  
+        
+
+    function showContent() {
+        $("#location-filter-container-list").removeClass("hide-filters");
+        $("#location-filter-see-more").addClass("d-none");
+        $("#location-filter-see-less").removeClass("d-none");
+    }  
+
+    function getDataLocation() {
+        
+        if (hold2 == false) {
+            hold2 = true;
+            $.post('/api/getFilterData/locations', { skip: skip2, limit: limit2, query: JSON.stringify(filter_state_for_project) }, function (data) {
+
+                if (data.length > 1) {
+                    $("#location-filter-container-list")
+                        .append(data)
+                        
+                    set_filter_after_api_call(["city","subcity","district", "state"])
+                    hold2 = false
+                    skip2 += 1
+                } else {
+                    document.getElementById("location-filter-see-more").style.display = "none";
+
+                }
+
+            });
+
+        }
+    }
+    getDataLocation() 
+    
+</script>
+

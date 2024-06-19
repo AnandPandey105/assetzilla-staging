@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<%- include ./partials/header.ejs%>
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <%- include ./partials/top_search_directory_pages.ejs%>
+  <div class="view-change-header">
+    <div style="clear: both;"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="main_box_list">
+            <div class="sort">
+              <div class="hide-sort" style="display: inline-block; visibility: visible;">
+                <div>
+                  <select id="sort-filter" class="form-control">
+                    <option id="sort-default" value="default" selected>Projects Count ↓</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="filter d-flex">
+              <div class="scd-buttons-wrp">
+                <ul>
+                  <li> <button class="btn compare d-none" onclick="showCompareResult()" type="button">Compare options</button> </li>
+
+                </ul>
+              </div>
+              <div class="project-filter">
+                <div class="">
+                  <ul>
+                    <li>
+                      <div class="quick-filter-drp">
+                        <div class="dropdown">
+                          <button class="btn qf-head-btn" type="button" id="type-quick-count" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Bank Type <span></span> <i class="fa fa-angle-down"></i>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <div>
+                              <div>
+                                <%- include ./partials/filters/bank.ejs%>
+                              </div>
+                              <!-- <div>
+                                                      <ul>
+                                                         <li>
+                                                            <div class="custom-control custom-checkbox">
+                                                               <input type="checkbox" class="custom-control-input" id="type-nationalized"
+                                                                  onchange="handleFilters('type','Nationalized')">
+                                                               <label class="custom-control-label" for="type-nationalized">
+                                                                  Nationalized Bank<span id="nationalizedCount"></span>
+                                                               </label>
+                                                            </div>
+                                                         </li>
+                                                         <li>
+                                                            <div class="custom-control custom-checkbox">
+                                                               <input type="checkbox" class="custom-control-input" id="type-private"
+                                                                  onchange="handleFilters('type','Private')">
+                                                               <label class="custom-control-label" for="type-private">
+                                                                  Private Bank<span id="privateCount"></span>
+                                                               </label>
+                                                            </div>
+                                                         </li>
+                                                         <li>
+                                                            <div class="custom-control custom-checkbox">
+                                                               <input type="checkbox" class="custom-control-input" id="type-financial-company"
+                                                                  onchange="handleFilters('type','Financial Company')">
+                                                               <label class="custom-control-label" for="type-financial-company">
+                                                                  Finance Company<span id="financeCount"></span>
+                                                               </label>
+                                                            </div>
+                                                         </li>
+                                                         <li>
+                                                            <div class="custom-control custom-checkbox">
+                                                               <input type="checkbox" class="custom-control-input" id="type-nbfcs"
+                                                                  onchange="handleFilters('type','nbfcs')">
+                                                               <label class="custom-control-label" for="type-nbfcs">
+                                                                  NBFC Bank<span id="nbfcsCount"></span>
+                                                               </label>
+                                                            </div>
+                                                         </li>
+                           
+                                                      </ul>
+                                                   </div> -->
+                              <div class="qucik-filter-save">
+                                <button type="button" class="btn" onclick="generateUrl('<%=results.view %>')">Apply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="filter_list">
+                <!-- <a data-toggle="modal" data-target="#filterModal" href="#"><button><i class="fa fa-filter"></i> &nbsp;Show filters</button></a> -->
+                <ul class="nav nav-pills list_part " id="pills-tab" role="tablist">
+
+                  <li class="nav-item">
+                    <a class="nav-link active" id="pills-list-tab" data-toggle="pill" href="#pills-list" role="tab" aria-controls="pills-list" aria-selected="false"><img src="/v1/img/folder.webp" alt=""></a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-grid-tab" data-toggle="pill" href="#pills-grid" role="tab" aria-controls="pills-grid" aria-selected="false"><img src="/v1/img/gird.webp" alt=""></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="custm-tooltip-outer d-none">
+                <div class="custm-tooltip cursor-pointor" onclick="showCompareResult()">
+                  <div class="custm-tooltip-wrp">
+                    <p>Compare options</p>
+                  </div>
+                  <div class="trng-down"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+
+  </div>
+  <div class=" common-wrapper">
+        <!-- <div class="container" id="loader-div">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div><img class="w-100" src="/images/entity_loader.gif"></div>
+                </div>
+            </div>
+        </div> -->
+        <div class="tab-content small-logo-listing-page" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-list" role="tabpanel" aria-labelledby="pills-list-tab">
+            <div class="appartment-grid-view">
+              <div class="container">
+                <div class="row" id="infinite-scroll">
+                  <% for(var i=0; i < results.results.length; i++) { %>
+                    <div class="col-lg-3 col-sm-4 col-12">
+                      <div class="appartement-grid-box bank-app-grid-box">
+                        <div class="appartment-checkbox lc-grid-checkbox-new">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=results.results[i].id%>" name="example-<%=results.results[i].id%>" onchange="add_to_compare('<%=JSON.stringify(results.results[i])%>')">
+                            <label class="custom-control-label" for="example-<%=results.results[i].id%>">
+                            </label>
+                          </div>
+                        </div>
+                        <div class="app-grid-img bank-logo-img" onclick='go_to_page("<%=results.results[i].url %>")'>
+                          <img class="img img-fluid" data-src="<%=results.results[i].logo %>" alt="">
+                        </div>
+                        <div class="location-grid-content">
+                          <div class="lc-content-row">
+                            <div class="row align-items-center">
+                              <div class="col-12">
+                                <div class="text-center">
+                                  <h2>
+                                    <%- include('./partials/bookmark-list', {url: results.results[i].url, is_bookmarked: results.results[i].is_bookmarked, id: i + "_bank-" + results.results[i].id, name:results.results[i].name, builder:results.results[i].type}); %>
+                                    <span onclick='go_to_page("<%=results.results[i].url %>")'><%=results.results[i].name %> </span>
+                                  </h2>
+                                  <% if (results.results[i].type){ %>
+
+                                  <% if (results.results[i].type === "nbfcs"){ %>
+                                  <p>NBFC Bank</p>
+                                  <%} else {%>
+                                  <p class="text-capitalize"><%=results.results[i].type %> Bank</p>
+                                  <%}%>
+                                                    <%}%>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="lc-content-dt">
+                            <div class="row align-items-center">
+                              <div class="col-8">
+                                <div class="text-left">
+                                  <p>Approved Projects</p>
+                                </div>
+                              </div>
+                              <div class="col-4">
+                                <div class="text-right">
+                                  <h6>
+                                    <% if (results.results[i].total_projects){ %>
+                                    <%=results.results[i].total_projects %>
+                                    <%} else {%>
+                                    -
+                                    <%}%>
+                                                  </h6>
+                                              </div>
+                                            </div>
+                                        </div>    
+                                      </div> 
+                                  </div>
+                                </div>
+                    </div>
+                  <% } %>
+                  <% if (results.count > 12) {%>
+                  <% if (! locals.user) {%>
+                    <div class="col-12 no-login-msg-div">
+                      <h3 class="no-login-msg w-100">
+                        <span>
+                          <p class="btn blue-text w-100" href="#" data-toggle="modal" data-target="#loginModal" id="loginButtonModalClick">
+                            See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+                          </p>
+                        </span>
+                      </h3>
+                    </div>
+                  <% } else {%>
+                    <div class="col-12 no-login-msg-div">
+                      <h3 class="no-login-msg see_more_results w-100">
+                        <span>
+                          <p class="btn blue-text w-100" onclick="see_more_results()">
+                            See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+                          </p>
+                        </span>
+                        <img class="d-none loading-ring-see-more" src="/v1/img/loadingRing.gif" />
+                      </h3>
+                    </div>
+                  <% } %> 
+                  <% } %>              
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="pills-grid" role="tabpanel" aria-labelledby="pills-grid-tab">
+            <div class="appartment-table-view">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="top-head-serach-sort">
+                      <div class="row">
+                        <div class="col-lg-4 col-sm-6">
+                          <div class="position-relative">
+                            <input type="text" class="form-control" placeholder="Search here" id="tab-search">
+                            <button class="btn btn-serach-sort" type="button">Search</button>
+                          </div>
+                        </div>
+                        <div class="col-lg-8 col-sm-6">
+                          <div class="position-relative">
+                            <!-- <div class="show-entry-sort">
+                              <div class="">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <label class="input-group-text">Show
+                                      entries</label>
+                                  </div>
+                                  <select class="custom-select" id="no_of_entries">
+                                    <option value="10" selected="">10</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="apart-table table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="text-left">
+                              <p>Name
+                                <button class="btn btn-sm ml-1 sort-button name" onclick="changeSortOrder('name')">↑</button>
+                                <button class="btn btn-sm ml-1 sort-button namereverse" onclick="changeSortOrder('namereverse')">↓</button>
+                              </p>
+                            </th>
+                            <th scope="col" class="">
+                              <p>Bank Type
+                              </p>
+                            </th>
+                            <th scope="col" class="">
+                              <p>Approved Projects
+                                <button class="btn btn-sm ml-1 sort-button projects" onclick="changeSortOrder('projects')">↑</button>
+                                <button class="btn btn-sm ml-1 sort-button projectsreverse" onclick="changeSortOrder('projectsreverse')">↓</button>
+                              </p>
+                            </th>
+                            <!-- <th scope="col" class=""><p>Ready Projects <span>↑</span></p></th>
+                          <th scope="col" class=""><p>Starting Price<span>↓</span></p></th> -->
+                          </tr>
+                        </thead>
+                        <tbody id="data-table">
+                        </tbody>
+                      </table>
+                      <p id="you-can-compare-message" class="text-center" style="color: #347bbf;">You can compare only first 10 options based on your Filter and sorting criteria</p>
+                      <!-- <ul id="pagination-demo" class="pagination-md pull-right"></ul> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <%- include ./partials/footer.ejs%>
+  <script>
+    // $(".footer_section")
+    //   .addClass("d-none")
+  </script>
+  <script>
+    $('#pills-grid-tab').on("click", function(){
+      if (addToCompareSelected){
+        $('#you-can-compare-message').hide();
+      } else{
+        $('#you-can-compare-message').show();
+      }
+    })
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js" integrity="sha256-swvs/72H2JZrIbyDdMskQv2t0bpTO5tgJOWVMBgZq6U=" crossorigin="anonymous"></script>
+  <script src="/v1/js/filters_data.js"> </script>
+  <script>
+    let domLoaded = false;
+    //  Show Hide loader Div script 
+    document.onreadystatechange = function() {
+      //  document.getElementById('loader-div').style.display = 'block';
+      //  document.getElementById('pills-tabContent').style.display = 'none';
+      if (document.readyState == "complete") {
+        //   document.getElementById('loader-div').style.display = 'none';
+        //   document.getElementById('pills-tabContent').style.display = 'block';
+        if ('<%- results.view%>' != "") {
+          var currentView = '<%- results.view %>'
+        } else {
+          var currentView = 'partial'
+        }
+        handle_view_change_v1(currentView);
+        domLoaded = true;
+      }
+    };
+  </script>
+  <% if (locals.user) {%>
+  <script>
+    // On Scroll Pagination Script
+    let see_more = 0;
+    let hold = false;
+    let skip = 1;
+    let limit = 12;
+    function see_more_results(){    
+      if (see_more < 1 || '<%=locals.user.role%>' === "Super Admin") {
+        $('.no-login-msg').slideUp(600);
+        see_more += 1;
+        if (hold == false && domLoaded) {
+          hold = true;
+          $.post('/api/bank/infinite', {
+            skip: skip
+            , limit: limit
+            , query: JSON.stringify(filter_state)
+          }, function(data) {
+            if (data.length > 1) {
+              $("#infinite-scroll")
+                .append(data);
+              hold = false
+              skip += 1
+              window.scrollTo({top:(document.querySelector('#infinite-scroll').scrollHeight/skip)*(skip-1), left:0, behavior:"smooth"});
+            }
+          });
+        }
+        // $(window).scrollTop(1500)
+      } else{
+        use_filters();
+      }
+    }
+    function use_filters(){
+      // create a new div element
+      $('.no-login-msg-div').slideUp();
+      const useFilterDiv = document.createElement("div");
+      useFilterDiv.setAttribute("class", "col-12 use_filters");
+
+      const bankAppGridBoxDiv = document.createElement("div");
+      bankAppGridBoxDiv.setAttribute("class", "bank-app-grid-box");
+
+      //create a text message
+      const useFilterMessage = document.createElement("p");
+      useFilterMessage.innerText = "Please use filters and sorting effectively to shortlist your options";
+      useFilterMessage.setAttribute("class", "text-center");
+      bankAppGridBoxDiv.appendChild(useFilterMessage);
+      useFilterDiv.appendChild(bankAppGridBoxDiv);
+
+      // add the newly created element and its content into the DOM
+      $("#infinite-scroll").append(useFilterDiv).slideDown();
+      // window.scrollTo({top:document.querySelector('#infinite-scroll').scrollHeight/2 + 150, left:0, behavior:"smooth"});
+    }
+  </script>
+  <% } %>
+  <!-- Table Views -->
+  <script>
+    let page_limit = 10;
+    let total_records = <%= results.count %>;
+    let totalPages = <%= results.count %> / page_limit;
+    let current_page = 1;
+    var $tbs_pagination = $('#pagination-demo');
+    // 
+    $("#tab-search")
+      .on('keyup', function() {
+        if (addToCompareSelected && entityToCompare) {
+          var valueToMatch = this.value;
+          valueToMatch = valueToMatch.toLowerCase();
+          table_rows = JSON.parse(JSON.stringify(entityToCompare));
+          table_rows = table_rows.filter(function(ele) {
+            return ele.name.toLowerCase()
+              .indexOf(valueToMatch) > -1
+          })
+          create_table_body();
+        } else {
+          filter_state.q = [this.value]
+          $.post('/api/bank/table-pagination', {
+            skip: current_page - 1
+            , limit: page_limit
+            , query: JSON.stringify(filter_state)
+          }, function(data) {
+            total_records = data.total;
+            totalPages = total_records / page_limit;
+            $tbs_pagination.twbsPagination('destroy');
+            table_rows = (data.results)
+            create_pagination();
+            current_page = 1;
+            create_table_body();
+          });
+        }
+      })
+
+    $("#no_of_entries")
+      .on('change', function() {
+        if (addToCompareSelected && entityToCompare) {
+          //TODo nothing
+        } else {
+          page_limit = this.value
+          totalPages = total_records / this.value;
+          $tbs_pagination.twbsPagination('destroy');
+          create_pagination();
+          current_page = 1;
+          pagination()
+        }
+      });
+    let pagination = function() {
+      $.post('/api/bank/table-pagination', {
+        skip: current_page - 1
+        , limit: page_limit
+        , query: JSON.stringify(filter_state)
+      }, function(data) {
+        table_rows = (data.results)
+        create_table_body();
+      });
+    }
+
+    let table_rows = [];
+
+    <% for (var i = 0; i < results.table_data.length; i++) { %>
+    table_rows.push({
+      name: '<%=results.table_data[i].name %>'
+      , type: '<%=results.table_data[i].type %>'
+      , url: '<%=results.table_data[i].url %>'
+      , total_projects: '<%=results.table_data[i].total_projects %>'
+    })
+    <%}%>
+
+function create_table_body() {
+html_string = ""
+let idx = 1
+table_rows.forEach(element => {
+    html_string += `<tr>
+      <td><a href='${element.url}' target='_blank'>${element.name}</td>
+      <td class="text-capitalize">${element.type ? element.type : "-"}</td>
+      <td>${element.total_projects ? element.total_projects : "-"}</td>
+  </tr>`
+    idx += 1;
+
+});
+document.getElementById("data-table").innerHTML = html_string;
+}
+
+function changeSortOrder(sort_field) {
+if(addToCompareSelected && entityToCompare) {
+  table_rows = JSON.parse(JSON.stringify(entityToCompare));
+  if(sort_field === "name") {
+      table_rows.sort((a,b) => {
+          if(a.name < b.name) { return -1; }
+          if(a.name > b.name) { return 1; }
+          return 0;
+      })
+  } else if(sort_field === "namereverse") {
+      table_rows.sort((a,b) => {
+          if(a.name > b.name) { return -1; }
+          if(a.name < b.name) { return 1; }
+          return 0;
+      })
+  } else if(sort_field === "projects") {
+      table_rows.sort((a,b) => {
+          if(a.total_projects && b.total_projects) {
+              return a.total_projects - b.total_projects
+          }
+          return 0;
+      })
+  } else if(sort_field === "projectsreverse") {
+      table_rows.sort((a,b) => {
+          if(a.total_projects && b.total_projects) {
+              return b.total_projects - a.total_projects
+          }
+          return 0;
+      })
+  } 
+  create_table_body();
+} else {
+current_page = 1;
+filter_state.sort = [sort_field];
+$("table th button").addClass("sort-button");
+$("." + sort_field).removeClass("sort-button")
+$.post('/api/bank/table-pagination', { skip: current_page - 1, limit: page_limit, query: JSON.stringify(filter_state) }, function (data) {
+    total_records = data.total;
+    totalPages = total_records / page_limit;
+    $tbs_pagination.twbsPagination('destroy');
+    table_rows = (data.results)
+    create_pagination();
+    current_page = 1;
+    create_table_body();
+});
+}
+}
+
+create_table_body();
+function create_pagination() {
+$tbs_pagination.twbsPagination({
+totalPages: totalPages + 1,
+visiblePages: 5,
+onPageClick: function (event, page) {
+      current_page = page;
+      pagination();
+}
+});
+}
+create_pagination();
+  </script>
+  <script>
+    $(window)
+      .scroll(function() {
+        var scroll = $(window)
+          .scrollTop();
+        if (scroll >= 150) {
+          $(".view-change-header")
+            .addClass("sticky-top");
+        } else {
+          $(".view-change-header")
+            .removeClass("sticky-top");
+        }
+      });
+  </script>
+  <script>
+    // Location Filter
+    initLocationTypeAhead();
+
+    // PROJECT FILTER
+    initProjectTypeAhead();
+
+    // Authority FILTER
+    initAuthorityTypeAhead();
+
+    // BUILDER FILTER
+    initBuilderTypeAhead();
+
+    //Back Filter
+    initBankTypeAhead();
+
+    //Location Filter Quick
+    initLocationTypeAheadQuick();
+  </script>
+
+  <!-- filters screen data dynamic -->
+  <script>
+    fetchBankTypeCount();
+
+    set_filter_after_api_call(["project"])
+  </script>
+    <% if (!locals.user) {%>
+      <script>
+        let storedViewH = JSON.parse(window.localStorage.getItem('userSrchH'));
+        if (storedViewH){
+          storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+        } else{
+          storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+        }
+        window.localStorage.setItem('userSrchH', JSON.stringify(storedViewH))
+      </script>
+    <% } %>
+
+    <script>  
+      function ReLoadImages(){
+          $('img[data-src]').each( function(){
+              $( this ).attr( 'src', $( this ).attr( 'data-src' ) );
+              }
+          );
+      }
+      
+      document.addEventListener('readystatechange', event => {
+          if (event.target.readyState === "complete") {  
+            ReLoadImages();
+          }
+      });
+    </script>
+</body>
+
+</html>

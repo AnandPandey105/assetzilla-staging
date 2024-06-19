@@ -1,0 +1,61 @@
+<div>
+    <h5>Bhk</h5>
+    <ul class="ps-0">
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>bhk-1"
+                    onchange="handleFilters('bhk','1')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>bhk-1">
+                    1 BHK <span id="<% if (parentId){ %><%= parentId %>-<%}%>bhk1Count"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>bhk-2"
+                    onchange="handleFilters('bhk','2')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>bhk-2">
+                    2 BHK <span id="<% if (parentId){ %><%= parentId %>-<%}%>bhk2Count"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>bhk-3"
+                    onchange="handleFilters('bhk','3')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>bhk-3">
+                    3 BHK <span id="<% if (parentId){ %><%= parentId %>-<%}%>bhk3Count"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="<% if (parentId){ %><%= parentId %>-<%}%>bhk-4"
+                    onchange="handleFilters('bhk','4')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>bhk-4">
+                    4 BHK <span id="<% if (parentId){ %><%= parentId %>-<%}%>bhk4Count"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                    id="<% if (parentId){ %><%= parentId %>-<%}%>bhk-5-to-10" onchange="handleFilters('bhk','5-to-10')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>bhk-5-to-10">
+                    5 to 10 BHK <span id="<% if (parentId){ %><%= parentId %>-<%}%>bhk5to10Count"></span>
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                    id="<% if (parentId){ %><%= parentId %>-<%}%>bhk-others" onchange="handleFilters('bhk','others')">
+                <label class="custom-control-label" for="<% if (parentId){ %><%= parentId %>-<%}%>bhk-others">
+                    <div> Plots, Commercial <br/>and Others
+                        <span id="<% if (parentId){ %><%= parentId %>-<%}%>bhkOthersCount"></span> </div>
+                </label>
+            </div>
+        </li>
+
+    </ul>
+</div>

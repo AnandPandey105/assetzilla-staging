@@ -1,0 +1,21 @@
+<div style="display: flex; flex-direction:column; justify-content:center; align-items:center; width:100%; height:100%; overflow: hidden;">
+    <img src="/v1/img/logo.webp" width="10%"/>
+    <h1><%=data.h1_message%></h1>
+    <p>Redirecting you back to assetzilla.com in
+        <span id="timer" style="color:blue">00:05</span>
+    </p>
+    <a href="<%=data.redirectUrl%>#login">Click here to go now</a>
+    <%console.log(data)%>
+</div>
+<script>
+    let time = 5;
+    setInterval(() => {
+        if (time > 0)
+            time--;
+        document.getElementById('timer').innerText = '00:0'+time;
+    }, 1000);
+
+    setTimeout(() => {
+        window.location ='<%=data.redirectUrl%>'+'#login';
+    }, 5000)
+</script>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    .swiper-slide-active {
+        margin: auto;
+    }
+    .authorities-sticky-map {
+        width: 100%;
+        position: -webkit-sticky;
+        position: sticky !important;
+        top: 90px;
+    }
+    
+    </style> 
+
+<head>
+    <title>Projects by Builder <%= data.name %> in <% if (location.subcity){%> <%= location.subcity.name %> <%}%>,<% if (location.city){%> <%= location.city.name %><%}%>, <% if (location.district){%><%= location.district.name %>,<%}%> <% if (location.state){%> <%= location.state.name %> <%}%> | Assetzilla</title>
+    <meta name="title" content="Projects by Builder <%= data.name %> in <% if (location.subcity){%> <%= location.subcity.name %> <%}%>,<% if (location.city){%> <%= location.city.name %><%}%>, <% if (location.district){%><%= location.district.name %>,<%}%> <% if (location.state){%> <%= location.state.name %> <%}%> | Assetzilla">
+    <meta name="description" content="Properties by Builder <%= data.name %> in <% if (location.subcity){%> <%= location.subcity.name %> <%}%>,<% if (location.city){%> <%= location.city.name %><%}%>, <% if (location.district){%><%= location.district.name %>,<%}%> <% if (location.state){%> <%= location.state.name %> <%}%>. Search For Upcoming Properties, Completed Properties And Ongoing Properties by builders here.">
+</head>
+
+<%- include ../partials/head.ejs%>
+
+<body>
+    <%- include ../partials/navigation_bar.ejs%>
+    <div class="top-margin single-sub-head">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <div class="cursor">
+                        <img src="<%=data.logo %>" class="banner-image" data-toggle="modal" data-target="#exampleModalScrollable">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="builder-description">
+                            <a class="clr-white" href="/builders" target="_blank">Builders</a>
+                        <h2 class="clr-white">
+                                <span style="font-size: .6em; vertical-align: middle;"><%- include ../partials/bookmark.ejs%></span>
+                                &nbsp;<%= data.name %></h2>
+                        <% if (locals.location){%>
+                        <p class="clr-white"><i class="fas fa-map-marker-alt"></i> &nbsp;&nbsp;
+                            <% if (location.subcity){%>
+                            <a class="clr-white" href="<%=location.subcity.url%>" target="_blank"><%= location.subcity.name %></a>,
+                            <%}%>
+                            <% if (location.city){%>
+                            <a class="clr-white" href="<%=location.city.url%>" target="_blank"><%= location.city.name %></a>,
+                            <%}%>
+                            <% if (location.state){%>
+                            <a class="clr-white" href="<%=location.state.url%>" target="_blank"><%= location.state.name %></a>
+                            <%}%></p>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Video</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <% if (data.video_url){ %>
+            <!-- <h1>https://<%= data.video_url %></h1> -->
+            <iframe width="100%" height="415" src="<%= data.video_url %>" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <%} else {%>
+            <h3>
+                No
+                Video
+                available
+            </h3>
+            <%}%>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    <!-- Builder DETAILS -->
+    <div class="container" style="padding-top: 40px;">
+
+        <div class="row">
+            
+        </div>
+        <div class="row">
+            
+
+            <div class="col-md-8 single-page-heading">
+                <div class="data-card">
+                    <h3><Strong>
+                        Local Presence
+                    </Strong></h3>
+                    <span id="local-presence">
+                    </span>
+                </div>
+                <% if (top_locations.length>0){ %>
+                    <!-- <div class="data-card">
+                        <div class="selectable-tags selected-tags" onclick="getProjects('top_projects','all','<%= top_project_count%>',this)" style="width: 80%;">All Projects</div>
+                </div> -->
+                    <div class="data-card">
+                        <h3><strong>Builder's Top Cities</strong></h3>
+                        <!-- <div class="selectable-tags selected-tags" onclick="getProjects('top_projects','all','<%= top_project_count%>',this)">All Projects</div> -->
+                        <% for(var i=0; i < top_locations.length; i++) { %>
+                            <div class="selectable-tags ml-2" onclick="getProjects('<%= top_locations[i].key%>','city','<%= top_locations[i].doc_count%>',this)"><%= top_locations[i].key%>(<%= top_locations[i].doc_count%>)</div>
+                        <% } %>
+                    </div>
+                    <div class="data-card">
+                        <h3><strong>Builder's Top Project Type</strong></h3>
+                        <!-- <div class="selectable-tags selected-tags" onclick="getProjects('top_projects','all','<%= top_project_count%>',this)">All Projects</div> -->
+                        <% for(var i=0; i < top_property_type.length; i++) { %>
+                            <div class="selectable-tags ml-2" onclick="getProjects('<%= top_property_type[i].key%>','property_type','<%= top_property_type[i].doc_count%>',this)"><%= top_property_type[i].key%>(<%= top_property_type[i].doc_count%>)</div>
+                        <% } %>
+                    </div>
+                    
+                    <% } %>
+                <% if (locals.top_projects && top_projects.length >0){ %>
+                
+                <div class="data-card">
+                    <h3><strong>All Projects <span id="city_name"></span></strong></h3>
+                    <div id="top_projects">
+                    <% for(var i=0; i < top_projects.length; i++) { %>
+                        <div class="card mb-3 cursor" onclick=go_to_page("<%=top_projects[i].url %>")>
+                            <div class="row no-gutters">
+                                <div class="col-4">
+                                    <img src="<%=top_projects[i].banner_image %>" class="w-100" alt="">
+                                </div>
+                                <div class="col-8">
+                                    <div class="card-body">
+                                        <div class="d-flex bd-highlight">
+                                            <div class="p-2 w-100 bd-highlight">
+                                                <h5 class="card-title"><%=top_projects[i].name %></h5>
+                                                <small class="light-grey-clr">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                    <% if (top_projects[i].subcity){ %><%=top_projects[i].subcity %>,
+                                                    <%}%><% if (top_projects[i].city){ %><%=top_projects[i].city %> <%}%>
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                <% if (top_projects[i].project_status){ %>
+                                                    <th scope="col">Status</th>
+                                                    <%}%>
+                                                <% if (top_projects[i].property_type){ %>
+                                                    <th scope="col">Type</th>
+                                                    <%}%>
+                                                <% if (top_projects[i].lease_rent){ %>
+                                                    <th scope="col">Lease/Rent</th>
+                                                    <%}%>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                <% if (top_projects[i].project_status){ %>
+                                                    <td>
+                                                        <%=top_projects[i].project_status %>
+                                                    </td>
+                                                    <%}%>
+                                                <% if (top_projects[i].property_type){ %>
+                                                    <td>
+                                                        <%=top_projects[i].property_type %>
+                                                    </td>
+                                                    <%}%>
+                                                <% if (top_projects[i].lease_rent){ %>
+                                                    <td>
+                                                        <%=top_projects[i].lease_rent %>
+                                                    </td>
+                                                    <%}%>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                        </div>
+                    <p id="see_all_projects" class="text-center">
+                        <% if  (top_project_count > 5) {%>
+                            <a href="/projects?builder=<%=data.name%>" target="_blank">See All</a>
+                            <% } %>
+                    </p>
+                </div>
+                
+                <% } %>
+            </div>
+            <div class="col-md-4">
+                <div class="data-card authorities-sticky-map">
+                    <h3><%= data.name %></h3>
+                    <div id="side_map"></div>
+                    <div style="padding-top: 20px;">
+                        <% if (data.address){ %>
+                        <strong>Address</strong><br>
+                        <span><%= data.address %></span><br>
+                            <% } %>
+                        <% if (data.website){ %>
+                        <strong>Website</strong><br>
+                        <span><%= data.website %></span><br>
+                        <% } %>
+                        <% if (data.email){ %>
+                        <strong>Email</strong><br>
+                        <span><%= data.email %></span><br>
+                        <% } %>
+
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+<script>
+    <% if (top_projects.length > 0) { %>
+        var locations = [];
+    <% for (var i = 0; i < top_projects.length; i++) {
+            if (top_projects[i].location) {
+                                                %>
+        locations.push([<%=top_projects[i].location.location.lat %>,<%=top_projects[i].location.location.lng %>, '<%=top_projects[i].name %>', '<%=top_projects[i].url %>'])
+        <%}
+        }%>
+    var map; 
+        function add_markers() {
+            for (i = 0; i < locations.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+                    map: map
+                });
+
+                bounds.extend(marker.position);
+
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infowindow.setContent("<a href=" + locations[i][3] + " target='_blank'>" + locations[i][2] + "</a>");
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
+            map.fitBounds(bounds);
+        }
+        function initMap(map_id = "side_map") {
+            map = new google.maps.Map(document.getElementById(map_id), {
+                streetViewControl: false,
+                fullscreenControl: false,
+                rotateControl: false
+            });
+            infowindow = new google.maps.InfoWindow();
+            bounds = new google.maps.LatLngBounds();
+            add_markers();
+        }
+    <%} else {%>
+        function initMap() { }
+        <%}%>
+</script>
+
+<%- include ../partials/footer.ejs%>
+<!-- OLD API -->
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJDJQciZ8kw85YS2Cu19_DsKhjIzS5jks&callback=initMap" async
+    defer></script> -->
+    <!-- NEW API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw&callback=initMap"
+    async defer></script>
+<script>
+    let str = JSON.stringify('<%= data.local_presence %>');
+    str = str.substring(1, (str.length-1))
+    var res = str.split(",");
+    var temp = '';
+    for (var i=0; i<res.length; i++)  {
+        temp = temp + '<span class="custom-card">'+res[i]+'</span>'
+    }
+    document.getElementById("local-presence").innerHTML = temp;
+    
+
+       var getProjects =function(data,type,count,el){
+           $(".selectable-tags").removeClass("selected-tags");
+            $(el).addClass("selected-tags");
+            filters= { builder: "<%= data.name %>"}
+            if (type=="city"){
+                filters.city=data;
+                document.getElementById("city_name").innerHTML = " in "+data;
+                
+                if (count > 5) {
+                    document.getElementById("see_all_projects").innerHTML = '<a href="/projects?builder=<%=data.name%>&city=' + data + '" target="_blank" class="see_all btn w-100">See All</a>';
+                }
+                else {
+                    document.getElementById("see_all_projects").innerHTML = "";
+                }
+
+            }
+            else if (type=="property_type"){
+                filters.type=data;
+                document.getElementById("city_name").innerHTML = " type : "+data;
+                
+                if (count > 5) {
+                    document.getElementById("see_all_projects").innerHTML = '<a href="/projects?builder=<%=data.name%>&type=' + data + '" target="_blank" class="see_all btn w-100">See All</a>';
+                }
+                else {
+                    document.getElementById("see_all_projects").innerHTML = "";
+                }
+            }
+            else if (type=="all"){
+                document.getElementById("city_name").innerHTML = "";
+                if (count > 5) {
+                    document.getElementById("see_all_projects").innerHTML = '<a href="/projects?builder=<%=data.name%>" target="_blank" class="see_all btn w-100">See All</a>';
+                }
+            }
+            $.post('/api/project/infinite', { skip: 0, limit: 5, query: JSON.stringify(filters),card:false }, function (data) {
+                document.getElementById("top_projects").innerHTML = data;
+                $.post('/api/project/infinite-map', { skip: 0, limit: 5, query: JSON.stringify(filters)}, function (map_data) {
+                    locations=map_data.results
+                    initMap();
+                })
+            })
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+              })
+       }
+        
+        
+</script>
+</html>

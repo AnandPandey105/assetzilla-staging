@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Viewer</title>
+</head>
+<body>
+    <h1>PDF Viewer</h1>
+    <ul>
+        <% floorPlans.forEach(function(plan) { %>
+            <li><a href="/pdf?fileName=<%= plan %>" target="_blank"><%= plan %></a></li>
+        <% }) %>
+    </ul>
+</body>
+</html>

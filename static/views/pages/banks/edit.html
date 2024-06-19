@@ -1,0 +1,78 @@
+<div class="container-fluid p-5" ng-class="{true:'blurry', false:'non-blurry'}[loader]">
+    <div style="padding:2% 3% 2% 3%" id="jobDetailsDiv">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="name">
+                            <strong>Bank Name</strong>
+                        </label>
+                        <input type="text" class="form-control" id="name" placeholder="Name" ng-model="data.name" disabled>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="bank_type">
+                            <strong>Bank Type</strong>
+                        </label>
+                        <div>
+                            <select class="custom-select" id="bank_type" style="width: 100%;" ng-model="data.type">
+                                <option value="" selected>Choose...</option>
+                                <option value="nationalized">Nationalized</option>
+                                <option value="private">Private</option>
+                                <option value="nbfcs">NBFCs</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3" ng-if="change_logo">
+                    <strong>Upload Logo For Bank<span style="color: red"> (upload only png or jpeg)</span></strong>
+                    <input type="file" class="form-control" file-model="data.new_logo" accept="image/png, image/jpeg">
+                </div>
+                <div class="col-3" ng-hide="change_logo">
+                    <strong>Logo For Bank</strong>
+                    <img ng-src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/bank/{{data.logo}}"
+                        class="w-100">
+
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-success mb-2" ng-hide="change_logo" ng-click="change_logo=true">Change
+                        Logo</button>
+                    <button class="btn btn-success mb-2" ng-show="change_logo"
+                        ng-click="change_logo=false">Cancel</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="description">
+                            <strong>Bank Description</strong>
+                        </label>
+                        <summernote on-paste="onPasting(evt)" id="description" on-image-upload="imageUpload(files, 'description')" height="100" ng-model="data.description"></summernote>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-block btn-success" ng-click="edit()" ng-disabled = "loader">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- loader -->
+<div class="container" ng-show="loader" style="position: fixed;top:15em">
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="loader-box"><img src="images/loading.gif"></div>
+        </div>
+    </div>
+</div>
+<!-- End : loader -->

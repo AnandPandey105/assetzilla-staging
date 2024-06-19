@@ -1,0 +1,366 @@
+<% for(var i=0; i < results.length; i++) { %>
+  <div class="left-con-wrap">
+
+    <div>
+      <div class="apparment-list apparment-list-updated no-border" id="<%=i+custSkip%>_property-<%=results[i].id%>" onmouseenter="showBox('<%=results[i].id%>', <%=i%>, <%=i+custSkip%>, '<%=results[i].price.price%>', '<%=results[i].url%>')" onmouseleave="hideBox('<%=results[i].id%>', <%=i%>, <%=i+custSkip%>)">
+        <div class="apparment-list-left">
+          <a href="javascript:;" class="add-com-btn">
+            <div class="appartment-checkbox">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=results[i].id%>" name="example-<%=results[i].id%>" onchange="add_to_compare('<%=JSON.stringify(results[i])%>')">
+                <label class="custom-control-label" for="example-<%=results[i].id%>">
+                </label>
+              </div>
+            </div>
+          </a>
+          <div class="owl-carousel owl-theme allProp-first-owl" onclick="go_to_page('<%=results[i].url%>')">
+            <% if(results[i].banner_image=="/images/placeholder_bg.webp" && results[i].images && results[i].images.Projects && results[i].images.Projects[0]){ %>
+              <% for(var j=0; j <results[i].images.Projects.length; j++) { %>
+                <div class="item">
+                  <div class="all-prop-heart">
+                    <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=results[i].images.Projects[j]%>" class="img img-fluid">
+                  </div>
+                </div>
+              <% } %>
+            <%} else {%>
+              <div class="item">
+                <div class="all-prop-heart">
+                  <img src="<%=results[i].banner_image %>" class="img img-fluid">
+                </div>
+              </div>
+            <% } %>
+            
+          </div>
+          <% if (emi_per_lac && (results[i].price && results[i].price.price)) { %>
+            <p class="text-left emi_starting_block">
+              EMI Starting :
+              <strong class="pe-2 text-left">
+                ₹<%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results[i].price.price / 100000))%>
+              </strong>
+              <button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+              </button>
+            </p>
+          <% } %>
+        </div>
+        <div class="apparment-list-right">
+          
+          <h2>
+            <%- include('./bookmark-list', {url: results[i].url, is_bookmarked: results[i].is_bookmarked, id: i + "_property-" + results[i].id}); %>
+            <div>
+              <span onclick="go_to_page('<%=results[i].url%>')"><%=results[i].name %></span>
+              <% if (results[i].builder){ %>
+                <p>
+                  <%=results[i].builder %>
+                </p>
+              <%}%>
+            </div>
+          </h2>
+          <% if ((results[i].price && results[i].price)||(results[i].sq_fit_cost && results[i].sq_fit_cost.cost)){ %>
+          <hr>
+          <div class="row align-items-center">
+            <% if (results[i].price && results[i].price){ %>
+            <!-- <div class="col-6">
+              <h3>Price : <span><%=changeNumberFormat(results[i].price.price)%></span> </h3>
+            </div> -->
+            <div class="col-6 ml-3 px-0">
+              <table>
+                <tr>
+                  <td>
+                    <h3 class="text-left">Price :</h3>
+                  </td>
+                  <td>
+                    <h3><span> ₹ <%=changeNumberFormat(results[i].price.price)%></span></h3>
+                  </td>
+                </tr>
+            </table>
+            </div>
+            <%} else {%>
+
+            <%}%>
+            <% if (results[i].sq_fit_cost && results[i].sq_fit_cost.cost){ %>
+            <div class="col-5 pr-0">
+              <h6 class="text-right">
+                SqFt. cost:
+                <b>₹<%=results[i].sq_fit_cost.cost%></b>
+            </div>
+            <%} else {%>
+
+            <%}%>
+          </div>
+          <%} else {%>
+          <%}%>
+          <hr>
+          <div class="located_area">
+            <div class="loc-left">
+              <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+              <p> <% if (results[i].subcity){ %>
+                <%=results[i].subcity %>,
+                <%}%>
+                <% if (results[i].city){ %>
+                <%=results[i].city %>
+                <%}%>
+              </p>
+            </div>
+            <div class="area_prices">
+              <h2>
+                <% if (results[i].area && results[i].area.area){ %>
+                  <%=results[i].area.area %> sq ft.
+                <%} else {%>
+                -
+                <%}%>
+              </h2>
+            </div>
+          </div>
+          <hr>
+          <div class="featured-points">
+            <ul>
+              <% if (results[i].bhk_space){ %>
+              <li>
+                <h5>
+                  <%=results[i].bhk_space %>
+                </h5>
+              </li>
+              <%}%>
+              <% if (results[i].property_type){ %>
+              <li>
+                <h5>
+                  <%=results[i].property_type%>
+                </h5>
+              </li>
+              <%}%>
+              <% if (results[i].furnished){ %>
+              <li>
+                <h5>
+                  <%=results[i].furnished %>
+                </h5>
+              </li>
+              <%}%>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-prop-btn" >
+        <div 
+          style="display: none; margin-bottom:30px; background: linear-gradient(180deg, rgba(255,255,255,1) 15%, rgba(7,31,76,1) 56%);    border-radius: 0px 0px 8px 8px;"  
+          id="<%=i%>_property-btns-<%=results[i].id%>" 
+          onmouseenter="showBox('<%=results[i].id%>', <%=i%>, <%=i+custSkip%>, '<%=results[i].price.price%>', '<%=results[i].url%>')" onmouseleave="hideBox('<%=results[i].id%>', <%=i%>, <%=i+custSkip%>)">
+          
+          <span class="btn book-property pt-07" data-toggle="modal" data-target="#booking-modal">
+            Book This Property
+          </span>
+
+          <span class="btn schedule-visit pt-07" onclick="triggerSCD3VisitModal('<%=results[i].name%>', '<%=results[i].url%>')">
+            Schedule Visit
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+<% } %>
+
+<div class="left-con-wrap no-login-msg-div">
+  <h3 class="no-login-msg see_more_results w-100">
+    <span>
+      <p class="btn blue-text w-100" onclick='see_more_results()'>
+        See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+      </p>
+    </span>
+  </h3>
+</div>
+<% for(var i=0; i < results.length; i++) { %>
+  <div class="col-lg-6 col-sm-6 col-12 folder-view-properties">
+
+    <div class="apparment-list apparment-list-updated no-border" id="<%=i+10000+custSkip%>_property-<%=results[i].id%>" onmouseenter="showBox('<%=results[i].id%>', '<%=i+10000+custSkip%>', '<%=i+10000+custSkip%>', '<%=results[i].price.price%>', '<%=results[i].url%>')" onmouseleave="hideBox('<%=results[i].id%>', '<%=i+10000+custSkip%>', '<%=i+10000+custSkip%>')">
+      <div class="apparment-list-left">
+        <a href="javascript:;" class="add-com-btn">
+          <div class="appartment-checkbox">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=results[i].id%>-card-view" name="example-<%=results[i].id%>-card-view" onchange="add_to_compare('<%=JSON.stringify(results[i])%>', 'example-<%=results[i].id%>-card-view')">
+              <label class="custom-control-label" for="example-<%=results[i].id%>-card-view">
+              </label>
+            </div>
+          </div>
+        </a>
+        <div class="owl-carousel owl-theme allProp-first-owl" onclick='go_to_page("<%=results[i].url%>")'>
+          <% if(results[i].banner_image=="/images/placeholder_bg.webp" 
+                  && results[i].images && results[i].images.Projects &&
+                  results[i].images.Projects[0]){ %>
+          <% for(var j=0; j < results[i].images.Projects.length; j++) { %>
+          <div class="item">
+            <div class="all-prop-heart">
+              <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=results[i].images.Projects[j]%>" class="img img-fluid">
+            </div>
+          </div>
+          <% } %>
+          <%} else {%>
+          <div class="item">
+            <div class="all-prop-heart">
+              <img src="<%=results[i].banner_image %>" class="img img-fluid">
+            </div>
+          </div>
+          <% } %>
+        </div>
+        <% if (emi_per_lac && (results[i].price && results[i].price.price)) { %>
+          <p class="text-left emi_starting_block">
+            EMI Starting :
+            <strong class="pe-2 text-left">
+              ₹<%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results[i].price.price / 100000))%>
+            </strong>
+            <button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+              <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+            </button>
+          </p>
+        <% } %>
+      </div>
+      <div class="apparment-list-right">
+        <h2>
+          <div>
+            <%- include('./bookmark-list', {url: results[i].url, is_bookmarked: results[i].is_bookmarked, id: i + "_property-" + results[i].id, name:results[i].name, builder:results[i].builder}); %>
+          </div>
+          <div>
+            <span onclick='go_to_page("<%=results[i].url%>")'><%=results[i].name %></span>
+            <p>
+              <% if (results[i].builder){ %>
+                <%=results[i].builder %>
+              <%}%>
+            </p>
+          </div>
+        </h2>
+        
+          <% if ((results[i].price && results[i].price)||(results[i].sq_fit_cost && results[i].sq_fit_cost.cost)){ %>
+          <hr>
+        <div class="row align-items-center">
+          <% if (results[i].price && results[i].price){ %>
+          <!-- <div class="col-6">
+            <h3>Price : <span> ₹ <%=changeNumberFormat(results[i].price.price)%></span> </h3>
+          </div> -->
+          <div class="col-6 ml-3 px-0">
+            <table>
+              <tr>
+                <td>
+                  <h3 class="text-left">Price :</h3>
+                </td>
+                <td>
+                  <h3><span> ₹ <%=changeNumberFormat(results[i].price.price)%></span></h3>
+                </td>
+              </tr>
+              <!-- <% if (emi_per_lac) { %>
+                <tr>
+                  <td>
+                    <h3 class="text-left">EMI Starting :</h3>
+                  </td>
+                  <td>
+                    <h3><span> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results[i].price.price / 100000))%></span><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                      <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                    </button></h3>
+                  </td>
+                </tr>
+              <% } %> -->
+            </table>
+          </div>
+          <%} else {%>
+          <%}%>
+            <% if (results[i].sq_fit_cost && results[i].sq_fit_cost.cost){ %>
+          <div class="col-5">
+            <h6 class="text-right">
+              SqFt. cost:
+              <b>₹<%=results[i].sq_fit_cost.cost%></b>
+            </h6>
+          </div>
+          <%} else {%>
+          <%}%>
+          </div>
+          <%} else {%>
+          <%}%>
+          <hr>
+          <div class="located_area">
+            <div class="loc-left">
+              <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+              <p>
+                <% if (results[i].subcity){ %> <%=results[i].subcity %>,
+          <%}%> 
+                <% if (results[i].city){ %>
+          <%=results[i].city %>
+          <%}%>
+              </p>
+            </div>
+            <div class="area_prices">
+              <h2> 
+                <% if (results[i].area && results[i].area.area){ %> <%=results[i].area.area %> sq ft.
+          <%} else {%>
+          -
+          <%}%>
+            </h2>
+            </div>
+          </div>
+          <hr>
+          <div class="featured-points">
+              <ul>
+                <% if (results[i].bhk_space){ %>
+          <li>
+            <h5> <%=results[i].bhk_space %> </h5>
+          </li>
+          <%}%>
+            <% if (results[i].property_type){ %>
+          <li>
+            <h5>
+              <%=results[i].property_type %>
+            </h5>
+          </li>
+          <%}%>
+            <% if (results[i].furnished){ %>
+          <li>
+            <h5>
+              <%=results[i].furnished %>
+            </h5>
+          </li>
+          <%}%>
+            </ul>
+          </div>
+      </div>
+    </div>
+
+    <div class="book-prop-btn d-none d-md-block" >
+        <div 
+          style="display: none; margin-bottom:30px; background: linear-gradient(180deg, rgba(255,255,255,1) 15%, rgba(7,31,76,1) 56%);    border-radius: 0px 0px 8px 8px;"  
+          id="<%=i+10000+custSkip%>_property-btns-<%=results[i].id%>" 
+          onmouseenter="showBox('<%=results[i].id%>', <%=i+10000+custSkip%>, <%=i+10000+custSkip%>, '<%=results[i].price.price%>', '<%=results[i].url%>')" onmouseleave="hideBox('<%=results[i].id%>', <%=i+10000+custSkip%>, <%=i+10000+custSkip%>)">
+          
+          <span class="btn book-property pt-07" data-toggle="modal" data-target="#booking-modal">
+            Book This Property
+          </span>
+
+          <span class="btn schedule-visit pt-07" onclick="triggerSCD3VisitModal('<%=results[i].name%>', '<%=results[i].url%>')">
+            Schedule Visit
+          </span>
+      </div>
+    </div>
+    <div class="book-prop-btn-phone d-md-none" style="margin-bottom: 30px;">
+      <div 
+          style="background: linear-gradient(180deg, rgba(255,255,255,1) 15%, rgba(7,31,76,1) 56%);    border-radius: 0px 0px 8px 8px;"  
+          id="<%=i%>_property-btns-<%=results[i].id%>" 
+          onmouseenter="showBox('<%=results[i].id%>', <%=i+10000+custSkip%>, <%=i+10000+custSkip%>, '<%=results[i].price.price%>', '<%=results[i].url%>')" onmouseleave="hideBox('<%=results[i].id%>', <%=i+10000+custSkip%>, <%=i+10000+custSkip%>)">
+          
+          <span class="btn book-property pt-07" data-toggle="modal" data-target="#booking-modal">
+            Book This Property
+          </span>
+
+          <span class="btn schedule-visit pt-07" onclick="triggerSCD3VisitModal('<%=results[i].name%>', '<%=results[i].url%>')">
+            Schedule Visit
+          </span>
+      </div>
+    </div>
+  </div>
+<%}%>
+<div class="col-12 folder-view-properties no-login-msg-div">
+  <h3 class="no-login-msg see_more_results w-100">
+    <span>
+    <p class="btn blue-text w-100" onclick="see_more_results()">
+      See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+    </p>
+    </span>
+  </h3>
+</div>

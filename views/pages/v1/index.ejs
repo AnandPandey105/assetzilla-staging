@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Assetzilla: Real Estate Marketplace | Properties For Sale</title>
+  <meta name="title" content="Assetzilla: Real Estate Marketplace | Properties For Sale">
+  <meta name="description" content="Find the Perfect Property @Assetzilla. We're the most trusted portal to Buy or sell Property.">
+</head>
+<%- include ./partials/header.ejs%>
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <div id="index_top_form">
+    <div class="path path-1">
+      <img src="/v1/img/path1.svg" class="img img-fluid">
+    </div>
+    <div class="agent-wrapper">
+      <div class="container">
+        <div class="real_estate">
+          <h1>Real Estate <br /> <span>Marketplace</span></h1>
+          <p>Easy buying and selling in India!</p>
+        </div>
+      </div>
+    </div>
+    <div class="landing-form mobile-zindex-home-serach">
+      <div class="container">
+        <div class="square-form">
+          <img src="/v1/img/square2.webp" class="img img-fluid">
+        </div>
+        <div class="find">
+          <h3>Find the Perfect property</h3>
+        </div>
+        <form class="position-relative" style="z-index: 50;">
+          <div class="input-forms home-page" id="type-ahead-search">
+            <div class="input-wrapper">
+              <input type="text" class="input-home home-year typeahead home-search" placeholder="Search for cities, builders, project name" id="home-search-input" autocomplete="off">
+            </div>
+          </div>
+          <button type="button" class="home-form-btn" id="home-search-btn" onclick=findResults()><img src="/v1/img/search.svg"></button>
+        </form>
+      </div>
+    </div>
+    <div class="landing-main-bg">
+      <div class="clipper-bg">
+        <img src="/v1/img/landing_clipper.webp" class="img img-fluid">
+      </div>
+      <div class="main-bg">
+      </div>
+    </div>
+  </div>
+
+
+  <div id="index-other" class="" >
+    <!-- Static Info -->
+
+    <!-- Search in 3 Easy Ways -->
+    <div class="home-popular-projects common-wrapper section_top pt-0 mt-0 background-texture-top">
+      <img src="/v1/img/pathleft.webp" class="img img-fluid path-left-home">
+
+      <div class="container">
+        <div class="row">
+          <div class="main-head text-center add_section">
+            <h1 class=""><span>Search in 3 Easy ways</span></h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-xs-6 col-6">
+            <div class="services_three text-center cursor-pointor" onclick="go_to_page('/projects', false)">
+              <div class="circle">
+                <img src="/v1/img/service2.webp" alt="">
+              </div>
+
+              <h4 class="cursor-pointor">Browse Projects</h4>
+              <!-- <p>We provide complete end to end support for buying and selling properties. </p> -->
+              <% if(searchIn3EasyWaysData) {%><p><%=searchIn3EasyWaysData.projectsCovered%>&nbsp;Societies covered</p><%}%>
+            </div>
+          </div>
+          <div class="col-lg-4 col-xs-6 col-6">
+            <div class="services_three text-center cursor-pointor" onclick="go_to_page('/locations?view=partial&location_type=city', false)">
+              <div class="circle">
+                <img src="/v1/img/explore_localities.svg" alt="">
+              </div>
+              <h4 class="cursor-pointor">Explore Localities</h4>
+              <!-- <p>Need a redesign or a complete architectural plans? We got you covered.</p> -->
+              <% if(searchIn3EasyWaysData) {%><p>Presence in <%=searchIn3EasyWaysData.presenceInCities%>&nbsp;Cities</p><%}%>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-12">
+            <div class="services_three text-center cursor-pointor" onclick="go_to_page('/properties', false)">
+              <div class="circle">
+                <img src="/v1/img/book_online.svg" alt="">
+              </div>
+              <h4 class="cursor-pointor">Book Online</h4>
+              <!-- <p>Utilize our pool of experts to plan your projects efficiently before execution.</p> -->
+              <% if(searchIn3EasyWaysData) {%><p><%=searchIn3EasyWaysData.readyPropertiesForSale%>&nbsp;ready properties for sale</p><%}%>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img src="/v1/img/trngl.webp" class="img img-fluid spin-img common_img">
+    </div>
+
+    <!-- Locations -->
+    <div class="home-popular-listing common-wrapper pt-md-5 d-flex justify-content-center align-items-center background-texture">
+      <div class="container row justify-content-center">
+
+        <div class="main-head popular_head col-12">
+          <h1 class="mb-0 cityTitle"><span>Search Projects by City</span></h1>
+          <a href="/locations" class="see_all btn d-none d-lg-block">All&nbsp;Location</a>
+        </div>
+        
+        <div  id="hideThisOnHideAll" class="owl-carousel cities-owl-carousel col-12">
+          <% for(let i=0; i < cities.results.length; i++) { %>
+            <% if (cities.results[i].price) {%>
+              <div class="item">
+                <div class="home-apartment" onclick="go_to_page('/projects?city=',false,'<%=cities.results[i].name%>')">
+                  <div class="ha-img-cities">
+                    <img src="<%=cities.results[i].banner_image%>" class="img img-fluid-custom">
+                  </div>
+                  <div class="ha-content location_info">
+                    <h2 class="city-name">
+                      <%=cities.results[i].name%>
+                    </h2>
+                    <p>
+                      <% if (cities.results[i].total_projects ){ %>
+                      <span class="city-projects"><%=cities.results[i].total_projects %> Projects</span><br/>
+                      <% }else{ %>
+                      <% } %>
+                      <% if (cities.results[i].price && cities.results[i].price.min ){ %>
+                        <span class="city-starting">Starting <strong> <%= changeNumberFormat(cities.results[i].price.min) %></strong>
+                      <% }else{ %>
+                      <% } %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          <% } %>
+        </div>
+        
+        <div id="showThisOnViewAll" class="row d-none col-12" style="padding-top: 20px;">
+          <% for(let i=0; i < cities.results.length; i++) { %>
+              <div class="col-6 col-lg-3 px-1 pb-2 px-lg-0">
+                <div class="item">
+                  <div class="home-apartment" onclick="go_to_page('/projects?city=',false,'<%=cities.results[i].name%>')">
+                    <div class="ha-img-cities">
+                      <img src="<%=cities.results[i].banner_image%>" class="img img-fluid-custom">
+                    </div>
+                    <div class="ha-content location_info text-center">
+                      <h2 class="city-name">
+                        <%=cities.results[i].name%>
+                      </h2>
+                      <p>
+                        <% if (cities.results[i].total_projects ){ %>
+                          <span class="city-projects"><%=cities.results[i].total_projects %> Projects</span><br/>
+                        <% }else{ %>
+                        <% } %>
+                        <% if (cities.results[i].price && cities.results[i].price.min ){ %>
+                          <span class="city-starting">Starting <strong> <%= changeNumberFormat(cities.results[i].price.min) %></strong></span>
+                        <% }else{ %>
+                        <% } %>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+          <% } %>
+        </div> 
+        
+        <div class="row w-100 justify-content-center">
+        <div class="d-flex flex-row justify-content-center align-items-center pt-2" style=" color: #347bbf;">
+          <span class="textShowHide cursor-pointor pr-2" onclick="toggleCities()">
+            View All Cities
+          </span>
+          <span class="d-flex flex-column justify-content-center align-items-center cursor-pointor" onclick="toggleCities()">
+            <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+          </span>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+
+
+    <!-- Projects -->
+    <div class="home-popular-projects common-wrapper background-texture">
+      <img src="/v1/img/pathleft.webp" class="img img-fluid path-left-home">
+      <div class="container">
+        <div class="main-head popular_head">
+          <h1 class="mb-0 d-flex align-items-center"><span>Popular Projects</span></h1>
+          <a href="/projects" class="see_all btn see_all_sm leading_marketplace">See&nbsp;all</a>
+        </div>
+        <div class="hpp-content">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="hpp-left popular_text">
+                <h5>Assetzilla is the leading marketplace for
+                  real estate in the Indian market. We have
+                  over 400 projects in Delhi NCR, Mumbai,
+                  and Bangalore region.</h5>
+                <p>Featuring an array of exciting new
+                  residential developments across India, you
+                  will be able to find Brand New
+                  Condominiums, Bungalows and even
+                  some Plotted Developments. Embark on a
+                  journey of searching for your dream..</p>
+              </div>
+            </div>
+            <div class="col-lg-9">
+              <div class="hpp-right">
+                <div class="owl-carousel home-owl-carousel">
+                  <% for(var i=0; i < trending.projects.length; i++) { %>
+                    <div class="item">
+                      <div class="project-house" onclick="go_to_page(`<%=trending.projects[i].url %>`)">
+                        <div class="project-text loaction_img">
+                          <h3>
+                            <%=trending.projects[i].name %>
+                          </h3>
+                          <p >
+                            <img src="/v1/img/location.webp" alt="" />
+                            <!-- <span class="autoscroll_container"> -->
+                              <span class="autoscroll">  
+                              <% if (trending.projects[i].subcity){ %>
+                                <%=trending.projects[i].subcity %>,
+                                <%}%>
+                                <% if (trending.projects[i].city){ %>
+                                  <%=trending.projects[i].city %>
+                                  <%}%>
+                                </span>
+                              <!-- </span> -->
+                          </p>
+                          <% if (trending.projects[i].price && trending.projects[i].price.min){ %>
+                            <p class="price-text-prop-hm ">
+                              Starting Price &nbsp;<b>
+                                <%=changeNumberFormat(trending.projects[i].price.min)%>
+                              </b>
+                            </p>
+                          <%}%>
+                          <p class="mb-0">
+                            <% if (trending.projects[i].project_status){ %>
+                              <%=trending.projects[i].project_status %>
+                            <%}%>
+                          </p>
+                        </div>
+                        <div class="overlay"></div>
+                        <img src="<%=trending.projects[i].banner_image %>" class="img img-fluid">
+                      </div>
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- Properties -->
+    <div class="home-popular-listing common-wrapper pb-0 background-texture">
+      <div class="container ">
+        <div class="main-head popular_head">
+          <h1 class="mb-0 d-flex align-items-center"><span>Ready to move in properties</span></h1>
+          <a href="/properties" class="see_all btn see_all_sm">See&nbsp;all</a>
+        </div>
+        <div class="owl-carousel home-owl-carousel ready-to-move-in-properties">
+          <% if (readyToMoveProperties) {%>
+            <% for(var i=0; i < readyToMoveProperties.length; i++) { %>
+              <div class="item">
+                <div class="home-apartment" onclick="go_to_page('/properties?project=<%=readyToMoveProperties[i].name%>')">
+                  <div class="ha-img">
+                    <% if (readyToMoveProperties[i].banner_image && readyToMoveProperties[i].banner_image=="/images/placeholder_bg.webp" ){ %>
+                      <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=readyToMoveProperties[i].images.Projects[0] %>" class="img img-fluid" alt="">
+                      <% if (emi_per_lac && (readyToMoveProperties[i].price && readyToMoveProperties[i].price.min)) { %>
+                        <p class="text-left emi_starting_block pointy-bottom-left">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * readyToMoveProperties[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                            <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                          </button></p>
+                      <% } %>
+                    <% }else{ %>
+                      <img src="<%=readyToMoveProperties[i].banner_image %>" class="img img-fluid" alt="">
+                      <% if (emi_per_lac && (readyToMoveProperties[i].price && readyToMoveProperties[i].price.min)) { %>
+                        <p class="text-left emi_starting_block pointy-bottom-left">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * readyToMoveProperties[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                            <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                          </button></p>
+                      <% } %>
+                    <% } %>
+                  </div>
+                  <div class="ha-content loaction_img">
+                    <h3>
+                      <%=readyToMoveProperties[i].name %>
+                    </h3>
+                    <% if (readyToMoveProperties[i].price && readyToMoveProperties[i].price.min) { %>
+                      <p class="price-text-prop-hm">
+                      <img class="ob-contain" src="/v1/img/rupee_1217539.webp" alt="" />
+                      <% if (readyToMoveProperties[i].total_properties) { %>
+                      <span><%=changeNumberFormat(readyToMoveProperties[i].total_properties)%> properties&nbsp;</span>
+                      <%}%>
+                      starting&nbsp;<%=changeNumberFormat(readyToMoveProperties[i].price.min)%>
+                      </p>
+                    <%}%>
+                    
+                    <p>
+                      <img src="/v1/img/location_black.webp" alt="">
+                      <% if (readyToMoveProperties[i].subcity){ %>
+                        <%=readyToMoveProperties[i].subcity %>,
+                      <%}%>
+                      <% if (readyToMoveProperties[i].city){ %>
+                        <%=readyToMoveProperties[i].city %>
+                      <%}%>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          <%} else {%>
+            <% for(var i=0; i < trending.properties.length; i++) { %>
+              <div class="item">
+                <div class="home-apartment" onclick="go_to_page('<%=trending.properties[i].url %>')">
+                  <div class="ha-img">
+                    <% if (trending.properties[i].banner_image && trending.properties[i].banner_image=="/images/placeholder_bg.webp" ){ %>
+                      <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=trending.properties[i].images.Projects[0] %>" class="img img-fluid" alt="">
+                    <% }else{ %>
+                      <img src="<%=trending.properties[i].banner_image %>" class="img img-fluid" alt="">
+                    <% } %>
+                  </div>
+                  <div class="ha-content loaction_img">
+                    <h3>
+                      <%=trending.properties[i].name %>
+                    </h3>
+                    <% if (trending.properties[i].price && trending.properties[i].price.price) { %>
+                      <p class="price-text-prop-hm">
+                      <img class="ob-contain" src="/v1/img/rupee_1217539.webp" alt="" />
+                      <%=changeNumberFormat(trending.properties[i].price.price)%>
+                      </p>
+                    <%}%>
+                    <p>
+                      <img src="/v1/img/location_black.webp" alt="">
+                      <% if (trending.properties[i].subcity){ %>
+                        <%=trending.properties[i].subcity %>,
+                      <%}%>
+                      <% if (trending.properties[i].city){ %>
+                        <%=trending.properties[i].city %>
+                      <%}%>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          <%}%>          
+        </div>
+      </div>
+    </div>
+
+    <!-- Builders -->
+    <div class="home-popular-listing common-wrapper background-texture">
+      <div class="container">
+        <div class="main-head popular_head">
+          <h1 class="mb-0 d-flex align-items-center"><span>Builders</span></h1>
+          <a href="/builders" class="see_all btn see_all_sm">See&nbsp;all</a>
+        </div>
+        <div class="parg">
+          <p class="assetzilla-deals-with-text">Assetzilla deals with only A-Grade
+            developers in key cities of India. View
+            Ready to Move in projects by A-Grade
+            builders.
+            We conduct extensive screening to ensure
+            that our builders are the best in the
+            industry. Our team of experienced
+            professionals take care of the entire home
+            buying process, from finding the right
+            property to getting the best deal with
+            securing all the necessary documents.
+          </p>
+        </div>
+
+        <div class="owl-carousel home-owl-carousel builders-home-owl-carousel">
+          <% for(var i=0; i < trending.builders.length; i++) { %>
+            <div class="item">
+              <div class="home-apartment-builder" onclick="go_to_page('<%=trending.builders[i].url %>')">
+                <div class="bulider_main">
+                  <div class="bulider">
+                    <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/builder/<%=trending.builders[i].logo %>" alt="">
+                    <h5>
+                      <%=trending.builders[i].name %>
+                    </h5>
+                    <h4><span>Total Projects :</span>
+                      <%=trending.builders[i].total_projects %>
+                    </h4>
+                  </div>
+                  <p class="location_text"><img class="location_gps" src="/v1/img/location_black.webp" alt="">
+                    <% if (trending.builders[i].subcity){ %>
+                      <%=trending.builders[i].subcity %>,
+                    <%}%>
+                    <% if (trending.builders[i].city){ %>
+                      <%=trending.builders[i].city %>
+                    <%}%>
+                  </p>
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-popular-projects common-wrapper background-texture">
+      <img src="/v1/img/pathleft.webp" class="img img-fluid path-left-home">
+
+      <div class="container">
+        <div class="row">
+          <div class="main-head text-center add_section">
+            <h1 class=""><span>Why Should You Invest in Property?</span></h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-3 col-xs-6 col-6">
+            <!-- <div class="services_three text-center cursor-pointor" onclick="go_to_page('/projects', false)"> -->
+            <div class="services_three text-center ">
+              <div class="circle">
+                <img src="/images/asset.svg" alt="">
+              </div>
+              <h4 class="">Safe & Appreciating asset</h4>
+            <!-- <p>We provide complete end to end support for buying and selling properties. </p> -->
+            </div>
+          </div>
+          <!-- <div class="col-lg-3 col-xs-6">
+            <div class="services_three text-center cursor-pointor" onclick="go_to_page('/locations', false)">
+              <div class="circle">
+                <img src="/v1/img/service2.webp" alt="">
+              </div>
+              <h4 class="cursor-pointor"> Other asset are risky</h4>
+              <p>Need a redesign or a complete architectural plans? We got you covered. </p>
+            </div>
+          </div> -->
+          <!-- <div class="col-lg-3 col-xs-12">
+            <div class="services_three text-center cursor-pointor" onclick="go_to_page('/properties', false)">
+              <div class="circle">
+                <img src="/v1/img/service3.webp" alt="">
+              </div>
+              <h4 class="cursor-pointor">Appreciating asset</h4>
+              <p>Utilize our pool of experts to plan your projects efficiently before execution. </p>
+            </div>
+          </div> -->
+          <div class="col-lg-3 col-xs-6 col-6">
+            <!-- <div class="services_three text-center cursor-pointor" onclick="go_to_page('/projects', false)"> -->
+            <div class="services_three text-center ">
+              <div class="circle">
+                <img src="/images/pride.svg" alt="">
+              </div>
+              <h4 class="">Pride of Ownership</h4>
+              <!-- <p>We provide complete end to end support for buying and selling properties. </p> -->
+            </div>
+          </div>
+            <!-- <div class="col-lg-3 col-xs-6">
+              <div class="services_three text-center cursor-pointor" onclick="go_to_page('/projects', false)">
+                <div class="circle">
+                  <img src="/v1/img/service1.webp" alt="">
+                </div>
+                <h4 class="cursor-pointor">Handsome returns</h4>
+                <p>We provide complete end to end support for buying and selling properties.</p>
+              </div>
+            </div> -->
+          <div class="col-lg-3 col-xs-6 col-6">
+            <!-- <div class="services_three text-center cursor-pointor" onclick="go_to_page('/projects', false)"> -->
+            <div class="services_three text-center">
+              <div class="circle">
+                <img src="/images/financial_security.svg" alt="">
+              </div>
+              <h4 class="">Financial security <br/>& Smart returns</h4>
+              <!-- <p>We provide complete end to end support for buying and selling properties. </p> -->
+            </div>
+          </div>
+          <div class="col-lg-3 col-xs-6 col-6">
+            <!-- <div class="services_three text-center cursor-pointor" onclick="go_to_page('/projects', false)"> -->
+            <div class="services_three text-center">
+              <div class="circle">
+                <img src="/images/generation.svg" alt="">
+              </div>
+              <h4 class="">Asset for generations</h4>
+            <!-- <p>We provide complete end to end support for buying and selling properties. </p> -->
+          </div>
+          </div>
+        </div>
+      </div>
+      <img src="/v1/img/trngl.webp" class="img img-fluid spin-img common_img">
+    </div>
+  </div>
+  <!-- Static Info -->
+  <div class="common-wrapper newsletter-wrapper pt-0 pb-0">
+    <div class="changing-way-banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="get_touch text-center">
+              <h4 id="az-changing">Assetzilla is changing the way you invest your earnings!</h4>
+              <a href="#" data-toggle="modal" data-target="#FDPModal" class="text-white">Get in touch</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="right-fixed hideme">
+    <ul>
+        <li class=""><a href="#"><img src="/v1/img/call.svg"></a></li>
+        <li class=""><a href="#"><img src="/v1/img/whatsapp.svg"></a></li>
+        <li class=""><a href="#"><img src="/v1/img/message.svg"></a></li>
+    </ul>
+  </div> -->
+
+  <div class="common-wrapper newsletter-wrapper background-texture">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h4>Become a part of our</h4>
+          <h3 id="newsletter-word">Newsletters</h3>
+          <form id="newsletter-form">
+            <input type="email" class="news-input" placeholder="Enter Email Id" id="newsletter-email">
+            <button type="submit"><img src="/v1/img/sent-mail.webp" class="img img-fluid"></button>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <img src="/v1/img/news-img.webp" class="img img-fluid news-img">
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include ./partials/footer.ejs%>
+</body>
+<script>
+  function toggleCities(){
+    // const cityTitle = document.querySelector('.cityTitle');
+    if( $("#showThisOnViewAll").css('display') === 'none'){
+      $("#showThisOnViewAll").removeClass('d-none');
+      $('.textShowHide').text('Hide')
+      $('.up_down_arrow').attr('src', 'images/up_arrow.svg');
+      $('#hideThisOnHideAll').addClass('d-none')
+      scrollto('.cityTitle');
+    }else {
+      $("#showThisOnViewAll").addClass('d-none');
+      $('.textShowHide').text('View All Cities')
+      $('.up_down_arrow').attr('src', 'images/down_arrow.svg');
+      $('#hideThisOnHideAll').removeClass('d-none');
+      scrollto('.cityTitle');
+    }
+
+    // if ($("#hideThisOnHideAll").css('display') !== 'none'){
+    //   $('#hideThisOnHideAll').addClass('d-none')
+    // }else{
+    //   $('#hideThisOnHideAll').removeClass('d-none');
+    // }
+  }
+</script>
+<script>
+  var isScrolled = false;
+  if (( 'ontouchend' in window ) || ( navigator.maxTouchPoints > 0 ) || ( navigator.msMaxTouchPoints > 0 )){
+    $('#home-search-input').on('touchstart', function(e){
+      // console.log(isScrolled)
+      if (isScrolled){
+        isScrolled = false;
+        return;
+      }
+      e.preventDefault();
+      isScrolled = true;
+      // console.log("touchstart");
+      const topPxs = this.getBoundingClientRect().top - 50;
+      // console.log(topPxs);
+      if (topPxs > 50){
+        window.scrollTo({top: topPxs, left: 0, behavior: 'smooth'});
+      }
+      const touchend = new TouchEvent('touchend',{
+        view: window,
+        bubbles: true,
+        cancelable: false
+      });
+      setTimeout(()=>document.querySelector('#home-search-input').dispatchEvent(touchend), 1000);
+    })
+  }
+  else{ 
+    // $('#home-search-input').on('focusin',function(e) {
+    //   e.preventDefault();
+    //   console.log(window.innerWidth)
+    //   const topPxs = this.getBoundingClientRect().top - 50;
+    //   console.log(topPxs);
+    //   window.scrollTo({top: topPxs, left: 0, behavior: 'smooth'});
+    // }); 
+  }
+</script>
+<script>
+  var findResults = function() {
+    let data = $('#home-search-input')
+      .val();
+    // console.log('data is', data)
+    window.location = "/results?q=" + data;
+  }
+
+  var homeSearchInput = document.getElementById("home-search-input");
+  homeSearchInput.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      document.getElementById("home-search-btn")
+        .click();
+    }
+  });
+</script>
+<% if (openLogInModal) { %>
+  <script>
+    $('#loginButtonModalClick').click();
+    <% if (comeToProfilePage) { %>
+      window.localStorage.setItem("gtp", "true");
+    <%}%>
+    // openSignUpModal
+  </script>
+<%} %>
+<!-- <% if (!openLogInModal) { %>
+  <script>
+    let redirect = window.localStorage.getItem("gtp") || "false";
+    console.log(redirect + window.location.origin + "/profile");
+    if (redirect === "true") {
+      window.localStorage.removeItem("gtp");
+      location.assign(window.location.origin + "/profile");
+    }
+  </script>
+<%}%> -->
+<script>
+  let hash = window.location.hash;
+  // console.log("hash hash hash => => => =>", hash);
+  // console.log("hash hash hash hash hash hash hash => => => ", window.location);
+
+  if (hash === "#login") {
+    $('#loginButtonModalClick')
+    .click();
+  }
+</script>
+
+</html>

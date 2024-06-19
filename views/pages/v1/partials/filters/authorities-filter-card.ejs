@@ -1,0 +1,12 @@
+
+<% for(var i=0; i < results.length; i++) { %>
+    <li class="<% if(i > 10) {%> d-none<%}%>" id="li-authority-<%=results[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="authority-<%=results[i].nameAsURL %>" onchange="handleFilters('authority','<%=results[i].name %>')">
+            <label class="custom-control-label" for="authority-<%=results[i].nameAsURL %>">
+                <%=results[i].name %> (<%=results[i].projectCount %>)
+            </label>
+        </div>
+    </li>
+    
+<% } %> 

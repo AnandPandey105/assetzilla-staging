@@ -1,0 +1,24 @@
+<div class="item">
+    <div class="home-apartment-builder p-md-3" onclick="go_to_page(`<%=results.results.builders[i].url %>`)">
+        <div class="bulider_main">
+            <div class="bulider">
+                <img src="<%=results.results.builders[i].logo %>"
+                    alt="" style="width: 100% !important;">
+                <h5>
+                    <%=results.results.builders[i].name %>
+                </h5>
+                <h4><span>Total Projects :</span>
+                    <%=results.results.builders[i].total_projects %>
+                </h4>
+            </div>
+            <p class="location_text"><img class="location_gps" src="/v1/img/location_black.webp" alt="">
+                <% if (results.results.builders[i].subcity){ %>
+                    <%=results.results.builders[i].subcity %>,
+                <%}%>
+                <% if (results.results.builders[i].city){ %>
+                    <%=results.results.builders[i].city %>
+                <%}%>
+            </p>
+        </div>
+    </div>
+</div>

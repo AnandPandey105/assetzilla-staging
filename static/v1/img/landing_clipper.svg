@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1441px" height="751px" viewBox="0 0 1441 751" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>landing_clipper</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="-19.8601037%" x2="101.999998%" y2="121.257304%" id="linearGradient-1">
+            <stop stop-color="#3CDBFF" offset="0%"></stop>
+            <stop stop-color="#7169FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="3.29342571%" x2="101.999998%" y2="97.6407047%" id="linearGradient-2">
+            <stop stop-color="#3CDBFF" offset="0%"></stop>
+            <stop stop-color="#7169FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="landing_clipper" transform="translate(0.000000, -492.000000)">
+            <path d="M428.9,492.99957 L395.461465,639.118697 C368.748854,755.846723 399.950571,878.214435 479.10819,967.867532 L481.521575,970.574239 L615.823685,1119.73184 C683.665034,1195.0773 775.734309,1236.4456 870.081071,1242.009 L0,1242 L0,492.99957 L428.9,492.99957 Z M1440.00161,869.994527 L1440.00161,1242 L914.022564,1242.00925 C987.141475,1237.69529 1059.5879,1211.7877 1121.20203,1163.4405 L1123.0658,1161.96857 L1343.79272,986.518812 C1383.76844,954.743214 1416.49855,915.009091 1440.00161,869.994527 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+            <g id="Mask" opacity="0.601283482" transform="translate(924.515391, 704.731443) rotate(138.000000) translate(-924.515391, -704.731443) translate(417.015391, 214.231443)" fill="url(#linearGradient-2)" fill-rule="nonzero">
+                <path d="M384.231535,0.756490598 L665.662403,18.0670515 C861.609016,30.1195523 1014.35487,192.549346 1014.35487,388.866278 L1014.35487,589.577632 C1014.35487,710.532728 955.470056,823.915281 856.522952,893.482556 L733.329703,980.09649 L0.364024745,320.13395 C2.38533188,303.685228 5.52231629,287.418051 9.73606579,271.448895 L232.797743,23.7136472 C280.947184,5.46128259 332.558913,-2.42184614 384.231535,0.756490598 Z" id="Combined-Shape"></path>
+            </g>
+            <polyline id="Path-3" fill="#FFFFFF" points="1440.00161 869.994527 1441 867.504412 1441 1242.00925 1440.00161 1242.00925"></polyline>
+        </g>
+    </g>
+</svg>

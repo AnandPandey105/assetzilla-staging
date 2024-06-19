@@ -1,0 +1,66 @@
+<div class="appartement-grid-box min-height-350 m-0 m-md-3" >
+    <div class="app-grid-img auth-logo-img" onclick=go_to_page("<%=results.results.authorities[i].url %>")>
+        <% if(results.results.authorities[i].banner_image && results.results.authorities[i].banner_image=="/images/placeholder_bg.webp"){%>
+            <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/authority/<%=results.results.authorities[i].logo %>" style="max-width:87%; margin:auto" class="img img-fluid">
+        <% }else{%> 
+            <img src="<%=results.results.authorities[i].banner_image %>" style="max-width:87%; margin:auto" class="img img-fluid">
+        <%}%>
+    </div>
+    <div class="location-grid-content auth-grid-content">
+        <div class="lc-content-row">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="text-center">
+                        <h2>
+                            <span onclick=go_to_page("<%=results.results.authorities[i].url %>")><%=results.results.authorities[i].name %> </span>
+                         </h2>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="text-center">
+                        <% if (results.results.authorities[i].state || results.results.authorities[i].district){ %>
+                            <p class="auth-location-font"><img src="/v1/img/gps.webp" alt=""> 
+                                <% if (results.results.authorities[i].district){ %>
+                                    <%=results.results.authorities[i].district %>
+                                <%}%>
+                                <% if (results.results.authorities[i].state && results.results.authorities[i].district){ %>
+                                    , 
+                                <%}%>
+                                <% if (results.results.authorities[i].state){ %>
+                                    <%=results.results.authorities[i].state %>
+                                <%}%>
+                            </p>
+                        <%}%>  
+                        
+                    </div>
+                </div>
+            </div>    
+        </div> 
+
+        <div class="lc-content-dt auth-content-dt ">
+            
+            <div class="row mb-0">
+                <div class="col-12">
+                    <% if(results.results.authorities[i].phone){%>
+                        <div class="p-2 bd-highlight">
+                            <i class="fa fa-mobile"></i>
+                            <%=results.results.authorities[i].phone %>
+                        </div>
+                    <%}%>
+                    <% if(results.results.authorities[i].email){%>
+                        <div class="p-2 bd-highlight">
+                            <i class="fa fa-envelope"></i>
+                            <%=results.results.authorities[i].email%>
+                        </div>
+                    <%}%>
+                    <!-- <% if(results.results.authorities[i].address){%>
+                        <div class="p-2 bd-highlight">
+                            <i class="fa fa-home"></i>
+                            <%=results.results.authorities[i].address%>
+                        </div>
+                    <%}%> -->
+                </div>
+            </div> 
+        </div> 
+    </div>
+</div>

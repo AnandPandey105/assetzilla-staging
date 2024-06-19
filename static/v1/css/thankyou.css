@@ -1,0 +1,119 @@
+@media (min-width: 768px) {
+  .container-thankyou {
+    margin-top: 170px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 60vh;
+    align-items: center;
+  }
+
+  .container-thankyou h1 {
+    text-align: center;
+    font-family: lato-bold;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 100%;
+    color: #347bbf;
+  }
+
+  .container-thankyou h4 {
+    text-align: center;
+    font-family: Lato-regular;
+    /* font-weight: 400; */
+    font-size: 22px;
+    line-height: 100%;
+    color: #98b769;
+    margin-bottom: 0;
+    padding: 20px 0px;
+    padding-bottom: 20px
+  }
+
+  .container-thankyou p {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .container-thankyou .like {
+    width: 10%;
+    margin-bottom: 22px;
+  }
+  .container-thankyou a {
+    display: block;
+    text-align: center;
+    max-width: fit-content;
+    color: #fff;
+    background: #347bbf;
+    /* height: 45px; */
+    border: 1px solid #347bbf;
+  }
+
+  .trngl-spin{
+    position: absolute;
+    /* top: 20%; */
+    left: 33%;
+    bottom: 65%;
+  }
+}
+@media (max-width: 768px) {
+  .container-thankyou {
+    margin-top: 240px;
+    height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .container-thankyou h1 {
+    text-align: center;
+    font-family: lato-bold;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    color: #347bbf;
+  }
+
+  .container-thankyou h4{
+    text-align: center;
+    font-family: Lato-regular;
+    /* font-weight: 400; */
+    font-size: 16px;
+    line-height: 100%;
+    color: #98b769;
+    margin-bottom: 0;
+    padding: 5px 0px;
+    padding-bottom: 20px
+  }
+
+  .container-thankyou a {
+    display: block;
+    text-align: center;
+    max-width: fit-content;
+    color: #fff;
+    background: #347bbf;
+    /* height: 45px; */
+    border: 1px solid #347bbf;
+  }
+
+  .trngl-spin{
+    position: absolute;
+    /* top: 20%; */
+    left: 3% !important;
+    bottom: 71%;
+    width: 10%;
+  }
+
+  .container-thankyou p {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
+
+  .container-thankyou .like {
+    width: 20%;
+    margin-bottom: 15px;
+  }
+}

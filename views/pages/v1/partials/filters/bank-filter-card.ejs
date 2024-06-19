@@ -1,0 +1,8 @@
+<% for(var i=0; i < bank.length; i++) { %>
+    <li class="popup" id="li-<%=bank[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="<%=bank[i].nameAsURL %>"  onchange="handleFilters('type','<%=bank[i].type %>')"  autocomplete="off">
+            <label class="custom-control-label" for="<%=bank[i].nameAsURL %>"><%=bank[i].type%> (<%=bank[i].count %>)</label>
+        </div>
+    </li>
+<% } %> 

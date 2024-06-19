@@ -1,0 +1,8 @@
+<% for(var i=0; i < condition.length; i++) { %>
+    <li class="popup" id="li-<%=condition[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="<%=condition[i].nameAsURL %>"  onchange="handleFilters('condition','<%=condition[i].condition %>')"  autocomplete="off">
+            <label class="custom-control-label" for="<%=condition[i].nameAsURL %>"><%=condition[i].condition.charAt(0).toUpperCase() + condition[i].condition.slice(1)%> (<%=condition[i].count %>)</label>
+        </div>
+    </li>
+<% } %> 

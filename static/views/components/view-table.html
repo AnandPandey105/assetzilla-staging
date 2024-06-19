@@ -1,0 +1,163 @@
+<style>
+    .table-bg {
+        background-color: white;
+    }
+
+    .table-top-ele {
+        padding: 10px;
+        display: inline-block;
+    }
+
+    .pagination {
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .sort-button {
+        background-color: white;
+    }
+    .highlightRow td {
+        background: #9df19d;
+    }
+</style>
+<div class="table-bg">
+    <div class="table-top-ele" style="width:30%">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search {{$ctrl.title}}" ng-model="$ctrl.query"/>
+            <div class="input-group-append">
+                <button class="btn btn-outline-success" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="input-group mb-3 table-top-ele" style="width:20%">
+        <span>Show</span>
+        <select class="custom-select" ng-model="$ctrl.limit">
+            <option value="10">10</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+    <div class=" mb-3 table-top-ele" style="width:10%" ng-show="$root.isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">
+        Total Results :
+        <strong>{{$ctrl.total}}</strong>
+    </div>
+    <div class="input-group mb-3 table-top-ele" style="width:30%">
+        <span>Status</span>
+        <select class="custom-select" ng-model="$ctrl.status">
+            <option value="0" ng-show="$root.isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">All
+            </option>
+            <option value="1" ng-show="$root.isAuthorised(['Super Admin','Moderator'])">Waiting For Approval</option>
+            <option value="2" ng-show="$root.isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">Approved
+                                                                                                                                                                                                                and Live</option>
+            <option value="3" ng-show="$root.isAuthorised(['Super Admin','Deo'])">Rework</option>
+            <option value="4" ng-show="$root.isAuthorised(['Super Admin','Moderator'])">Archived</option>
+            <option value="5" ng-show="$root.isAuthorised(['Super Admin','Moderator','Deo','Sales Marketing'])">User Submitted Properties</option>
+        </select>
+    </div>
+    <button ng-click="goToAdd($ctrl.title)" class="btn btn-success table-top-ele btn-sm mt-2 mr-2" style="float: right;">
+        Add
+        {{$ctrl.title}}
+        +
+    </button>
+    <div style="width: 100%; overflow-x: auto;">
+        <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th ng-repeat="field in $ctrl.fields track by $index" class="th-sm no-wrap" style="cursor: pointer;">
+                        {{field[0]}}
+                        <span ng-if="field[1]=='name' || field[1]=='publish_date' || field[1]=='total_projects' || field[1]=='gdp'|| field[1]=='capital_income' || field[1]=='population'|| field[1]=='area'|| field[1]=='views'">
+                            <button class="btn btn-sm" ng-class="{'sort-button': $ctrl.sort!=field[1]}" ng-click="$ctrl.sort=field[1]">
+                                &darr;
+                            </button>
+                            <button class="btn btn-sm" ng-class="{'sort-button': $ctrl.sort!=field[1]+'reverse'}" ng-click="$ctrl.sort=field[1]+'reverse'">
+                                &uarr;
+                            </button>
+                        </span>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="result in $ctrl.results track by $index" ng-class="{highlightRow: result.case_id}">
+                    <td ng-repeat="field in $ctrl.fields track by $index">
+                        <span ng-if="field[1]!='img' && field[1]!='is_live' && field[1]!='updatedAt' && field[1]!='updated' && field[1]!='area' && field[1]!='price'">{{result[field[1]]}}</span>
+                        <span ng-if="field[1]=='is_live'">
+                            <span ng-if="result[field[1]]==1">Waiting For approval</span>
+                            <span ng-if="result[field[1]]==2">Approved and Live</span>
+                            <span ng-if="result[field[1]]==3">Rework</span>
+                            <span ng-if="result[field[1]]==4">Archived</span>
+                        </span>
+                        <span ng-if="field[1]=='area'">
+                            {{result[field[1]]}}
+                        </span>
+                        <span ng-if="field[1]=='price'">{{result[field[1]].price ? result[field[1]].price.toLocaleString("en-IN") : "NA"}}</span>
+                        <span ng-if="field[1]=='updatedAt'">{{result[field[1]] | date: "MMM dd, yyyy hh:mm a"}}</span>
+                        <span ng-if="field[1]=='updated'">{{result[field[1]] | date: "MMM dd, yyyy hh:mm a"}}</span>
+                        <img ng-src="{{result[field[1]]}}" ng-if="field[1]=='img'" width="50" height="50"/>
+                    </td>
+
+                    <td class="text-nowrap">
+                        <a href="{{result.url}}" target="_blank">View</a>
+                        <p class="ml-2 pointer" style="display: inline" ng-if="$ctrl.status!='1'" ng-show="$root.isAuthorised(['Super Admin','Moderator'])">
+                            <a ng-href="/admin-panel#/app/{{$ctrl.title | lowercase}}/edit?url={{result.url}}">Edit</a>
+                        </p>
+                        <p class="ml-2 pointer" style="display: inline" ng-if="$ctrl.status=='3'" ng-show="$root.isAuthorised(['Deo'])">
+                            <a ng-href="/admin-panel#/app/{{$ctrl.title | lowercase}}/edit?url={{result.url}}">Edit</a>
+                        </p>
+
+                        <!-- Acess Control Logics -->
+                        <button class="btn btn-sm btn-success ml-2" ng-if="$ctrl.status=='1'" ng-click="changeStatus(result.url,$ctrl.title,'2')">
+                            Approve
+                        </button>
+                        <button class="btn btn-sm btn-basic ml-2" ng-if="$ctrl.status=='3' || $ctrl.status=='1'" ng-click="get_reasons($ctrl.title,$ctrl.results[$index].id)">
+                            View Reasons
+                        </button>
+
+                        <button class="btn btn-sm btn-danger ml-2" ng-if="$ctrl.status=='2'" ng-click="changeStatus(result.url,$ctrl.title,'4')" ng-show="$root.isAuthorised(['Super Admin','Moderator'])">
+                            Archive
+                        </button>
+                        <button class="btn btn-sm btn-danger ml-2" ng-if="$ctrl.status=='1' || $ctrl.status=='2'" ng-click="changeStatus(result.url,$ctrl.title,'3',$index)" ng-show="$root.isAuthorised(['Super Admin','Moderator'])">
+                            Rework
+                        </button>
+                        <textarea ng-model="rework_reson[$index]" ng-if="$ctrl.status=='1' || $ctrl.status=='2' || $ctrl.status=='3'" rows="3" ng-show="$root.isAuthorised(['Super Admin','Moderator'])"></textarea>
+
+                        <button class="btn btn-sm btn-success ml-2" ng-if="$ctrl.status=='3'" ng-click="changeStatus(result.url,$ctrl.title,'1',$index,$ctrl.status)">
+                            Request Approval
+                        </button>
+                        <button class="btn btn-sm btn-success ml-2" ng-if="$ctrl.status=='4'" ng-click="changeStatus(result.url,$ctrl.title,'1')">
+                            Restore
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4 text-center">
+        <uib-pagination ng-model="$ctrl.skip" total-items="$ctrl.total" items-per-page="$ctrl.limit" max-size="limit" boundary-links="true"></uib-pagination>
+        <div class="modal fade" id="reasonModal" tabindex="-1" role="dialog" aria-labelledby="reasonModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reasonModalLabel">Rework Reasons</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-left">
+                        <li ng-repeat="reason in reasons">
+                            {{reason.time}}
+                            -
+                            {{reason.reason}}
+                        </li>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

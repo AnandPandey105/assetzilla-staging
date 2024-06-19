@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Get Best Property Loan rates from <%= data.name %> | Assetzilla</title>
+  <meta name="title" content="Get Best Property Loan rates from <%= data.name %> | Assetzilla">
+  <meta name="description" content="<%= data.name %> offers commercial and residential property loans at best rates with Quick Loan Sanction & Disbursements. ✓ Check ✓ Processing Fees ✓ Eligibility Criteria.">
+</head>
+
+<head>
+  <title>Apply for Property | Get Loan Against Property, Land, Plot | Assetzilla </title>
+  <meta name="title" content="Apply for Property | Get Loan Against Property, Land, Plot | Assetzilla ">
+  <meta name="description" content="Loan Against Property - You can avail this loan by mortgaging a residential, commercial or industrial property. Check Now!">
+</head>
+<%- include ./partials/header.ejs%>
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <div class="common-wrapper">
+    <div class="details-breadcrumb pb-25 details-breadcrumb-img">
+      <div class="container">
+        <div class="dbread-top">
+          <div class="row align-items-center">
+            <% if(data.is_live==="1") {%>
+              <div class="col-12 notLiveGray" style="max-width: 50%; margin: auto;">This page is under development and not live on website</div>
+            <% } else if ( data.is_live==="4" || data.is_live==="3"){ %>
+              <div class="notLive"> This location is not live anymore </div>
+            <% }%>
+            <div class="col-lg-8 col-sm-12">
+              <div class="dt-bread-crumb-left">
+                <div class="builder-top-logo">
+                  <img class="img img-fluid" src="<%=data.logo %>" alt="">
+                </div>
+                <div class="">
+                  <div class="breadcrumb-top">
+                    <div>
+                      <a href="/banks" target="_blank">Banks</a>
+                    </div>
+                  </div>
+                  <h2 style="display: flex;" class="justify-content-start align-items-start"><span>
+                      <%- include ./partials/bookmark.ejs%>
+                    </span>
+                    <span>
+                    <%= data.name %>
+                  </span>
+                  </h2>
+                  <!-- <p class="mt-2 d-flex flex-row justify-content-center- align-items-center">
+                    <img src="/images/views.webp"/>&nbsp;
+                    <span><%=data.views || 0%>&nbsp;views</span>
+                  </p> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+              <div class="topsearch-right mt-3 mt-md-0 justify-content-end"> 
+                <form>
+                  <div class="group_search top_bar_search" id="type-ahead-search">
+                    <input id="profile-search" type="text" class="form-control typeahead" placeholder="Search for cities, builders, project name" >
+                    <a href="javascript:void(0)" class="btn searchicon" onclick='search_fields_v1()'><i class="fa fa-search" aria-hidden="true"></i></a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="details-box-wrapper">
+    <!-- <div class="w-100 flex-row viewed-x-times-div mb-3">
+      <p class="text-center mb-0 py-1 d-flex flex-row justify-content-center align-items-center">
+        <!-- <img src="/images/views.webp" class="viewed-x-times-div-img">
+        &nbsp;This Page has been viewed 
+        <span>&nbsp;<%=data.views || 0%>&nbsp;times.</span>
+      </p>
+    </div> -->
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-lg-8">
+          <div class="w-100 d-flex flex-row x-views my-3">
+            <p class="text-center mb-0 py-1 d-flex flex-row justify-content-start align-items-center">
+              <img src="/images/views.webp" class="viewed-x-times-div-img">
+              <span>&nbsp;<%=data.views || 0%>&nbsp;Page <% if(data.views > 1) {%>views <%} else {%>view<%}%>&nbsp;</span>
+            </p>
+          </div>
+          <% if (data.description){ %>
+            <div class="common-box-dt">
+              <div class="dt-common-head">
+                <h2>Description</h2>
+              </div>
+              <div class="">
+                <p><%- data.description %></p>
+              </div>
+            </div>
+          <%}%>
+          <% if (data.type){ %>
+            <div class="common-box-dt">
+              <div class="dt-common-head">
+                <h2>Bank Type</h2>
+              </div>
+              <div class="">
+                <% if (data.type === "nbfcs"){ %>
+                <p>NBFC Bank</p>
+                <%} else {%>
+                <p class="text-capitalize"><%=data.type %> Bank</p>
+                <%}%>
+              </div>
+            </div>
+          <%}%>
+          <% if (locals.top_projects && top_projects.length >0){ %>
+            <div class="common-box-dt">
+              <div class="dt-common-head">
+                <h2><%=data.name%> Approved Top Projects</h2>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="unfilled-btn-list">
+                    <ul>
+                      <% for(var i=0; i < top_property_type.length; i++) { %>
+                      <li> <button type="button" class="btn selectable-tags" onclick="getProjects('<%= top_property_type[i].key%>','property_type','<%= top_property_type[i].doc_count%>',this)"> <%= top_property_type[i].key%>(<%= top_property_type[i].doc_count%>)</button> </li>
+                      <% } %>
+                    </ul>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+            <div class="common-box-dt">
+              <div class="dt-common-head">
+                <h2>All Projects <span id="city_name"></span></h2>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12" id="top_projects">
+                  <% for(var i=0; i < top_projects.length; i++) { %>
+                  <div class="apparment-list apparment-list-updated mt-3 mt-lg-0">
+                    <div class="apparment-list-left" onclick="go_to_page(`<%=top_projects[i].url %>`)">
+                      <div class="owl-carousel owl-theme allProp-first-owl">
+                        <% for(var j=0; j < top_projects[i].images.length; j++) { %>
+                        <div class="item">
+                          <div class="all-prop-heart">
+                            <img src="<%=top_projects[i].images[j] %>" class="img img-fluid">
+                          </div>
+                        </div>
+                        <% } %>
+                      </div>
+                      <% if (emi_per_lac && (top_projects[i].price && top_projects[i].price.min)) { %>
+                        <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * top_projects[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                          <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                        </button></p>
+                      <% } %>
+                    </div>
+                    <div class="apparment-list-right">
+                      <h2 class="h2-single-line">
+                        <div>
+                          <%- include('./partials/bookmark-list', {url: top_projects[i].url, is_bookmarked: top_projects[i].is_bookmarked, id: i + "_project-" + top_projects[i].id, name:top_projects[i].name, builder:top_projects[i].type}); %>
+                        </div>
+                        <div>
+                          <span onclick="go_to_page(`<%=top_projects[i].url %>`)"><%=top_projects[i].name %></span>
+                        </div>
+                      </h2>
+                      <p>
+                        <%=top_projects[i].builder %>
+                      </p>
+                      <% if ((top_projects[i].price && top_projects[i].price.min)||(top_projects[i].sq_fit_cost &&
+                                                      top_projects[i].sq_fit_cost.min)){ %>
+                      <hr>
+                      <div class="row align-items-center">
+                        <% if (top_projects[i].price && top_projects[i].price.min){ %>
+                          <div class="col-8">
+                            <table class="emi-price-table">
+                              <tr>
+                                <td>
+                                  <p class="text-left" >Starting :</p>
+                                </td>
+                                <td>
+                                  <p>
+                                    <b class="px-2 text-left"> ₹ <%=changeNumberFormat(top_projects[i].price.min)%>
+                                    </b>
+                                  </p>
+                                </td>
+                              </tr>
+                              <!-- <% if (emi_per_lac) { %>
+                                <tr>
+                                  <td>
+                                    <p class="text-left">EMI Starting :</p>
+                                  </td>
+                                  <td>
+                                    <p><b class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * top_projects[i].price.min / 100000))%></b></p>
+                                  </td>
+                                </tr>
+                              <% } %> -->
+                            </table>
+                          </div>
+                        <%} else {%>
+
+                        <%}%>
+                        <% if (top_projects[i].sq_fit_cost && top_projects[i].sq_fit_cost.min){ %>
+                        <div class="col-4">
+                          <h6>
+                            Starting SqFt. cost:
+                            <b>
+                              ₹<%=top_projects[i].sq_fit_cost.min%>
+                            </b>
+                          </h6>
+                        </div>
+                        <%} else {%>
+
+                        <%}%>
+                      </div>
+                      <%} else {%>
+                      <%}%>
+                      <hr>
+                      <div class="located_area">
+                        <div class="loc-left">
+                            <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                            <p>
+                              <% if (top_projects[i].subcity){ %>
+                                <%=top_projects[i].subcity %>,
+                              <%}%>
+                              <% if (top_projects[i].city){ %>
+                                <%=top_projects[i].city %>
+                              <%}%>
+                            </p>
+                        </div>
+                        <div class="area_prices">
+                          <h2>
+                            <% if (top_projects[i].area && top_projects[i].area.area){ %>
+                              <%=top_projects[i].area.area %> acres
+                            <%} else {%>
+                              -
+                            <%}%>
+                          </h2>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="featured-points">
+                        <ul>
+                          <% if (top_projects[i].project_status){ %>
+                          <li>
+                            <h5>
+                              <%=top_projects[i].project_status %>
+                            </h5>
+                          </li>
+                          <%}%>
+                          <% if (top_projects[i].property_type){ %>
+                          <li>
+                            <h5>
+                              <%=top_projects[i].property_type %>
+                            </h5>
+                          </li>
+                          <%}%>
+                          <% if (top_projects[i].lease_rent){ %>
+                          <li>
+                            <h5>
+                              <%=top_projects[i].lease_rent %>
+                            </h5>
+                          </li>
+                          <%}%>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+                </div>
+                <div class="col-lg-12">
+                  <div class="w-100 mt-3 mt-lg-0" id="see_all_projects">
+                    <% if (top_project_count> 5) {%>
+                      <a href="/projects?bank=<%=data.name%>" target="_blank" class="see_all btn w-100">See All</a>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%}%>
+        </div>
+        <div class="col-lg-4">
+          <div class="apply-loan-wrp">
+            <div class="right-dt-head">
+              <h1>Apply for loan :</h1>
+            </div>
+            <div class="apply-loan-box">
+              <form action="" id="loan-form">
+                <div class="form-group">
+                  <label class="required">Project :</label>
+                  <select class="form-control custom-select" name="bank_name" id="loan-project">
+                    <option value="Others" selected>Others</option>
+                    <% for(var i=0; i < data.approvedProjects.results.length; i++) { %>
+                      <option value="<%= data.name %>"><%= data.approvedProjects.results[i].name %></option>
+                    <% } %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="required">Bank :</label>
+                  <select class="form-control custom-select" name="bank_name" id="loan-bank">
+                    <option value="<%= data.name %>" selected><%= data.name %></option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="required">Applicant’s Name :</label>
+                  <input type="text" class="form-control" id="loan-user" placeholder="Enter Applicant's Name" name="applicant_name" required>
+                </div>
+                <div class="form-group">
+                  <label class="required">Email Address :</label>
+                  <input type="text" class="form-control" id="loan-email" placeholder="Email Address" name="email" required>
+                </div>
+                <div class="form-group row justify-content-between position-relative w-100 mx-0">
+                  <div onclick="showPhoneCodeOptions('loan-code', 'loan-code-name', 'loan-project-phone-code-list', 'loan-project-phone-code-search')" class="position-relative form-control col-3 p-0 ps-1 d-flex justify-content-around align-items-center" style="height: fit-content;">
+                    <input type="text" class="w-100 mb-0 bg-white border-0 text-center" name="countryCode"  id="loan-code" value="+91" disabled required style="margin-bottom: 0px !important;">
+                    <input id="loan-project-phone-code-search" type="text" placeholder="India" class="phone-code-search w-100 p-2 mb-0 bg-white border-0 text-center" style="display: none;">
+                    <input type="text" class="w-100 d-none" name="countryName"  id="loan-code-name" value="India" disabled required>
+                    <svg class="m-1" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 20 20" stroke-linecap="round" stroke-linejoin="round" height="18" width="18" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </div>
+                  <div id="loan-project-phone-code-list" class="phone-code-list position-absolute bottom-0" style="display: none;">
+                    <div class="w-100 p-2">
+                    </div>
+                    <table class="p-2"></table>
+                  </div>
+                  <input class="form-control col-8" type="text" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" placeholder="Phone Number" id="loan-phone" required>
+                </div>
+                <div class="d-flex justify-content-start align-items-center">
+                  <input class="" type="checkbox" style="margin-bottom: 0px !important;" id="newsletter-check-bank" checked>
+                  <label class="ml-2 mb-0" for="newsletter-check-bank"> Subscribe to AssetZilla Newsletter </label>
+                </div>
+                <button type="submit" class="btn btn-block">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include ./partials/footer.ejs%>
+</body>
+
+<script>
+  var getProjects = function(data, type, count, el) {
+    $(".selectable-tags")
+      .removeClass("selected-tags");
+    $(el)
+      .addClass("selected-tags");
+    filters = {
+      banks: "<%= data.name %>"
+    }
+    if (type == "property_type") {
+      filters.type = data;
+      document.getElementById("city_name")
+        .innerHTML = " type : " + data;
+
+      if (count > 5) {
+        document.getElementById("see_all_projects")
+          .innerHTML = '<a href="/projects?banks=<%=data.name%>&type=' + data + '" target="_blank" class="see_all btn w-100">See All</a>';
+      } else {
+        document.getElementById("see_all_projects")
+          .innerHTML = "";
+      }
+    } else if (type == "all") {
+      document.getElementById("city_name")
+        .innerHTML = "";
+      if (count > 5) {
+        document.getElementById("see_all_projects")
+          .innerHTML = '<a href="/projects?banks=<%=data.name%>" target="_blank"  class="see_all btn w-100">See All</a>';
+      }
+    }
+    $.post('/api/project/infinite', {
+      skip: 0
+      , limit: 5
+      , query: JSON.stringify(filters)
+      , card: false
+      , from_individual_entity: true
+    }, function(data) {
+      document.getElementById("top_projects")
+        .innerHTML = data;
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+      propertyPageCarouselInit();
+      $.post('/api/project/infinite-map', {
+        skip: 0
+        , limit: 5
+        , query: JSON.stringify(filters)
+      }, function(map_data) {
+        locations = map_data.results
+        initMap();
+      })
+    })
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  }
+</script>
+
+<% if (!locals.user) {%>
+  <script>
+    let storedViewH = JSON.parse(window.localStorage.getItem('userVwH'));
+    if (storedViewH){
+      storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+    } else{
+      storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+    }
+    window.localStorage.setItem('userVwH', JSON.stringify(storedViewH))
+  </script>
+<% } %>
+
+</html>

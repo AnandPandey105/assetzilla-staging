@@ -1,0 +1,592 @@
+<div id="accordion" class="dt-accordions">
+    <% if (data.floor_plan && data.floor_plan.length > 0){ %>
+        <div class="card">
+            <div class="card-header" id="dt-accordion1">
+                <h5 class="mb-0">
+                    <button class="btn btn-block" data-toggle="collapse"
+                        data-target="#collapseOne" aria-expanded="true"
+                        aria-controls="collapseOne">
+                        Floor Plan
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="dt-accordion1"
+                data-parent="#accordion">
+                <div class="card-body">
+                    <div class="button-list-hor">
+                        <ul>
+                            <% for(var i=0; i < data.floor_plan.length; i++) { %>
+                                <li>
+                                    <button 
+                                        class="btn btn-primary-small <% if (i == 0){ %> active <%}%>" 
+                                        id="floor-button-<%=[i]%>"
+                                        onclick='show_pdf("/api/project/document?url=dyn-res/project/doc/<%=data.floor_plan[i]%>", "floor-pdf-viewer", "floorplanmodal<%=[i]%>"  , "collapseOne", "floor-button-<%=[i]%>", "floor-plan")'
+                                    >
+                                        PDF <%=[i+1]%>
+                                    </button>
+                                    
+                                </li>
+                                <!-- Modal -->
+                                <div class="modal fade pdf-modal" id="floorplanmodal<%=[i]%>" tabindex="-1" role="dialog"
+                                    aria-labelledby="floorplanmodalLabel" aria-hidden="true"
+                                    data-canvas="floor-plan-modal-canvas-<%=[i]%>"
+                                    data-url="/api/project/document?url=dyn-res/project/doc/<%=data.floor_plan[i]%>"
+                                    data-parentId="floor-plan-modal-<%=[i]%>"
+                                    >
+                                    <div class="modal-dialog modal-xl transparent-background" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="pdf-page-count">
+                                                    <span>Page: <span id="floor-plan-modal-<%=[i]%>-page_num"></span> / <span id="floor-plan-modal-<%=[i]%>-page_count"></span></span>
+                                                </div>
+                                                <div class="pdf-paginate-button">
+                                                    <button id="floor-plan-modal-<%=[i]%>-prev" class="btn">Previous</button>
+                                                    <button id="floor-plan-modal-<%=[i]%>-next" class="btn">Next</button>
+                                                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="overflow-auto">
+                                                    <canvas id="floor-plan-modal-canvas-<%=[i]%>"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%>   
+                        </ul>
+                        <div class="position-relative pdf-viewer-wrapper" id="floor-pdf-viewer">
+                            <div class="overflow-auto pdf-js-wrapper">
+                                <div id="floor-plan-canvas" data-toggle="modal" data-target="#floorplanmodal0"  class="holder"></div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    <%}%>    
+    <% if (data.site_plan && data.site_plan.length > 0){ %>
+        <div class="card">
+            <div class="card-header" id="dt-accordion2">
+                <h5 class="mb-0">
+                    <button class="btn btn-block" data-toggle="collapse"
+                        data-target="#collapsetwo" aria-expanded="true"
+                        aria-controls="collapsetwo">
+                        Site Plans
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapsetwo" class="collapse" aria-labelledby="dt-accordion2"
+                data-parent="#accordion">
+                <div class="card-body"> 
+                    <div class="button-list-hor">
+                        <ul>
+                            <% for(var i=0; i < data.site_plan.length; i++) { %>
+                                <li>
+                                    <!-- <a href="javscript:;" class="btn btn-primary-small" data-toggle="modal" data-target="#siteplan<%=[i]%>">
+                                        PDF <%=[i+1]%>
+                                    </a> -->
+                                    <button 
+                                        class="btn btn-primary-small <% if (i == 0){ %> active <%}%>" 
+                                        id="site-button-<%=[i]%>"
+                                        onclick='show_pdf("/api/project/document?url=dyn-res/project/doc/<%=data.floor_plan[i]%>", "floor-pdf-viewer", "floorplanmodal<%=[i]%>"  , "collapseOne", "floor-button-<%=[i]%>", "site-pdf")'
+                                    >
+                                        PDF <%=[i+1]%>
+                                    </button>
+                                </li>
+                                <!-- Modal -->
+                                <% /* %>
+                                    <div class="modal fade" id="siteplan<%=[i]%>" tabindex="-1" role="dialog" aria-labelledby="siteplanLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-xl transparent-background" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <embed
+                                                        src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/doc/<%=data.site_plan[i]%>#toolbar=0"
+                                                        width="100%" height="100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% */ %>
+                                <div class="modal fade pdf-modal" id="siteplan<%=[i]%>" tabindex="-1" role="dialog"
+                                    aria-labelledby="sitemodalLabel" aria-hidden="true"
+                                    data-canvas="site-modal-canvas-<%=[i]%>"
+                                    data-url="/api/project/document?url=dyn-res/project/doc/<%=data.floor_plan[i]%>"
+                                    data-parentId="site-modal-<%=[i]%>"
+                                    >
+                                    <div class="modal-dialog modal-xl transparent-background" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="pdf-page-count">
+                                                    <span>Page: <span id="site-modal-<%=[i]%>-page_num"></span> / <span id="site-modal-<%=[i]%>-page_count"></span></span>
+                                                </div>
+                                                <div class="pdf-paginate-button">
+                                                    <button id="site-modal-<%=[i]%>-prev" class="btn">Previous</button>
+                                                    <button id="site-modal-<%=[i]%>-next" class="btn">Next</button>
+                                                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="overflow-auto">
+                                                    <canvas id="site-modal-canvas-<%=[i]%>"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%>     
+                        </ul>
+                        <% /* %>
+                            <div class="position-relative" id="site-pdf-viewer">
+                                <embed
+                                    src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/doc/<%=data.site_plan[0]%>#toolbar=0"
+                                    width="100%" height="500px"
+                                    id="siteplan-embed"
+                                >
+                                <div class="pdf-overlay" data-toggle="modal" data-target="#siteplan0"></div>
+                            </div> 
+                        <% */ %>
+                        <div class="position-relative pdf-viewer-wrapper" id="site-pdf-viewer">
+                            <div class="overflow-auto">
+                                <div id="site-pdf-canvas" data-toggle="modal" data-target="#siteplan0" class="holder"></div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    <%}%>   
+    <% if (data.brochure && data.brochure.length > 0){ %> 
+        <div class="card">
+            <div class="card-header" id="dt-accordion3">
+                <h5 class="mb-0">
+                    <button class="btn btn-block" data-toggle="collapse"
+                        data-target="#collapsethree" aria-expanded="true"
+                        aria-controls="collapsethree">
+                        Brochure
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapsethree" class="collapse" aria-labelledby="dt-accordion3"
+                data-parent="#accordion">
+                <div class="card-body">
+                    <div class="button-list-hor">
+                        <ul>
+                            <% for(var i=0; i < data.brochure.length; i++) { %>
+                                <li>
+                                    <!-- <a href="javscript:;" class="btn btn-primary-small" data-toggle="modal"
+                                    data-target="#brochuremodal<%=[i]%>">PDF <%=[i+1]%></a> -->
+
+                                    <button 
+                                        class="btn btn-primary-small <% if (i == 0){ %> active <%}%>" 
+                                        id="brochure-button-<%=[i]%>"
+                                        onclick='show_pdf("/api/project/document?url=dyn-res/project/doc/<%=data.brochure[i]%>", "brochure-pdf-viewer", "brochuremodal<%=[i]%>"  , "collapsethree", "brochure-button-<%=[i]%>", "brochure-pdf")'
+                                    >
+                                        PDF <%=[i+1]%>
+                                    </button>
+                                </li>
+                                <% /* %>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="brochuremodal<%=[i]%>" tabindex="-1" role="dialog" aria-labelledby="brochuremodalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-xl transparent-background" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <embed
+                                                        src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/doc/<%=data.brochure[i]%>#toolbar=0"
+                                                        width="100%" height="100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% */ %>
+                                <div class="modal fade pdf-modal" id="brochuremodal<%=[i]%>" tabindex="-1" role="dialog"
+                                    aria-labelledby="brochuremodalLabel" aria-hidden="true"
+                                    data-canvas="brochure-modal-canvas-<%=[i]%>"
+                                    data-url="/api/project/document?url=dyn-res/project/doc/<%=data.brochure[i]%>"
+                                    data-parentId="brochure-modal-<%=[i]%>"
+                                    >
+                                    <div class="modal-dialog modal-xl transparent-background" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="pdf-page-count">
+                                                    <span>Page: <span id="brochure-modal-<%=[i]%>-page_num"></span> / <span id="brochure-modal-<%=[i]%>-page_count"></span></span>
+                                                </div>
+                                                <div class="pdf-paginate-button">
+                                                    <button id="brochure-modal-<%=[i]%>-prev" class="btn">Previous</button>
+                                                    <button id="brochure-modal-<%=[i]%>-next" class="btn">Next</button>
+                                                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="overflow-auto">
+                                                    <canvas id="brochure-modal-canvas-<%=[i]%>"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%>
+                        </ul>
+                        <% /* %>
+                            <div class="position-relative embed-wrapper" id="brochure-pdf-viewer">
+                                <embed
+                                    src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/doc/<%=data.site_plan[0]%>#toolbar=0"
+                                    width="100%" height="500px"
+                                    id="brochure-embed"
+                                >
+                                <div class="pdf-overlay" data-toggle="modal" data-target="#brochuremodal0"></div>
+                                <div class="embed-cover" oncontextmenu="event.preventDefault()"></div>
+                            </div> 
+                        <% */ %>
+                        <div class="position-relative pdf-viewer-wrapper" id="brochure-pdf-viewer">
+                            <!-- <button id="brochure-pdf-prev" class="btn">Previous</button>
+                            <button id="brochure-pdf-next" class="btn">Next</button>
+                            &nbsp; &nbsp;
+                            <span>Page: <span id="brochure-pdf-page_num"></span> / <span id="brochure-pdf-page_count"></span></span> -->
+                            <div class="overflow-auto pdf-js-wrapper">
+                                <div id="brochure-pdf-canvas" class="holder" data-toggle="modal" data-target="#brochuremodal0"></div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    <%}%>  
+    <% if (data.price_list && data.price_list.length > 0){ %>
+        <div class="card">
+            <div class="card-header" id="dt-accordion3">
+                <h5 class="mb-0">
+                    <button class="btn btn-block" data-toggle="collapse"
+                        data-target="#collapsefive" aria-expanded="true"
+                        aria-controls="collapsefive">
+                        Price
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapsefive" class="collapse" aria-labelledby="dt-accordion3"
+                data-parent="#accordion">
+                <div class="card-body">
+                    <div class="button-list-hor">
+                        <ul>
+                            <% for(var i=0; i < data.price_list.length; i++) { %>
+                                <li>
+                                    <!-- <a href="javscript:;" class="btn btn-primary-small" data-toggle="modal"
+                                    data-target="#pricelistmodal<%=[i]%>">PDF <%=[i+1]%></a> -->
+                                    <button 
+                                        class="btn btn-primary-small <% if (i == 0){ %> active <%}%>" 
+                                        id="price_list-button-<%=[i]%>"
+                                        onclick='show_pdf("/api/project/document?url=dyn-res/project/doc/<%=data.price_list[i]%>", "price_list-pdf-viewer", "pricelistmodal<%=[i]%>"  , "collapsefive", "price_list-button-<%=[i]%>", "price_list-pdf")'
+                                    >
+                                        PDF <%=[i+1]%>
+                                    </button>
+                                </li>
+                                <!-- Modal -->
+                                <% /* %>
+                                    <div class="modal fade" id="pricelistmodal<%=[i]%>" tabindex="-1" role="dialog"
+                                        aria-labelledby="pricelistmodalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl transparent-background" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body ">
+                                                    <embed
+                                                        src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/doc/<%=data.price_list[i]%>#toolbar=0"
+                                                        width="100%" height="100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% */ %>
+                                <div class="modal fade pdf-modal" id="pricelistmodal<%=[i]%>" tabindex="-1" role="dialog"
+                                    aria-labelledby="pricelistmodalLabel" aria-hidden="true"
+                                    data-canvas="price_list-modal-canvas-<%=[i]%>"
+                                    data-url="/api/project/document?url=dyn-res/project/doc/<%=data.price_list[i]%>"
+                                    data-parentId="price_list-modal-<%=[i]%>"
+                                    >
+                                    <div class="modal-dialog modal-xl transparent-background" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="pdf-page-count">
+                                                    <span>Page: <span id="price_list-modal-<%=[i]%>-page_num"></span> / <span id="price_list-modal-<%=[i]%>-page_count"></span></span>
+                                                </div>
+                                                <div class="pdf-paginate-button">
+                                                    <button id="price_list-modal-<%=[i]%>-prev" class="btn">Previous</button>
+                                                    <button id="price_list-modal-<%=[i]%>-next" class="btn">Next</button>
+                                                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="overflow-auto">
+                                                    <canvas id="price_list-modal-canvas-<%=[i]%>"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%>
+                        </ul>
+                        <% /* %>
+                            <div class="position-relative embed-wrapper" id="price_list-pdf-viewer">
+                                <embed
+                                    src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/doc/<%=data.price_list[0]%>#toolbar=0"
+                                    width="100%" height="500px"
+                                    id="price_list-embed"
+                                >
+                                <div class="pdf-overlay" data-toggle="modal" data-target="#pricelistmodal0"></div>
+                                <div class="embed-cover" oncontextmenu="event.preventDefault()"></div>
+                            </div> 
+                        <% */ %>
+                        <div class="position-relative pdf-viewer-wrapper" id="price_list-pdf-viewer">
+                            <button id="price_list-pdf-prev" class="btn">Previous</button>
+                            <button id="price_list-pdf-next" class="btn">Next</button>
+                            &nbsp; &nbsp;
+                            <span>Page: <span id="price_list-pdf-page_num"></span> / <span id="price_list-pdf-page_count"></span></span>
+                            <div class="overflow-auto">
+                                <canvas id="price_list-pdf-canvas" data-toggle="modal" data-target="#pricelistmodal0"></canvas>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    <%}%> 
+    <% if (data.specification && data.specification.length > 0){ %>
+        <div class="card">
+            <div class="card-header" id="dt-accordion3">
+                <h5 class="mb-0">
+                    <button class="btn btn-block" data-toggle="collapse"
+                        data-target="#collapsesix" aria-expanded="true"
+                        aria-controls="collapsesix">
+                        Specifications
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapsesix" class="collapse" aria-labelledby="dt-accordion3"
+                data-parent="#accordion">
+                <div class="card-body">
+                    <div class="button-list-hor">
+                        <ul>
+                            <% for(var i=0; i < data.specification.length; i++) { %>
+                                <li>
+                                    <!-- <a href="javscript:;" class="btn btn-primary-small" data-toggle="modal"
+                                    data-target="#specificationmodal<%=[i]%>">PDF <%=[i+1]%></a> -->
+                                    <button 
+                                        class="btn btn-primary-small <% if (i == 0){ %> active <%}%>" 
+                                        id="specification-button-<%=[i]%>"
+                                        onclick='show_pdf("/api/project/document?url=dyn-res/project/doc/<%=data.specification[i]%>", "specification-pdf-viewer", "specificationmodal<%=[i]%>"  , "collapsefive", "specification-button-<%=[i]%>", "specification-pdf")'
+                                    >
+                                        PDF <%=[i+1]%>
+                                    </button>
+                                </li>
+                                <!-- Modal -->
+                                <% /* %>
+                                    <div class="modal fade" id="specificationmodal<%=[i]%>" tabindex="-1" role="dialog"
+                                        aria-labelledby="specificationmodalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl transparent-background" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <embed
+                                                        src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/doc/<%=data.specification[i]%>#toolbar=0"
+                                                        width="100%" height="100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% */ %>
+                                <div class="modal fade pdf-modal" id="specificationmodal<%=[i]%>" tabindex="-1" role="dialog"
+                                    aria-labelledby="specificationmodalLabel" aria-hidden="true"
+                                    data-canvas="specification-modal-canvas-<%=[i]%>"
+                                    data-url="/api/project/document?url=dyn-res/project/doc/<%=data.specification[i]%>"
+                                    data-parentId="specification-modal-<%=[i]%>"
+                                    >
+                                    <div class="modal-dialog modal-xl transparent-background" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="pdf-page-count">
+                                                    <span>Page: <span id="specification-modal-<%=[i]%>-page_num"></span> / <span id="specification-modal-<%=[i]%>-page_count"></span></span>
+                                                </div>
+                                                <div class="pdf-paginate-button">
+                                                    <button id="specification-modal-<%=[i]%>-prev" class="btn">Previous</button>
+                                                    <button id="specification-modal-<%=[i]%>-next" class="btn">Next</button>
+                                                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="overflow-auto">
+                                                    <canvas id="specification-modal-canvas-<%=[i]%>"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%>
+                        </ul>
+                        <% /* %>
+                            <div class="position-relative" id="specification-pdf-viewer">
+                                <embed
+                                    src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/doc/<%=data.specification[0]%>#toolbar=0"
+                                    width="100%" height="500px"
+                                    id="specification-embed"
+                                >
+                                <div class="pdf-overlay" data-toggle="modal" data-target="#specificationmodal0"></div>
+                            </div> 
+                        <% */ %>
+                        <div class="position-relative pdf-viewer-wrapper" id="specification-pdf-viewer">
+                            <button id="specification-pdf-prev" class="btn">Previous</button>
+                            <button id="specification-pdf-next" class="btn">Next</button>
+                            &nbsp; &nbsp;
+                            <span>Page: <span id="specification-pdf-page_num"></span> / <span id="specification-pdf-page_count"></span></span>
+                            <div class="overflow-auto">
+                                <canvas id="specification-pdf-canvas" data-toggle="modal" data-target="#specificationmodal0"></canvas>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    <%}%>    
+    <% if (data.other_document && data.other_document.length > 0){ %>
+        <div class="card">
+            <div class="card-header" id="dt-accordion4">
+                <h5 class="mb-0">
+                    <button class="btn btn-block" data-toggle="collapse"
+                        data-target="#collapsefour" aria-expanded="true"
+                        aria-controls="collapsefour">
+                        Other Plans
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapsefour" class="collapse" aria-labelledby="dt-accordion4"
+                data-parent="#accordion">
+                <div class="card-body">
+                    <div class="button-list-hor">
+                        <ul>
+                            <% for(var i=0; i < data.other_document.length; i++) { %>
+                                <li>
+                                    <!-- <a href="javscript:;" class="btn btn-primary-small" data-toggle="modal"
+                                    data-target="#otherdocumentmodal<%=[i]%>">PDF <%=[i+1]%></a> -->
+                                    <button 
+                                        class="btn btn-primary-small <% if (i == 0){ %> active <%}%>" 
+                                        id="other_document-button-<%=[i]%>"
+                                        onclick='show_pdf("/api/project/document?url=dyn-res/project/doc/<%=data.other_document[i]%>", "other_document-pdf-viewer", "other_documentmodal<%=[i]%>"  , "collapsefive", "other_document-button-<%=[i]%>", "other_document-pdf")'
+                                    >
+                                        PDF <%=[i+1]%>
+                                    </button>
+                                </li>
+                                <!-- Modal -->
+                                <% /* %>
+                                    <div class="modal fade" id="otherdocumentmodal<%=[i]%>" tabindex="-1" role="dialog"
+                                        aria-labelledby="otherdocumentmodalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl transparent-background" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <embed
+                                                        src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/doc/<%=data.other_document[i]%>#toolbar=0"
+                                                        width="100%" height="100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% */ %>
+                                <div class="modal fade pdf-modal" id="other_documentmodal<%=[i]%>" tabindex="-1" role="dialog"
+                                    aria-labelledby="other_documentmodalLabel" aria-hidden="true"
+                                    data-canvas="other_document-modal-canvas-<%=[i]%>"
+                                    data-url="/api/project/document?url=dyn-res/project/doc/<%=data.other_document[i]%>"
+                                    data-parentId="other_document-modal-<%=[i]%>"
+                                    >
+                                    <div class="modal-dialog modal-xl transparent-background" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="pdf-page-count">
+                                                    <span>Page: <span id="other_document-modal-<%=[i]%>-page_num"></span> / <span id="other_document-modal-<%=[i]%>-page_count"></span></span>
+                                                </div>
+                                                <div class="pdf-paginate-button">
+                                                    <button id="other_document-modal-<%=[i]%>-prev" class="btn">Previous</button>
+                                                    <button id="other_document-modal-<%=[i]%>-next" class="btn">Next</button>
+                                                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="overflow-auto">
+                                                    <canvas id="other_document-modal-canvas-<%=[i]%>"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%> 
+                        </ul>
+                        <% /* %>
+                            <div class="position-relative embed-wrapper" id="other_document-pdf-viewer">
+                                <embed
+                                    src="https://d13ir9awo5x8gl.cloudfront.net/dyn-res/project/doc/<%=data.other_document[0]%>#toolbar=0"
+                                    width="100%" height="500px"
+                                    id="other_document-embed"
+                                >
+                                <div class="pdf-overlay" data-toggle="modal" data-target="#otherdocumentmodal0"></div>
+                                <div class="embed-cover" oncontextmenu="event.preventDefault()"></div>
+                            </div> 
+                        <% */ %>
+                        <div class="position-relative pdf-viewer-wrapper" id="other_document-pdf-viewer">
+                            <button id="other_document-pdf-prev" class="btn">Previous</button>
+                            <button id="other_document-pdf-next" class="btn">Next</button>
+                            &nbsp; &nbsp;
+                            <span>Page: <span id="other_document-pdf-page_num"></span> / <span id="other_document-pdf-page_count"></span></span>
+                            <div class="overflow-auto">
+                                <canvas id="other_document-pdf-canvas" data-toggle="modal" data-target="#other_documentmodal0"></canvas>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    <%}%>    
+</div>

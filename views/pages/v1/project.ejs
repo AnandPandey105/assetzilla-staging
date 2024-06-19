@@ -1,0 +1,1751 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>About
+    <%= data.name %> in
+    <% if (location.city){%>
+    <%= location.city.name %>
+    <%}%>,
+            <% if (location.state){%>
+    <%= location.state.name %>
+    <%}%> with property type, prices & area | Assetzilla</title>
+        <meta name="title" content="About <%= data.name %> in <% if (location.city){%>
+    <%= location.city.name %><%}%>, <% if (location.state){%> <%= location.state.name %> <%}%> with property type, prices & area | Assetzilla">
+        <meta name="description" content="View <%= data.property_type %> in <%= data.name %>, <% if (location.subcity){%>
+    <%= location.subcity.name %><%}%>, <% if (location.city){%>
+    <%= location.city.name %><%}%>.  Prices, offers, area, amenities for <%= data.property_type %> in
+    <%= data.name %>. Visit Now">
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+</head>
+<%- include ./partials/header.ejs%>
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <div class="common-wrapper">
+    <div class="details-breadcrumb details-breadcrumb-img">
+      <div class="container">
+        <div class="dbread-top">
+          <div class="row align-items-center">
+            <div class="col-lg-8 col-sm-8">
+              <div class="breadcrumb-top">
+                <div>
+                  <a href="/projects" target="_blank">Projects</a>
+                </div>
+                <% if (data.property_type){ %>
+                  <div>
+                    <span>/</span>
+                  </div>
+                  <div>
+                    <a href="/properties?type=<%= data.property_type %>" target="_blank"><%= data.property_type %></a>
+                  </div>
+                <%}%>           
+              </div>
+              <h2 style="display: flex;">
+                <span><%- include ./partials/bookmark.ejs%></span>
+                <span class="ml-1"><%= data.name %></span>
+              </h2>
+              <div class="d-flex flex-column justify-content-start flex-md-row align-items-md-center">
+                <div style="display: flex; flex:1" class="justify-content-start align-items-start">
+                  <p class="">
+                    <img src="/v1/img/gps.webp" alt="" />
+                    <div class="text-white">
+                      <% if (location.subcity){%>
+                        <a class="clr-white text-white" href="<%=location.subcity.url%>" target="_blank">
+                          <%= location.subcity.name %>
+                        </a>,
+                      <%}%>
+                      <% if (location.city){%>
+                        <a class="clr-white text-white" href="<%=location.city.url%>" target="_blank">
+                          <%= location.city.name %>
+                        </a>,
+                      <%}%>
+                      <% if (location.district){%>
+                        <a class="clr-white text-white" href="<%=location.district.url%>" target="_blank">
+                          <%= location.district.name %>
+                        </a>,
+                      <%}%>
+                      <% if (location.state){%>
+                        <a class="clr-white text-white" href="<%=location.state.url%>" target="_blank">
+                          <%= location.state.name %>
+                        </a>
+                      <%}%>
+                    </div>
+                  </p>
+                </div>
+                
+              </div>
+              <div class="d-flex justify-content-start align-items-center mt-2">
+                <% if ( data.price && data.price.min){ %>
+                  <img src="/v1/img/price_tag.png" alt="" style="opacity: 1;  height: 20px; object-fit: contain; margin-right: 0px; filter:invert()"/>
+                  <div class="d-flex flex-column flex-lg-row ml-2 align-items-center">
+                    <div class="d-flex" style="font-size: 16px !important;">
+                      <p class="text-left" style="font-size: inherit !important;">Starting :</p>
+                      <p style="font-size: inherit !important;"><b class="px-2 text-left"> ₹ <%=changeNumberFormat(data.price.min)%></b></p>
+                    </div>
+                    <!-- </td> -->
+                    <% if (emi_per_lac) { %>
+                    <!-- <td> -->
+                      <div class="d-none d-lg-flex justify-content-center px-3 py-1 ml-2 emi_outline">
+                        <p class="ml-1 text-right">EMI Starting :</p>
+                      
+                        <p class="pl-2" ><b class="text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * data.price.min / 100000))%><span type="button" class="btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                          <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                        </span></b></p>
+                      </div>
+                    <% } %>
+                  </div>
+                <%}%>
+              </div>
+              <% if (emi_per_lac && data.price && data.price.min) { %>
+                <!-- <td> -->
+                  <div class="d-flex d-lg-none justify-content-center px-2 py-1 my-2 emi_outline" style="width: fit-content;">
+                    <p class="ml-1 text-right">EMI Starting :</p>
+                  
+                    <p class="pl-2" ><b class="text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * data.price.min / 100000))%><span type="button" class="btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                      <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                    </span></b></p>
+                  </div>
+              <% } %>
+              <!-- <p class="mt-2 d-flex flex-row justify-content-center- align-items-center">
+                <img src="/images/views.webp"/>&nbsp;
+                <span><%=data.views || 0%>&nbsp;views</span>
+              </p> -->
+            </div>
+            <div class="col-lg-4 col-sm-4 p-0">
+              <% if (data.is_live === "1") {%>
+                <div class="notLiveGray">This page is under development and not live on website.</div> 
+              <% } else if (data.is_live === "3" || data.is_live === "4"){%>
+                <div class="notLive"> This project is not live anymore </div>
+              <% } else {%>
+              <div class="book-property-btn-wrp">
+                <div class="col-lg-6 col-sm-6">
+                  <div class="text-lg-right text-center">
+                    <div class="dropdown show">
+                      <a class="schedule-visit-btn mt-0" data-toggle="modal" data-target="#SCDVisitModal" href="#">
+                        Schedule visit
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                <button class="btn btn-book-prop" style="margin-left: 0px;" onclick="scrollto('#all_properties_div')">View Properties</button>
+                </div>
+              </div>
+              <% } %>
+            </div>
+            <div class="modal fade" id="SCDVisitModal" tabindex="-1" role="dialog" aria-labelledby="SCDVisitModallTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg auth-modal-mod scd-visit-modal" role="document">
+                <div class="modal-content ">
+                  <button class="btn auth-modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <div class="modal-body p-0">
+                    <div class="row">
+                      <div class="col-lg-12 col-sm-12 p-0">
+                        <div class="fdp-modal-left-content right-auth-md-content">
+                          <div id="ScheduleVisit">
+                            <h2>Schedule Appointment</h2>
+                            <form id="schedule-visit-form">
+                              <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Full Name" id="schedule-name">
+                              </div>
+                              <div class="form-group row justify-content-between position-relative w-100 mx-0">
+                                <div onclick="showPhoneCodeOptions('schedule-phone-code', 'schedule-phone-code-name', 'schedule-phone-code-list', 'schedule-phone-code-search')" class="position-relative form-control col-3 p-0 ps-1 d-flex justify-content-around align-items-center" style="height: fit-content; background-color: #d9d9df;">
+                                  <input type="text" class="w-100 mb-0 bg-white border-0 text-center" name="countryCode"  id="schedule-phone-code" value="+91" disabled required style="margin-bottom: 0px !important; background-color: #d9d9df !important;">
+                                  <input id="schedule-phone-code-search" type="text" placeholder="India" class="phone-code-search w-100 p-2 mb-0 bg-white border-0 text-center" style="display: none;">
+                                  <input type="text" class="w-100 d-none" name="countryName"  id="schedule-phone-code-name" value="India" disabled required>
+                                  <svg class="m-1" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 20 20" stroke-linecap="round" stroke-linejoin="round" height="18" width="18" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                                <div id="schedule-phone-code-list" class="phone-code-list position-absolute bottom-0" style="display: none;">
+                                  <div class="w-100 p-2">
+                                  </div>
+                                  <table class="p-2"></table>
+                                </div>
+                                <input class="form-control col-8" type="text" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" placeholder="Phone Number" id="schedule-phone" required>
+                              </div>
+                              <div class="form-group">
+                                <input class="form-control" type="email" placeholder="Email" id="schedule-email">
+                              </div>                                                                                 
+                              <div class="row">
+                                <div class="col-lg-6 pr-lg-2 pr-sm-2">
+                                  <div class="form-group">
+                                    <div class="input-type-date-icon">
+                                      <input class="form-control" type="date" id="schedule-date" placeholder="DD-MM-YYYY">
+                                      <div class="artifical-input-feild">
+                                        <p id="calender-value">YYYY-MM-DD</p>
+                                        <img src="/v1/img/cal-icon.webp" class="img img-fluid" alt="">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 pl-lg-2 pl-sm-2">
+                                  <div class="form-group">
+                                    <select class="form-control" type="text" placeholder="date" id="schedule-time">
+                                      <option value="0" selected> Time</option>
+                                      <option value="First Half (8AM to 12PM)"> First Half (8AM to 12PM)</option>
+                                      <option value="Second Half (12PM to 4PM)"> Second Half (12PM to 4PM)</option>
+                                      <option value="Third Half (4PM to 8PM)"> Third Half (4PM to 8PM)</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <select id="interested-other-projects" class="form-control">
+                                  <option value="Interested in other Projects" selected>Are you interested in other project/property in same locality?</option>
+                                  <option value="yes">Yes</option>
+                                  <option value="no">No</option>
+                                </select>
+                              </div>
+                              <div class="form-group d-none">
+                                <input class="form-control" type="text" value="<%= data.name %>" id="schedule-project">
+                              </div>
+                              <div class="form-group d-none">
+                                <input class="form-control" type="text" value="<%= data.url %> " id="schedule-url">
+                              </div>
+                              <div class="d-flex justify-content-start align-items-center mb-3">
+                                <input style="width: fit-content;" class="mb-0" type="checkbox" id="newsletter-check-sv" checked>
+                                <label class="ml-2 mb-0" for="newsletter-check-sv"> Subscribe to AssetZilla Newsletter </label>
+                              </div>
+                              <div>
+                                <button type="submit" class="btn auth-modal-btn">Confirm</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- --------------------------------------------------------------- -->
+  <div class=" common-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-8">
+          <div class="w-100 d-flex flex-row x-views my-3">
+            <p class="text-center mb-0 py-1 d-flex flex-row justify-content-start align-items-center">
+              <img src="/images/views.webp" class="viewed-x-times-div-img">
+              <span>&nbsp;<%=data.views || 0%>&nbsp;Page <% if(data.views > 1) {%>views <%} else {%>view<%}%>&nbsp;</span>
+            </p>
+          </div>
+        </div>
+        <div class="mobile-view-map col-md-8 col-4">
+          <a href="#side_map">View Map</a>
+        </div>
+      </div>
+    </div>
+    <%- include ./partials/media-galary.ejs%>
+    <!-- <div class="container">
+      <div class="w-100 flex-row viewed-x-times-div mb-3 mt-0">
+        <p class="text-center mb-0 py-1 d-flex flex-row justify-content-center align-items-center">
+          <img src="/images/views.webp" class="viewed-x-times-div-img">
+          &nbsp;This Page has been viewed 
+          <span>&nbsp;<%=data.views || 0%>&nbsp;times.</span>
+        </p>
+      </div>
+    </div> -->
+  </div>
+  <!-- ------------------------------------------------------------------- -->
+  <div class="details-box-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="common-box-dt">
+            <div class="dt-common-head">
+              <h2>Description</h2>
+            </div>
+            <div class="">
+              <% if (data.description){ %>
+                <h6><%- data.description %></h6>
+              <%}%>
+            </div>
+            <% if (builder.length > 0){ %>
+              <div class="row mt-4 pt-2 mb-3">
+                <div class="col-6 col-lg-3">
+                  <div>
+                    <h5>Builder :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <a href="<%= builder[0].url %>" target="_blank">
+                      <img class="img img-fluid desc-logo-img" src="<%=locals.CURRENT_IMAGE_BASE_URL%>/builder/<%= builder[0].logo %>" alt="">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.authority){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Approved by : </h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5>
+                      <% if (data.authortiy_url){ %>
+                      <a href="<%= data.authortiy_url %>">
+                        <%= data.authority %></a>
+                      <%} else{ %>
+                      <%= data.authority %>
+                      <%}%>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <div class="row mb-3">
+              <div class="col-6  col-lg-3">
+                <div>
+                  <h5>Project Name :</h5>
+                </div>
+              </div>
+              <div class="col-6 col-lg-9">
+                <div>
+                  <h5><b> <%= data.name %></b></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% if (data.details && data.details.length > 0){ %>
+            <div class="common-box-dt">
+              <div class="dt-common-head">
+                <h2>Properties Available</h2>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="apart-table table-responsive p-0 mb-0">
+                    <table class="table">
+                      <% if (data.property_type && data.property_type === "Residential Plots"){ %>
+                        <thead>
+                          <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">
+                              Area
+                              <span>
+                                <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                                  <option selected>sq ft</option>
+                                  <option>acre</option>
+                                  <option>sq yards</option>
+                                  <option>sq meter</option>
+                                </select>
+                              </span>
+                            </th>
+                            <th scope="col">Total Units</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0; i < data.details.length; i++) { %>
+                            <tr>
+                              <td><%=data.details[i].name %></td>
+                              <td>
+                                <span id="area-<%= [i]%>%>">
+                                  <%=data.details[i].area %>
+                                </span>
+                              </td>
+                              <td>
+                                <%=data.details[i].count %>
+                              </td>
+                            </tr>
+                          <%}%>
+                        </tbody> 
+                      <%}%>
+                      <% if (data.property_type && data.property_type === "Villas"){ %>
+                        <thead>
+                          <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Build Up Area
+                              <span>
+                                <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                                  <option selected>sq ft</option>
+                                  <option>acre</option>
+                                  <option>sq yards</option>
+                                  <option>sq meter</option>
+                                </select>
+                              </span>
+                            </th>
+                            <th scope="col"> Land Area</th>
+                            <th scope="col">Total Units</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0; i < data.details.length; i++) { %>
+                          <tr>
+                            <td><%=data.details[i].unit_size %></td>
+                            <td>
+                              <span id="area-<%= [i]%>%>">
+                                <%=data.details[i].area %>
+                              </span>
+                            </td>
+                            <td>
+                              <span id="land-area-<%= [i]%>%>">
+                                <%=data.details[i].land_area %> </span>
+                            </td>
+                            <td>
+                              <%=data.details[i].count %>
+                            </td>
+                          </tr>
+                          <%}%>
+                        </tbody> 
+                      <%}%>
+                      <% if (data.property_type && data.property_type === "Apartments"){ %>
+                        <thead>
+                          <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">
+                              <div class="d-flex align-items-center">
+                                Area
+                                <span>
+                                  <select class="form-control form-control-sm unit-changer ml-2" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                                    <option selected>sq ft</option>
+                                    <option>acre</option>
+                                    <option>sq yards</option>
+                                    <option>sq meter</option>
+                                  </select>
+                                </span>
+                              </div>
+                            </th>
+                            <th scope="col">Total Units</th>
+                            <th>Additional Rooms</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0; i < data.details.length; i++) { %>
+                            <tr>
+                              <td><%=data.details[i].unit_size %></td>
+                              <td>
+                                <span id="area-<%= [i]%>%>">
+                                  <%=data.details[i].area %>
+                                </span>
+                              </td>
+                              <td>
+                                <%=data.details[i].count %>
+                              </td>
+                              <td>
+                                <% if (data.details[i] && data.details[i].additional_rooms && data.details[i].additional_rooms.length > 0){ %>
+
+                                <% for(var x=0; x < data.details[i].additional_rooms.length; x++) { %>
+                                <%=data.details[i].additional_rooms[x]%><br>
+                                <%}%>
+                                                          <%}%>
+                              </td>
+                            </tr>
+                          <%}%>
+                        </tbody> 
+                      <%}%>
+                      <% if (data.property_type && data.property_type === "Floors"){ %>
+                        <thead>
+                          <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Apartment Area
+                              <span>
+                                <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                                  <option selected>sq ft</option>
+                                  <option>acre</option>
+                                  <option>sq yards</option>
+                                  <option>sq meter</option>
+                                </select>
+                              </span>
+                            </th>
+                            <th scope="col">Land Area
+                            <th scope="col">Total Units</th>
+                            <th>Additional Rooms</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0; i < data.details.length; i++) { %>
+                            <tr>
+                              <td><%=data.details[i].unit_size %></td>
+                              <td>
+                                <span id="area-<%= [i]%>%>">
+                                  <%=data.details[i].area %>
+                                </span>
+                              </td>
+
+                              <td>
+                                <span id="apartment_area-<%= [i]%>%>"><%=data.details[i].apartment_area %></span>
+                              </td>
+                              <td>
+                                <%=data.details[i].count %>
+                              </td>
+                              <td>
+                                <% if (data.details[i] && data.details[i].additional_rooms && data.details[i].additional_rooms.length > 0){ %>
+
+                                <% for(var x=0; x < data.details[i].additional_rooms.length; x++) { %>
+                                <%=data.details[i].additional_rooms[x]%><br>
+                                <%}%>
+                                                          <%}%>
+                              </td>
+                            </tr>
+                          <%}%>
+                        </tbody> 
+                      <%}%>
+                      <% if (data.property_type && data.property_type === "Commercial Land"){ %>
+                        <thead>
+                          <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Area
+                              <span>
+                                <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                                  <option selected>sq ft</option>
+                                  <option>acre</option>
+                                  <option>sq yards</option>
+                                  <option>sq meter</option>
+                                </select>
+                              </span>
+                            </th>
+                            <th scope="col">Total Units</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0; i < data.details.length; i++) { %>
+                            <tr>
+                              <td><%=data.details[i].name %></td>
+                              <td>
+                                <span id="area-<%= [i]%>%>">
+                                  <%=data.details[i].area %>
+                                </span>
+                              </td>
+                              <td>
+                                <%=data.details[i].count %>
+                              </td>
+                            </tr>
+                          <%}%>
+                        </tbody>
+                      <%}%>
+                      <% if (data.property_type && data.property_type === "Commercial Office"){ %>
+                        <thead>
+                          <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Area
+                              <span>
+                                <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                                  <option selected>sq ft</option>
+                                  <option>acre</option>
+                                  <option>sq yards</option>
+                                  <option>sq meter</option>
+                                </select>
+                              </span>
+                            </th>
+                            <th scope="col">Total Units</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0; i < data.details.length; i++) { %>
+                          <tr>
+                            <td><%=data.details[i].unit_size %></td>
+                            <td>
+                              <span id="area-<%= [i]%>%>">
+                                <%=data.details[i].area %>
+                              </span>
+                            </td>
+                            <td>
+                              <%=data.details[i].count %>
+                            </td>
+                          </tr>
+                          <%}%>
+                        </tbody> 
+                      <%}%>
+                      <% if (data.property_type && data.property_type === "Retail Shop"){ %>
+                        <thead>
+                          <tr>
+                            <th scope="col">Space Type</th>
+                            <th scope="col">Shop Type</th>
+                            <th scope="col">Area
+                              <span>
+                                <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                                  <option selected>sq ft</option>
+                                  <option>acre</option>
+                                  <option>sq yards</option>
+                                  <option>sq meter</option>
+                                </select>
+                              </span>
+                            </th>
+                            <th scope="col">Total Units</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0; i < data.details.length; i++) { %>
+                          <tr>
+                            <td><%=data.details[i].space_type %></td>
+                            <td><%=data.details[i].shop_type %></td>
+                            <td>
+                              <span id="area-<%= [i]%>%>">
+                                <%=data.details[i].area %>
+                              </span>
+                            </td>
+                            <td>
+                              <%=data.details[i].count %>
+                            </td>
+                          </tr>
+                          <%}%>
+                        </tbody> 
+                      <%}%>
+                      <% if (data.property_type && (data.property_type === "Serviced Apartments" || data.property_type === "Penthouse" || data.property_type === "Duplex" )){ %>
+                        <thead>
+                          <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Area
+                              <span>
+                                <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                                  <option selected>sq ft</option>
+                                  <option>acre</option>
+                                  <option>sq yards</option>
+                                  <option>sq meter</option>
+                                </select>
+                              </span>
+                            </th>
+                            <th scope="col">Total Units</th>
+                            <th>Additional Rooms</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0; i < data.details.length; i++) { %>
+                          <tr>
+                            <td><%=data.details[i].unit_size %></td>
+                            <td>
+                              <span id="area-<%= [i]%>%>">
+                                <%=data.details[i].area %>
+                              </span>
+                            </td>
+                            <td>
+                              <%=data.details[i].count %>
+                            </td>
+                            <td>
+                              <% if (data.details[i] && data.details[i].additional_rooms && data.details[i].additional_rooms.length > 0){ %>
+
+                              <% for(var x=0; x < data.details[i].additional_rooms.length; x++) { %>
+                              <%=data.details[i].additional_rooms[x]%><br>
+                              <%}%>
+                                                        <%}%>
+                            </td>
+                          </tr>
+                          <%}%>
+                        </tbody> 
+                      <%}%>
+                      <% if (data.property_type && (data.property_type === "Industrial Land" || data.property_type === "Farm house")){ %>
+                        <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Area
+                              <span>
+                                <select class="form-control form-control-sm unit-changer" id="convert-to" onchange="unitConverter(<%=JSON.stringify(data.details)%>, 'sq ft', 'area-<%= [i] %>', this.value )">
+                                  <option selected>sq ft</option>
+                                  <option>acre</option>
+                                  <option>sq yards</option>
+                                  <option>sq meter</option>
+                                </select>
+                              </span>
+                            </th>
+                            <th scope="col">Total Units</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0; i < data.details.length; i++) { %>
+                          <tr>
+                            <td><%=data.details[i].name %></td>
+                            <td>
+                              <span id="area-<%= [i]%>%>">
+                                <%=data.details[i].area %>
+                              </span>
+                            </td>
+                            <td>
+                              <%=data.details[i].count %>
+                            </td>
+                          </tr>
+                          <%}%>
+                        </tbody> 
+                      <%}%>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%}%>
+          <div class="common-box-dt">
+            <div class="dt-common-head">
+              <h2>Project Details</h2>
+            </div>
+            <% if (data.property_type){ %>
+              <div class="row mt-4 pt-2 mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Property Type :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b><%= data.property_type %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.area && data.area.area){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Area :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.area.area %> Acre(s)</b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.expected_completion){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Possession Year :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b id="expected_completion"> </b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.project_status){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Status:</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.project_status %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.rera){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Rera No.:</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.rera %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.visitor_parking && data.visitor_parking==true){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Visitor's Parking :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> Yes</b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if ( data.visitor_parking==true && data.visitor_parking_spot.length>0 ){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Visitor's Parking Spot :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.visitor_parking_spot %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.road_width && data.road_width.width){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Road Width :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.road_width.width %> Feet</b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.property_type && data.property_type === "Apartments"){ %>
+              <% if (data.total_floors && data.total_floors.toString().length>0){ %>
+                <div class="row mb-3">
+                  <div class="col-6  col-lg-3">
+                    <div>
+                      <h5>Total Floors :</h5>
+                    </div>
+                  </div>
+                  <div class="col-6 col-lg-9">
+                    <div>
+                      <h5><b> <%= data.total_floors %></b></h5>
+                    </div>
+                  </div>
+                </div>
+              <%}%>
+            <% } else if (data.property_type && (data.property_type === "Floors" || data.property_type === "Villas")){ %>
+              <% if (data.floors && typeof data.floors === "string" && data.floors.length>0){ %>
+                <div class="row mb-3">
+                  <div class="col-6  col-lg-3">
+                    <div>
+                      <h5>Total Floors :</h5>
+                    </div>
+                  </div>
+                  <div class="col-6 col-lg-9">
+                    <div>
+                      <h5><b> <%= data.floors %></b></h5>
+                    </div>
+                  </div>
+                </div>
+              <%}%>
+            <% } %>
+            <% if (data.total_properties && data.total_properties.length >0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Total Properties :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.total_properties %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.space && data.space.length >0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Space :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.space %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.retail_floor_type && data.retail_floor_type.length >0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Retail floor Type :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.retail_floor_type %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.retail_type && data.retail_type.length >0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Retail Type :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.retail_type %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.retail_additional && data.retail_additional.length >0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Retail Additional :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.retail_additional %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.basement_purpose && data.basement_purpose.length >0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Basement purpose :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.basement_purpose %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.facing && data.facing.length >0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Facing :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.facing %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.amenities_json && data.amenities_json.length>0 && data.amenities_json.filter(x => typeof x === 'string' && x.length > 0).length > 0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Amenities :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.amenities_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.connectivity_amenites_json && data.connectivity_amenites_json.length>0 && data.connectivity_amenites_json.filter(x => typeof x === 'string' && x.length > 0).length > 0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Connectivity :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.connectivity_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.other_amenites_json && data.other_amenites_json.length>0 && data.other_amenites_json.filter(x => typeof x === 'string' && x.length > 0).length > 0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Other Amenities :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.other_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.kid_amenites_json && data.kid_amenites_json.length>0 && data.kid_amenites_json.filter(x => typeof x === 'string' && x.length > 0).length > 0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Kid's Amenities :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.kid_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.health_amenites_json && data.health_amenites_json.length>0 && data.health_amenites_json.filter(x => typeof x === 'string' && x.length > 0).length > 0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Health Amenities :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.health_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.green_amenites_json && data.green_amenites_json.length>0 && data.green_amenites_json.filter(x => typeof x === 'string' && x.length > 0).length > 0){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Green Amenities :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.green_amenites_json.filter(x => typeof x === 'string' && x.length > 0).join(", ") %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+            <% if (data.township){ %>
+              <div class="row mb-3">
+                <div class="col-6  col-lg-3">
+                  <div>
+                    <h5>Township :</h5>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-9">
+                  <div>
+                    <h5><b> <%= data.township %></b></h5>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+          </div>
+          <% if ((data.floor_plan && data.floor_plan.length > 0) 
+            || (data.floor_plan && data.site_plan.length > 0)
+            || (data.floor_plan && data.brochure.length > 0)
+            || (data.floor_plan && data.price_list.length > 0)
+            || (data.floor_plan && data.specification.length > 0)
+            || (data.floor_plan && data.other_document.length > 0)
+          ){ %>
+            <div class="common-box-dt">
+              <%- include ./partials/pdf-viewer.ejs%>
+            </div>
+          <%}%>
+          <div class="common-box-dt" id="all_properties_div">
+            <% if ((locals.top_properties && top_property_type.length >0) || (locals.top_properties && top_properties.results.length >0)){ %>
+              <!-- <div class="common-box-dt" id="all_properties_div"> -->
+              <% if (locals.top_properties && top_property_type.length >0){ %>
+                <div class="dt-common-head">
+                  <h2>Project’s Top Properties</h2>
+                </div>
+                <% for(var i=0; i < top_property_type.length; i++) { %>
+                  <button class="btn btn-type-badge"><%= top_property_type[i].key%> <span>(<%= top_property_type[i].doc_count%>)</span></button>
+                <% } %>
+              <% } %>
+              <% if (locals.top_properties && top_properties.results.length >0){ %>
+                <div class="dt-common-sub-head mt-4">
+                  <h3>All Properties</h3>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <% for(var i=0; i < top_properties.results.length; i++) { %>
+                      <div class="apparment-list apparment-list-updated mt-3 mt-lg-0">
+                        <% if (top_properties.results[i].images  && top_properties.results[i].images.Projects && top_properties.results[i].images.Projects.length > 0){ %>
+                          <div class="apparment-list-left" onclick="go_to_page('<%=top_properties.results[i].url %>')">
+                            <div class="owl-carousel owl-theme allProp-first-owl">
+                              <% for(var j=0; j < top_properties.results[i].images.Projects.length; j++) { %>
+                                <div class="item">
+                                  <div class="all-prop-heart">
+                                    <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=top_properties.results[i].images.Projects[j]%>" class="img img-fluid">
+                                  </div>
+                                </div>
+                              <% } %>
+                            </div>
+                            <% if (emi_per_lac && (top_properties.results[i].price && top_properties.results[i].price.price)) { %>
+                              <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * top_properties.results[i].price.price / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                                <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                              </button></p>
+                            <% } %>
+                          </div>
+                        <% } %>
+                        <div class="apparment-list-right">
+                          <h2 class="prop-dt-box-h2-flex">
+                            <div>
+                              <%- include('./partials/bookmark-list', {url: top_properties.results[i].url, is_bookmarked: top_properties.results[i].is_bookmarked, id: i + "_project-" + top_properties.results[i].id, name: top_properties.results[i].name, builder: top_properties.results[i].builder}); %>
+                            </div>
+                            <span onclick="go_to_page('<%=top_properties.results[i].url %>')"><%=top_properties.results[i].name %></span>
+                          </h2>
+                          <% if (builder.length > 0){ %>
+                            <p><%= builder[0].name %></p>
+                          <%}%>
+                          <hr>
+                          <div class="row align-items-center">
+                            <div class="col-12 col-sm-6 col-lg-6">
+                              <% if (top_properties.results[i].price && top_properties.results[i].price.price){ %>
+                                <table class="emi-price-table">
+                                  <tr>
+                                    <td>
+                                      <p class="text-left" >Price :</p>
+                                    </td>
+                                    <td>
+                                      <p><b class="px-2 text-left"> ₹ <%=changeNumberFormat(top_properties.results[i].price.price)%></b></p>
+                                    </td>
+                                  </tr>
+                                  <!-- <% if (emi_per_lac) { %>
+                                  <tr>
+                                    <td>
+                                      <p class="text-left">EMI Starting :</p>
+                                    </td>
+                                    <td>
+                                      <p><b class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * top_properties.results[i].price.price / 100000))%></b></p>
+                                    </td>
+                                  </tr>
+                                  <% } %> -->
+                                </table>
+                              <% } %>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-6">
+                              <h6>
+                                SqFt. cost 
+                                <b> 
+                                  <% if (top_properties.results[i].sq_fit_cost && top_properties.results[i].sq_fit_cost.cost){ %>
+                                    ₹<%=top_properties.results[i].sq_fit_cost.cost%>
+                                  <%} else {%>
+                                    -
+                                  <%}%>
+                                </b> 
+                              </h6>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="located_area">
+                            <div class="loc-left">
+                              <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                              <p>
+                                <% if (top_properties.results[i].subcity){ %>
+                                  <%=top_properties.results[i].subcity %>,
+                                <%}%>
+                                <% if (top_properties.results[i].city){ %>
+                                  <%=top_properties.results[i].city %>
+                                <%}%>
+                              </p>
+                            </div>
+                            <div class="area_prices">
+                              <h2>
+                                <% if (top_properties.results[i].area && top_properties.results[i].area.area){ %>
+                                  <%=top_properties.results[i].area.area %> sq ft.
+                                <%}%>
+                              </h2>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="featured-points">
+                            <ul>
+                              <% if(top_properties.results[i].property_type === 'Apartments'){ %>
+                                <% if (top_properties.results[i].tower_number){ %>
+                                  <li>
+                                    <h5><%=top_properties.results[i].tower_number %></h5>
+                                  </li>
+                                <%}%>
+                              <% } else{ %>
+                                <% if(top_properties.results[i].property_type === 'Villas' || top_properties.results[i].property_type === 'Residential Plots'){ %>
+                                  <% if (top_properties.results[i].facing){ %>
+                                    <li>
+                                      <h5><%=top_properties.results[i].facing %> Facing</h5>
+                                    </li>
+                                  <%}%>
+                                <% } else{ %>
+                                  <% if (top_properties.results[i].bhk_space){ %>
+                                    <li>
+                                      <h5><%=top_properties.results[i].bhk_space %></h5>
+                                    </li>
+                                  <%}%>
+                                <% } %>
+                              <% } %>
+                              <% if(top_properties.results[i].property_type === 'Villas' || top_properties.results[i].property_type === 'Residential Plots' || top_properties.results[i].property_type === 'Apartments'){ %>
+                                <% if (data.project_status){ %>
+                                  <li>
+                                    <h5> <%=data.project_status %></h5>
+                                  </li>
+                                <%}%>
+                              <% } else{ %>
+                                <% if (top_properties.results[i].property_type){ %>
+                                  <li>
+                                    <h5><%=top_properties.results[i].property_type %></h5>
+                                  </li>
+                                <%}%>
+                              <% } %>
+                              <% if (top_properties.results[i].furnished && top_properties.results[i].property_type !== 'Residential Plots'){ %>
+                                <li>
+                                  <h5><%=top_properties.results[i].furnished %></h5>
+                                </li>
+                              <%}%>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    <% } %>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="w-100 mt-3 mt-lg-0">
+                      <% if  (top_properties.count > 5) {%>
+                        <a href="/properties?project=<%=data.name%>" target="_blank" class="see_all btn w-100">See All</a>
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            <%} else {%>
+              <div class="dt-common-head">
+                <h2>No Properties Available</h2>
+              </div>
+              <div style="width: 100%; margin:auto;">
+                <a href="/properties?project=<%=data.name%>" target="_blank" class="see_all btn w-100">Register your interest</a>
+              </div>
+            <% } %>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <% if (data.location && data.location.location && data.location.location.lat && data.location.location.lng && data.location.location.lat.length > 0 && data.location.location.lng.length >0) { %>
+            <div class="dt-location-map">
+              <div class="right-dt-head">
+                <h1> <%= data.name %></h1>
+              </div>
+              <div class="">
+                <div id="side_map"></div>
+                <img src="/v1/img/logo.webp" class="logo-over"/>
+              </div>
+            </div>
+            <div class="dt-location-address">
+              <% if (data.address){ %>
+                <div>
+                  <h3>Address :</h3>
+                  <p><%= data.address %></p>
+                </div>
+              <% } %>
+              <% if (data.pincode){ %>
+                <div>
+                  <h3>Pincode :</h3>
+                  <p><%= data.pincode %></p>
+                </div>
+              <% } %>
+            </div>
+          <% } %>
+          <div class="apply-loan-wrp">
+            <div class="right-dt-head">
+              <h1>Apply for loan :</h1>
+            </div>
+            <div class="apply-loan-box">
+              <form action="" id="loan-project-form">
+                <div class="form-group">
+                  <label class="required">Project :</label>
+                  <select class="form-control custom-select" name="project" id="loan-project">
+                    <option value="<%= data.name %>" selected>
+                      <%= data.name %>
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="required">Bank :</label>
+                  <select class="form-control custom-select" name="bank_name" id="loan-project-bank">
+                    <option value="Others" selected>
+                      Any Bank
+                    </option>
+                    <% for(var i=0; i < data.banks.length; i++) { %>
+                      <option value="<%= data.banks[i] %>">
+                        <%= data.banks[i] %>
+                      </option>
+                    <%}%>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="required">Applicant’s Name :</label>
+                  <input type="text" class="form-control" placeholder="Enter Applicants Name" id="loan-project-user" name="applicant_name" required>
+                </div>
+                <div class="form-group">
+                  <label class="required">Email Address :</label>
+                  <input type="text" class="form-control" id="loan-project-email" placeholder="Email Address" name="email" required>
+                </div>
+                <div class="form-group row justify-content-between position-relative w-100 mx-0">
+                  <div onclick="showPhoneCodeOptions('loan-project-code', 'loan-project-code-name', 'loan-project-phone-code-list', 'loan-project-phone-code-search')" class="position-relative form-control col-3 p-0 ps-1 d-flex justify-content-around align-items-center" style="height: fit-content;">
+                    <input type="text" class="w-100 mb-0 bg-white border-0 text-center" name="countryCode"  id="loan-project-code" value="+91" disabled required style="margin-bottom: 0px !important;">
+                    <input id="loan-project-phone-code-search" type="text" placeholder="Search" class="phone-code-search w-100 p-2 mb-0 bg-white border-0 text-center" style="display:none;">
+                    <input type="text" class="w-100 d-none" name="countryName"  id="loan-project-code-name" value="India" disabled required>
+                    <svg class="m-1" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 20 20" stroke-linecap="round" stroke-linejoin="round" height="18" width="18" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </div>
+                  <div id="loan-project-phone-code-list" class="phone-code-list position-absolute bottom-0" style="display: none;">
+                    <div class="w-100 p-2">
+                    </div>
+                    <table class="p-2"></table>
+                  </div>
+                  <input class="form-control col-8" type="text" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" placeholder="Phone Number" id="loan-project-phone" required>
+                </div>
+                <div class="d-flex justify-content-start align-items-center">
+                  <input class="" type="checkbox" style="margin-bottom: 0px !important;" id="newsletter-check-project" checked>
+                  <label class="ml-2 mb-0" for="newsletter-check"> Subscribe to AssetZilla Newsletter </label>
+                </div>
+                <button type="submit" class="btn btn-block">Submit</button>
+              </form>
+            </div>
+          </div>
+          <% if (locals.similar && similar.length>0) { %>
+            <div class="similar-prop">
+              <h4>Similar Projects :</h4>
+                <div class="owl-carousel owl-theme sim-prop-owl">
+                  <% for(var i=0; i < similar.length; i++) { %>
+                    <div class="item cursor-pointor" onclick="go_to_page('<%=similar[i].url %>')">
+                      <div class="sim-prop-owl-box">
+                        <div class="sim-prop-owl-box-img position-relative">
+                          <img src="<%=similar[i].banner_image %>" alt="">
+                          <% if (emi_per_lac && (similar[i].price && similar[i].price.min)) { %>
+                            <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * similar[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                              <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                            </button></p>
+                          <% } %>
+                        </div>
+                        <div class="sim-prop-owl-box-content pb-0">
+                          <h3><%=similar[i].name%></h3>
+                          <% if (similar[i].price) {%><% if (similar[i].price.min) {%><p class="text-center mb-0"> Starting&nbsp; ₹<%=changeNumberFormat(similar[i].price.min)%> </p><% } %><% } %>
+                        </div>
+                      </div>
+                    </div>
+                  <% } %>
+                </div>
+            </div>
+          <% } %>
+          <% if (locals.by_builder && by_builder.length>0) { %>
+            <div class="similar-prop mt-5">
+              <h4>Projects By Builder :</h4>
+                <div class="owl-carousel owl-theme sim-prop-owl">
+                  <% for(var i=0; i < by_builder.length; i++) { %>
+                    <div class="item cursor-pointor" onclick="go_to_page('<%=by_builder[i].url %>')">
+                      <div class="sim-prop-owl-box">
+                        <div class="sim-prop-owl-box-img position-relative">
+                          <img src="<%=by_builder[i].banner_image %>" alt="">
+                          <% if (emi_per_lac && (by_builder[i].price && by_builder[i].price.min)) { %>
+                            <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * by_builder[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                              <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                            </button></p>
+                          <% } %>
+                        </div>
+                        <div class="sim-prop-owl-box-content pb-0">
+                          <h3><%=by_builder[i].name%></h3>
+                          <% if (by_builder[i].price){%><% if (by_builder[i].price.min){%><p class=" text-center mb-0">Starting ₹ <%=changeNumberFormat(by_builder[i].price.min)%></p><%}%><%}%>
+                        </div>
+                      </div>
+                    </div>
+                  <% } %>
+                </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <%- include ./partials/footer.ejs%>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<!-- <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.385/build/pdf.min.js"></script>
+<script>
+  // Set map and marker on the map
+  <% if (data.location) { %>
+  // console.log("Location Found")
+  var map;
+  var mapModal;
+  var lat = <%=data.location.location && data.location.location.lat ? data.location.location.lat : 0 %>;
+  var lng = <%=data.location.location && data.location.location.lng ? data.location.location.lng : 0 %>;
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('side_map'), {
+      center: {
+        lat: lat
+        , lng: lng
+      }
+      , zoom:12,
+      fullscreenControl: false,
+    });
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(lat, lng)
+      , map: map
+    });
+  }
+
+  function initMap2() {
+    map = new google.maps.Map(document.getElementById('modal-map'), {
+      center: {
+        lat: lat
+        , lng: lng
+      }
+      , zoom:12
+      , fullscreenControl: false
+    });
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(lat, lng)
+      , map: map
+    });
+  }
+
+  function initialize() {
+    // console.log("Inilize map.....")
+    initMap();
+    initMap2();
+  }
+
+  <%} else {%>
+  // console.log("No location fpund 1111111111")
+
+  function initialize() {
+    // console.log("No location fpund")
+  }
+  <%}%>
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw&callback=initialize""
+            async
+            defer></script>
+    <script src=" /v1/js/custom.js" type="text/javascript"></script>
+<!-- Media galary script -->
+<script>
+  var popupGallery;
+  var pageLoadModal = false;
+  $(document)
+    .ready(function() {
+      $('#moreInfo')
+        .on('show.bs.modal', function(e, f) {
+
+          popupGallery = new Swiper('#popupGallery', {
+            spaceBetween: 2
+            , loop: true
+            , lazy: true
+            , navigation: {
+              nextEl: '.swiper-button-next'
+              , prevEl: '.swiper-button-prev'
+            , }
+            , pagination: {
+              el: '.swiper-pagination'
+            , }
+            , keyboard: {
+              enabled: true
+            , }
+          });
+
+          let relatedTargetId = e.relatedTarget.id;
+          if (relatedTargetId === "showVideo") {
+            $('#moreInfo a[href="#pills-video"]')
+              .tab('show');
+          }
+        });
+
+      $('.modal')
+        .on('show.bs.modal', function(e, f) {
+          //Mute video on galary
+          var video = $("#video-player-galary")
+            .attr("src");
+          $("#video-player-galary")
+            .attr("src", "");
+          $("#video-player-galary")
+            .attr("src", video);
+        });
+
+
+      $('#moreInfo')
+        .on('shown.bs.modal', function(e) {
+          popupGallery.update();
+        });
+
+      //Stop playing video on modal close
+      $('#moreInfo')
+        .on('hidden.bs.modal', function() {
+          // console.log("Modal Closed");
+          var video = $("#video-player")
+            .attr("src");
+          $("#video-player")
+            .attr("src", "");
+          $("#video-player")
+            .attr("src", video);
+
+          // Changed the tab image
+          $('#moreInfo a[href="#pills-images"]')
+            .tab('show');
+        })
+      //Stop playing video on modal close
+      $('a[data-toggle="pill"]')
+        .on('shown.bs.tab', function(e) {
+          // console.log("Tab changed");
+          if (e.relatedTarget.id === "pills-video-tab") {
+            var video = $("#video-player")
+              .attr("src");
+            $("#video-player")
+              .attr("src", "");
+            $("#video-player")
+              .attr("src", video);
+          }
+        });
+
+
+      var galleryTop = new Swiper('.gallery-top', {
+        slidesPerView: 1
+        , loop: true
+        , loopedSlides: 50
+        , lazy: true
+        , lazy: {
+          loadPrevNext: false
+          , loadOnTransitionStart: true
+        }
+      , });
+      var galleryThumbs = new Swiper('.gallery-thumbs', {
+        direction: 'vertical'
+        , slidesPerView: 4
+        , slideToClickedSlide: true
+        , spaceBetween: 10
+        , loopedSlides: 50
+        , loop: true
+        , lazy: true
+        , lazy: {
+          loadPrevNext: false
+          , loadOnTransitionStart: true
+        }
+      , });
+      if (galleryTop.controller){
+        galleryTop.controller.control = galleryThumbs;
+      }
+      if (galleryThumbs.controller){
+        galleryThumbs.controller.control = galleryTop;
+      }      
+    })
+</script>
+
+
+<!-- unitConverter OR COMMOM FUNCTIONS-->
+<script>
+  function getExpCompDate() {
+    var date = new Date('<%= data.expected_completion %>');
+    $('#expected_completion')
+      .text(date.getFullYear());
+  }
+  getExpCompDate();
+
+  function unitConverter(areas, currentUnit, idx, changeInto) {
+    // console.log('unitConverter called', currentUnit, changeInto)
+    var res;
+    for (var i = 0; i <= areas.length; i++) {
+      val = Number(areas[i].area);
+      var landArea = areas[i].land_area;
+      var apartment_area = areas[i].apartment_area;
+
+      // Acre
+      if (currentUnit == "acre") {
+        if (changeInto == "sq ft") {
+          res = val;
+        } else if (changeInto == "sq ft") {
+          res = val * 43560;
+          if (landArea) landArea = landArea * 43560;
+          if (apartment_area) apartment_area = apartment_area * 43560;
+
+        } else if (changeInto == "sq yards") {
+          res = val * 4840;
+          if (landArea) landArea = landArea * 4840;
+          if (apartment_area) apartment_area = apartment_area * 4840;
+
+        } else if (changeInto == "sq meter") {
+          res = val * 4046.856;
+          if (landArea) landArea = landArea * 4046.856;
+          if (apartment_area) apartment_area = apartment_area * 4046.856;
+
+        }
+      }
+      // Sq feet
+      else if (currentUnit == "sq ft") {
+        if (changeInto == "sq ft") {
+          res = val;;
+        } else if (changeInto == "acre") {
+          res = val / 43560;
+
+          if (landArea) landArea = landArea / 43560;
+          if (apartment_area) apartment_area = apartment_area / 43560;
+
+        } else if (changeInto == "sq yards") {
+          res = val / 9;
+          if (landArea) landArea = landArea / 9;
+          if (apartment_area) apartment_area = apartment_area / 9;
+
+        } else if (changeInto == "sq meter") {
+
+          res = val / 10.764;
+          if (landArea) landArea = landArea / 10.764;;
+          if (apartment_area) apartment_area = apartment_area / 10.764;;
+        }
+      }
+      // Sq yards
+      else if (currentUnit == "sq yards") {
+        if (changeInto == "sq yards") {
+          res = val;;
+        } else if (changeInto == "acre") {
+          res = val / 4840;
+
+          if (landArea) landArea = landArea / 4840;
+          if (apartment_area) apartment_area = apartment_area / 4840;
+
+        } else if (changeInto == "sq ft") {
+          res = val / 9;
+          if (landArea) landArea = landArea / 9;
+          if (apartment_area) apartment_area = apartment_area / 9;
+
+
+        } else if (changeInto == "sq meter") {
+          res = val / 1.196;
+
+          if (landArea) landArea = landArea / 1.196;
+          if (apartment_area) apartment_area = apartment_area / 1.196;
+        }
+      }
+      // Sq meter
+      else if (currentUnit == "sq meter") {
+        if (changeInto == "sq meter") {
+          res = val;;
+        } else if (changeInto == "acre") {
+          res = val / 4046.856;
+          if (landArea) landArea = landArea / 4046.856;
+          if (apartment_area) apartment_area = apartment_area / 4046.856;
+
+        } else if (changeInto == "sq ft") {
+          res = val * 10.764;
+
+          if (landArea) landArea = landArea * 10.764;
+          if (apartment_area) apartment_area = apartment_area * 10.764;
+
+        } else if (changeInto == "sq yards") {
+          res = val * 81.196;
+
+          if (landArea) landArea = landArea * 81.196;
+          if (apartment_area) apartment_area = apartment_area * 81.196;
+
+        }
+      }
+      document.getElementById('area-' + i)
+        .innerHTML = res.toFixed(2);
+
+      if (landArea) {
+        document.getElementById('land-area-' + i)
+          .innerHTML = landArea.toFixed(2);
+      }
+
+      if (apartment_area) {
+        document.getElementById('apartment_area-' + i)
+          .innerHTML = apartment_area.toFixed(2);
+      }
+    }
+  }
+</script>
+<!-- PDF Renders -->
+<script src="/v1/js/pdf-viewer.js"> </script>
+<!-- <script>
+  <% if (data.floor_plan && data.floor_plan.length > 0){ %>
+  showPDF("floor-plan-canvas", window.location.origin + "/api/project/document?url=dyn-res/project/doc/<%=data.floor_plan[0]%>", "floor-plan")
+  <%}%>
+        <% if (data.site_plan && data.site_plan.length > 0){ %>
+  showPDF("site-pdf-canvas", window.location.origin + "/api/project/document?url=dyn-res/project/doc/<%=data.floor_plan[0]%>", "site-pdf")
+  <%}%>
+        <% if (data.brochure && data.brochure.length > 0){ %>
+  showPDF("brochure-pdf-canvas", window.location.origin + "/api/project/document?url=dyn-res/project/doc/<%=data.brochure[0]%>", "brochure-pdf")
+  <%}%>
+        <% if (data.price_list && data.price_list.length > 0){ %>
+  showPDF("price_list-pdf-canvas", window.location.origin + "/api/project/document?url=dyn-res/project/doc/<%=data.price_list[0]%>", "price_list-pdf")
+  <%}%>
+        <% if (data.specification && data.specification.length > 0){ %>
+  showPDF("specification-pdf-canvas", window.location.origin + "/api/project/document?url=dyn-res/project/doc/<%=data.specification[0]%>", "specification-pdf")
+  <%}%>
+        <% if (data.other_document && data.other_document.length > 0){ %>
+  showPDF("other_document-pdf-canvas", window.location.origin + "/api/project/document?url=dyn-res/project/doc/<%=data.other_document[0]%>", "other_document-pdf")
+  <%}%>
+
+        $('.pdf-modal').on('show.bs.modal', function (e, f) {
+            let data = $(e.currentTarget).data()
+            showPDF(data.canvas , window.location.origin + data.url , data.parentid)
+        });
+</script> -->
+<script>
+  $(function() {
+    var dtToday = new Date();
+    dtToday.setDate(dtToday.getDate() + 1);
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if (month < 10)
+      month = '0' + month.toString();
+    if (day < 10)
+      day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
+    //alert(maxDate);
+    $('#schedule-date')
+      .attr('min', maxDate);
+  });
+</script>
+<!-- <script>
+        /**
+        * Detect Mobile device
+        */
+        var isMobile = false; //initiate as false
+        // device detection
+        if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
+        || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) {
+        isMobile = true;
+        }
+
+        $('input[type="date"]').change(function() {
+            console.log($(this).val());
+        if( isMobile) {
+            if (!$(this).val()) {
+                $(this).addClass('mobile');
+            }
+            else {
+                $(this).removeClass('mobile');
+            }
+        }
+        });
+    </script> -->
+<script>
+  $('input[type="date"]')
+    .change(function() {
+      // console.log($(this)
+      //   .val()
+      //   .length)
+      if ($(this)
+        .val()
+        .length > 0) {
+        document.getElementById('calender-value')
+          .innerHTML = $(this)
+          .val()
+      } else if ($(this)
+        .val()
+        .length === 0) {
+        document.getElementById('calender-value')
+          .innerHTML = "YYYY-MM-DD"
+      } else {
+        document.getElementById('calender-value')
+          .innerHTML = "YYYY-MM-DD"
+      }
+    });
+</script>
+<script>
+  document.querySelector('button.btn.btn-book-prop').addEventListener('touchend',()=>{
+    $('button.btn.btn-book-prop').css("color", "white");
+    $('button.btn.btn-book-prop').css("background-color", "#7eb041");
+  })
+  document.querySelector('button.btn.btn-book-prop').addEventListener('touchstart',()=>{
+    $('button.btn.btn-book-prop').css("color", "#7eb041");
+    $('button.btn.btn-book-prop').css("background-color", "white");
+  })
+</script>
+
+<% if (!locals.user) {%>
+  <script>
+    let storedViewH = JSON.parse(window.localStorage.getItem('userVwH'));
+    if (storedViewH){
+      storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+    } else{
+      storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+    }
+    window.localStorage.setItem('userVwH', JSON.stringify(storedViewH))
+  </script>
+<% } %>
+
+</html>

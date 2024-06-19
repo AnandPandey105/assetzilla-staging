@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"realestate.property_types"},{"v":{"$numberInt":"2"},"unique":true,"key":{"id":{"$numberInt":"1"}},"name":"id_1","background":true,"ns":"realestate.property_types"}],"uuid":"807bff261a2149699c41cbf6865ca943","collectionName":"property_types"}

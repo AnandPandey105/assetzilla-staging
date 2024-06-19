@@ -1,0 +1,8 @@
+<% for(var i=0; i < facing.length; i++) { %>
+    <li class="popup" id="li-<%=facing[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="<%=facing[i].nameAsURL %>"  onchange="handleFilters('facing','<%=facing[i].facing %>')"  autocomplete="off">
+            <label class="custom-control-label" for="<%=facing[i].nameAsURL %>"><%=facing[i].facing%> (<%=facing[i].count %>)</label>
+        </div>
+    </li>
+<% } %> 

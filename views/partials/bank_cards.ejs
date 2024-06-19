@@ -1,0 +1,38 @@
+<% for(var i=0; i < results.length; i++) { %>
+<div class="col-md-4">
+    <div class="card mb-3 listing-card" onclick=go_to_page("<%=results[i].url %>")>
+        <div class="row no-gutters shadow">
+            <div class="col-md-12">
+
+                <img src="<%=results[i].logo %>" class="card-img" alt="">
+
+                <div class="card-body">
+
+                    <div class="d-flex bd-highlight">
+                        <div class="p-2 w-100 bd-highlight">
+                            <h5 class="card-title"><%=results[i].name %></h5>
+                                        </div>
+                                    </div>
+    
+                                    <div class="d-flex d-flex align-content-start flex-wrap bd-highlight mb-3">
+                                            <% if (results[i].type){ %>
+                                <div class="p-2 bd-highlight capitalize">
+                                    <i class="fas fa-database"></i>
+                                    <%=results[i].type %>
+                                </div>
+                                <%}%>
+                                                    <% if (results[i].total_projects){ %>  <%}%>
+                                <div class="p-2 bd-highlight">
+                                    <i class="fas fa-building mr-2"></i>Approved Projects-
+                                    <%=results[i].total_projects %>
+                                </div>
+                                
+                                <!-- project_count -->
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>

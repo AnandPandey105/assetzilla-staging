@@ -1,0 +1,183 @@
+<% for(var i=0; i < results.length; i++) { %>
+<div class="col-md-4 cards-infinte">
+    <div class="card mb-3 listing-card" onclick=go_to_page("<%=results[i].url %>")>
+        <div class="row no-gutters shadow">
+            <div class="col-md-12">
+                <% if (results[i].banner_image == "/images/placeholder_bg.webp" && results[i].images && results[i].images.Projects && results[i].images.Projects[0]){ %>
+                    <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=results[i].images.Projects[0]%>" class="card-img">
+                    <%} else {%>
+                        <img src="<%=results[i].banner_image %>"  class="card-img" alt="">
+                        <% } %>
+                <!-- <img src="<%=results[i].banner_image %>" class="card-img" alt=""> -->
+                <div class="card-body">
+
+                    <div class="d-flex bd-highlight">
+                        <div class="p-2 w-100 bd-highlight">
+                            <h5 class="card-title"><%=results[i].name %>
+                                <% if (results[i].builder){ %>
+                                    (<%=results[i].builder %>)
+                                    <%}%>
+                            </h5>
+                            <span style="margin-left: 0;">
+                                <!-- margin-top: -20px; -->
+                                <% if (results[i].price && results[i].price){ %>
+                                <strong>(₹) <%=results[i].price.price.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %></strong>
+                                <%}%>
+                        </span>
+                        <span style="margin-left: 12px; float: right;">
+                            <!-- margin-top: -20px; -->
+                            <% if (results[i].area && results[i].area.area){ %>
+                            <strong><%=results[i].area.area %> SqFt.</strong>
+                            <%}%>
+                    </span>
+                    <div>
+                        <small class="light-grey-clr">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <% if (results[i].subcity){ %><%=results[i].subcity %>,
+                            <%}%><% if (results[i].city){ %><%=results[i].city %> <%}%>
+                                </small>
+                    </div>
+                                    </div>
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <% if (results[i].bhk_space){ %>
+                                <th scope="col">Config</th>
+                                <%}%>
+                                            <% if (results[i].property_type){ %>
+                                <th scope="col">Type</th>
+                                <%}%>
+                                            <% if (results[i].furnished){ %>
+                                <th scope="col">Status</th>
+                                <%}%>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <% if (results[i].bhk_space){ %>
+                                <td>
+                                    <%=results[i].bhk_space %>
+                                </td>
+                                <%}%>
+                                            <% if (results[i].property_type){ %>
+                                <td>
+                                    <%=results[i].property_type %>
+                                </td>
+                                <%}%>
+                                            <% if (results[i].furnished){ %>
+                                <td>
+                                    <%=results[i].furnished %>
+                                </td>
+                                <%}%>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+<% for(var i=0; i < results.length; i++) { %>
+<div class="card mb-3 partials-infinte partial-card-data no-border"style="margin-bottom: 1rem; border-style: none;" id="<%=i+custSkip%>_property-<%=results[i].id%>" onmouseenter="showBox('<%=results[i].id%>',  <%=i+custSkip%>)"
+    onmouseleave="hideBox('<%=results[i].id%>', <%=i+custSkip%>)">
+<div class="row no-gutters shadow"  onclick=go_to_page("<%=results[i].url %>") >
+    <div class="col-4">
+        <% if (results[i].banner_image == "/images/placeholder_bg.webp" && results[i].images && results[i].images.Projects && results[i].images.Projects[0]){ %>
+            <img src="<%=locals.CURRENT_IMAGE_BASE_URL%>/project/image/<%=results[i].images.Projects[0]%>" class="w-100">
+            <%} else {%>
+                <img src="<%=results[i].banner_image %>"  class="w-100" alt="">
+                <% } %>
+        <!-- <img src="<%=results[i].banner_image %>" class="w-100" alt=""> -->
+    </div>
+    <div class="col-8">
+        <div class="card-body">
+
+            <div class="d-flex bd-highlight">
+                <div class="p-2 w-100 bd-highlight">
+                    <h5 class="card-title"> <%=results[i].name %> 
+                        <% if (results[i].builder){ %>
+                            (<%=results[i].builder %>)
+                            <%}%>
+                    </h5>
+                    <span style="margin-left: 12px; float: right;">
+                        <!-- margin-top: -20px; -->
+                        <% if (results[i].area && results[i].area.area){ %>
+                        <strong><%=results[i].area.area %> SqFt.</strong>
+                        <%}%>
+
+                </span>
+                    
+    <span style="margin-left: 0;">
+        <!-- margin-top: -20px; -->
+        <% if (results[i].price && results[i].price.price){ %>
+        <strong>(₹) <%=results[i].price.price.toLocaleString(undefined,{ minimumFractionDigits: 2 }) %></strong>
+        <%}%>
+</span>
+    
+    
+<div>
+    <small class="light-grey-clr">
+        <i class="fas fa-map-marker-alt"></i>
+        <% if (results[i].subcity){ %><%=results[i].subcity %>,
+        <%}%><% if (results[i].city){ %><%=results[i].city %> <%}%>
+        
+</small>
+</div>
+                                                                    </div>
+                                                                </div>
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <% if (results[i].bhk_space){ %>
+                        <th scope="col">Config</th>
+                        <%}%>
+                                                                            <% if (results[i].property_type){ %>
+                        <th scope="col">Type</th>
+                        <%}%>
+                                                                            <% if (results[i].furnished){ %>
+                        <th scope="col">Status</th>
+                        <%}%>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <% if (results[i].bhk_space){ %>
+                        <td>
+                            <%=results[i].bhk_space %>
+                        </td>
+                        <%}%>
+                                                                            <% if (results[i].property_type){ %>
+                        <td>
+                            <%=results[i].property_type %>
+                        </td>
+                        <%}%>
+                                                                            <% if (results[i].furnished){ %>
+                        <td>
+                            <%=results[i].furnished %>
+                        </td>
+                        <%}%>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <!-- <div style="margin-left: 12px; margin-top: -20px;">
+                                                                    <% if (results[i].price && results[i].price){ %>
+                                                                    Price: <%=results[i].price.price %> INR
+                                                                    <%}%>
+                                                            </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="" id="<%=i+custSkip%>_property-btns-<%=results[i].id%>" style="display: none;"
+                            onmouseenter="showBox('<%=results[i].id%>', <%=i+custSkip%>)"
+                            onmouseleave="hideBox('<%=results[i].id%>', <%=i+custSkip%>)">
+                            <div class="navy-blue-bg book-btn cursor font-weight-bold"
+                                data-toggle="modal"
+                                data-target="#booking-modal">Book this
+                                Property</div>
+                            <!-- <div class="d-inline-block navy-blue-bg book-btn w-50" onclick=go_to_page("<%=results[i].url %>")> Explore </div> -->
+                        </div>
+</div>
+
+<% } %>

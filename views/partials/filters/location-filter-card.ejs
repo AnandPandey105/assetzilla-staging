@@ -1,0 +1,10 @@
+<% for(var i=0; i < results.length; i++) { %>
+    <div class="d-flex flex-column bd-highlight mt-2">
+        <div class="pretty p-default">
+            <input type="checkbox" id="<%=results[i].location_type %>-<%=results[i].nameAsURL %>" onchange="handleFilters('<%=results[i].location_type %>','<%=results[i].name %>')" autocomplete="off"/>
+            <div class="state">
+                <label><%=results[i].name %> - <%=results[i].location_type %> (<%=results[i].projectCount %>)</label>
+            </div>
+        </div>
+    </div>
+<% } %> 

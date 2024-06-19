@@ -1,0 +1,284 @@
+<link href="../../../css/jquery.flexdatalist.min.css" rel="stylesheet" type="text/css">
+
+<div class="padding">
+    <form class="form-group" ng-submit=getAllUsers(1)>
+        <div class="row">
+            <div class="col-sm-1">
+                Search:
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group input-group-sm mb-3">
+                    <input type="search" class="form-control" placeholder="Seach here..." aria-label="Small"
+                        aria-describedby="inputGroup-sizing-sm" ng-model="search" ng-change="clearSearchBox()">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success btn-sm" type="submit">Search</button>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+                <span>
+                    <i ng-show="showCrossForUser" class="material-icons md-24 cross"
+                        ng-click="clearDropdown('user')">&#xe14c;</i>
+                </span>
+                <ui-select ng-model="selectedRoleForFilter.selected" ng-change="showCrossForFilter('user')"
+                    theme="bootstrap">
+                    <ui-select-match class="ui-select-match" placeholder="Select role...">{{$select.selected}}
+                    </ui-select-match>
+                    <ui-select-choices class="ui-select-choices"
+                        repeat="item in rolesForFilter | filter: $select.search track by $index">
+                        <div ng-bind-html="item | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success btn-sm" type="button" ng-click="getAllUsers(1)">Apply Filter</button>
+            </div>
+            <div class="col-sm-1">
+                <button class="md-btn md-raised m-b-sm w-xs green" ng-click="blankFormFn()" data-toggle="modal"
+                    data-target="#addNewUserModal">Create
+                    <span class="">
+                        <i class="material-icons md-24" ng-click="getLocationToUpdate(location, $index)"
+                            style="cursor: pointer;">&#xe146;</i>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Add New Modal -->
+    <div class="modal fade" id="addNewUserModal" tabindex="-1" role="dialog" aria-labelledby="addNewUserModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addNewUserModalLabel">Add/Edit User</h5>
+                    <button type="button" ng-click="blankFormFn()" id="closeCreateEditModal" class="close"
+                        data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" ng-submit=createUser()>
+                        <div ng-show="!submitConfirmation">
+                            <div class="form-group">
+                                <label for="username">User</label><span style="color: red"> *</span>
+                                <input type="text" id="username" name="un" ng-model="user.name" class="form-control"
+                                    placeholder="Enter name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Id</label><span style="color: red"> *</span>
+                                <input type="text" id="email" name="email" ng-model="user.email" class="form-control"
+                                    placeholder="Enter email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password</label><span style="color: red"> *</span>
+                                <input type="password" id="pwd" name="pwd" ng-model="user.pwd" class="form-control"
+                                    placeholder="User Desired Password" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="user_role">Role</label><span
+                                        style="color: red"> *</span>
+                                </div>
+                                <select class="custom-select w-100" ng-model="user.role" id="user_role">
+                                    <option selected ng-repeat="role in roles track by $index">{{role}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3 row mx-1">
+                                <div class="input-group-prepend col-12 px-2">
+                                    <label class="input-group-text" for="user_role">Location Access</label><span
+                                        style="color: red"> *</span>
+                                </div>
+                                <select ng-change="locationAccessValue = ''" class="custom-select w-100 col-5"
+                                    ng-model="locationAccessLevel" id="locationA">
+                                    <option ng-attr-selected="locationAccessLevel === level"
+                                        ng-repeat="level in locationAccessLevels track by $index" value={{level}}>{{level==="FULL ACCESS"?"All Locations":level}}</option>
+                                </select>
+                                <select data-ng-show="locationAccessLevel !== ''" class="custom-select w-100 ml-1 col-5"
+                                    ng-model="locationAccessValue" id="locationA">
+                                    <option ng-attr-selected="locationAccessValue === value"
+                                        ng-repeat="value in fullLocations[locationAccessLevel] track by $index">{{value}}</option>
+                                </select>
+                                <a href="" style="font-size: 22px;" ng-click="addNewLocationAccess()" class="ml-2 col-1" data-toggle="tooltip"
+                                        data-placement="auto" title="Add more access">
+                                        <span class="fa fa-plus-square"></span>
+                                    </a>
+                                <div class="col-12 px-0">
+                                    <ul tabindex="1" class="flexdatalist-multiple flex0"
+                                        style="border-color: rgba(120, 130, 140, 0.2); border-width: 1px; border-style: solid; border-radius: 0px; background-color: rgb(255, 255, 255);">
+                                        <li class="value" data-ng-repeat="access in userLocationAccess track by $index">
+                                            <span class="text">{{ access.locationAccessLevel === "FULL ACCESS" ? "All Locations" : access.locationAccessLevel + " - " + access.locationAccessValue}}</span>
+                                            <span class="fdl-remove" data-ng-click="removeLocationAccess(access)">×</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row mx-1">
+                                <div class="input-group-prepend col-12 px-2">
+                                    <label class="input-group-text" for="propertyType">Property Type Access</label><span
+                                        style="color: red"> *</span>
+                                    
+                                </div>
+                                <select class="custom-select w-100 col-5" ng-model="propertyTypeAccessLevel"
+                                    id="propertyType" ng-change="setOptionsPropertyType()">
+                                    <option ng-attr-selected="propertyTypeAccessLevel === level"
+                                        ng-repeat="level in propertyTypeAccessLevels track by $index" value={{level}}>{{level==="FULL ACCESS"?"All Property Types":level}}</option>
+                                </select>
+                                <select data-ng-show="propertyTypeAccessLevel !== ''" class="custom-select w-100 ml-1 col-5"
+                                    ng-model="propertyTypeAccessValue" id="propertyTypeA">
+                                    <option ng-attr-selected="propertyTypeAccessValue === value"
+                                        ng-repeat="value in propertyTypeAccessValues track by $index">{{value}}</option>
+                                </select>
+                                <a href="" style="font-size:22px;" ng-click="addNewPropertyTypeAccess()" class="ml-2 col-1" data-toggle="tooltip"
+                                        data-placement="auto" title="Add more access">
+                                    <span class="fa fa-plus-square"></span>
+                                </a>
+                                <div class="col-12 px-0">
+                                    <ul tabindex="1" class="flexdatalist-multiple flex0"
+                                        style="border-color: rgba(120, 130, 140, 0.2); border-width: 1px; border-style: solid; border-radius: 0px; background-color: rgb(255, 255, 255);">
+                                        <li class="value" data-ng-repeat="access in userPropertyTypeAccess track by $index">
+                                            <span class="text">{{access.propertyTypeAccessLevel === "FULL ACCESS" ? "All Property Types" : (access.propertyTypeAccessLevel + " - " + access.propertyTypeAccessValue)}}</span>
+                                            <span class="fdl-remove"
+                                                data-ng-click="removePropertyTypeAccess(access)">×</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button type="button" ng-click="submitConfirmationFn()" class="btn btn-primary">
+                                <span ng-show="!edit">Create</span><span ng-show="edit">Update</span>
+                            </button>
+                        </div>
+
+                        <div ng-show="submitConfirmation;">
+                            <h6>Are you sure you want to <span ng-show="!edit">add</span> <span
+                                    ng-show="edit">update</span> this User?</h6><br>
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <span ng-show="!edit">Create</span><span ng-show="edit">Update</span>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" ng-click="blankFormFn()"
+                                data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End add new modal -->
+
+    <!-- add new -->
+    <div class="row">
+        <div class="col-sm-8" style="margin: auto;">
+
+        </div>
+    </div>
+
+
+
+
+    <div class="row" style="margin-top: 5px !important;
+    background: white;
+    padding-top: 10px;
+    border-radius: 10px;">
+        <div class="col-md-12" style="margin: auto;">
+            <h4 class="text-center" style="color: #9E9E9E; margin: 10px 0 20px 0;">List of Users</h4>
+
+            <!-- notifications -->
+            <div class="alert alert-success" id="SuccessAlertBox"
+                style="position: fixed;top: 23%;right:2px;display: none;">
+                <p data-ng-bind="SucessSaveMessage">Success</p>
+            </div>
+            <div class="alert alert-danger" id="ErrorAlertBox"
+                style="position: fixed;top: 23%;right:2px;display: none;">
+                <p data-ng-bind="ErrorSaveMessage">Error</p>
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-nowrap">
+                        <th scope="col">#</th>
+                        <th scope="col" ng-click="changeSort('name')">
+                            User
+                            <span class="" ng-show="showAsc">
+                                <i class="material-icons md-24" style="cursor: pointer;">&#xe5c5;</i>
+                            </span>
+                            <span class="" ng-show="!showAsc">
+                                <i class="material-icons md-24" style="cursor: pointer;">&#xe5c7;</i>
+                            </span>
+                        </th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in usersList track by $index">
+                        <th scope="row">{{((pageIndex-1)*10)+$index+1}}</th>
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.role}}</td>
+                        <td>
+                            <span class="mx-2" data-toggle="modal" data-target="#addNewUserModal">
+                                <i class="material-icons md-24" ng-click="getUserToUpdate(user, $index)"
+                                    style="cursor: pointer; color: #4CAF50;">&#xe3c9;</i>
+                            </span>
+                            <span class="mx-2">
+                                <i class="material-icons md-24" data-toggle="modal" data-target="#deleteModal"
+                                    ng-click="getUserToDelete(user, $index)"
+                                    style="cursor: pointer; color: #C62828;">&#xe872;</i>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" data-ng-show="currentArrayIndex != 0"
+                        data-ng-click="previousPaginationArray()">
+                        <a class="page-link" href="" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" data-ng-repeat="i in mainArray[currentArrayIndex] track by $index">
+                        <a class="page-link" href="" data-ng-bind="i"
+                            data-ng-click="getAllUsers(i, sortBy, sortForm)"></a>
+                    </li>
+                    <li class="page-item" data-ng-show="currentArrayIndex != mainArray.length-1"
+                        data-ng-click="nextPaginationArray()">
+                        <a class="page-link" href="" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalTitle">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete the user?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" ng-click="deleteUserFn()"
+                            data-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

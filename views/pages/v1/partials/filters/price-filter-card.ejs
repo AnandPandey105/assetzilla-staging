@@ -1,0 +1,17 @@
+<% for(var i=0; i < price.length; i++) { %>
+    <li class="popup" id="li-<%=price[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="<%=price[i].nameAsURL %>"  onchange="handleFilters('price','<%=price[i].price %>')"  autocomplete="off">
+            <label class="custom-control-label" for="<%=price[i].nameAsURL %>"><%=price[i].price %> (<%=price[i].count %>)</label>
+        </div>
+    </li>
+<% } %> 
+
+<% for(var i=0; i < price.length; i++) { %>
+    <li class="quick" id="quick-li-<%=price[i].nameAsURL %>">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="quick-<%=price[i].nameAsURL %>" onchange="handleFilters('price','<%=price[i].price %>')" autocomplete="off">
+            <label class="custom-control-label" for="quick-<%=price[i].nameAsURL %>"><%=price[i].price %> (<%=price[i].count %>)</label>
+        </div>
+    </li>
+<% } %> 

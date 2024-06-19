@@ -1,0 +1,126 @@
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.jquery.min.js" integrity="sha256-Dr2c2MZpJ7kUvTEtyitW4QV1nTh0JP/ifC7XYvyGgOw=" crossorigin="anonymous"></script>
+<script src="/v1/js/bootstrap.min.js"></script>
+<script src="/v1/js/jqfloat.min.js"></script>
+<script src="/v1/js/owl.carousel.min.js"></script>
+<script src="/v1/js/js.js" type="text/javascript"></script>
+<script src="/js/common.js" type="text/javascript"></script>
+<script src="/v1/js/phonecodes.js" type="text/javascript"></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5db183b0526de468"></script>
+<script>
+  $(document)
+    .ready(function() {
+      if (typeof sellPropertyPopupInit === "function") sellPropertyPopupInit()
+    });
+</script>
+<script>
+  const loaderImageWrapperElement = document.querySelector(".loader-image-wrapper");
+  const pills_tabContent = document.querySelector("#pills-tabContent");
+  // console.log("pills_tabContent = ", pills_tabContent)
+  document.addEventListener("readystatechange", (event) => {
+    if (event.target.readyState === 'interactive') {
+      if (pills_tabContent && loaderImageWrapperElement) {
+        pills_tabContent.setAttribute('style', 'max-height:0vh !important; overflow: hidden');
+      }
+    }
+    if (event.target.readyState === "complete") {
+      if (loaderImageWrapperElement && pills_tabContent) {
+        loaderImageWrapperElement.setAttribute('style', 'display:none !important');
+        pills_tabContent.setAttribute('style', 'overflow: unset');
+      }
+    }
+  })
+</script>
+<div class="footer_section">
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <div class="footer_1 footer_2">
+            <h3>Quick Links</h3>
+            <ul class="nav-foot">
+              <li><a href="/about">About us</a></li>
+              <% if (locals.user) {%>
+                <li><a href="/profile">My Account</a></li>
+              <% } else {%>
+                <li>
+                  <a class="" href="#" data-toggle="modal" data-target="#loginModal">My Account</a>
+                </li>
+              <% } %>
+              <li><a href="/faq">FAQ’s</a></li>
+              <li><a href="/privacy-policy">Privacy Policy</a></li>
+              <li><a href="/terms-of-use">Terms of use</a></li>
+              <li><a href="/news">Blogs</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="footer_1 footer_2">
+            <h3>Explore</h3>
+            <ul class="nav-foot">
+              <li><a href="/properties">Properties</a></li>
+              <li><a href="/projects">Projects</a></li>
+              <li><a href="/builders">Builders</a></li>
+              <li><a href="/locations">Locations</a></li>
+              <li><a href="/authorities">Authorities</a></li>
+              <li><a href="/banks">Banks</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-12">
+          <div class="footer_1">
+            <div class="d-flex justify-content-center justify-content-md-start align-items-center mb-3">
+              <h3 class="mb-0 ml-0 pl-0 mr-2 email-us-footer">&nbsp;Email Us </h3>
+              <img src="/v1/img/mail.webp" alt="">
+            </div>
+            <ul class="nav-foot location_icon">
+              <!-- <li><a href="#"><img src="/v1/img/building.webp" alt=""> Indra Nagar, Bangalore, IN</a></li> -->
+              <!-- <li><a href="#"><img src="/v1/img/phone.webp" alt="">seller@assetzilla.com</a></li> -->
+              <li><a href="mailto:support@assetzilla.com">
+                <!-- <img src="/v1/img/mail.webp" alt=""> -->
+                  <span>For Buyers:</span>
+                  <br>
+                  <span class="border-0">support@assetzilla.com</span>
+                </a>
+              </li>
+              <li><a href="mailto:seller@assetzilla.com">
+                <!-- <img src="/v1/img/mail.webp" alt=""> -->
+                  <span>For Sellers:</span>
+                  <br>
+                  <span class="border-0">seller@assetzilla.com</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-12">
+          <div class="footer_1">
+            <h3>Follow Us</h3>
+            <ul class="social-foot pl-0">
+              <li><a target="_blank" href="https://www.facebook.com/AssetZilla-102693262614064/?modal=admin_todo_tour"><img src="/v1/img/f_1.webp" class="img img-fluid"></a></li>
+              <!-- <li><a target="_blank" href="https://twitter.com/AssetZilla"><img src="/v1/img/t_1.webp" class="img img-fluid"></a></li> -->
+              <!-- <li><a target="_blank" href="https://www.linkedin.com/company/assetzilla/about/?viewAsMember=true"><img src="/v1/img/s_1.webp" class="img img-fluid"></a></li> -->
+              <li>
+                <a href="https://www.instagram.com/assetzilla/"><img src="https://d13ir9awo5x8gl.cloudfront.net/email-template/instagram-black.svg" class="img img-fluid instagram"></a>
+              </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copy_right-border">
+      <div class="row">
+        <div class="col-lg-12">
+          <ul class="copy_right pl-0 mb-0">
+            <li><a href="#"><i class="fa fa-copyright"></i>2023 AssetZilla</a></li>
+            <li><a href="#">Terms and Condition</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

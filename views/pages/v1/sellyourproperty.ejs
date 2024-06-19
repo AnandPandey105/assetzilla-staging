@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Sell your property | Assetzilla </title>
+  <meta name="title" content="Sell your property | Assetzilla ">
+  <meta name="description" content="Assetzilla provides real estate property list by location. Checkout here Property list location wise. Get Best Deals.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+</head>
+
+<%- include ./partials/header.ejs%>
+
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <%- include ./partials/topbar_info_pages.ejs%>
+  <div class="dialog dialog-centered lg auth-mod aut-cus-mod" role="document">
+    <div class="content">
+      <img src="/v1/img/pathleft.webp" class="img img-fluid path-left-home-aboutus" style="top:10vh;">
+      <img src="/v1/img/pathleft.webp" class="img img-fluid path-left-home-aboutus" style="top:20vh;">
+      <img src="/v1/img/square2.webp" class="img img-fluid path-square-syp">
+      <!-- <img src="/v1/img/trngl.webp" class="img img-fluid spin-img common_img_aboutus"> -->
+      <!-- <img src="/v1/img/trngl.webp" class="img img-fluid spin-img common_img_aboutus" style="top:40%;"> -->
+      <!-- <button class="btn auth-close btn-close" type="button" class="close" data-dismiss="" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button> -->
+      <div class="body p-0 background-texture">
+        <div class="row">
+          <!-- <div class="col-sm-12">
+            <h2 class="text-center p-0">Sell Your Property</h2>
+          </div> -->
+        </div>
+        <div class="container mb-5">
+          <div class="row right-auth-md-content align-items-lg-center mx-0" style="padding:0px" !important>
+            <div class="col-lg-6 col-sm-12 order-2 order-md-1">
+              <div class="ul_checklistmargin">
+                <h3 class="font-family-lato-bold" style="color: #347BBF; line-height:2.5rem">We help you with the complete solution</h3>
+                <!-- <hr> -->
+                <div class="text-success ul_checklist">
+                  <h5 class="font-family-lato-regular">Set your own price</h5>
+                  <h5 class="font-family-lato-regular">Instant payments</h5>
+                  <h5 class="font-family-lato-regular">Online Booking process</h5>
+                  <h5 class="font-family-lato-regular">Complete paperwork</h5>
+                  <h5 class="font-family-lato-regular">No Spam Calls</h5>
+                  <h5 class="font-family-lato-regular">Only Verified And Confirmed Buyers</h5>
+                  <h5 class="font-family-lato-regular">Pre-Approved Loans On Your Property</h5>
+                  <h5 class="font-family-lato-regular">Instant Payment After Deal Closure</h5>
+                </div>
+                <h3 class="font-family-lato-bold" style="color: #347BBF; line-height:2.5rem">
+                    We don't generate leads<br>We close the deals for
+                    you.
+                </h3>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 order-1  order-md-2 label-text m-auto">
+              <div class="fdp-left-content aut-cus-In">
+                <div id="ScheduleVisit">
+                  <!-- <h2>Sell Your Property</h2> -->
+                  <br />
+                  <!-- <form id="sellyourpropertyform"> -->
+                  <div class="mt-2 w-100 ">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="email" class="required"><strong>Email : </strong></label>
+                          <input type="email" class="form-control" placeholder="Enter Your Email Id" id="fixture_property_email" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group mb-3">
+                          <label for="username" class="required"><strong>Contact : </strong></label>
+                          <div class="form-group row justify-content-between position-relative w-100 mx-0">
+                            <div onclick="showPhoneCodeOptions('syp-code', 'syp-code-name', 'syp-phone-code-list', 'syp-phone-code-search')" class="position-relative form-control col-3 p-0 ps-1 d-flex justify-content-around align-items-center" style="height: fit-content; background: #d9d9df; border-radius: 5px;">
+                              <input type="text" class="w-100 mb-0 border-0 text-center" name="countryCode"  id="syp-code" value="+91" readonly="readonly" required style="margin-bottom: 0px !important;  background: #d9d9df;">
+                              <input id="syp-phone-code-search" type="text" placeholder="India" class="phone-code-search w-100 p-2 mb-0 border-0 text-center" style="display: none;  background: #d9d9df;">
+                              <input type="text" class="w-100 d-none" name="countryName"  id="syp-code-name" value="India" readonly="readonly" required>
+                              <svg class="m-1" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 20 20" stroke-linecap="round" stroke-linejoin="round" height="18" width="18" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                            <div id="syp-phone-code-list" class="phone-code-list position-absolute bottom-0" style="display: none;">
+                              <div class="w-100 p-2">
+                              </div>
+                              <table class="p-2"></table>
+                            </div>
+                            <input class="form-control col-8" type="text" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" placeholder="Phone Number" id="fixture_property_username" required >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group" id="fixture-project-search-submit-property">
+                          <label for="property_name"><strong>Project / Society Name :
+                            </strong></label>
+                          <input type="text" class="form-control property_name typeahead" placeholder="Property Name" id="fixture_property_name" autocomplete="off">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="property_type"><strong>Property Type : </strong></label>
+                          <select name="property_type" class="custom-select" id="fixture_property_type">
+                            <option selected value="">-- Select a property type --</option>
+                            <option value="Residential Plots">Residential Plots</option>
+                            <option value="Villas">Villas</option>
+                            <option value="Apartments">Apartments</option>
+                            <option value="Floors">Floors</option>
+                            <option value="Commercial Land">Commercial Land</option>
+                            <option value="Commercial Office">Commercial Office</option>
+                            <option value="Retail Shop">Retail Shop</option>
+                            <option value="Serviced Apartments">Serviced Apartments</option>
+                            <option value="Industrial Land">Industrial Land</option>
+                            <option value="Penthouse">Penthouse</option>
+                            <option value="Duplex">Duplex</option>
+                            <option value="Farm house">Farm house</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group" id="fixture-builder-search">
+                          <label for="builder"><strong>Builder's Name : </strong></label> <br>
+                          <input type="text" class="form-control builder-search-submit-property typeahead" placeholder="Builder's Name" id="fixture_builder" autocomplete="off">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group" id="fixture-locality-search">
+                          <label for="locality"><strong>Locality : </strong></label>
+                          <input type="text" class="form-control builder-search-submit-property typeahead" placeholder="Locality" id="fixture_locality" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group" id="fixture-city-search">
+                          <label for="city"><strong>City : </strong></label><br>
+                          <input type="text" class="form-control builder-search-submit-property typeahead" placeholder="City" id="fixture_city" autocomplete="off">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="price"><strong>Price : </strong></label>
+                          <input type="number" min="1" step="1" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" class="form-control" placeholder="Price" id="fixture_price" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group mb-3">
+                          <label for="size"><strong>Size (sq.ft.) :</strong></label>
+                          <input type="number" min="1" step="1" onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" class="form-control" placeholder="Size" id="fixture_size" autocomplete="off">
+                        </div>
+                      </div>
+                    </div>
+                    <form>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-group mb-0" id="fixture-upload-property-images">
+                            <label for="Property_images"><strong>Upload Property Images :</strong></label>
+                            <input accept="image/*" type="file" id="submitFixturePropertiesImages" classsName="form-control" name="submitFixturePropertiesImages" multiple required>
+                          </div>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                          <div class="form-group" id="fixture-aadhar-card">
+                            <label for="submitFixtureAadharCard"><strong>Upload Aadhar Card :</strong></label>
+                            <input type="file" id="submitFixtureAadharCard" classsName="form-control" name="submitFixtureAadharCard" multiple required>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group" id="fixture-pan-card">
+                            <label for="submitFixturePanCard"><strong>Upload PAN Card :</strong></label>
+                            <input type="file" id="submitFixturePanCard" classsName="form-control" name="submitFixturePanCard" multiple required>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="form-group" id="fixture-property-records">
+                            <label for="submitFixturePropertyRecords"><strong>Upload Property Records (such as Utiltiy Bills) :</strong></label>
+                            <input type="file" id="submitFixturePropertyRecords" classsName="form-control" name="submitFixturePropertyRecords" multiple required>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="form-group" id="fixture-bank-account-info">
+                            <label for="submitFixtureBankAccountInfo"><strong>Upload Bank Account info (Cancelled Cheque/Passbook) :</strong></label>
+                            <input type="file" id="submitFixtureBankAccountInfo" classsName="form-control" name="submitFixtureBankAccountInfo" multiple required>
+                          </div>
+                        </div> -->
+
+                        
+                      </div>
+                    </form>
+                    <div class="d-flex justify-content-start align-items-center mb-3">
+                      <input style="width: fit-content;" class="mb-0" type="checkbox" id="newsletter-check-sp" checked>
+                      <label class="ml-2 mb-0" for="newsletter-check-sp"> Subscribe to AssetZilla Newsletter </label>
+                    </div>
+                    <div>
+                      <div class="text-center">
+                        <button class="btn btn-block profile-main-btn btn-last" onclick=submitFixtureProperty()>Start Selling</button>
+                      </div>
+                    </div>
+                  </div>
+                <!-- </form> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <% if (!locals.user) {%>
+    <script>
+      let storedViewH = JSON.parse(window.localStorage.getItem('userSrchH'));
+      if (storedViewH){
+        storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+      } else{
+        storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+      }
+      window.localStorage.setItem('userSrchH', JSON.stringify(storedViewH))
+    </script>
+  <% } %>
+  <%- include ./partials/footer.ejs%>
+  <!-- <script>
+    window.addEventListener('load', function(){
+      if(window.location.pathname.includes('/properties/')){
+        document.addEventListener('click',function(e){
+          if(e.target.closest('#schedule-visit-form button')){
+            var contactTimer=setInterval(function(){
+              if(document.querySelector('#notification-customAlert-body')){
+                gtag('event', 'conversion', {'send_to': 'AW-11079369000/DgLqCPHi7okYEKiCh6Mp'});
+                clearInterval(contactTimer);
+              }
+            },1000);
+          }
+        });
+      }
+      if(window.location.pathname.includes('/sellyourproperty')){
+        document.addEventListener('click',function(e){
+          if(e.target.closest('button') && e.target.closest('button').innerText.includes('Start Selling')){
+            var contactTimer=setInterval(function(){
+              if(document.querySelector('#notification-customAlert-body')){
+                gtag('event', 'conversion', {'send_to': 'AW-11079369000/yYmKCMyL8IkYEKiCh6Mp'});
+                clearInterval(contactTimer);
+              }
+            },1000);
+          }
+        });
+      }
+    });
+  </script> -->
+</body>

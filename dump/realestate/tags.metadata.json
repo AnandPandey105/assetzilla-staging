@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"realestate.tags"}],"uuid":"18ec6fd4c49c4366adbcb4b578da4b8d","collectionName":"tags"}

@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"realestate.authorities_copy"}],"uuid":"9ebb8e9baf3346a097d58e500468fc3d","collectionName":"authorities_copy"}

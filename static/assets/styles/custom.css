@@ -1,0 +1,151 @@
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button !important;
+  background: red;
+}
+
+/* for status of a ticket */
+.ticketInactive {
+  background-color: #2e3e4e;
+  color: white;
+}
+.ticketActive {
+  background-color: #fcc100;
+  color: black;
+}
+.ticketCompleted {
+  background-color: #f44455;
+  color: white;
+}
+
+.cross {
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  z-index: 999;
+  right: 15px;
+  cursor: pointer;
+}
+
+/* for stages */
+.inactive {
+  background-color: #78909c;
+}
+.completed {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+.open {
+  background-color: #ff9800;
+  color: #ffffff;
+}
+
+/* others */
+.vertical-align {
+  vertical-align: inherit !important;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.displayBlock {
+  display: block;
+}
+.displayNone {
+  display: none;
+}
+.customPad {
+  margin-bottom: 0 !important;
+}
+
+.nav-active-primary .nav-link.active,
+.nav-active-primary .nav > li.active > a {
+  color: black !important;
+  /* color: rgba(255, 255, 255, 0.87) !important; */
+  background-color: inherit !important;
+  box-shadow: -1px 5px 24px -3px #2e3e4e;
+}
+
+.blurry {
+  opacity: 0.4;
+}
+.non-blurry {
+  opacity: 1;
+}
+
+.type-indicator {
+  text-transform: capitalize;
+}
+
+.custom-modal-width{
+  max-width: 80vw;
+}
+
+.property {
+  color: mediumseagreen;
+}
+
+.project {
+  color: brown;
+}
+
+.news {
+  color: #5cb85c;
+}
+
+.result {
+  color: blueviolet;
+}
+
+.bank {
+  color: cornflowerblue;
+}
+
+.builder {
+  color: goldenrod;
+}
+
+.authority {
+  color: darkorange;
+}
+
+.history-table{
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.history-table .notes {
+  width: 60%;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.history-table thead tr th {
+    border: 1px solid black;
+}
+
+.history-table tbody tr td {
+    border: 1px solid black;
+}
+
+.history-table .history-modal-table-head {
+  top: 0;
+  position: sticky;
+  border: 1px solid black;
+}
+
+.table-responsive-history {
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+.history-modal-table-head{
+    background-color: #eceeef;
+}
+
+.fs-12{
+  font-size: 12px;
+}

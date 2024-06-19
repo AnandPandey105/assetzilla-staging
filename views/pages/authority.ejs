@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+
+<%- include ../partials/head.ejs%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<style>
+    .swiper-slide-active {
+        margin: auto;
+    }
+    .authorities-sticky-map {
+        width: 100%;
+        position: -webkit-sticky;
+        position: sticky !important;
+        top: 90px;
+    }
+    
+    </style>
+<body>
+    <%- include ../partials/navigation_bar.ejs%>
+    <div class="top-margin single-sub-head">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div  class="cursor" data-toggle="modal" data-target="#moreInfo" id="moreInfoTrigger" onclick="initializeSwiper()">
+                        <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/authority/<%=data.logo %>" class="banner-image" alt="" data-toggle="tooltip" data-placement="auto" title=" Click to view photos, videos and maps !">
+                    </div>
+                </div>
+                <div class="col-md-8 single-page-heading">
+                    <div class="builder-description">
+                        <a class="clr-white" href="/authorities" target="_blank">Authorities</a>
+                        <h2 class="clr-white">
+                            <span style="font-size: .6em; vertical-align: middle;"><%- include ../partials/bookmark.ejs%></span>
+                            &nbsp;<%= data.name %></h2>
+
+                        <% if (locals.location){%>
+                            <p class="clr-white"><i class="fas fa-map-marker-alt"></i> &nbsp;&nbsp;
+                            <% if (location.district){%>
+                                <a class="clr-white" href="<%=location.district.url%>"
+                                    target="_blank"><%= location.district.name %></a>,
+                                <%}%>
+                            <% if (location.state){%>
+                                <a class="clr-white" href="<%=location.state.url%>"
+                                    target="_blank"><%= location.state.name %></a>
+                                <%}%></p>
+                            <%}%>
+                            <div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="container" style="padding-top: 40px;">
+        <div class="row">
+            <div class="col-md-8">
+                <% if (data.description){ %>
+
+                <div class="data-card">
+                    <h3><strong>About <%=data.name%></strong></h3>
+                    <% if (data.founded_year){ %>
+                        <p>
+                            <strong>Founded Year:</strong><%= data.founded_year %>
+                        </p>
+                        <% } %>
+                    <%- data.description %>
+                </div>
+                <% } %>
+
+                <!-- MAJOR DEVELOPMENTS -->
+                <% if (data.major_developments){ %>
+
+                    <div class="data-card">
+                        <h3><strong>Major Developments</strong></h3>
+                        <%- data.major_developments %>
+                    </div>
+                    <% } %>
+
+                    <!-- MAJOR PLANS WITH YEARS  -->
+                <% if (data.master_plan_with_years || (data.master_plan_with_years_image && data.master_plan_with_years_image.length>0)){ %>
+
+                    <div class="data-card">
+                        <h3 class="py-3"><strong>Major Plans with Years</strong></h3>
+                        <% if (data.master_plan_with_years_image && data.master_plan_with_years_image.length>0){ %>
+                            <div class="single-img" >
+                                    <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/authority/<%=data.master_plan_with_years_image %>" class="w-100" alt="" data-toggle="modal" data-target="#moreInfo">
+                            </div>
+                            <% } %>
+                        <div class="py-3"><%- data.master_plan_with_years %></div>
+                    </div>
+                    <% } %>
+
+                    <!-- MAJOR INITIATIVES -->
+                    <% if (data.major_initiatives){ %>
+
+                        <div class="data-card">
+                            <h3><strong>Major Initiatives</strong></h3>
+                            <%- data.major_initiatives %>
+                        </div>
+                        <% } %>
+
+                        <!-- AREA COVERED -->
+                    <% if (data.area_covered || (data.area_covered_image && data.area_covered_image.length>0)){ %>
+
+                        <div class="data-card">
+                            <h3 class="py-3"><strong>Area Covered</strong></h3>
+
+                            <% if (data.area_covered_image && data.area_covered_image.length>0){ %>
+                            <div class="single-img" >
+                                    <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/authority/<%=data.area_covered_image %>" class="w-100" alt="" data-toggle="modal" data-target="#moreInfo">
+                            </div>
+                            <% } %>
+                            <div class="py-3"><%- data.area_covered %></div>
+                        </div>
+                        <% } %>
+
+                        <!-- METRO ROUTES -->
+                    <% if (data.metro_routes || ((data.metro_routes_image && data.metro_routes_image.length>0))){ %>
+
+                        <div class="data-card">
+                            <h3><strong>Metro Routes</strong></h3>
+                            <% if (data.metro_routes_image && data.metro_routes_image.length>0 && data.metro_routes_image[0].length>0){ %>
+                                <div class="single-img" >
+                                        <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/authority/<%=data.metro_routes_image %>" class="w-100" alt="" data-toggle="modal" data-target="#moreInfo">
+                                </div>
+                                <% } %>
+                                <div class="py-3"><%- data.metro_routes %></div>
+                        </div>
+                        <% } %>
+
+                <div class="data-card">
+                        
+                        <div>
+                                <% if (data.address){ %>
+                                <strong>Address</strong><br>
+                                <span><%- data.address %></span><br>
+                                <% } %>
+                                <% if (data.website){ %>
+                                <strong>Website</strong><br>
+                                <span><%- data.website %></span><br>
+                                <% } %>
+                                <% if (data.email){ %>
+                                <strong>Email</strong><br>
+                                <span><%- data.email %></span><br>
+                                <% } %>
+                                <% if (data.phone){ %>
+                                    <strong>Phone</strong><br>
+                                    <span><%- data.phone %></span><br>
+                                    <% } %>
+                                <% if (data.pincode){ %>
+                                <strong>Pincode</strong><br>
+                                <span><%- data.pincode %></span><br>
+                                <% } %>
+                            </div>
+                    </div>
+                    <% if (top_property_type.length>0){ %>
+                    
+                        <div class="data-card">
+                            <h3><strong>Authority's Top Project Type</strong></h3>
+                            <div class="selectable-tags selected-tags" onclick="getProjects('top_projects','<%= top_project_count%>',this)">All Projects</div>
+                            <% for(var i=0; i < top_property_type.length; i++) { %>
+                                <div class="selectable-tags ml-2" onclick="getProjects('<%= top_property_type[i].key%>','<%= top_property_type[i].doc_count%>',this)"><%= top_property_type[i].key%>(<%= top_property_type[i].doc_count%>)</div>
+                            <% } %>
+                        </div>
+                        
+                        <% } %>
+                        <% if (locals.top_projects && locals.top_projects.length >0){ %>
+                
+                            <div class="data-card">
+                                <h3><strong>All Projects <span id="project_type_div"></span></strong></h3>
+                                <div id="top_projects">
+                                <% for(var i=0; i < top_projects.length; i++) { %>
+                                    <div class="card mb-3 cursor" onclick=go_to_page("<%=top_projects[i].url %>")>
+                                        <div class="row no-gutters">
+                                            <div class="col-4">
+                                                <img src="<%=top_projects[i].banner_image %>" class="w-100" alt="">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="card-body">
+                                                    <div class="d-flex bd-highlight">
+                                                        <div class="p-2 w-100 bd-highlight">
+                                                            <h5 class="card-title"><%=top_projects[i].name %></h5>
+                                                            <h6 class="card-title"><%=top_projects[i].authority %></h6>
+                                                            <small class="light-grey-clr">
+                                                                <i class="fas fa-map-marker-alt"></i>
+                                                                <% if (top_projects[i].subcity){ %><%=top_projects[i].subcity %>,
+                                                                <%}%><% if (top_projects[i].city){ %><%=top_projects[i].city %> <%}%>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <table class="table">
+                                                        <!-- <thead>
+                                                            <tr>
+                                                            <% if (top_projects[i].project_status){ %>
+                                                                <th scope="col">Status</th>
+                                                                <%}%>
+                                                            <% if (top_projects[i].property_type){ %>
+                                                                <th scope="col">Type</th>
+                                                                <%}%>
+                                                            <% if (top_projects[i].lease_rent){ %>
+                                                                <th scope="col">Lease/Rent</th>
+                                                                <%}%>
+                                                            </tr>
+                                                        </thead> -->
+                                                        <tbody>
+                                                            <tr>
+                                                            <% if (top_projects[i].project_status){ %>
+                                                                <td>
+                                                                    <%=top_projects[i].project_status %>
+                                                                </td>
+                                                                <%}%>
+                                                            <% if (top_projects[i].property_type){ %>
+                                                                <td>
+                                                                    <%=top_projects[i].property_type %>
+                                                                </td>
+                                                                <%}%>
+                                                            <% if (top_projects[i].lease_rent){ %>
+                                                                <td>
+                                                                    <%=top_projects[i].lease_rent %>
+                                                                </td>
+                                                                <%}%>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                    </div>
+                                <p id="see_all_projects" class="text-center">
+                                    <% if  (top_project_count > 5) {%>
+                                        <a href="/projects?authority=<%=data.name%>" target="_blank">See All</a>
+                                        <% } %>
+                                </p>
+                            </div>
+                            
+                            <% } %>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="data-card authorities-sticky-map">
+                                    <!-- <h3><%= data.name %></h3> -->
+                                    <div id="side_map"></div>
+                            </div>
+                            
+                            <% if (locals.similiarByDistrict && locals.similiarByDistrict.results && locals.similiarByDistrict.results.length>0) { %>
+                                <div class="data-card">
+                                <hr>
+                                <h3 class="text-center mt-3"><strong>Similiar Authorities in District</strong></h3>
+                                <div class="text-center">
+                                    <div class="swiper-container similar-dist-swiper">
+                                        <div class="swiper-wrapper">
+                                            <% for(var i=0; i < locals.similiarByDistrict.results.length; i++) { %>
+                                            <div class="swiper-slide">
+                                                <div class="data-card cursor"
+                                                    onclick=go_to_page("<%=locals.similiarByDistrict.results[i].url %>")>
+                                                    <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/authority/<%=locals.similiarByDistrict.results[i].logo %>" class="w-100"
+                                                        alt="">
+                                                    <h4 class="mt-2"><%=locals.similiarByDistrict.results[i].name%></h4>
+                                                </div>
+                                            </div>
+                                            <%}%>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                        </div>
+                    <%}%>
+
+
+                    
+                            <% if (locals.similiarByState && locals.similiarByState.results && locals.similiarByState.results.length>0) { %>
+                                <div class="data-card">
+                                                            <!-- <hr> -->
+                                                            <h3 class="text-center mt-3"><strong>Similar Authorities in State</strong></h3>
+                                                            <div class="text-center">
+                                                                <div class="swiper-container similar-state-swiper">
+                                                                    <div class="swiper-wrapper">
+                                                                        <% for(var i=0; i < locals.similiarByState.results.length; i++) { %>
+                                                                        <div class="swiper-slide">
+                                                                            <div class="data-card cursor"
+                                                                                onclickonclick=go_to_page("<%=locals.similiarByState.results[i].url %>")>
+                                                                                <img src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/authority/<%=locals.similiarByState.results[i].logo %>"
+                                                                                    class="w-100" alt="">
+                                                                                <h4 class="mt-2"><%=locals.similiarByState.results[i].name%></h4>
+                                                                            </div>
+                                                                        </div>
+                                                                        <%}%>
+                                        </div>
+                                        <!-- Add Pagination -->
+                                        <div class="swiper-pagination"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <%}%>
+                                                                    
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODAL -->
+    <div class="modal fade bd-example-modal-xl" id="moreInfo" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- HEADER -->
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active clr-darkgrey" id="pills-images-tab" data-toggle="pill"
+                            href="#pills-images" role="tab" aria-controls="pills-images" aria-selected="true">Images</a>
+                    </li>
+                    <li class="nav-item clr-darkgrey">
+                        <a class="nav-link" id="pills-maps-tab" data-toggle="pill" href="#pills-maps"
+                            role="tab" aria-controls="pills-maps" aria-selected="false">Maps</a>
+                    </li>
+                </ul>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" style="min-height: 500px;">
+                <!-- MODAL BODY -->
+                <div class="tab-content" id="pills-tabContent">
+                    <!-- CAROUSEL -->
+                    <div class="tab-pane fade show active" id="pills-images" role="tabpanel"
+                        aria-labelledby="pills-images-tab">
+                        <%if (data.allImages && data.allImages.length > 0) { %>
+                            
+                            <div class="swiper-container text-center" id="popupGallery" style="height: auto !important;">
+                                <div class="swiper-wrapper">
+                                    <% for(var i=0; i < data.allImages.length; i++) { %>
+                                    <div class="swiper-slide">
+                                        <img data-src="https://s3-application.s3-us-west-2.amazonaws.com/dyn-res/authority/<%=data.allImages[i]%>"
+                                            class="swiper-lazy modal-image">
+                                        <div
+                                            class="swiper-lazy-preloader swiper-lazy-preloader-white">
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                            <% } else {%>
+                            <h4>No Images Found</h4>
+                            <% } %>
+                    </div>
+                    <!-- MAPS -->
+                    <div class="tab-pane fade" id="pills-maps" role="tabpanel"
+                        aria-labelledby="pills-maps-tab">
+
+                        <% if (top_projects && top_projects.length > 0) { %>
+                            <h3><%= data.name %></h3>
+                            <div id="modal-map"></div>
+                            <img src="/v1/img/logo.webp" class="logo-over-modal"/>
+                            <%} else {%>
+                            <div style="padding:40px 0;">
+                                <h3 class="text-center">No location found!!!</h3>
+                            </div>
+                            <% } %>
+
+                    </div>
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                        aria-labelledby="pills-contact-tab">...</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<%- include ../partials/footer.ejs%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw&callback=initialize" async
+    defer></script>
+    <script>
+            var popupGallery;
+              var pageLoadModal = false;
+              $(document).ready(function () {
+          
+          
+                  $('#moreInfo').on('show.bs.modal', function (e) {
+                      popupGallery = new Swiper('#popupGallery', {
+                          spaceBetween: 2,
+                          loop: true,
+                          lazy: true,
+                          navigation: {
+                              nextEl: '.swiper-button-next',
+                              prevEl: '.swiper-button-prev',
+                          },
+                          pagination: {
+                              el: '.swiper-pagination',
+                              dynamicBullets: true,
+                          }
+                      });
+                  });
+          
+                  $('#moreInfo').on('shown.bs.modal', function (e) {
+                      popupGallery.update();
+                  });
+                  if (pageLoadModal) { $('#moreInfo').modal(); }
+                  else {
+                      pageLoadModal = true;
+                  }
+              });
+          </script>
+    <script>
+        <% if (top_projects.length > 0) { %>
+            var locations = [];
+        <% for (var i = 0; i < top_projects.length; i++) {
+                if (top_projects[i].location) {
+                                                    %>
+            locations.push([<%=top_projects[i].location.location.lat %>,<%=top_projects[i].location.location.lng %>, '<%=top_projects[i].name %>', '<%=top_projects[i].url %>'])
+            <%}
+            }%>
+        var map;
+            function add_markers() {
+                for (i = 0; i < locations.length; i++) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+                        map: map
+                    });
+    
+                    bounds.extend(marker.position);
+    
+                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infowindow.setContent("<a href=" + locations[i][3] + " target='_blank'>" + locations[i][2] + "</a>");
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+                }
+                map.fitBounds(bounds);
+            }
+            function initMap(map_id = "side_map") {
+                map = new google.maps.Map(document.getElementById(map_id), {
+                    streetViewControl: false,
+                    fullscreenControl: false,
+                    rotateControl: false
+                });
+                infowindow = new google.maps.InfoWindow();
+                bounds = new google.maps.LatLngBounds();
+                add_markers();
+            }
+            function initMap2(map_id = "modal-map") {
+                map = new google.maps.Map(document.getElementById(map_id), {
+                    streetViewControl: false,
+                    rotateControl: false,
+                    minZoom: 10, maxZoom: 15
+                });
+                infowindow = new google.maps.InfoWindow();
+                bounds = new google.maps.LatLngBounds();
+                add_markers();
+            }
+            function initialize() {
+                initMap();
+                initMap2();
+            }
+        <%} else {%>
+            function initialize() { }
+            <%}%>
+    </script>
+    <script>
+        var getProjects =function(data,count,el){
+            $(".selectable-tags").removeClass("selected-tags");
+             $(el).addClass("selected-tags");
+             filters= { authority: "<%= data.name %>"}
+             if (data!="top_projects"){
+                 filters.type=data;
+                 document.getElementById("project_type_div").innerHTML = " in "+data;
+                 
+                 if (count > 5) {
+                     document.getElementById("see_all_projects").innerHTML = '<a href="/projects?authority=<%=data.name%>&type=' + data + '" target="_blank">See All</a>';
+                 }
+                 else {
+                     document.getElementById("see_all_projects").innerHTML = "";
+                 }
+ 
+             }
+             else{
+                 document.getElementById("project_type_div").innerHTML = "";
+                 if (count > 5) {
+                     document.getElementById("see_all_projects").innerHTML = '<a href="/projects?authority=<%=data.name%>" target="_blank">See All</a>';
+                 }
+             }
+             $.post('/api/project/infinite', { skip: 0, limit: 5, query: JSON.stringify(filters),card:false }, function (data) {
+                 document.getElementById("top_projects").innerHTML = data;
+                 $.post('/api/project/infinite-map', { skip: 0, limit: 5, query: JSON.stringify(filters)}, function (map_data) {
+                     locations=map_data.results
+                     initMap();
+                 })
+             })
+        }
+         
+
+        
+         
+ </script>
+ <script>
+ var similarDistSwiper = new Swiper('.similar-dist-swiper', {
+        loop: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+
+    });
+
+    var similiarStateSwiper = new Swiper('.similar-state-swiper', {
+        loop: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+
+    });
+    
+    </script>
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();   
+        });
+    </script>
+</html>

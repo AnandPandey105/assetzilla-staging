@@ -1,0 +1,1690 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Find Best Projects near you | Residential & Commercial | Assetzilla </title>
+  <meta name="title" content="Find Best Projects near you | Residential & Commercial | Assetzilla ">
+  <meta name="description" content="List of all Residential and Commercial Projects for sale. Get complete details with property specifications. Ready to move, under constrcution and future planned. Visit Now!">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+</head>
+<%- include ./partials/header.ejs%>
+
+<body>
+  <%- include ./partials/navigation.ejs%>
+  <%- include ./partials/top_search_directory_pages.ejs%>
+  <div class="view-change-header">
+    <div style="clear: both;"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="main_box_list">
+            <div class="sort">
+              <div class="hide-sort" style="display: inline-block; visibility: visible;">
+                <div>
+                  <select id="sort-filter" class="form-control">
+                    <option id="sort-default" value="default">Price ↑</option>
+                    <option id="sort-pricedesc" value="pricedesc">Price ↓</option>
+                    <option id="sort-areaasc" value="areaasc">Area ↑</option>
+                    <option id="sort-areadesc" value="areadesc">Area ↓</option>
+                    <option id="sort-proareaasc" value="proareaasc">Project Area ↑</option>
+                    <option id="sort-proareadesc" value="proareadesc">Project Area ↓</option>
+                    <option id="sort-sqft_cost" value="sqft_cost">SqFt. cost ↑</option>
+                    <option id="sort-sqft_cost_reverse" value="sqft_cost_reverse">SqFt. cost ↓</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="filter d-flex">
+              <div class="scd-buttons-wrp">
+                <ul>
+                  <li> <button class="btn compare d-none" onclick="showCompareResult()" type="button">Compare options</button> </li>
+                  <li> <button class="btn compare d-none new-btn" data-toggle="modal" data-target="#SCD2VisitModal" type="button">
+                      Schedule Visit
+                    </button> </li>
+                </ul>
+              </div>
+              <div class="project-filter filter-hide-dv">
+                <div class="">
+                  <ul>
+                    <li>
+                      <div class="quick-filter-drp">
+                        <div class="dropdown">
+                          <button class="btn qf-head-btn" type="button" id="type-quick-count" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <b> Property Type</b> <span></span> <i class="fa fa-angle-down"></i>
+                          </button>
+                          <div class="dropdown-menu " aria-labelledby="dropdownMenu2">
+                            <div>
+                              <div class="row mx-0" id="type-filter-with-bhk">
+                                <div class="col-7 pl-0 pr-0">
+                                  <%- include('./partials/filters/property_type.ejs', {parentId: "quick"}); %>
+                                </div>
+                                <div class="col-5 px-0">
+                                  <%- include('./partials/filters/bhk.ejs', {parentId: "quick"}); %>
+                                </div>
+                              </div>
+                              <div class="qucik-filter-save">
+
+                                <button type="button" class="btn" onclick="generateUrl('<%=results.view %>')">Apply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="quick-filter-drp">
+                        <div class="dropdown">
+                          <button class="btn qf-head-btn" type="button" id="location-quick-count" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <b> Location</b> <span></span> <i class="fa fa-angle-down"></i>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <div>
+                              <div>
+                                <%- include('./partials/filters/locations.ejs', {parentId: "quick"}); %>
+                              </div>
+                              <div class="qucik-filter-save">
+                                <button type="button" class="btn" onclick="generateUrl('<%=results.view %>')">Apply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <!-- <div class="quick-filter-drp">
+                                                        <div class="dropdown">
+                                                            <button class="btn qf-head-btn" type="button" id="price-quick-count" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <b>Price</b> <span ></span> <i class="fa fa-angle-down"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                                <div>
+                                                                    <div>
+                                                                        <%- include('./partials/filters/price.ejs', {parentId: "quick"}); %>
+                                                                    </div>
+                                                                    <div class="qucik-filter-save">
+                                                                        <button type="button" class="btn" onclick="generateUrl('<%=results.view %>')">Apply</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                      <div class="quick-filter-drp">
+                        <div class="dropdown">
+                          <button class="btn qf-head-btn" type="button" id="price-quick-count" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <b> Price</b> <span></span> <i class="fa fa-angle-down"></i>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <div>
+
+                              <%- include('./partials/filters/price.ejs', {parentId: "quick"}); %>
+
+                              <div class="qucik-filter-save">
+                                <button type="button" class="btn" onclick="generateUrl('<%=results.view %>')">Apply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="filter_list">
+                <a href="#" data-toggle="modal" data-target="#filterModal"><button class="cursor-pointor"><i class="fa fa-filter"></i> &nbsp;Show
+                    filters</button></a>
+                <ul class="nav nav-pills list_part " id="pills-tab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-folder-tab" data-toggle="pill" href="#pills-folder" role="tab" aria-controls="pills-folder" aria-selected="true"><img src="/v1/img/list.webp" alt=""></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-list-tab" data-toggle="pill" href="#pills-list" role="tab" aria-controls="pills-list" aria-selected="false"><img src="/v1/img/folder.webp" alt=""></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-gps-tab" data-toggle="pill" href="#pills-gps" role="tab" aria-controls="pills-gps" aria-selected="false"><img src="/v1/img/gps.webp" alt=""></a>
+                  </li>
+                  <li class="nav-item position-relative">
+                    <a class="nav-link" id="pills-grid-tab" data-toggle="pill" href="#pills-grid" role="tab" aria-controls="pills-grid" aria-selected="false"><img src="/v1/img/gird.webp" alt=""></a>
+
+                    <div class="custm-tooltip-outer d-none">
+                      <div class="custm-tooltip cursor-pointor" onclick="showCompareResult()">
+                        <div class="custm-tooltip-wrp">
+                          <p>Compare options</p>
+                        </div>
+                        <div class="trng-down"></div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="common-wrapper">
+    <% if (results.results.length<=0) { %>
+      <div class="container" id="no-result-div">
+        <div class="row">
+          <div class="col-8 offset-2 text-center">
+            <form>
+              <div class="form-column align-items-end justify-content-center">
+                <!-- <div class="col-8 offset-2">
+                  <label class="" for="inlineFormInput">Show your interest for this<br>project by sharing your email with us</label>
+                  <input type="email" class="form-control mb-2 w-100" id="inlineFormInput" placeholder="email">
+                </div> -->
+                <!-- <div class="col-4 offset-4">
+                  <button type="submit" style="background-color: #071f4c; color: white;" class="btn mb-2 w-100">Submit</button>
+                </div> -->
+              </div>
+            </form>
+            <div><img class="w-100" src="/images/no-result-found.gif"></div>
+          </div>
+        </div>
+      </div>
+    <%} else {%>
+      <!-- <div class="container" id="loader-div">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <div><img class="w-100" src="/images/entity_loader.gif"></div>
+                                </div>
+                            </div>
+                        </div> -->
+      <div class="loader-image-wrapper d-flex flex-column justify-content-center align-items-center" style=" min-height: 65vh; min-width:100vw;">
+        <img id="loadingImg" src="/images/loaderImage.svg" style="max-width: 100px;" />
+      </div>
+      <div class="tab-content" id="pills-tabContent">
+      <!-- Card-Map View -->
+      <div class="tab-pane active fade" id="pills-folder" role="tabpanel" aria-labelledby="pills-folder-tab">
+        <div class="apartment-list_main appart-mb-0">
+          <div class="container-fluid p-0 position-relative">
+            <div class="row">
+              <div class="col-lg-6" id="map-card-view-project">
+                <% for(var i=0; i < results.results.length; i++) { %>
+                  <div class="left-con-wrap">
+                    <div class="apparment-list apparment-list-updated" id="<%=i%>_project-<%=results.results[i].id%>" onmouseenter="showBox('<%=results.results[i].id%>', <%=i%>, <%=i%>)" onmouseleave="hideBox('<%=results.results[i].id%>', <%=i%>, <%=i%>)">
+                      <div class="apparment-list-left">
+                        <a href="javascript:;" class="add-com-btn">
+                          <div class="appartment-checkbox">
+                            <div class="custom-control custom-checkbox ">
+                              <input type="checkbox" class="custom-control-input add-to-comare coupon_question" id="example-<%=results.results[i].id%>" name="example-<%=results.results[i].id%>" onchange="add_to_compare('<%=JSON.stringify(results.results[i])%>')">
+                              <label class="custom-control-label" for="example-<%=results.results[i].id%>">
+                              </label>
+                            </div>
+                          </div>
+                        </a>
+                        <div class="owl-carousel owl-theme allProp-first-owl" onclick="go_to_page('<%=results.results[i].url %>')">
+                          <% if (results.results[i].images && results.results[i].images.length> 0){ %>
+                            <% for(var j=0; j < results.results[i].images.length; j++) { %>
+                              <div class="item">
+                                <div class="all-prop-heart">
+                                  <img data-src="<%=results.results[i].images[j] %>" class="img img-fluid">
+                                </div>
+                              </div>
+                            <% } %>
+                          <%} else {%>
+                          <div class="item">
+                            <div class="all-prop-heart">
+                              <img src="/images/placeholder_bg.webp" class="img img-fluid">
+                            </div>
+                          </div>
+                          <% } %>
+                        </div>
+                        <% if (emi_per_lac && (results.results[i].price && results.results[i].price.min)) { %>
+                          <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results.results[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                            <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                          </button></p>
+                        <% } %>
+                      </div>
+                      <div class="apparment-list-right">
+                        <div class="row">
+                          <div class="col-lg-8">
+                            <h2>
+                              <%- include('./partials/bookmark-list', {url: results.results[i].url, is_bookmarked: results.results[i].is_bookmarked, id: i + "_project-" + results.results[i].id, name:results.results[i].name, builder:results.results[i].builder}); %>
+                              <div>
+                              <span onclick='go_to_page("<%=results.results[i].url %>")'><%=results.results[i].name %></span>
+                                <% if (results.results[i].builder){ %>
+                                  <p>
+                                    <%=results.results[i].builder %>
+                                  </p>
+                                <%}%>
+                              </div>
+                            </h2>
+                            
+                          </div>
+                          <% if (results.results[i].area  &&  results.results[i].area.area){  %>
+                            <div class="col-lg-4 d-none d-lg-flex justify-content-end">
+                              <div class="area_prices">
+                                <h2>
+                                  <%=results.results[i].area.area %> acres
+                                </h2>
+                              </div>
+                            </div>
+                          <%} else {%>
+
+                          <%}%>
+                        </div>  
+                        <% if ((results.results[i].price && results.results[i].price.min && (results.results[i].price.min !== " NaN "))||(results.results[i].sq_fit_cost && results.results[i].sq_fit_cost.min)){%>
+                          <hr>
+                          <div class="row align-items-center">
+                            <% if (results.results[i].price && results.results[i].price.min && (results.results[i].price.min !== " NaN ")){ %>
+                              <div class="col-6 pr-0">
+                                <!-- <h3>Starting Price : 
+                                  <span>
+                                    <%=changeNumberFormat(results.results[i].price.min)%>
+                                  </span>
+                                </h3> -->
+                                <table class="px-0">
+                                  <tr>
+                                    <td>
+                                      <h3 class="text-left">Starting :</h3>
+                                    </td>
+                                    <td>
+                                      <h3><span> ₹ <%=changeNumberFormat(results.results[i].price.min)%></span></h3>
+                                    </td>
+                                  </tr>
+                                  <!-- <% if (emi_per_lac) { %>
+                                  <tr>
+                                    <td>
+                                      <h3 class="text-left">EMI Starting :</h3>
+                                    </td>
+                                    <td>
+                                      <h3><span> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results.results[i].price.min / 100000))%></span></h3>
+                                    </td>
+                                  </tr>
+                                  <% } %> -->
+                                </table>
+                              </div>
+                            <%} else if(results.results[i].price.min === '" NaN "') {%>
+
+                            <%} else {%>
+
+                            <%}%>
+                            <% if (results.results[i].sq_fit_cost && results.results[i].sq_fit_cost.min){ %>
+                            <div class="col-6 pl-0">
+                              <h6 class="text-right">
+                                Starting SqFt. cost:
+                                <strong>
+                                  ₹<%=(results.results[i].sq_fit_cost.min).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>
+                                </strong>
+                              </h6>
+                            </div>
+                            <%} else {%>
+
+                            <%}%>
+                          </div>
+                        <%} else {%>
+
+                        <%}%>
+                        <hr>
+                        <div class="located_area">
+                          <div class="loc-left">
+                            <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                            <p>
+                              <% if(results.results[i].subcity){ %>
+                                <%=results.results[i].subcity%>,
+                              <%}%>
+                              <% if (results.results[i].city){ %>
+                                <%=results.results[i].city %>
+                              <%}%>
+                            </p>
+                          </div>
+                          <% if (results.results[i].details_area && results.results[i].details_area.min && results.results[i].details_area.max){%>
+                            <div class="area_prices">
+                              <h2>
+                                (<%=results.results[i].details_area.min%>-<%=results.results[i].details_area.max%>) sq.ft
+                              </h2>
+                            </div>
+                          <%} else {%>
+
+                          <%}%>
+                        </div>
+                        <hr>
+                        <div class="featured-points">
+                          <ul>
+                              <% if
+                                  (results.results[i].project_status){
+                                  %>
+                            <li>
+                              <h5>
+                                <%=results.results[i].project_status%>
+                              </h5>
+                            </li>
+                            <%}%>
+                            <% if
+                                (results.results[i].property_type){
+                                %>
+                              <li>
+                                <h5>
+                                  <%=results.results[i].property_type
+                                                                                                      %>
+                                </h5>
+                              </li>
+                            <%}%>
+                            <% if
+                                (results.results[i].lease_rent){
+                                %>
+                              <li>
+                                <h5>
+                                  <%=results.results[i].lease_rent
+                                                                                                              %>
+                                </h5>
+                              </li>
+                            <%}%>
+                          </ul>
+                        </div>
+                      </div>                                   
+                    </div>
+                    <div onmouseenter="showBox('<%=results.results[i].id%>', <%=i%>, <%=i%>)"
+                    onmouseleave="hideBox('<%=results.results[i].id%>', <%=i%>, <%=i%>)"
+                    id="<%=i%>_project-btns-<%=results.results[i].id%>"
+                    class="book-prop-btn"
+                    onclick="go_to_page('/properties?project=<%=results.results[i].name%>')"
+                    style="display: none">
+                    <% if (results.results[i].total_properties !== 0) {%>
+                      <button class="btn explore-properties  d-flex justify-content-center align-items-center">Available Properties (<%=results.results[i].total_properties%>)</button>
+                    <%} else { %>
+                      <button class="btn explore-properties  d-flex justify-content-center align-items-center">Register your interest</button>
+                    <%}%>
+                      <!-- <button class="btn">Available Properties</button> -->
+                    </div>
+                  </div>
+                <% } %>
+                <% if (results.count > 12) {%>
+                <% if (! locals.user) {%>
+                  <div class="left-con-wrap no-login-msg-div">
+                    <h3 class="no-login-msg w-100">
+                      <span>
+                        <p class="btn blue-text w-100" href="#" data-toggle="modal" data-target="#loginModal" id="loginButtonModalClick">
+                          See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+                        </p>
+                      </span>
+                    </h3>
+                  </div>
+                <% } else {%>
+                  <div class="left-con-wrap no-login-msg-div">
+                    <h3 class="no-login-msg see_more_results w-100">
+                      <span>
+                        <p class="btn blue-text w-100" onclick="see_more_results()">
+                          See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+                        </p>
+                      </span>
+                    </h3>
+                  </div>
+                <% } %>
+                <% } %>
+              </div>
+              <div class="col-lg-6">
+                <div class="map-div apparment-map">
+                  <!-- <img class="w-100 loader-div" src="/images/dribbble_jumpingpin.gif"> -->
+                  <div id="partial-map"></div>
+                  <img src="/v1/img/logo.webp" class="logo-over"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card View -->
+      <div class="tab-pane fade" id="pills-list" role="tabpanel" aria-labelledby="pills-list-tab">
+        <div class="appartment-grid-view">
+          <div class="container">
+            <div class="row" id="card-view-project">
+              <% for(var i=0; i < results.results.length; i++) { %>
+                <div class="col-lg-6 col-12">
+                  <div class="apparment-list apparment-list-updated" id="<%=i+results.count%>_project-<%=results.results[i].id%>" onmouseenter="showBox('<%=results.results[i].id%>', <%=i+results.count%>, <%=i+results.count%>)" onmouseleave="hideBox('<%=results.results[i].id%>', <%=i+results.count%>, <%=i+results.count%>)">
+                    <div class="apparment-list-left">
+                      <a href="javascript:;" class="add-com-btn">
+                        <div class="appartment-checkbox">
+                          <div class="custom-control custom-checkbox ">
+                            <input type="checkbox" class="custom-control-input add-to-comare" id="example-<%=results.results[i].id%>-card-view" name="example-<%=results.results[i].id%>-card-view" onchange="add_to_compare('<%=JSON.stringify(results.results[i])%>', 'example-<%=results.results[i].id%>-card-view')">
+                            <label class="custom-control-label" for="example-<%=results.results[i].id%>-card-view">
+                            </label>
+                          </div>
+                        </div>
+                      </a>
+                      <div class="owl-carousel owl-theme allProp-first-owl" onclick="go_to_page('<%=results.results[i].url%>')">
+                        <% if (results.results[i].images && results.results[i].images.length> 0){ %>
+                          <% for(var j=0; j < results.results[i].images.length; j++) {%>
+                            <div class="item">
+                              <div class="all-prop-heart">
+                                <img data-src="<%=results.results[i].images[j] %>" class="img img-fluid">
+                              </div>
+                            </div>
+                          <% } %>
+                        <%} else {%>
+                          <div class="item">
+                            <div class="all-prop-heart">
+                              <img src="/images/placeholder_bg.webp" class="img img-fluid">
+                            </div>
+                          </div>
+                        <% } %>
+                      </div>
+                      <% if (emi_per_lac && (results.results[i].price && results.results[i].price.min)) { %>
+                        <p class="text-left emi_starting_block">EMI Starting :<strong class="px-2 text-left"> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results.results[i].price.min / 100000))%></strong><button type="button" class="pe-2 btn btn-sm emi-tooltip btn-secondary" data-toggle="tooltip" data-html="true" title="<b>Down payment: 20%<br/>Loan for 25 yrs</b>">
+                          <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 416.98 416.98" xml:space="preserve" stroke="#fff" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.833958"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"></path> </g> </g></svg>
+                        </button></p>
+                      <% } %>
+                    </div>
+                    <div class="apparment-list-right">
+                      <div class="row">
+                        <div class="col-lg-8">
+                          <h2>
+                            <%- include('./partials/bookmark-list', {url: results.results[i].url, is_bookmarked: results.results[i].is_bookmarked, id: i + "_project-" + results.results[i].id, name:results.results[i].name, builder:results.results[i].builder}); %>
+                            <div>
+                              <span onclick='go_to_page("<%= results.results[i].url %>")'><%=results.results[i].name %></span>
+                              <% if (results.results[i].builder){ %>
+                                <p style="padding-top: 5px;">
+                                  <%=results.results[i].builder %>
+                                </p>
+                                <%}%>
+                                <% if (results.results[i].area && results.results[i].area.area){ %>
+                                  <div class="col-lg-4 d-lg-none px-0">
+                                    <div class="area_prices">
+                                      <h2>
+                                        <%=results.results[i].area.area %> acres
+                                      </h2>
+                                    </div>
+                                  </div>
+                                <%} else {%>
+        
+                                <%}%>
+                            </div>
+                          </h2>
+                        </div>
+                        <% if (results.results[i].area && results.results[i].area.area){ %>
+                          <div class="col-lg-4 d-none d-lg-flex justify-content-end">
+                            <div class="area_prices">
+                              <h2>
+                                <%=results.results[i].area.area %> acres
+                              </h2>
+                            </div>
+                          </div>
+                        <%} else {%>
+
+                        <%}%>
+                      </div>  
+                      <% if ((results.results[i].price && results.results[i].price.min && (results.results[i].price.min !== " NaN "))||(results.results[i].sq_fit_cost && results.results[i].sq_fit_cost.min)){%>
+                        <hr>
+                        <div class="row align-items-center">
+                          <% if (results.results[i].price && results.results[i].price.min && (results.results[i].price.min !== " NaN ")){%>
+                            <div class="col-6 pr-0">
+                              <!-- <h3>Starting Price : 
+                                <span>
+                                  <%=changeNumberFormat(results.results[i].price.min)%>
+                                </span>
+                              </h3> -->
+                              <table class="px-0">
+                                <tr>
+                                  <td>
+                                    <h3 class="text-left">Starting:</h3>
+                                  </td>
+                                  <td>
+                                    <h3><span> ₹ <%=changeNumberFormat(results.results[i].price.min)%></span></h3>
+                                  </td>
+                                </tr>
+                                <!-- <% if (emi_per_lac) {%>
+                                <tr>
+                                  <td>
+                                    <h3 class="text-left">EMI Starting :</h3>
+                                  </td>
+                                  <td>
+                                    <h3><span> ₹ <%=locals.formatToIndianNumber.format(Math.round(emi_per_lac * results.results[i].price.min / 100000))%></span></h3>
+                                  </td>
+                                </tr>
+                                <% } %> -->
+                              </table>
+                            </div>
+                          <%} else if(results.results[i].price.min === '" NaN "') {%>
+
+                          <%} else {%>
+
+
+                          <%}%>
+                          <% if (results.results[i].sq_fit_cost && results.results[i].sq_fit_cost.min){ %>
+                            <div class="col-6">
+                              <h6 class="text-right">
+                                Starting SqFt. cost:
+                                <b>
+                                  ₹<%=(results.results[i].sq_fit_cost.min).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")%>
+                                </b>
+                            </div>
+                          <%} else {%>
+
+                          <%}%>
+                        </div>
+                      <%} else {%>
+
+                      <%}%>
+                      <hr>
+                      <div class="located_area">
+                        <div class="loc-left">
+                          <i class="fa fa-map-marker mr-2" aria-hidden="true"></i>
+                          <p>
+                            <% if (results.results[i].subcity){ %>
+                              <%=results.results[i].subcity %>,
+                            <%}%>
+                            <% if (results.results[i].city){ %>
+                              <%=results.results[i].city%>
+                            <%}%>
+                          </p>
+                        </div>
+                        <% if (results.results[i].details_area  && results.results[i].details_area.min && results.results[i].details_area.max){ %>
+                        <div class="area_prices">
+                          <h2>(<%=results.results[i].details_area.min %>-<%=results.results[i].details_area.max%>) sq.ft</h2>
+                        </div>
+                        <%} else {%>
+
+                        <%}%>
+                      </div>
+                      <hr>
+                      <div class="featured-points">
+                        <ul>
+                          <% if (results.results[i].project_status){%>
+                            <li>
+                              <h5>
+                                <%=results.results[i].project_status %>
+                              </h5>
+                            </li>
+                            <%}%>
+                            <% if(results.results[i].property_type){%>
+                            <li>
+                              <h5>
+                                <%=results.results[i].property_type %>
+                              </h5>
+                            </li>
+                            <%}%>
+                            <% if (results.results[i].lease_rent){ %>
+                            <li>
+                              <h5>
+                                <%=results.results[i].lease_rent %>
+                              </h5>
+                            </li>
+                          <%}%>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="book-prop-btn-phone d-md-none" onclick="go_to_page('/properties?project=<%=results.results[i].name%>')">
+                    <% if (results.results[i].total_properties !== 0) {%>
+                      <button class="btn explore-properties d-flex justify-content-center align-items-center">Available Properties (<%=results.results[i].total_properties%>)</button>
+                    <%} else { %>
+                      <button class="btn d-flex justify-content-center align-items-center">Register your interest</button>
+                    <%}%>
+                  </div>                                                 
+                  <div onmouseenter="showBox('<%=results.results[i].id%>', <%=i+results.count%>, <%=i+results.count%>)"
+                  onmouseleave="hideBox('<%=results.results[i].id%>', <%=i+results.count%>, <%=i+results.count%>)"
+                  id="<%=i+results.count%>_project-btns-<%=results.results[i].id%>"
+                  class="book-prop-btn"
+                  onclick="go_to_page('/properties?project=<%=results.results[i].name%>')"
+                  style="display: none">
+                    <% if (results.results[i].total_properties !== 0) {%>
+                      <button class="btn explore-properties  d-flex justify-content-center align-items-center">Available Properties (<%=results.results[i].total_properties%>)</button>
+                    <%} else { %>
+                      <button class="btn explore-properties  d-flex justify-content-center align-items-center">Register your interest</button>
+                    <%}%>
+                      <!-- <button class="btn">Available Properties</button> -->
+                  </div>
+              </div>
+              <%}%>
+            </div>
+            <% if (results.count > 12) {%>
+              <% if (! locals.user) {%>
+                <div class="col-12 no-login-msg-div">
+                  <h3 class="no-login-msg w-100">
+                    <span>
+                      <p class="btn blue-text w-100" href="#" data-toggle="modal" data-target="#loginModal" id="loginButtonModalClick">
+                        See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+                      </p>
+                    </span>
+                  </h3>
+                </div>
+              <% } else {%>
+                <div class="col-12 no-login-msg-div">
+                  <h3 class="no-login-msg see_more_results w-100">
+                    <span>
+                      <p class="btn blue-text w-100" onclick="see_more_results()">
+                        See more <img class="up_down_arrow" src="/images/down_arrow.svg" alt="down arrow" />
+                      </p>
+                    </span>
+                  </h3>
+                </div>
+              <% } %>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Map View -->
+      <div class="tab-pane fade" id="pills-gps" role="tabpanel" aria-labelledby="pills-gps-tab">
+        <div class="appartment-map-view">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <!-- <img class="w-100 loader-div" src="/images/dribbble_jumpingpin.gif"> -->
+                <div id="full_map"></div>
+                <img src="/v1/img/logo.webp" class="logo-over"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tabel View -->
+      <div class="tab-pane fade" id="pills-grid" role="tabpanel" aria-labelledby="pills-grid-tab">
+        <div class="appartment-table-view">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="top-head-serach-sort">
+                  <div class="row">
+                    <div class="col-lg-4 col-sm-6">
+                      <div class="position-relative">
+                        <input type="text" class="form-control" placeholder="Search here" id="tab-search">
+                        <button class="btn btn-serach-sort" type="button">Search</button>
+                      </div>
+                    </div>
+                    <div class="col-lg-8 col-sm-6">
+                      <!-- <div class="position-relative">
+                        <div class="show-entry-sort">
+                          <div class="">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <label class="input-group-text">Show
+                                  entries</label>
+                              </div>
+                              <select class="custom-select" id="no_of_entries">
+                                <option value="10" selected="">10
+                                </option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="apart-table table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th style="width: 200px;" scope="col" class="text-left">
+                          <p>Name
+                            <button class="btn btn-sm ml-1 sort-button name" onclick="changeSortOrder('name')">↑</button>
+                            <button class="btn btn-sm ml-1 sort-button namereverse" onclick="changeSortOrder('namereverse')">↓</button>
+                          </p>
+                        </th>
+                        <th scope="col" class="">
+                          <p>Project Status
+                            <button class="btn btn-sm ml-1 sort-button project_status" onclick="changeSortOrder('project_status')">↑</button>
+                            <button class="btn btn-sm ml-1 sort-button project_status_reverse" onclick="changeSortOrder('project_status_reverse')">↓</button>
+                          </p>
+                        </th>
+                        <th scope="col" class="">
+                          <p>Project Type
+                            <button class="btn btn-sm ml-1 sort-button property_type" onclick="changeSortOrder('property_type')">↑</button>
+                            <button class="btn btn-sm ml-1 sort-button property_type_reverse" onclick="changeSortOrder('property_type_reverse')">↓</button>
+                          </p>
+                        </th>
+                        <th scope="col" class="">
+                          <p>Project Area
+                            <button class="btn btn-sm ml-1 sort-button proareaasc" onclick="changeSortOrder('proareaasc')">↑</button>
+                            <button class="btn btn-sm ml-1 sort-button proareadesc" onclick="changeSortOrder('proareadesc')">↓</button>
+                          </p>
+                        </th>
+                        <th scope="col" class="">
+                          <p>Subcity
+                            <button class="btn btn-sm ml-1 sort-button subcity" onclick="changeSortOrder('subcity')">↑</button>
+                            <button class="btn btn-sm ml-1 sort-button subcityreverse" onclick="changeSortOrder('subcityreverse')">↓</button>
+                          </p>
+                        </th>
+                        <th scope="col" class="">
+                          <p>City
+                            <button class="btn btn-sm ml-1 sort-button city" onclick="changeSortOrder('city')">↑</button>
+                            <button class="btn btn-sm ml-1 sort-button cityreverse" onclick="changeSortOrder('cityreverse')">↓</button>
+                          </p>
+                        </th>
+                        <th scope="col" class="">
+                          <p>Starting Price
+                            <button class="btn btn-sm ml-1 sort-button price" onclick="changeSortOrder('price')">↑</button>
+                            <button class="btn btn-sm ml-1 sort-button pricedesc" onclick="changeSortOrder('pricedesc')">↓</button>
+                          </p>
+                        </th>
+                        <th scope="col" class="">
+                          <p>Starting<br>SqFt. cost
+                            <button class="btn btn-sm ml-1 sort-button sqft_cost" onclick="changeSortOrder('sqft_cost')">↑</button>
+                            <button class="btn btn-sm ml-1 sort-button sqft_cost_reverse" onclick="changeSortOrder('sqft_cost_reverse')">↓</button>
+                          </p>
+                        </th>
+                        <th scope="col" class="">
+                          <p>Total<br>available units
+                            <button class="btn btn-sm ml-1 sort-button total_properties" onclick="changeSortOrder('total_properties')">↑</button>
+                            <button class="btn btn-sm ml-1 sort-button total_properties_reverse" onclick="changeSortOrder('total_properties_reverse')">↓</button>
+                          </p>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="data-table"></tbody>
+                  </table>
+                  <!-- <ul id="pagination-demo" class="pagination-md"></ul> -->
+                  <p id="you-can-compare-message" class="text-center" style="color: #347bbf;">You can compare only first 10 options based on your Filter and sorting criteria</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-tabs-change">
+
+        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="active nav-link" id="pills-list-tab" data-toggle="pill" href="#pills-list" role="tab" aria-controls="pills-list" aria-selected="false">Card View</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-gps-tab" data-toggle="pill" href="#pills-gps" role="tab" aria-controls="pills-gps" aria-selected="false">Map View</a>
+          </li>
+        </ul>
+      </div>
+    <% } %>
+  </div>
+  <!-- Filter Modal -->
+  <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-lg modal-customization" role="document">
+      <div class="modal-content ">
+        <div class="modal-header py-3">
+          <div class="modal-head w-100">
+            <div class="modal-head-left">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h2>Filters</h2>
+            </div>
+            <div>
+              <button type="button" class="btn clear-all-filter" data-dismiss="modal" onclick="go_to_page('/projects', true)">Clear All</button>
+              <button data-dismiss="modal" type="button" class="btn apply-filter" onclick="generateUrl('<%=results.view %>')">Apply
+                Filters</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-body ">
+          <div class="filters-wrapper">
+            <div class="filter-row">
+              <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                  <%- include ./partials/filters/area.ejs%>
+                  <div class="d-block d-lg-none pt-3 pt-lg-0">
+                    <%- include('./partials/filters/property_type.ejs', {parentId: "mobile"}); %>
+                  </div>
+                  <div class="product-status-partials pt-3">
+                    <%- include('./partials/filters/bhk.ejs', {parentId: ""}); %>
+                  </div>
+                  
+                </div>
+                <!-- <div class="col-lg-3 col-sm-6">
+                </div> -->
+                <div class="col-lg-3 col-sm-6 pt-3 pt-lg-0">
+                  <%- include('./partials/filters/price.ejs', {parentId: ""}); %>
+                  <div class="product-status-partials pt-3" >
+                    <%- include('./partials/filters/status.ejs', {parentId: ""}); %>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 pt-3 pt-lg-0">
+                  <%- include ./partials/filters/facing.ejs%>
+                </div>
+                <div class="col-lg-3 col-sm-6 d-none d-lg-block pt-3 pt-lg-0">
+                  <!-- <%- include('./partials/filters/project_status.ejs', {parentId: ""}); %> -->
+                  <%- include('./partials/filters/property_type.ejs', {parentId: ""}); %>
+                </div>
+              </div>
+            </div>
+
+            <div class="filter-row">
+              <div class="row mt-2">
+                <div class="col-lg-3 col-sm-6">
+                  <%- include ./partials/filters/authorities.ejs%>
+
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                  <%- include('./partials/filters/locations.ejs', {parentId: ""}); %>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                  <%- include ./partials/filters/builders.ejs%>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                  <%- include ./partials/filters/loan-approved-by.ejs%>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="filter-row">
+                  <div class="row mt-2">
+                      <div class="col-lg-3 col-sm-6">
+                          
+                      </div>
+                  </div>
+              </div>
+              </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include ./partials/footer.ejs%>
+
+</script>
+<script>
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzEMBRtCqj1KJ9RQDjCp0w2JaOtLx0izw" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js" integrity="sha256-swvs/72H2JZrIbyDdMskQv2t0bpTO5tgJOWVMBgZq6U=" crossorigin="anonymous"></script>
+
+<script src="/v1/js/map_support.js"> </script>
+<script src="/v1/js/number_formatter.js"> </script>
+<script src="/v1/js/filters_data.js"> </script>
+<script>
+  $('#pills-grid-tab').on("click", function(){
+    if (addToCompareSelected){
+      $('#you-can-compare-message').hide();
+    } else{
+      $('#you-can-compare-message').show();
+    }
+  })
+</script>
+<script>
+  let domLoaded = false;
+  //  Show Hide loader Div script 
+  document.onreadystatechange = function() {
+    // document.getElementById('loader-div').style.display = 'block';
+    // document.getElementById('pills-tabContent').style.display = 'none';
+    if (document.readyState == "complete") {
+      $(".loader-div")
+        .hide()
+      // document.getElementById('loader-div').style.display = 'none';
+      // document.getElementById('pills-tabContent').style.display = 'block';
+      if ('<%- results.view%>' != "") {
+        var currentView = '<%- results.view %>'
+      } else {
+        var currentView = 'partial'
+      }
+      handle_view_change_v1(currentView);
+      initMap();
+      domLoaded = true;
+    }
+  };
+  </script>
+  <% if (locals.user) {%>
+  <script>
+  // On Scroll Pagination Script
+  let see_more = 0;
+  let hold = false;
+  let skip = 1;
+  let limit = 12;
+  currentView = "partial"
+  // $(window)
+  //   .scroll(function() {
+  //     if ($(window)
+  //       .scrollTop() >= $(document)
+  //       .height() - $(window)
+  //       .height() - 500) {
+    function see_more_results(){    
+      if (see_more < 1 || '<%=locals.user.role%>' === "Super Admin") {
+        $('.no-login-msg-div').slideUp(600);
+        see_more += 1;
+        if (hold == false && currentView != "map" && domLoaded) {
+          hold = true;
+          $.post('/api/project/infinite', {
+            skip: skip
+            , limit: limit
+            , query: JSON.stringify(filter_state)
+          }, function(data) {
+            // console.log(data.length)
+            if (data.length > 1) {
+              $.post('/api/project/infinite-map', {
+                skip: skip
+                , limit: limit
+                , query: JSON.stringify(filter_state)
+              }, function(map_data) {
+                locations.push.apply(locations, map_data.results)
+                if (currentView == "partial") {
+                  add_markers(false);
+                }
+              })
+              let holder = document.createElement('span')
+              holder.innerHTML = data;
+              let extended_cards = holder.getElementsByClassName("patrital-map-card-view-project");
+              ecl = extended_cards.length
+              for (let index = 0; index < ecl; index++) {
+                var wrap = function(toWrap, wrapper) {
+                  wrapper = wrapper || document.createElement('div');
+                  wrapper.className = "left-con-wrap";
+                  toWrap.parentNode.appendChild(wrapper);
+                  wrapper.appendChild(toWrap);
+                  return wrapper
+                };
+                document.getElementById("map-card-view-project")
+                  .appendChild(wrap(extended_cards.item(0)));
+              }
+              let extended_partials = holder.getElementsByClassName("folder-view-properties");
+              epl = extended_partials.length
+              for (let index = 0; index < epl; index++) {
+                document.getElementById("card-view-project")
+                  .appendChild(extended_partials.item(0));
+              }
+              skip += 1
+              hold = false;
+              $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+              })
+              if (currentView == "partial"){
+                window.scrollTo({top:(document.querySelector('#map-card-view-project').scrollHeight/skip)*(skip-1), left:0, behavior:"smooth"});
+              } else{
+                if (window.innerWidth < 550)
+                  window.scrollTo({top:(document.querySelector('#card-view-project').scrollHeight/skip)*(skip-1)+1000, left:0, behavior:"smooth"});
+                else
+                window.scrollTo({top:(document.querySelector('#card-view-project').scrollHeight/skip)*(skip-1), left:0, behavior:"smooth"});
+              }
+              propertyPageCarouselInit();
+              $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+              })
+            }
+          });
+        }
+      }  else {
+              // console.log("currentView", currentView)
+              use_filters();
+            }
+    }
+    // function use_filters(){
+    //   // create a new div element
+    //   $('.no-login-msg-div').slideUp();
+    //   const useFilterDiv = document.createElement("div");
+    //   if (currentView === "partial")
+    //     useFilterDiv.setAttribute("class", "left-con-wrap use_filters");
+    //   else
+    //     useFilterDiv.setAttribute("class", "col-12 use_filters");
+    //   // const bankAppGridBoxDiv = document.createElement("div");
+    //   // bankAppGridBoxDiv.setAttribute("class", "bank-app-grid-box");
+
+    //   //create a text message
+    //   const useFilterMessage = document.createElement("p");
+    //   useFilterMessage.innerText = "Please use filters and sorting effectively to shortlist your options";
+    //   useFilterMessage.setAttribute("class", "text-center");
+    //   // bankAppGridBoxDiv.appendChild(useFilterMessage);
+    //   useFilterDiv.appendChild(useFilterMessage);
+
+    //   // add the newly created element and its content into the DOM
+    //   // console.log(currentView)
+    //   if (currentView === 'partial'){
+    //     $("#map-card-view-project").append(useFilterDiv).slideDown();}
+    //   else{
+    //     $("#card-view-project").append(useFilterDiv).slideDown();}
+    //   // window.scrollTo({top:document.querySelector('#infinite-scroll').scrollHeight/2 + 150, left:0, behavior:"smooth"});
+    // }
+    function use_filters(){
+      // create a new div element
+      $('.no-login-msg-div').slideUp();
+      const useFilterDiv_card = document.createElement("div");
+      const useFilterDiv_partial = document.createElement("div");
+      if (currentView === "partial"){
+        useFilterDiv_partial.setAttribute("class", "left-con-wrap use_filters");
+        useFilterDiv_card.setAttribute("class", "col-12 use_filters");
+
+      } else{
+        useFilterDiv_card.setAttribute("class", "col-12 use_filters");
+        useFilterDiv_partial.setAttribute("class", "left-con-wrap use_filters");
+
+      }
+
+      // const bankAppGridBoxDiv = document.createElement("div");
+      // bankAppGridBoxDiv.setAttribute("class", "bank-app-grid-box");
+
+      //create a text message
+      const useFilterMessage_partial = document.createElement("p");
+      const useFilterMessage_card = document.createElement("p");
+      useFilterMessage_partial.innerText = "Please use filters and sorting effectively to shortlist your options";
+      useFilterMessage_card.innerText = "Please use filters and sorting effectively to shortlist your options";
+      useFilterMessage_partial.setAttribute("class", "text-center");
+      useFilterMessage_card.setAttribute("class", "text-center");
+      useFilterDiv_card.appendChild(useFilterMessage_card);
+      useFilterDiv_partial.appendChild(useFilterMessage_partial);
+
+      // add the newly created element and its content into the DOM
+      // console.log(currentView)
+      if (currentView === 'partial'){
+        $("#map-card-view-project").append(useFilterDiv_partial).slideDown();
+        $("#card-view-project").append(useFilterDiv_card).slideDown();
+
+      }
+      else{
+      $("#card-view-project").append(useFilterDiv_card).slideDown();
+      $("#map-card-view-project").append(useFilterDiv_partial).slideDown();
+
+    }
+      // window.scrollTo({top:document.querySelector('#infinite-scroll').scrollHeight/2 + 150, left:0, behavior:"smooth"});
+    }
+</script>
+<% } %>
+
+<!-- initial load and on scroll pagiination -->
+
+<!-- <script>
+            let domLoaded = false;
+            //  Show Hide loader Div script 
+            document.onreadystatechange = function () {
+                // document.getElementById('loader-div').style.display = 'block';
+                // document.getElementById('pills-tabContent').style.display = 'none';
+                if (document.readyState == "complete") {
+                    $(".loader-div").hide()
+                    // document.getElementById('loader-div').style.display = 'none';
+                    // document.getElementById('pills-tabContent').style.display = 'block';
+                    if ('<%- results.view%>' != "") {
+                        var currentView = '<%- results.view %>'
+                    } else {
+                        var currentView = 'partial'
+                    }
+                    handle_view_change_v1(currentView);
+                    initMap();
+                    domLoaded = true;
+                }
+            };
+
+            // On Scroll Pagination Script
+            let hold = false;
+            let skip = 1;
+            let limit = 12;
+            current_view = "partial"
+            $(window).scroll(function () {
+                if ($(window).scrollTop() >= $(document).height() - $(window).height() - 500) {
+                    if (hold == false && current_view != "map" && domLoaded) {
+                        hold = true;
+                        $.post('/api/project/infinite', { skip: skip, limit: limit, query: JSON.stringify(filter_state) }, function (data) {
+                            if (data.length > 1) {
+                                $.post('/api/project/infinite-map', { skip: skip, limit: limit, query: JSON.stringify(filter_state) }, function (map_data) {
+                                    locations.push.apply(locations, map_data.results)
+                                    if (current_view == "partial") {
+                                        add_markers(false);
+                                    }
+                                })
+                                let holder = document.createElement('span')
+                                holder.innerHTML = data;
+                                let extended_cards = holder.getElementsByClassName("patrital-map-card-view-project");
+                                ecl = extended_cards.length
+                                for (let index = 0; index < ecl; index++) {
+                                    var wrap = function (toWrap, wrapper) {
+                                        wrapper = wrapper || document.createElement('div');
+                                        wrapper.className = "left-con-wrap";
+                                        toWrap.parentNode.appendChild(wrapper);
+                                        wrapper.appendChild(toWrap);
+                                        return wrapper
+                                    };
+                                    document.getElementById("map-card-view-project").appendChild(wrap(extended_cards.item(0)));
+                                }
+                                let extended_partials = holder.getElementsByClassName("folder-view-properties");
+                                epl = extended_partials.length
+                                for (let index = 0; index < epl; index++) {
+                                    document.getElementById("card-view-project").appendChild(extended_partials.item(0));
+                                }
+                                skip += 1
+                                hold = false;
+                                propertyPageCarouselInit()
+                            }
+                        });
+
+                    }
+                }
+            });
+        </script> -->
+<!-- Set Marker On Map script -->
+<script>
+  window.markers = [];
+  var map;
+  var locations = [];
+  var location_mapping = {};
+
+  function add_markers(bound_adjust = false) {
+    var totalMarkers = window.markers.length
+    for (let i = totalMarkers; i < locations.length; i++) {
+
+      latlng = new google.maps.LatLng(locations[i][0], locations[i][1]);
+      location_mapping[locations[i][5]] = latlng;
+
+      marker = new google.maps.Marker({
+        position: latlng
+        , map: map
+      , });
+      window.markers.push(marker);
+      if (bound_adjust) {
+        bounds.extend(marker.getPosition());
+      }
+      map.fitBounds(bounds);
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          // console.log('i is in addding marker: ', i)
+          if (currentView == "partial") {
+            bring_card_to_view_v1(i + "_project-" + locations[i][5])
+          }
+          infowindow.setContent("<a href=" + locations[i][3] + " target='_blank'>" + locations[i][2] + "</a>");
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+    if (bound_adjust) {
+      map.fitBounds(bounds);
+    }
+  }
+
+  function initMap(map_id = "partial-map") {
+    map = new google.maps.Map(document.getElementById(map_id), {
+      streetViewControl: false,
+      fullscreenControl:false,
+      rotateControl: false,
+      zoom:12,
+      // minZoom: 5, 
+      // maxZoom: 15
+    });
+    infowindow = new google.maps.InfoWindow();
+    bounds = new google.maps.LatLngBounds();
+    add_markers(true);
+    // document.querySelector("img[alt='Google']").setAttribute("src","/v1/img/logo.webp");
+  }
+
+  window.oldIndex = undefined;
+  window.currentIndex = undefined;
+  window.showme = function(index) {
+    index = parseInt(index)
+    // console.log('window.markers[index].getAnimation() ', window.markers[index].getAnimation())
+    if (window.markers[index].getAnimation() != google.maps.Animation.BOUNCE) {
+      window.markers[index].setAnimation(google.maps.Animation.BOUNCE);
+      // console.log('animating : ', index)
+    } else {
+      window.markers[index].setAnimation(null);
+      // console.log('Not animating : ', index)
+    }
+  }
+
+  <% for (let i = 0; i < results.results.length; i++) {
+                    if (results.results[i].location) {
+                %>
+  locations.push([<%=results.results[i].location.location.lat %>, <%=results.results[i].location.location.lng %>, '<%=results.results[i].name %>', '<%=results.results[i].url %>', '<%=results.results[i].property_type %>', '<%=results.results[i].id %>'])
+
+  <%}
+                }%>
+</script>
+<!-- Animate Marker -->
+<script>
+  function showBox(idx, i, listIndex) {
+    if (window.innerWidth >= 768){
+      // console.log("showBox", '#' + i + '_project-btns-' + idx)
+      $('#' + i + '_project-btns-' + idx)
+        .css({
+          'display': 'block'
+          , 'animation':'slide-down .3s ease-out'
+          , '-webkit-animation': 'slide-down .3s ease-out'
+          , '-moz-animation': 'slide-down .3s ease-out'
+        });
+        // console.log("showBox",'#' + listIndex + '_project-' + idx)
+      $('#' + listIndex + '_project-' + idx)
+        .addClass("show-propert-btn");
+      let center = location_mapping[idx];
+      if (center) {
+        map.panTo(center);
+      }
+      if (window.markers[listIndex])
+        window.markers[listIndex].setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+
+  function hideBox(idx, i, listIndex) {
+    $('#' + i + '_project-btns-' + idx)
+      .css({
+        '-webkit-animation': 'slide-up .3s ease-in'
+        , 'animation':'slide-up .3s ease-in'
+        , '-moz-animation': 'slide-up .3s ease-in'
+        , 'display': 'none'
+      });
+    $('#' + listIndex + '_project-' + idx)
+      .removeClass("show-propert-btn");
+    if (window.markers[listIndex])
+      window.markers[listIndex].setAnimation(null);
+  }
+</script>
+<!-- Table View Script -->
+<script>
+  let page_limit = 10;
+  let total_records = <%= results.count %>
+  let totalPages = <%= results.count %> / page_limit;
+  let current_page = 1;
+  var $tbs_pagination = $('#pagination-demo');
+  // 
+  $("#tab-search")
+    .on('keyup', function() {
+      if (addToCompareSelected && entityToCompare) {
+        var valueToMatch = this.value;
+        valueToMatch = valueToMatch.toLowerCase();
+        table_rows = JSON.parse(JSON.stringify(entityToCompare));
+        table_rows = table_rows.filter(function(ele) {
+          return ele.name.toLowerCase()
+            .indexOf(valueToMatch) > -1
+        })
+        create_table_body();
+      } else {
+        filter_state.q = [this.value]
+        $.post('/api/property/table-pagination', {
+          skip: current_page - 1
+          , limit: page_limit
+          , query: JSON.stringify(filter_state)
+        }, function(data) {
+          total_records = data.total;
+          totalPages = total_records / page_limit;
+          $tbs_pagination.twbsPagination('destroy');
+          table_rows = (data.results)
+          create_pagination();
+          current_page = 1;
+          create_table_body();
+        });
+      }
+    })
+
+  $("#no_of_entries")
+    .on('change', function() {
+      if (addToCompareSelected && entityToCompare) {
+        //TODo nothing
+      } else {
+        page_limit = this.value
+        totalPages = total_records / this.value;
+        $tbs_pagination.twbsPagination('destroy');
+        create_pagination();
+        current_page = 1;
+        pagination()
+      }
+    });
+  let pagination = function() {
+    $.post('/api/project/table-pagination', {
+      skip: current_page - 1
+      , limit: page_limit
+      , query: JSON.stringify(filter_state)
+    }, function(data) {
+      table_rows = (data.results)
+      create_table_body();
+    });
+  }
+
+  function create_pagination() {
+    $tbs_pagination.twbsPagination({
+      totalPages: totalPages + 1
+      , visiblePages: 5
+      , onPageClick: function(event, page) {
+        current_page = page;
+        pagination();
+      }
+    });
+  }
+
+  function changeSortOrder(sort_field) {
+    current_page = 1;
+    filter_state.sort = [sort_field];
+    $("table th button")
+      .addClass("sort-button");
+    $("." + sort_field)
+      .removeClass("sort-button")
+    if (addToCompareSelected && entityToCompare) {
+      table_rows = JSON.parse(JSON.stringify(entityToCompare));
+      if (sort_field === "name") {
+        table_rows.sort((a, b) => {
+          if (a.name < b.name) {
+            return -1;
+          }
+          if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "namereverse") {
+        table_rows.sort((a, b) => {
+          if (a.name > b.name) {
+            return -1;
+          }
+          if (a.name < b.name) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "property_type") {
+        table_rows.sort((a, b) => {
+          if (a.property_type < b.property_type) {
+            return -1;
+          }
+          if (a.property_type > b.property_type) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "property_type_reverse") {
+        table_rows.sort((a, b) => {
+          if (a.property_type > b.property_type) {
+            return -1;
+          }
+          if (a.property_type < b.property_type) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "total_properties") {
+        table_rows.sort((a, b) => {
+          if (Number(a.total_properties) < Number(b.total_properties)) {
+            return -1;
+          }
+          if (Number(a.total_properties) > Number(b.total_properties)) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "total_properties_reverse") {
+        table_rows.sort((a, b) => {
+          if (Number(a.total_properties) > Number(b.total_properties)) {
+            return -1;
+          }
+          if (Number(a.total_properties) < Number(b.total_properties)) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "project_status") {
+        table_rows.sort((a, b) => {
+          if (a.project_status < b.project_status) {
+            return -1;
+          }
+          if (a.project_status > b.project_status) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "project_status_reverse") {
+        table_rows.sort((a, b) => {
+          if (a.project_status > b.project_status) {
+            return -1;
+          }
+          if (a.project_status < b.project_status) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "proareaasc") {
+        table_rows.sort((a, b) => {
+          if (a.area && a.area.area && b.area && b.area.area) {
+            return a.area.area - b.area.area
+          }
+          return 0;
+        })
+      } else if (sort_field === "proareadesc") {
+        table_rows.sort((a, b) => {
+          if (a.area && a.area.area && b.area && b.area.area) {
+            return b.area.area - a.area.area
+          }
+          return 0;
+        })
+      } else if (sort_field === "subcity") {
+        table_rows.sort((a, b) => {
+          if (a.subcity < b.subcity) {
+            return -1;
+          }
+          if (a.subcity > b.subcity) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "subcityreverse") {
+        table_rows.sort((a, b) => {
+          if (a.subcity > b.subcity) {
+            return -1;
+          }
+          if (a.subcity < b.subcity) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "city") {
+        table_rows.sort((a, b) => {
+          if (a.city < b.city) {
+            return -1;
+          }
+          if (a.city > b.city) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "cityreverse") {
+        table_rows.sort((a, b) => {
+          if (a.city > b.city) {
+            return -1;
+          }
+          if (a.city < b.city) {
+            return 1;
+          }
+          return 0;
+        })
+      } else if (sort_field === "price") {
+        table_rows.sort((a, b) => {
+          if (a.price && a.price.min && b.price && b.price.min) {
+            return a.price.min - b.price.min
+          }
+          return 0;
+        })
+      } else if (sort_field === "pricedesc") {
+        table_rows.sort((a, b) => {
+          if (a.price && a.price.min && b.price && b.price.min) {
+            return b.price.min - a.price.min
+          }
+          return 0;
+        })
+      } else if (sort_field === "sqft_cost") {
+        table_rows.sort((a, b) => {
+          if (a.sq_fit_cost && a.sq_fit_cost.min && b.sq_fit_cost && b.sq_fit_cost.min) {
+            return a.sq_fit_cost.min - b.sq_fit_cost.min
+          }
+          return 0;
+        })
+      } else if (sort_field === "sqft_cost_reverse") {
+        table_rows.sort((a, b) => {
+          if (a.sq_fit_cost && a.sq_fit_cost.min && b.sq_fit_cost && b.sq_fit_cost.min) {
+            return b.sq_fit_cost.min - a.sq_fit_cost.min
+          }
+          return 0;
+        })
+      }
+      create_table_body();
+    } else {
+      $.post('/api/project/table-pagination', {
+        skip: current_page - 1
+        , limit: page_limit
+        , query: JSON.stringify(filter_state)
+      }, function(data) {
+        total_records = data.total;
+        totalPages = total_records / page_limit;
+        $tbs_pagination.twbsPagination('destroy');
+        table_rows = (data.results)
+        create_pagination();
+        current_page = 1;
+        create_table_body();
+      });
+    }
+
+  }
+
+  function create_table_body() {
+    html_string = ""
+    let idx = 1
+    // console.log("-------------------------")
+    table_rows.forEach(element => {
+      // console.log("element=>",element)
+      html_string += `<tr>
+                        <td><a href='${element.url}' target='_blank'>${element.name}</td>
+                        <td>${element.project_status}</td>
+                        <td>${element.property_type}</td>
+                        <td>${element.area && element.area.area ? element.area.area + " " + element.area.unit: "-"}</td>
+                        <td>${element.subcity}</td>
+                        <td>${element.city}</td>
+                        <td>${element.price && element.price.min ? changeNumberFormat(element.price.min) : "-"}</td>
+                        <td>${element.sq_fit_cost && element.sq_fit_cost.min ? "₹ " + element.sq_fit_cost.min.toLocaleString('en-IN') : "-"}</td>
+                        <td onclick="go_to_page('/properties?project=${element.name}')" style="cursor: pointer; color:#347bbf">${element.total_properties ? element.total_properties + (element.total_properties > 1 ? " properties":" property")  : "-"}</td>
+                    </tr>`
+      // <td>" + ((current_page - 1) * page_limit + idx) + "</td>
+      idx += 1;
+
+    });
+    document.getElementById("data-table")
+      .innerHTML = html_string;
+  }
+
+  // Init table view
+  let table_rows = [];
+  let table_data = <%-JSON.stringify( results.table_data) %>
+  // console.log(table_data);
+  for (var i = 0; i < table_data.length; i++) {
+  table_rows.push({
+    name: table_data[i].name 
+    , project_status: table_data[i].project_status 
+    , property_type: table_data[i].property_type 
+    , area: table_data[i].area 
+    , subcity: table_data[i].subcity 
+    , city: table_data[i].city 
+    , price: table_data[i].price 
+    , price_per_square_feet: "2,000"
+    , total_unit_available: '2,000'
+    , url: table_data[i].url 
+    , total_properties: table_data[i].total_properties
+    , sq_fit_cost : table_data[i].sq_fit_cost
+  , })
+  }
+        create_table_body();
+        create_pagination();
+</script>
+
+<!-- Attach Typeaheads to input boxes -->
+<script>
+  // Location Filter
+  initLocationTypeAhead();
+
+  // PROJECT FILTER
+  initProjectTypeAhead();
+
+  // Authority FILTER
+  initAuthorityTypeAhead();
+
+  // BUILDER FILTER
+  initBuilderTypeAhead();
+
+  //Back Filter
+  initBankTypeAhead();
+
+  //Location Filter Quick
+  initLocationTypeAheadQuick();
+</script>
+<!-- filters screen data dynamic -->
+<script>
+  fetchArea();
+  fetchPriceCount();
+  fetchFacingCount();
+  fetchPropertyTypeData();
+  fetchLocationData();
+  fetchAuthorityData();
+  fetchBuilder();
+  fetchBanks();
+  fetchProjectStatus();
+  fetchProjectCount();
+  fetchBhk();
+</script>
+<!-- Keep Filter Header Stickey -->
+<script>
+  $(window)
+    .scroll(function() {
+      var scroll = $(window)
+        .scrollTop();
+      if (scroll >= 150) {
+        $(".view-change-header")
+          .addClass("sticky-top");
+      } else {
+        $(".view-change-header")
+          .removeClass("sticky-top");
+      }
+    });
+</script>
+
+
+<script>
+  $(function() {
+    var dtToday = new Date();
+    dtToday.setDate(dtToday.getDate() + 1);
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if (month < 10)
+      month = '0' + month.toString();
+    if (day < 10)
+      day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
+    //alert(maxDate);
+    $('#schedule-date')
+      .attr('min', maxDate);
+  });
+</script>
+<script>
+  $('input[type="date"]')
+  .change(function() {
+    // console.log($(this)
+    //   .val()
+    //   .length)
+    if ($(this)
+      .val()
+      .length > 0) {
+      document.getElementById('calender-value')
+        .innerHTML = $(this)
+        .val()
+    } else if ($(this)
+      .val()
+      .length === 0) {
+      document.getElementById('calender-value')
+        .innerHTML = "YYYY-MM-DD"
+    } else {
+      document.getElementById('calender-value')
+        .innerHTML = "YYYY-MM-DD"
+    }
+  });
+</script>
+<% if (!locals.user) {%>
+  <script>
+    let storedViewH = JSON.parse(window.localStorage.getItem('userSrchH'));
+    if (storedViewH){
+      storedViewH.push({url:window.location.pathname + window.location.search, date:Date.now()})
+    } else{
+      storedViewH = [{url:window.location.pathname + window.location.search, date:Date.now()}]
+    }
+    window.localStorage.setItem('userSrchH', JSON.stringify(storedViewH))
+  </script>
+<% } %>
+<script>  
+  function ReLoadImages(){
+      $('img[data-src]').each( function(){
+          $( this ).attr( 'src', $( this ).attr( 'data-src' ) );
+          }
+      );
+  }
+  
+  document.addEventListener('readystatechange', event => {
+    if (event.target.readyState === "complete") {  //or at "complete" if you want it to execute in the most last state of window.
+      ReLoadImages();
+    }
+});
+  </script>
+</html>
