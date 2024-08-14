@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  assetzilla:
+    build: .
+    ports:
+      - "5100:5100"
+      - "9201:9200"
+      - "6380:6379"
+    environment:
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+volumes:
+  esdata:
+    driver: local
