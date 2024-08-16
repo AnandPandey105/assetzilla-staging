@@ -1,0 +1,813 @@
+<div class="pdf-desktop-view">
+    <div id="accordion" class="dt-accordions">
+        <% if (data.floor_plan && data.floor_plan.length > 0) { %>
+            <div class="card">
+                <div class="card-header" id="dt-accordion1">
+                    <h5 class="mb-0">
+                        <button class="btn btn-block" data-toggle="collapse" data-target="#collapseOne"
+                            aria-expanded="true" aria-controls="collapseOne">
+                            Floor Plan
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="dt-accordion1" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="button-list-hor">
+                            <ul>
+                                <% for(var i = 0; i < data.floor_plan.length; i++) { %>
+                                    <li>
+                                        <button class="btn btn-primary-small floor-pdf-btn <% if (i == 0) { %> active-pdf <% } %>"
+                                            id="floor-button-<%= i %>" data-url="<%= data.floor_plan[i] %>" onclick="selectPDF('<%= i %>', '<%= data.floor_plan[i] %>');">
+                                            PDF <%= i + 1 %>
+                                        </button>
+                                    </li>
+                                <% } %>
+                            </ul>
+                            <div class="position-relative embed-wrapper" id="floor-pdf-viewer">
+                                <% for(var i = 0; i < data.floor_plan.length; i++) { %>
+                                    <div id="floor-pdf-viewer-<%= i %>" class="pdf-viewer-container" style="display:<% if(i === 0) { %> block; <% } else { %> none; <% } %>; height: 50vh;">
+                                        <!-- PDF viewer will be loaded here via WebViewer -->
+                                    </div>
+                                <% } %>
+                            </div>
+                            <div class="pdf-overlay" style="margin-top: 10px; text-align: center;">
+                                <button class="btn btn-view-pdf" id="fullscreen-button" data-toggle="modal" data-target="#floorplanmodal" onclick="loadPDFInModal();">
+                                    Click Here to View Full Screen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Modal -->
+            <div class="modal fade" id="floorplanmodal" tabindex="-1" role="dialog"
+                aria-labelledby="floorplanmodalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl transparent-background" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding: 0.5rem !important;">
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body embed-wrapper" id="modal-pdf-viewer" style="height: 80vh;">
+                            <!-- Modal PDF viewer will be loaded here via WebViewer -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        
+        <!-- Site Plan -->
+                <% if (data.site_plan && data.site_plan.length> 0){ %>
+                    <div class="card">
+                        <div class="card-header" id="dt-accordion2">
+                            <h5 class="mb-0">
+                                <button class="btn btn-block" data-toggle="collapse" data-target="#collapsetwo"
+                                    aria-expanded="true" aria-controls="collapsetwo">
+                                    Site Plans
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapsetwo" class="collapse" aria-labelledby="dt-accordion2" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="button-list-hor">
+                                    <ul>
+                                        <% for(var i=0; i < data.site_plan.length; i++) { %>
+                                            <li>
+                                                <!-- <a href="javscript:;" class="btn btn-primary-small" data-toggle="modal" data-target="#siteplan<%=[i]%>">
+                                            PDF <%=[i+1]%>
+                                        </a> -->
+                                                <!-- <button class="btn btn-primary-small <% if (i == 0){ %> active <%}%>"
+                                                    id="site-button-<%=[i]%>"
+                                                    onclick='show_pdf("/project/doc/<%=data.site_plan[i]%>",
+                                            "site_plan-pdf-viewer", "siteplan<%=[i]%>"  , "collapsetwo", "site-button-<%=[i]%>", "siteplan-embed", <%=i%>, <%=data.site_plan.length%>)'>
+                                                    PDF <%=[i+1]%>
+                                                </button> -->
+                                                <button class="btn btn-primary-small <% if (i == 0){ %> active <%}%>"
+                                                    id="site-button-<%=[i]%>" onclick="
+                                                    var pdfUrl = window.location.origin + '/api/project/document?url=dyn-res/project/doc/<%=data.site_plan[i]%>';
+                                                    console.log('Full PDF URL:', pdfUrl); 
+                                                    window.open(pdfUrl, '_blank');
+                                                ">
+                                                    PDF <%=[i+1]%>
+                                                </button>
+                                            </li>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="siteplan<%=[i]%>" tabindex="-1" role="dialog"
+                                                aria-labelledby="siteplanLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-xl transparent-background"
+                                                    role="document">
+                                                    <div class="modal-dialog modal-xl transparent-background" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header" style="padding: 0.5rem !important;">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body embed-wrapper">
+                                                                <%- include('./partials/pdfViewer/pdfviewer.ejs',
+                                                                {url:`/api/project/document?url=dyn-res/project/doc/${data.site_plan[i]}`,
+                                                                canvasId:`site-plan-${i}` }) %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%}%>
+                                    </ul>
+                                    <div class="position-relative embed-wrapper" id="site_plan-pdf-viewer">
+                                        <% for(var i=0; i < data.site_plan.length; i++) { %>
+                                            <div id="site_plan-pdf-viewer-<%=i%>"
+                                                style="display:<% if(i===0){%> block; <%} else {%> none;<%}%>">
+                                                <%- include('./partials/pdfViewer/pdfviewer.ejs',
+                                                {url:`/api/project/document?url=dyn-res/project/doc/${data.site_plan[i]}`,
+                                                canvasId:`floor-plan-small-${i}` }) %>
+                                                    <div class="pdf-overlay" data-toggle="modal"
+                                                        data-target="#siteplan<%=i%>">
+                                                        <button class="btn btn-view-pdf">
+                                                            Click Here to View Full Screen 2
+                                                        </button>
+                                                    </div>
+                                            </div>
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+                        <% if (data.brochure && data.brochure.length> 0){ %>
+                            <div class="card">
+                                <div class="card-header" id="dt-accordion3">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-block" data-toggle="collapse"
+                                            data-target="#collapsethree" aria-expanded="true"
+                                            aria-controls="collapsethree">
+                                            Brochure
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapsethree" class="collapse" aria-labelledby="dt-accordion3"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="button-list-hor">
+                                            <ul>
+                                                <% for(var i=0; i < data.brochure.length; i++) { %>
+                                                    <li>
+                                                        <!-- <a href="javscript:;" class="btn btn-primary-small" data-toggle="modal"
+                                        data-target="#brochuremodal<%=[i]%>">PDF <%=[i+1]%></a> -->
+
+                                                        <!-- <button
+                                                            class="btn btn-primary-small <% if (i == 0){ %> active <%}%>"
+                                                            id="brochure-button-<%=[i]%>"
+                                                            onclick='show_pdf("/project/doc/<%=data.brochure[i]%>",
+                                             "brochure-pdf-viewer", "brochuremodal<%=[i]%>"  , "collapsethree", "brochure-button-<%=[i]%>", "brochure-embed",<%=i%>, <%=data.brochure.length%>)'>
+                                                            PDF <%=[i+1]%>
+                                                        </button> -->
+                                                        <button
+                                                            class="btn btn-primary-small <% if (i == 0){ %> active <%}%>"
+                                                            id="brochure-button-<%=[i]%>" onclick="
+                                                    var pdfUrl = window.location.origin + '/api/project/document?url=dyn-res/project/doc/<%=data.site_plan[i]%>';
+                                                    console.log('Full PDF URL:', pdfUrl); 
+                                                    window.open(pdfUrl, '_blank');
+                                                ">
+                                                            PDF <%=[i+1]%>
+                                                        </button>
+                                                    </li>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="brochuremodal<%=[i]%>" tabindex="-1"
+                                                        role="dialog" aria-labelledby="brochuremodalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-xl transparent-background"
+                                                            role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header"
+                                                                    style="padding: 0.5rem !important;">
+
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body embed-wrapper">
+                                                                    <%- include('./partials/pdfViewer/pdfviewer.ejs',
+                                                                        {url:`/api/project/document?url=dyn-res/project/doc/${data.floor_plan[i]}`,
+                                                                        canvasId:`brochure-${i}` }) %>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <%}%>
+                                            </ul>
+                                            <div class="position-relative embed-wrapper" id="brochure-pdf-viewer">
+                                                <% for(var i=0; i < data.brochure.length; i++) { %>
+                                                    <div id="brochure-pdf-viewer-<%=i%>"
+                                                        style="display:<% if(i===0){%> block; <%} else {%> none;<%}%>">
+                                                        <%- include('./partials/pdfViewer/pdfviewer.ejs',
+                                                            {url:`/api/project/document?url=dyn-res/project/doc/${data.floor_plan[i]}`,
+                                                            canvasId:`brochure-small-${i}` }) %>
+                                                            <div class="pdf-overlay" data-toggle="modal"
+                                                                data-target="#brochuremodal<%=i%>">
+                                                                <button class="btn btn-view-pdf">
+                                                                    Click Here to View Full Screen 3
+                                                                </button>
+                                                            </div>
+                                                    </div>
+                                                    <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                                <% if (!is_property_page && data.price_list && data.price_list.length> 0){ %>
+                                    <div class="card">
+                                        <div class="card-header" id="dt-accordion3">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-block" data-toggle="collapse"
+                                                    data-target="#collapsefive" aria-expanded="true"
+                                                    aria-controls="collapsefive">
+                                                    Price
+                                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapsefive" class="collapse" aria-labelledby="dt-accordion3"
+                                            data-parent="#accordion">
+                                            <div class="card-body">
+                                                <div class="button-list-hor">
+                                                    <ul>
+                                                        <% for(var i=0; i < data.price_list.length; i++) { %>
+                                                            <li>
+                                                                <!-- <a href="javscript:;" class="btn btn-primary-small" data-toggle="modal"
+                                        data-target="#pricelistmodal<%=[i]%>">PDF <%=[i+1]%></a> -->
+                                                                <!-- <button
+                                                                    class="btn btn-primary-small <% if (i == 0){ %> active <%}%>"
+                                                                    id="price_list-button-<%=[i]%>"
+                                                                    onclick='show_pdf("/project/doc/<%=data.price_list[i]%>",
+                                             "price_list-pdf-viewer", "pricelistmodal<%=[i]%>"  , "collapsefive", "price_list-button-<%=[i]%>", "price_list-embed", <%=i%>, <%=data.price_list.length%>)'>
+                                                                    PDF <%=[i+1]%>
+                                                                </button> -->
+                                                                <button
+                                                                    class="btn btn-primary-small <% if (i == 0){ %> active <%}%>"
+                                                                    id="price_list-button-<%=[i]%>"
+                                                                    onclick="
+                                                                    var pdfUrl = window.location.origin + '/api/project/document?url=dyn-res/project/doc/<%=data.price_list[i]%>';
+                                                                    console.log('Full PDF URL:', pdfUrl); 
+                                                                    window.open(pdfUrl, '_blank');
+                                                                ">
+                                                                    PDF <%=[i+1]%>
+                                                                </button>
+                                                            </li>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="pricelistmodal<%=[i]%>"
+                                                                tabindex="-1" role="dialog"
+                                                                aria-labelledby="pricelistmodalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog modal-xl transparent-background"
+                                                                    role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header"
+                                                                            style="padding: 0.5rem !important;">
+
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body embed-wrapper">
+                                                                            <%- include('./partials/pdfViewer/pdfviewer.ejs',
+                                                                                {url:`/api/project/document?url=dyn-res/project/doc/${data.floor_plan[i]}`,
+                                                                                canvasId:`price_list-plan-${i}` }) %>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <%}%>
+                                                    </ul>
+                                                    <div class="position-relative embed-wrapper"
+                                                        id="price_list-pdf-viewer">
+                                                        <% for(var i=0; i < data.price_list.length; i++) { %>
+                                                            <div id="price_list-pdf-viewer-<%=i%>"
+                                                                style="display:<% if(i===0){%> block; <%} else {%> none;<%}%>">
+                                                                <%- include('./partials/pdfViewer/pdfviewer.ejs',
+                                                                    {url:`/api/project/document?url=dyn-res/project/doc/${data.floor_plan[i]}`,
+                                                                    canvasId:`price_list-small-${i}` }) %>
+                                                                    <div class="pdf-overlay" data-toggle="modal"
+                                                                        data-target="#pricelistmodal<%=i%>">
+                                                                        <button class="btn btn-view-pdf">
+                                                                            Click Here to View Full Screen 4
+                                                                        </button>
+                                                                    </div>
+                                                            </div>
+                                                            <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%}%>
+                                        <% if (data.specification && data.specification.length> 0){ %>
+                                            <div class="card">
+                                                <div class="card-header" id="dt-accordion3">
+                                                    <h5 class="mb-0">
+                                                        <button class="btn btn-block" data-toggle="collapse"
+                                                            data-target="#collapsesix" aria-expanded="true"
+                                                            aria-controls="collapsesix">
+                                                            Specifications
+                                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                        </button>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapsesix" class="collapse" aria-labelledby="dt-accordion3"
+                                                    data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <div class="button-list-hor">
+                                                            <ul>
+                                                                <% for(var i=0; i < data.specification.length; i++) { %>
+                                                                    <li>
+                                                                        <!-- <a href="javscript:;" class="btn btn-primary-small" data-toggle="modal"
+                                        data-target="#specificationmodal<%=[i]%>">PDF <%=[i+1]%></a> -->
+                                                                        <!-- <button
+                                                                            class="btn btn-primary-small <% if (i == 0){ %> active <%}%>"
+                                                                            id="specification-button-<%=[i]%>"
+                                                                            onclick='show_pdf("/project/doc/<%=data.specification[i]%>",
+                                            "specification-pdf-viewer", "specificationmodal<%=[i]%>"  , "collapsesix", "specification-button-<%=[i]%>", "specification-embed", <%=i%>, <%=data.specification.length%>)'>
+                                                                            PDF <%=[i+1]%>
+                                                                        </button> -->
+                                                                        <button
+                                                                            class="btn btn-primary-small <% if (i == 0){ %> active <%}%>"
+                                                                            id="specification-button-<%=[i]%>"
+                                                                            onclick="
+                                                    var pdfUrl = window.location.origin + '/api/project/document?url=dyn-res/project/doc/<%=data.specification[i]%>';
+                                                    console.log('Full PDF URL:', pdfUrl); 
+                                                    window.open(pdfUrl, '_blank');
+                                                ">
+                                                                            PDF <%=[i+1]%>
+                                                                        </button>
+                                                                    </li>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade"
+                                                                        id="specificationmodal<%=[i]%>" tabindex="-1"
+                                                                        role="dialog"
+                                                                        aria-labelledby="specificationmodalLabel"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog modal-xl transparent-background"
+                                                                            role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header"
+                                                                                    style="padding: 0.5rem !important;">
+                                                                                    <button type="button" class="close"
+                                                                                        data-dismiss="modal"
+                                                                                        aria-label="Close">
+                                                                                        <span aria-hidden="true">
+                                                                                            &times;
+                                                                                        </span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body embed-wrapper">
+                                                                                    <%- include('./partials/pdfViewer/pdfviewer.ejs',
+                                                                                        {url:`/api/project/document?url=dyn-res/project/doc/${data.floor_plan[i]}`,
+                                                                                        canvasId:`specification-${i}` })
+                                                                                        %>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <%}%>
+                                                            </ul>
+                                                            <div class="position-relative embed-wrapper"
+                                                                id="specification-pdf-viewer">
+                                                                <% for(var i=0; i < data.specification.length; i++) { %>
+                                                                    <div id="specification-pdf-viewer-<%=i%>"
+                                                                        style="display:<% if(i===0){%> block; <%} else {%> none;<%}%>">
+                                                                        <%- include('./partials/pdfViewer/pdfviewer.ejs',
+                                                                            {url:`/api/project/document?url=dyn-res/project/doc/${data.floor_plan[i]}`,
+                                                                            canvasId:`specification-small-${i}` }) %>
+                                                                            <div class="pdf-overlay" data-toggle="modal"
+                                                                                data-target="#specificationmodal<%=i%>">
+                                                                                <button class="btn btn-view-pdf">
+                                                                                    Click Here to View Full Screen 5
+                                                                                </button>
+                                                                            </div>
+                                                                    </div>
+                                                                    <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%}%>
+                                                <% if (data.other_document && data.other_document.length> 0){ %>
+                                                    <div class="card">
+                                                        <div class="card-header" id="dt-accordion4">
+                                                            <h5 class="mb-0">
+                                                                <button class="btn btn-block" data-toggle="collapse"
+                                                                    data-target="#collapsefour" aria-expanded="true"
+                                                                    aria-controls="collapsefour">
+                                                                    Other Plans
+                                                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+                                                        <div id="collapsefour" class="collapse"
+                                                            aria-labelledby="dt-accordion4" data-parent="#accordion">
+                                                            <div class="card-body">
+                                                                <div class="button-list-hor">
+                                                                    <ul>
+                                                                        <% for(var i=0; i < data.other_document.length;
+                                                                            i++) { %>
+                                                                            <li>
+                                                                                <!-- <a href="javscript:;" class="btn btn-primary-small" data-toggle="modal"
+                                        data-target="#otherdocumentmodal<%=[i]%>">PDF <%=[i+1]%></a> -->
+                                                                                <!-- <button
+                                                                                    class="btn btn-primary-small <% if (i == 0){ %> active <%}%>"
+                                                                                    id="other_document-button-<%=[i]%>"
+                                                                                    onclick='show_pdf("/project/doc/<%=data.other_document[i]%>",
+                                             "other_document-pdf-viewer", "otherdocumentmodal<%=[i]%>"  , "collapsefour", "other_document-button-<%=[i]%>", "other_document-embed", <%=i%>, <%=data.other_document.length%>)'> -->
+                                                                                <button
+                                                                                    class="btn btn-primary-small <% if (i == 0){ %> active <%}%>"
+                                                                                    id="other_document-button-<%=[i]%>"
+                                                                                    onclick="
+                                                                                    var pdfUrl = window.location.origin + '/api/project/document?url=dyn-res/project/doc/<%=data.other_document[i]%>';
+                                                                                    console.log('Full PDF URL:', pdfUrl); 
+                                                                                    window.open(pdfUrl, '_blank');
+                                                                                ">
+                                                                                    PDF <%=[i+1]%>
+                                                                                </button>
+                                                                            </li>
+                                                                            <!-- Modal -->
+                                                                            <div class="modal fade"
+                                                                                id="otherdocumentmodal<%=[i]%>"
+                                                                                tabindex="-1" role="dialog"
+                                                                                aria-labelledby="otherdocumentmodalLabel"
+                                                                                aria-hidden="true">
+                                                                                <div class="modal-dialog modal-xl transparent-background"
+                                                                                    role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header"
+                                                                                            style="padding: 0.5rem !important;">
+
+                                                                                            <button type="button"
+                                                                                                class="close"
+                                                                                                data-dismiss="modal"
+                                                                                                aria-label="Close">
+                                                                                                <span
+                                                                                                    aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="modal-body embed-wrapper">
+                                                                                            <%- include('./partials/pdfViewer/pdfviewer.ejs',
+                                                                                                {url:`/api/project/document?url=dyn-res/project/doc/${data.floor_plan[i]}`,
+                                                                                                canvasId:`other_document-plan-${i}`
+                                                                                                }) %>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <%}%>
+                                                                    </ul>
+                                                                    <div class="position-relative embed-wrapper"
+                                                                        id="other_document-pdf-viewer">
+                                                                        <% for(var i=0; i < data.other_document.length;
+                                                                            i++) { %>
+                                                                            <div id="other_document-pdf-viewer-<%=i%>"
+                                                                                style="display:<% if(i===0){%> block; <%} else {%> none;<%}%>">
+                                                                                <%- include('./partials/pdfViewer/pdfviewer.ejs',
+                                                                                    {url:`/api/project/document?url=dyn-res/project/doc/${data.floor_plan[i]}`,
+                                                                                    canvasId:`other_document-small-${i}`
+                                                                                    }) %>
+                                                                                    <div class="pdf-overlay"
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#otherdocumentmodal<%=i%>">
+                                                                                        <button
+                                                                                            class="btn btn-view-pdf">
+                                                                                            Click Here to View Full 1
+                                                                                            Screen
+                                                                                        </button>
+                                                                                    </div>
+                                                                            </div>
+                                                                            <% } %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <%}%>
+    </div>
+</div>
+
+<div class="pdf-mobile-view">
+    <div id="accordion" class="dt-accordions">
+        <% if (data.floor_plan && data.floor_plan.length> 0){ %>
+            <div class="card">
+                <div class="card-header" id="dt-accordion1">
+                    <h5 class="mb-0">
+                        <button class="btn btn-block" data-toggle="collapse" data-target="#collapseOne-mobile"
+                            aria-expanded="true" aria-controls="collapseOne-mobile">
+                            Floor Plan
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne-mobile" class="collapse show" aria-labelledby="dt-accordion1"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="button-list-hor">
+                            <ul>
+                                <% for(var i=0; i < data.floor_plan.length; i++) { %>
+                                    <li>
+                                        <a href="/project/doc/<%=data.floor_plan[i]%>" target="_blank">
+                                            <button class="btn btn-primary-small" id="floor-button-<%=[i]%>">
+                                                View PDF <%=[i+1]%>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <%}%>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+                <% if (data.site_plan && data.site_plan.length> 0){ %>
+                    <div class="card">
+                        <div class="card-header" id="dt-accordion2">
+                            <h5 class="mb-0">
+                                <button class="btn btn-block" data-toggle="collapse" data-target="#collapsetwo-mobile"
+                                    aria-expanded="true" aria-controls="collapsetwo-mobile">
+                                    Site Plans
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapsetwo-mobile" class="collapse" aria-labelledby="dt-accordion2"
+                            data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="button-list-hor">
+                                    <ul>
+                                        <% for(var i=0; i < data.site_plan.length; i++) { %>
+                                            <li>
+                                                <a href="/project/doc/<%=data.site_plan[i]%>" target="_blank">
+                                                    <button class="btn btn-primary-small" id="site-button-<%=[i]%>">
+                                                        View PDF <%=[i+1]%>
+                                                    </button>
+                                                </a>
+                                            </li>
+                                            <%}%>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+                        <% if (data.brochure && data.brochure.length> 0){ %>
+                            <div class="card">
+                                <div class="card-header" id="dt-accordion3">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-block" data-toggle="collapse"
+                                            data-target="#collapsethree-mobile" aria-expanded="true"
+                                            aria-controls="collapsethree-mobile">
+                                            Brochure
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapsethree-mobile" class="collapse" aria-labelledby="dt-accordion3"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="button-list-hor">
+                                            <ul>
+                                                <% for(var i=0; i < data.brochure.length; i++) { %>
+                                                    <li>
+                                                        <a href="/project/doc/<%=data.brochure[i]%>" target="_blank">
+                                                            <button class="btn btn-primary-small"
+                                                                id="brochure-button-<%=[i]%>">
+                                                                View PDF <%=[i+1]%>
+                                                            </button>
+                                                        </a>
+                                                    </li>
+                                                    <%}%>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                                <% if (data.price_list && data.price_list.length> 0){ %>
+                                    <div class="card">
+                                        <div class="card-header" id="dt-accordion3">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-block" data-toggle="collapse"
+                                                    data-target="#collapsefive-mobile" aria-expanded="true"
+                                                    aria-controls="collapsefive">
+                                                    Price
+                                                    <i class="fa fa-caret-down-mobile" aria-hidden="true"></i>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapsefive-mobile" class="collapse" aria-labelledby="dt-accordion3"
+                                            data-parent="#accordion">
+                                            <div class="card-body">
+                                                <div class="button-list-hor">
+                                                    <ul>
+                                                        <% for(var i=0; i < data.price_list.length; i++) { %>
+                                                            <li>
+                                                                <a href="/project/doc/<%=data.price_list[i]%>"
+                                                                    target="_blank">
+                                                                    <button class="btn btn-primary-small"
+                                                                        id="price_list-button-<%=[i]%>">
+                                                                        View PDF <%=[i+1]%>
+                                                                    </button>
+                                                                </a>
+                                                            </li>
+                                                            <%}%>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%}%>
+                                        <% if (data.specification && data.specification.length> 0){ %>
+                                            <div class="card">
+                                                <div class="card-header" id="dt-accordion3">
+                                                    <h5 class="mb-0">
+                                                        <button class="btn btn-block" data-toggle="collapse"
+                                                            data-target="#collapsesix-mobile" aria-expanded="true"
+                                                            aria-controls="collapsesix-mobile">
+                                                            Specifications
+                                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                        </button>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapsesix-mobile" class="collapse"
+                                                    aria-labelledby="dt-accordion3" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <div class="button-list-hor">
+                                                            <ul>
+                                                                <% for(var i=0; i < data.specification.length; i++) { %>
+                                                                    <li>
+                                                                        <a href="/project/doc/<%=data.specification[i]%>"
+                                                                            target="_blank">
+                                                                            <button class="btn btn-primary-small"
+                                                                                id="specification-button-<%=[i]%>">
+                                                                                View PDF <%=[i+1]%>
+                                                                            </button>
+                                                                        </a>
+                                                                    </li>
+                                                                    <%}%>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%}%>
+                                                <% if (data.other_document && data.other_document.length> 0){ %>
+                                                    <div class="card">
+                                                        <div class="card-header" id="dt-accordion4">
+                                                            <h5 class="mb-0">
+                                                                <button class="btn btn-block" data-toggle="collapse"
+                                                                    data-target="#collapsefour-mobile"
+                                                                    aria-expanded="true"
+                                                                    aria-controls="collapsefour-mobile">
+                                                                    Other Plans
+                                                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+                                                        <div id="collapsefour-mobile" class="collapse"
+                                                            aria-labelledby="dt-accordion4" data-parent="#accordion">
+                                                            <div class="card-body">
+                                                                <div class="button-list-hor">
+                                                                    <ul>
+                                                                        <% for(var i=0; i < data.other_document.length;
+                                                                            i++) { %>
+                                                                            <li>
+                                                                                <a href="/project/doc/<%=data.other_document[i]%>"
+                                                                                    target="_blank">
+                                                                                    <button
+                                                                                        class="btn btn-primary-small"
+                                                                                        id="other_document-button-<%=[i]%>">
+                                                                                        View PDF <%=[i+1]%>
+                                                                                    </button>
+                                                                                </a>
+                                                                            </li>
+                                                                            <%}%>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <%}%>
+    </div>
+</div>
+<!-- Include PDF.js Express Viewer JS and CSS -->
+<link rel="stylesheet" href="https://pdfjs.express/lib/pdfviewer.css">
+<script src="https://pdfjs.express/lib/webviewer.min.js"></script>
+<script>
+    let currentInstance = null;  // Declare the variable to hold the current WebViewer instance
+let currentPDFIndex = 0;  // Keep track of the currently active PDF index
+
+function selectPDF(index, pdfFileName) {
+    // Remove active styles from all buttons
+    document.querySelectorAll('.floor-pdf-btn').forEach(btn => {
+        btn.style.backgroundColor = '';  // Reset background color
+        btn.style.color = '';  // Reset text color
+        btn.style.borderColor = '';  // Reset border color
+    });
+
+    // Add active styles to the clicked button
+    const activeButton = document.getElementById('floor-button-' + index);
+    activeButton.style.backgroundColor = '#007bff';  // Set background color to blue
+    activeButton.style.color = 'white';  // Set text color to white
+    activeButton.style.borderColor = '#007bff';  // Set border color to blue
+
+    // Set the current PDF index
+    currentPDFIndex = index;
+
+    // Load the selected PDF
+    loadPDF(pdfFileName, index);
+}
+
+function loadPDF(pdfFileName, index) {
+    const url = `http://localhost:5100/api/project/document?url=dyn-res/project/doc/${pdfFileName}`;
+    const viewerElement = document.getElementById('floor-pdf-viewer-' + index);
+    
+    // Dispose of the previous instance if it exists
+    if (currentInstance) {
+        currentInstance.UI.dispose();  
+        currentInstance = null;
+    }
+
+    // Hide all PDF viewers first
+    document.querySelectorAll('.embed-wrapper > div.pdf-viewer-container').forEach(div => {
+        div.style.display = 'none';
+    });
+
+    // Show the selected PDF viewer
+    viewerElement.style.display = 'block';
+
+    WebViewer({
+        path: 'https://pdfjs.express/lib',
+        initialDoc: url,
+        enableAnnotations: false,
+        fullAPI: false,
+        disabledElements: [
+            'viewControlsButton', 'searchButton', 'panToolButton',
+            'selectToolButton', 'toolsButton', 'menuButton', 'printButton',
+            'filePickerButton', 'downloadButton', 'annotationPopup',
+            'toolsOverlay', 'pageNavOverlay', 'zoomOverlay'
+        ],
+    }, viewerElement).then((instance) => {
+        currentInstance = instance;  // Store the new instance
+        const { UI } = instance;
+        UI.enableElements(['zoomInButton', 'zoomOutButton', 'prevPageButton', 'nextPageButton']);
+    }).catch(error => {
+        console.error("Error loading PDF: ", error);
+    });
+}
+
+function loadPDFInModal() {
+    // Retrieve the PDF filename from the currently active button
+    const pdfFileName = document.getElementById('floor-button-' + currentPDFIndex).getAttribute('data-url');
+    const url = `http://localhost:5100/api/project/document?url=dyn-res/project/doc/${pdfFileName}`;
+    const viewerElement = document.getElementById('modal-pdf-viewer');
+
+    // Dispose of the previous instance if it exists
+    if (currentInstance) {
+        currentInstance.UI.dispose();  
+        currentInstance = null;
+    }
+
+    WebViewer({
+        path: 'https://pdfjs.express/lib',
+        initialDoc: url,
+        enableAnnotations: false,
+        fullAPI: false,
+        disabledElements: [
+            'viewControlsButton', 'searchButton', 'panToolButton',
+            'selectToolButton', 'toolsButton', 'menuButton', 'printButton',
+            'filePickerButton', 'downloadButton', 'annotationPopup',
+            'toolsOverlay', 'pageNavOverlay', 'zoomOverlay'
+        ],
+    }, viewerElement).then((instance) => {
+        currentInstance = instance;  // Store the new instance
+        const { UI } = instance;
+        UI.enableElements(['zoomInButton', 'zoomOutButton', 'prevPageButton', 'nextPageButton']);
+    }).catch(error => {
+        console.error("Error loading PDF in modal: ", error);
+    });
+}
+
+// Automatically load the first PDF on page load
+document.addEventListener('DOMContentLoaded', function () {
+    selectPDF(0, '<%= data.floor_plan[0] %>');  // Make PDF 1 active by default
+});
+</script>
